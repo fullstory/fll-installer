@@ -1,12 +1,12 @@
 This package was debianized by Joaquim Boura <x-un-i@sidux.com> on
 Thu, 07 Jun 2007 18:18:43 +0200.
 
-Upstream Author(s): 
+Upstream Author: 
     Joaquim Boura <x-un-i@sidux.com>
 
 Copyright: 
-        (C) 2007 sidux Foundation,Inc.
-        (C) 2007 Joaquim Boura <x-un-i@sidux.com>
+    (C) 2007 sidux Foundation,Inc.
+    (C) 2007 Joaquim Boura <x-un-i@sidux.com>
 
 
 Based on the knoppix installer from Fabian Franz <knoppix-installer@fabian-franz.de>

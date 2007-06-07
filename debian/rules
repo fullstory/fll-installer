@@ -3,16 +3,3 @@
 include /usr/share/cdbs/1/rules/buildcore.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 
-PACKAGE_VER   = "$(shell dpkg-parsechangelog | grep ^Vers | cut -d\  -f2)"
-
-build/fll-installer::
-        DESTDIR=$(CURDIR)/debian/fll-installer
-
-
-install/fll-installer::
-	# loop all installable modules
-	for bm in modules/*.bm modules/common/*.bm modules/backend/*.bm; do \
-		install -D -m 0755 $$bm debian/fll-installer/usr/share/fll-installer/$$bm; \
-		done
-
-
