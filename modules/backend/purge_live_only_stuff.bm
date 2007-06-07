@@ -25,7 +25,7 @@ purge_live_only_stuff()
 				initscripts-sidux-live \
 				install-gui \
 				kde-services-sidux \
-				knx-installer \
+				fll-installer \
 				rebuildfstab \
 				sidux-setpassword \
 				sshstart-sidux \
