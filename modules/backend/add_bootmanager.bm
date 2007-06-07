@@ -1,0 +1,94 @@
+##
+##-------------------------------------
+# Needs:
+# BOOT_WHERE
+# TARGET_MNT_POINT
+# BOOT_LOADER
+#
+# Calls:
+# logit
+# progress
+# create_initrd
+# stringinstring
+# install_grub
+#
+##-------------------------------------
+##
+function add_bootmanager()
+{
+	local BOOTMANAGER_PROC
+	local BOOT_KERNELS
+	local BOOT_KERNEL
+	local BOOT_RUNNING_KERNEL
+	local MSG1="Creating initrd for kernel $BOOT_KERNEL ..."
+	local MSG2="Installing $BOOT_LOADER to $BOOT_WHERE"
+
+	#
+	# log my call
+	#
+	logit $"add_bootmanager"
+
+	BOOTMANAGER_PROC=""
+	mount --bind /proc $TARGET_MNT_POINT/proc && BOOTMANAGER_PROC="yes"
+	
+	BOOT_KERNELS=""
+	for i in $TARGET_MNT_POINT/lib/modules/?.*
+	do
+		BOOT_KERNEL=$(basename $i)
+		BOOT_KERNELS="$BOOT_KERNELS $BOOT_KERNEL"
+		progress "$MSG1"
+		create_initrd
+	done
+
+	BOOT_RUNNING_KERNEL="$(uname -r)"
+	# If the running kernel can't be found
+	# set the default to the first available
+	if ! stringinstring "$BOOT_RUNNING_KERNEL" "$BOOT_KERNELS"
+	then
+		set -- $BOOT_KERNELS
+		BOOT_RUNNING_KERNEL="$1"
+	fi
+
+	progress "$MSG2"
+
+	##
+	## workaround...start
+	##
+	# This can be probably changed later, but for now
+	# must be done as at least update-grub uses an old-style /etc/fstab
+	# so we create one for that
+
+	# mount --bind /proc "$TARGET_MNT_POINT/proc"
+	mount --bind /dev "$TARGET_MNT_POINT/dev"
+	mount --bind /sys "$TARGET_MNT_POINT/sys"
+
+	chroot_it rebuildfstab --write-fstab --quiet 
+
+	##
+	## workaround...end
+	##
+
+	if [ "$BOOT_LOADER" = "grub" ]
+	then
+		install_grub
+	#
+	# else lilo no longer  supported
+	#
+	fi
+
+	##
+	## workaround...start
+	##
+	# umount /proc, /dev and /sys on chroot
+	umount "$TARGET_MNT_POINT/sys"
+	umount "$TARGET_MNT_POINT/dev"
+	# umount "$TARGET_MNT_POINT/proc"
+	##
+	## workaround...end
+	##
+
+
+	[ -n "$BOOTMANAGER_PROC" ] && umount $TARGET_MNT_POINT/proc
+
+}
+

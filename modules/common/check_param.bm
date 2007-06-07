@@ -1,0 +1,41 @@
+
+#------------------
+function check_param()
+{
+	#
+	# log my call
+	#
+	logit $"check_param"
+	#
+
+	local TEMP
+	local DEFAULT_TEMP
+	local RC
+
+	TEMP=$(eval echo \$$1"_ALLOWED")
+	if [ -n "$TEMP" ]; then
+		if ! stringinstring "$2|" "$TEMP|"; then
+			DEFAULT_TEMP=$(eval echo \$$1"_DEFAULT")
+			msgbox $"Error: Unknown value $2 for $1\nSetting to default value ($DEFAULT_TEMP)." 10 60
+			export "$1"="$DEFAULT_TEMP"
+			logit $"Error: Unknown value $2 for $1\nSetting to default value ($DEFAULT_TEMP)."
+		fi
+	fi
+
+	TEMP=$(eval echo \$$1"_CHECKIT")
+	if [ -n "$TEMP" ]; then
+		if ! $TEMP; then
+			msgbox $"Error: Check failed for $1 ($2)\nThe configuration module will now be started." 10 60
+			export "$1"=""
+			logit $"Error: Check failed for $1 ($2)\nThe configuration module will now be started."
+
+			RC=1
+			while [ "$RC" -eq "1" ]; do
+				${TEMP/_check/} 1
+				RC=$?
+			done
+		fi
+	fi
+	return 0
+}
+

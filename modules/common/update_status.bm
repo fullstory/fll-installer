@@ -1,0 +1,16 @@
+##
+##-------------------------------------
+# Needs:
+#
+# Calls:
+#
+##-------------------------------------
+##
+function update_status()
+{
+	if  [ -z "$DISPLAY" ]; then
+		echo -e "XXX\n$*\nXXX"
+	fi
+}
+
+

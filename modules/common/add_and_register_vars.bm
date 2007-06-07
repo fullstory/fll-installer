@@ -1,0 +1,55 @@
+#--------------------------------
+# some vars are set
+#--------------------------------
+#
+# Variables and Config File Management
+#
+
+#--------------------------------
+function add_var()
+{
+	#
+	# log my call
+	#
+	logit $"add_var"
+	#
+
+	case "$REGISTERED" in *$1*) return 1;; esac
+	REGISTERED="$REGISTERED $1"
+}
+
+#--------------------------------
+function register_vars()
+{
+	#
+	# log my call
+	#
+	logit $"register_vars"
+	#
+
+	for i in $@; do
+		add_var "$i"
+	done
+}
+
+#
+# Syntax: base, comment, allowed, checkfunc, default
+#
+
+#--------------------------------
+function register_var()
+{
+	#
+	# log my call
+	#
+	logit $"register_var"
+	#
+
+	export $1"_COMMENT"="$2"
+	export $1"_ALLOWED"="$3"
+	export $1"_CHECKIT"="$4"
+	export $1"_DEFAULT"="$5"
+	[ -z "${!1}" -a -n "$5" ] && export $1="$5"
+}
+#--------------------------------
+

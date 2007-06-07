@@ -1,0 +1,17 @@
+##
+##-------------------------------------
+# Needs:
+# TMPDIR
+# FLL_DISTRO_NAME
+#
+# Calls:
+# logit
+#
+##-------------------------------------
+##
+function clean_exit()
+{
+	[ -n "$TMPDIR" ] && rm -rf "$TMPDIR"
+	logit $"$FLL_DISTRO_NAME-installer terminated"
+}
+

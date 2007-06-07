@@ -1,0 +1,45 @@
+##
+##-------------------------------------
+# Needs:
+# TARGET_MNT_POINT
+# USER_NAME
+# DEFAULT_USER
+#
+# Calls:
+# logit
+# progress
+#
+##-------------------------------------
+##
+function copy_home2HD()
+{
+	#
+	# log my call
+	#
+	logit $"copy_home2HD"
+	#
+
+	progress "Copying home directory ..."
+	
+	#copy home directory from running user
+	#check if already data is there then do not copy nothing
+	if [ -d "$TARGET_MNT_POINT/home/$USER_NAME" ]; then
+		chroot_it chown -R "$USER_NAME":"$USER_NAME" "/home/$USER_NAME"
+		return 0
+	fi
+
+	# does testing for .kde _really_ make any sense here?
+	if [ -d "/home/$DEFAULT_USER/.kde" ]; then
+		rm -rf "$TARGET_MNT_POINT/home/$DEFAULT_USER"
+		cp -a "/home/$DEFAULT_USER" "$TARGET_MNT_POINT/home"
+		if [ "$USER_NAME" != "$DEFAULT_USER" ]; then
+			mv "$TARGET_MNT_POINT/home/$DEFAULT_USER" \
+				"$TARGET_MNT_POINT/home/$USER_NAME"
+		fi
+	else
+		cp -a "$TARGET_MNT_POINT/etc/skel" "$TARGET_MNT_POINT/home"
+		mv "$TARGET_MNT_POINT/home/skel" "$TARGET_MNT_POINT/home/$USER_NAME"
+	fi
+
+}
+##-------------------------------------

@@ -1,0 +1,38 @@
+##
+##-------------------------------------
+# Needs:
+# CONFIG_FILE
+# 
+# Calls:
+# logit
+# check_param
+#
+##-------------------------------------
+##
+function load_config
+{
+	local config
+
+	#
+	# log my call
+	#
+	logit $"load_config"
+	#
+
+	
+	if [ "$#" -eq 1 ]; then
+		config="$1"
+	else
+		config="$CONFIG_FILE"
+	fi
+	
+	source $config
+
+	for i in $REGISTERED; do
+		#echo "$i=${!i}"
+		#echo check_param "$i" "${!i}"
+		check_param "$i" "${!i}"
+	done
+}
+##-------------------------------------
+

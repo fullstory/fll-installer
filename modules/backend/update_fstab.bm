@@ -1,0 +1,42 @@
+##
+##-------------------------------------
+# Needs:
+# TARGET_MNT_POINT
+# HD_AUTO
+#
+# Calls:
+# logit
+# progress
+# chroot_it
+#
+##-------------------------------------
+##
+function update_fstab()
+{
+	local autohd
+	#
+	# log my call
+	#
+	logit $"update_fstab"
+	#
+
+	progress "Updating /etc/fstab..."
+
+	# 1. mount /proc, /dev and /sys on chroot
+	mount --bind /proc "$TARGET_MNT_POINT/proc"
+	mount --bind /dev "$TARGET_MNT_POINT/dev"
+	mount --bind /sys "$TARGET_MNT_POINT/sys"
+
+	[ "${HD_AUTO}" = "yes" ] && autohd="--auto" || autohd=""
+
+	# 2. rebuild the fstab, creating the mountpoints
+	chroot_it rebuildfstab --uuids --make-mountpoints \
+		--write-fstab ${autohd} --quiet
+
+	# 3. umount /proc, /dev and /sys on chroot
+	umount "$TARGET_MNT_POINT/sys"
+	umount "$TARGET_MNT_POINT/dev"
+	umount "$TARGET_MNT_POINT/proc"
+}
+#-----------------------------------
+

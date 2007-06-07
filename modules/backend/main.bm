@@ -1,0 +1,124 @@
+##
+##-------------------------------------
+# Needs:
+# FLL_DISTRO_NAME-installer
+# CONFIG_FILE
+# TMPDIR
+# MODULE_ERROR
+# BOOT_DISK
+# MODULE_ERROR
+# INSTALL_META
+# HD_MAP
+# ACTION (changes)
+# LOG
+#
+# Calls:
+# logit
+# progress
+# load_config
+# do_install
+# make_floppy
+# end_progress
+#
+##-------------------------------------
+##
+function main()
+{
+	local rc
+	local all_actions=(
+		load_config
+		prepareHD
+		copy2HD
+		convert_live2HD
+		add_bootmanager
+		update_fstab
+		fix_grub_for_UUID
+		appendGrubForOtherOS
+		fix_usb_install
+	)
+
+	#
+	# log my call
+	#
+	logit $"main"
+	#
+
+	if [ ! -f "$CONFIG_FILE" ]; then
+		echo $"Config file $CONFIG_FILE could not be found."
+		return 1
+	fi
+
+	#
+	# say the world we have started our work
+	#
+	progress $"$FLL_DISTRO_NAME-installer started"
+	
+	#
+	# is that needed ?
+	#
+	touch $TMPDIR/errors
+
+	#
+	# do the main job
+	#
+	for action in "${all_actions[@]}"; do
+		$action
+	done
+
+	##
+	## Some error handlind needed
+	##
+	# rc=$?
+	# MODULE_ERROR=$(<$TMPDIR/errors)
+
+	# if [ -n "$MODULE_ERROR" ]; then
+		#
+		# return 1
+	# fi
+
+	
+	if [ "$BOOT_DISK" = "yes" ]; then
+		make_floppy
+	fi
+
+	#
+	# say the world we have done our work
+	#
+	end_progress
+
+	# 
+	# copy the install log into users home
+	#
+	cp -f $LOG  "$TARGET_MNT_POINT/home/$USER_NAME"
+
+	#
+	# running under X and install_meta activated? 
+	# use a fancy way to end our job
+	#
+	if [ "$INSTALL_META" = "yes" -a -n "$DISPLAY" ]; then
+		if [ -x /usr/bin/install-meta ]; then
+			exec /usr/bin/install-meta --chroot=$TARGET_MNT_POINT
+		else
+			echo "install-meta is not available" 1>&2
+		fi
+	else
+ 		for i in $HD_MAP; do
+			point=$(echo $i | cut -d":" -f2)
+			umount $TARGET_MNT_POINT$point
+		done
+	
+		# Just to be sure :-)
+		umount $TARGET_MNT_POINT
+
+		# Success Message and end installer
+		logit $"$FLL_DISTRO_NAME was successfully installed to hd."
+		if [ -x /usr/bin/install-meta ]; then
+			exec /usr/bin/install-meta -q
+			exit 0
+		fi
+	fi
+
+	exit 0
+}
+##-------------------------------------
+

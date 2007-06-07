@@ -1,0 +1,103 @@
+##
+##-------------------------------------
+# Needs:
+# TARGET_MNT_POINT
+# HD_FORMAT
+# HD_CHOICE
+# HD_FSTYPE
+# HD_MAP
+# TMPDIR
+# ERROR_MESSAGES
+# MODULE_ERROR
+#
+# Calls:
+# logit
+# progress
+#
+##-------------------------------------
+##
+function prepareHD ()
+{
+	local rc
+	local TMP
+
+	#
+	# log my call
+	#
+	logit $"prepareHD"
+	#
+
+	TMP="$(mktemp)"
+
+	if [ $HD_FORMAT = "yes" ]; then
+
+		progress "Formatting $HD_CHOICE..."
+
+		umount $HD_CHOICE 2>/dev/null
+		
+		dd if=/dev/zero of=$HD_CHOICE bs=1k count=16 >/dev/null 2>/dev/null 
+
+		case $HD_FSTYPE in
+			xfs)
+				mkfs.$HD_FSTYPE -f $HD_CHOICE 2> $TMP 1>&2
+				;;
+			reiser*)
+				echo y | mkfs.$HD_FSTYPE  $HD_CHOICE 2> $TMP 1>&2
+				;;
+			jfs)
+				echo y | mkfs.$HD_FSTYPE $HD_CHOICE 2> $TMP 1>&2
+				;;
+			*)
+				mkfs.$HD_FSTYPE $HD_CHOICE 2> $TMP 1>&2
+				;;
+		esac
+		
+		rc="$?"
+		if [ $rc -ne 0 ]; then
+			ERROR_MESSAGES=$(tail -8 $TMP)
+			MODULE_ERROR=$"Formatting of $HD_CHOICE failed. Some messages from mkfs.$HD_FSTYPE: $ERROR_MESSAGES"
+			logit $MODULE_ERROR
+			echo "$MODULE_ERROR" > $TMPDIR/errors
+			
+			return 1
+		fi
+		# 
+		# Deactivate dir_index-feature of ext2/ext3-partitions
+		# 
+		case $HD_FSTYPE in
+			*ext*)
+				tune2fs -O ^dir_index $HD_CHOICE &>/dev/null
+				;;
+		esac
+	fi
+
+	#
+	# Mounting $HD_CHOICE r/w...
+	#
+	mkdir -p $TARGET_MNT_POINT
+	mount -t $HD_FSTYPE $HD_CHOICE $TARGET_MNT_POINT
+	mount -o remount,dev $TARGET_MNT_POINT
+
+	if [ $? -ne 0 ]; then
+		ERROR_MESSAGES=$(tail -8 $TMP)
+		MODULE_ERROR=$"Mounting of $HD_CHOICE failed. Some messages from mount: $ERROR_MESSAGES"
+		logit $MODULE_ERROR
+		echo "$MODULE_ERROR" > $TMPDIR/errors
+		
+		return 1
+	fi
+
+	#
+	# Mounting additional partitions r/w...
+	#
+	for i in $HD_MAP; do
+		part=$(echo $i | cut -d":" -f1)
+		point=$(echo $i | cut -d":" -f2)
+		mkdir -p $TARGET_MNT_POINT$point
+		mount $part $TARGET_MNT_POINT$point 2> /dev/null
+		mount -o remount,dev $TARGET_MNT_POINT$point
+	done
+	
+}
+##-------------------------------------
+

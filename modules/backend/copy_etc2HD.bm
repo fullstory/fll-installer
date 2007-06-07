@@ -1,0 +1,26 @@
+##
+##-------------------------------------
+# Needs:
+# TARGET_MNT_POINT
+# FLL_MOUNTPOINT
+#
+# Calls:
+# logit
+# system_findchanged
+#
+##-------------------------------------
+##
+function copy_etc2HD()
+{
+	#
+	# log my call
+	#
+	logit $"copy_etc2HD"
+	#
+
+	# copy changed files in /etc
+	( cd "$TARGET_MNT_POINT"; system_findchanged /etc "$FLL_MOUNTPOINT"/etc | \
+		egrep -v "fstab|passwd|shadow|group" | tar -T - -cf - | tar xf - ) 2>/dev/null
+
+}
+

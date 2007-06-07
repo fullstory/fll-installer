@@ -1,0 +1,121 @@
+##
+##-------------------------------------
+# Needs:
+# FLL_DISTRO_NAME
+# TARGET_MNT_POINT
+# HOST_NAME
+# FLL_MOUNTPOINT
+#
+# Calls:
+# logit
+# chroot_it
+#
+##-------------------------------------
+##
+function fix_etc_on_HD()
+{
+	#
+	# log my call
+	#
+	logit $"fix_etc_on_HD"
+	#
+
+	#
+	# update /etc/motd
+	#
+	echo -e $"Welcome to $FLL_DISTRO_NAME" "(Kernel $(uname -r))\n" > "$TARGET_MNT_POINT/etc/motd"
+
+	#
+	# hostname
+	#
+	sed -i '/localhost/!s/^\(127.0.0.1[ \t]\+\)\(.\+\)$/\1'"$HOST_NAME"'/' \
+		"$TARGET_MNT_POINT/etc/hosts"
+	echo "$HOST_NAME" > "$TARGET_MNT_POINT/etc/hostname"
+	echo "$HOST_NAME" > "$TARGET_MNT_POINT/etc/mailname"
+
+	#
+	# don't allow everyone to use sudo.
+	#
+	cat "$TARGET_MNT_POINT/usr/share/base-files/profile" > "$TARGET_MNT_POINT/etc/profile"
+	
+	#
+	# also fix sudoers
+	#
+	cat > "$TARGET_MNT_POINT/etc/sudoers" <<EOF
+# /etc/sudoers
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# See the man page for details on how to write a sudoers file.
+#
+
+Defaults	env_reset
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root	ALL=(ALL) ALL
+EOF
+	chown root:root "$TARGET_MNT_POINT/etc/sudoers"
+	chmod 0440 "$TARGET_MNT_POINT/etc/sudoers"
+
+	#
+	# "normalize" /etc/inittab
+	#
+	cp -f "$TARGET_MNT_POINT/usr/share/sysvinit/inittab" "$TARGET_MNT_POINT/etc/inittab"
+	perl -pi -e 's#^([2-6]):23:respawn#$1:2345:respawn#;s#id:[0-6]:initdefault:#id:5:initdefault:#' \
+		"$TARGET_MNT_POINT/etc/inittab"
+	
+	#
+	# create "real" /tmp with mode 1777
+	#
+	rm -f "$TARGET_MNT_POINT/tmp" 2>/dev/null
+	mkdir -p "$TARGET_MNT_POINT/tmp"
+	chmod 1777 "$TARGET_MNT_POINT/tmp"
+
+	#
+	# create /etc/mtab as a regular file
+	#
+	rm -f "$TARGET_MNT_POINT/etc/mtab"
+	touch "$TARGET_MNT_POINT/etc/mtab"
+
+	#
+	# update menu entries
+	#
+	chroot_it update-menus
+
+	#
+	# Save ALSA sound volume
+	#
+	if [ -e /proc/asound/modules ] && [ -x /usr/sbin/alsactl ]; then
+		/usr/sbin/alsactl store
+		if [ -f /var/lib/alsa/asound.state ]; then
+			cp /var/lib/alsa/asound.state \
+				"$TARGET_MNT_POINT/var/lib/alsa"
+		fi
+	fi
+	
+	#
+	# revert KDM autologin
+	#
+	rm -f "${TARGET_MNT_POINT}/etc/default/kdm.d/autologin"
+
+	#
+	# revert GDM autologin
+	#
+	if [ -f "${FLL_MOUNTPOINT}/etc/gdm/gdm.conf" ]; then
+		cat "${FLL_MOUNTPOINT}/etc/gdm/gdm.conf" > "${TARGET_MNT_POINT}/etc/gdm/gdm.conf"
+
+		#
+		# set theme for gdm
+		#
+		if ! grep -q "^GraphicalTheme=" ${TARGET_MNT_POINT}/etc/gdm/gdm.conf ; then
+			sed -i 's/\[greeter\]/\[greeter\]\nGraphicalTheme=sidux-dawn\nGraphicalThemedColor=#343434/g' ${TARGET_MNT_POINT}/etc/gdm/gdm.conf
+		fi
+	fi
+}
+

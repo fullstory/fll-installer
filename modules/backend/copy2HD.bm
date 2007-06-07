@@ -1,0 +1,38 @@
+##
+##-------------------------------------
+# Needs:
+# FEDAULT_DIR
+# TARGET_MNT_POINT
+# OLDPERC (changes)
+#
+# Calls:
+# logit
+# module_hd_progressbar
+#
+##-------------------------------------
+##
+function copy2HD()
+{
+	#
+	# log my call
+	#
+	logit $"copy2HD"
+	#
+
+	OLDPERC=0
+
+	(cd $DEFAULT_DIR ; cp -a * $TARGET_MNT_POINT ; mkdir -p $TARGET_MNT_POINT/proc ; sync) &
+	module_hd_progressbar $!
+
+	#
+	# two beeps
+	if [ -z "$DISPLAY" ]; then
+		echo -ne "\007" >/dev/tty1
+	fi
+	sleep 0.5
+	if [ -z "$DISPLAY" ]; then
+		echo -ne "\007" >/dev/tty1
+	fi
+	sleep 0.5
+}
+
