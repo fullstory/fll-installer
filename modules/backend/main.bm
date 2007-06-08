@@ -16,7 +16,15 @@
 # logit
 # progress
 # load_config
-# do_install
+# prepareHD
+# copy2HD
+# convert_live2HD
+# add_bootmanager
+# update_fstab
+# fix_grub_for_UUID
+# appendGrubForOtherOS
+# fix_usb_install
+# purge_live_only_stuff
 # make_floppy
 # end_progress
 #
@@ -87,11 +95,6 @@ function main()
 	#
 	end_progress
 
-	# 
-	# copy the install log into users home
-	#
-	cp -f $LOG  "$TARGET_MNT_POINT/home/$USER_NAME"
-
 	#
 	# running under X and install_meta activated? 
 	# use a fancy way to end our job
@@ -108,11 +111,16 @@ function main()
 			umount $TARGET_MNT_POINT$point
 		done
 	
+		# Success Message and end installer
+		logit $"$FLL_DISTRO_NAME was successfully installed to hd."
+		# 
+		# copy the install log into users home
+		#
+		cp -f $LOG  "$TARGET_MNT_POINT/home/$USER_NAME"
+
 		# Just to be sure :-)
 		umount $TARGET_MNT_POINT
 
-		# Success Message and end installer
-		logit $"$FLL_DISTRO_NAME was successfully installed to hd."
 		if [ -x /usr/bin/install-meta ]; then
 			exec /usr/bin/install-meta -q
 			exit 0

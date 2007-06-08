@@ -1,8 +1,12 @@
 fll-installer (0.0.4) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 08 Jun 2007 02:03:31 +0200
+  [ Joaquim Boura ]
+  * save a copy of the log on the HD install
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Fri, 08 Jun 2007 10:37:57 +0200
 
 fll-installer (0.0.3) unstable; urgency=low
 
