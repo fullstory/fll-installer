@@ -1,9 +1,5 @@
-fll-installer (0.0.4) UNRELEASED; urgency=low
+fll-installer (0.0.4) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * save a copy of the log on the HD install
 
  -- Joaquim Boura <x-un-i@sidux.com>  Fri, 08 Jun 2007 10:37:57 +0200
