@@ -1,9 +1,5 @@
-fll-installer (0.0.6) UNRELEASED; urgency=low
+fll-installer (0.0.6) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Horst Tritremmel ]
   * do not start install-meta, install-gui handels this now
 
  -- Horst Tritremmel <hjt@sidux.com>  Thu, 14 Jun 2007 15:33:08 +0200
