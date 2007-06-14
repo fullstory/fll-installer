@@ -99,14 +99,18 @@ function main()
 	# running under X and install_meta activated? 
 	# use a fancy way to end our job
 	#
-	if [ "$INSTALL_META" = "yes" -a -n "$DISPLAY" ]; then
-		if [ -x /usr/bin/install-meta ]; then
-			exec /usr/bin/install-meta --chroot=$TARGET_MNT_POINT
-		else
-			echo "install-meta is not available" 1>&2
-		fi
-	else
- 		for i in $HD_MAP; do
+
+	# hjt, 2007-06-14: do not start install-meta, install-gui handels this now
+	# =========================================================================
+	#if [ "$INSTALL_META" = "yes" -a -n "$DISPLAY" ]; then
+	if [ "$INSTALL_META" = no ]; then
+	#	if [ -x /usr/bin/install-meta ]; then
+	#		exec /usr/bin/install-meta --chroot=$TARGET_MNT_POINT
+	#	else
+	#		echo "install-meta is not available" 1>&2
+	#	fi
+	#else
+		for i in $HD_MAP; do
 			point=$(echo $i | cut -d":" -f2)
 			umount $TARGET_MNT_POINT$point
 		done
@@ -121,10 +125,10 @@ function main()
 		# Just to be sure :-)
 		umount $TARGET_MNT_POINT
 
-		if [ -x /usr/bin/install-meta ]; then
-			exec /usr/bin/install-meta -q
-			exit 0
-		fi
+		#if [ -x /usr/bin/install-meta ]; then
+		#	exec /usr/bin/install-meta -q
+		#	exit 0
+		#fi
 	fi
 
 	exit 0
