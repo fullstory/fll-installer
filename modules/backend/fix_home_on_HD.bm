@@ -85,6 +85,13 @@ EOF
 	fi
 
 	#
+	# revert su-to-root workaround
+	#
+	if grep -q sudo "$TARGET_MNT_POINT/home/$USER_NAME/.su-to-rootrc" 2>/dev/null; then
+		rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.su-to-rootrc"
+	fi
+
+	#
 	# force kde first time configuration
 	#
 	if [ -f /etc/skel/.kde/share/config/kpersonalizerrc ]; then
