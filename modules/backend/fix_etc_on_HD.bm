@@ -9,11 +9,57 @@
 # Calls:
 # logit
 # chroot_it
+# getbootparam
 #
 ##-------------------------------------
 ##
 function fix_etc_on_HD()
 {
+	local sources="$TARGET_MNT_POINT/etc/apt/sources.list"
+	local inittab="$TARGET_MNT_POINT/etc/inittab"
+	local sudoers="$TARGET_MNT_POINT/etc/sudoers"
+	local mtab="$TARGET_MNT_POINT/etc/mtab"
+
+	local cty user_cty
+
+	# Array for the primary mirrors
+        local PrimaryMirrors=(
+		at 
+		au 
+		bg 
+		br 
+		ch 
+		cl 
+		cz 
+		de 
+		ee 
+		es 
+		fi 
+		fr 
+		hk 
+		hr 
+		hu 
+		ie 
+		is 
+		it 
+		jp 
+		kr 
+		nl 
+		no 
+		nz 
+		pl 
+		ro 
+		ru 
+		se 
+		si 
+		sk 
+		tr 
+		tw 
+		uk 
+		us
+		null
+	)
+
 	#
 	# log my call
 	#
@@ -41,7 +87,7 @@ function fix_etc_on_HD()
 	#
 	# also fix sudoers
 	#
-	cat > "$TARGET_MNT_POINT/etc/sudoers" <<EOF
+	cat > "$sudoers" <<EOF
 # /etc/sudoers
 #
 # This file MUST be edited with the 'visudo' command as root.
@@ -60,15 +106,15 @@ Defaults	env_reset
 # User privilege specification
 root	ALL=(ALL) ALL
 EOF
-	chown root:root "$TARGET_MNT_POINT/etc/sudoers"
-	chmod 0440 "$TARGET_MNT_POINT/etc/sudoers"
+	chown root:root "$sudoers"
+	chmod 0440 "$sudoers"
 
 	#
 	# "normalize" /etc/inittab
 	#
-	cp -f "$TARGET_MNT_POINT/usr/share/sysvinit/inittab" "$TARGET_MNT_POINT/etc/inittab"
+	cp -f "$TARGET_MNT_POINT/usr/share/sysvinit/inittab" "$inittab"
 	perl -pi -e 's#^([2-6]):23:respawn#$1:2345:respawn#;s#id:[0-6]:initdefault:#id:5:initdefault:#' \
-		"$TARGET_MNT_POINT/etc/inittab"
+		"$inittab"
 	
 	#
 	# create "real" /tmp with mode 1777
@@ -80,8 +126,8 @@ EOF
 	#
 	# create /etc/mtab as a regular file
 	#
-	rm -f "$TARGET_MNT_POINT/etc/mtab"
-	touch "$TARGET_MNT_POINT/etc/mtab"
+	rm -f "$mtab"
+	touch "$mtab"
 
 	#
 	# update menu entries
@@ -110,12 +156,28 @@ EOF
 	if [ -f "${FLL_MOUNTPOINT}/etc/gdm/gdm.conf" ]; then
 		cat "${FLL_MOUNTPOINT}/etc/gdm/gdm.conf" > "${TARGET_MNT_POINT}/etc/gdm/gdm.conf"
 
-		#
+		
 		# set theme for gdm
 		#
 		if ! grep -q "^GraphicalTheme=" ${TARGET_MNT_POINT}/etc/gdm/gdm.conf ; then
 			sed -i 's/\[greeter\]/\[greeter\]\nGraphicalTheme=sidux-dawn\nGraphicalThemedColor=#343434/g' ${TARGET_MNT_POINT}/etc/gdm/gdm.conf
 		fi
 	fi
+
+	#
+	# change the sources.list to use the primary debian mirror
+	#
+	
+	# get the contry code from the bootparameter lang
+	user_cty=$(getbootparam lang)
+
+	# go over all elements on first match break loop
+
+	for cty in "${PrimaryMirrors[@]}"; do
+		[[ $user_cty == $cty ]] && break
+	done
+	#
+	[[ ! "$cty" = "null" ]] && \
+		sed -i "s%ftp[.a-z]*\.debian\.org%ftp\.$cty\.debian\.org%g" $sources
 }
 
