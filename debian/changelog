@@ -1,4 +1,4 @@
-fll-installer (0.0.5) UNRELEASED; urgency=low
+fll-installer (0.0.5) unstable; urgency=low
 
   * Revert su-to-root workaround.
   * Update default fallback definitions for DEFAULT_DIR.
