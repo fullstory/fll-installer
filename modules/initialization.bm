@@ -53,11 +53,11 @@ if [ -r /etc/default/distro ]; then
 	[ -n "$FLL_LIVE_USER" ] && DEFAULT_USER="$FLL_LIVE_USER" || \
 		DEFAULT_USER="sidux"
 	[ -n "$FLL_MOUNTPOINT" ] && DEFAULT_DIR="$FLL_MOUNTPOINT"  || \
-		DEFAULT_DIR="/SIDUX"
+		DEFAULT_DIR="/fll/SIDUX"
 else
 	DEFAULT_USER="sidux"
 	#DEFAULT_DIR="/UNIONFS"
-	DEFAULT_DIR="/SIDUX"
+	DEFAULT_DIR="/fll/SIDUX"
 fi
 
 #
