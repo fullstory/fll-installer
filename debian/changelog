@@ -1,8 +1,9 @@
-fll-installer (0.0.8) UNRELEASED; urgency=low
+fll-installer (0.0.8) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * add hdparm to service white list, this allows the powermanagement to kick
+    in.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 14 Jun 2007 23:33:25 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 16 Jun 2007 01:30:51 +0200
 
 fll-installer (0.0.7) unstable; urgency=low
 
