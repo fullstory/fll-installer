@@ -1,3 +1,9 @@
+fll-installer (0.0.13) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 16 Jun 2007 22:12:47 +0200
+
 fll-installer (0.0.12) unstable; urgency=low
 
   * run fll_locales on the installed system and correct the X11 kbd
