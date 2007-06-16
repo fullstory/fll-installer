@@ -12,6 +12,8 @@
 function fix_locales_on_HD ()
 {
 	local cur_language
+	local xorg_conf="$TARGET_MNT_POINT/etc/X11/xorg.conf"
+	local fll_locales="$TARGET_MNT_POINT/etc/default/fll_locales"
 
 	#
 	# log my call
@@ -30,12 +32,16 @@ function fix_locales_on_HD ()
 		#
 		HD_LANG=$HD_LANG chroot_it /etc/init.d/fll-locales FLL_LANG=$HD_LANG
 
-		#
-		# the system keyboard + X11 settings
-		#
+		source $fll_locales
 
 		#
-		# the user settings (KDE, and so on ...)
+		# the X11 keyboard
+		#
+		sed -i -e 's|"XkbLayout" *"[^"]*"|"XkbLayout" "'"$XKBLAYOUT"'"|g;' \
+		       -e 's|^.*nodeadkeys.*$||g;' $xorg_conf
+ 
+		#
+		# the user settings (KDE, and so on ...) ??
 		#
 	fi
 
