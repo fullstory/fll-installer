@@ -1,8 +1,8 @@
-fll-installer (0.0.10) UNRELEASED; urgency=low
+fll-installer (0.0.10) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * handle locale globally.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 16 Jun 2007 03:35:37 +0200
+ -- Joaquim Boura <x-un-i@sidux.com>  Sat, 16 Jun 2007 14:24:53 +0200
 
 fll-installer (0.0.9) unstable; urgency=low
 
