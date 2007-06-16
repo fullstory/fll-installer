@@ -1,4 +1,4 @@
-fll-installer (0.0.11) UNRELEASED; urgency=low
+fll-installer (0.0.11) unstable; urgency=low
 
   * Update purge_live_only_stuff() for changes during transition from
     knx-installer.
