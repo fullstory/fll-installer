@@ -1,0 +1,45 @@
+##
+##-------------------------------------
+# Needs:
+# HD_LANG
+#
+# Calls:
+# logit
+# chroot_it
+#
+##-------------------------------------
+##
+function fix_locales_on_HD ()
+{
+	local cur_language
+
+	#
+	# log my call
+	#
+	logit $"fix_locales_on_HD"
+	#
+
+	# localize the install if user has choosen a new language
+	
+	# get language set on boot
+	cur_language=$(sed -n 's|^LANGUAGE="\?\([^"]\+\)"\?$|\1|p' /etc/default/fll-locales)
+
+	if [ "$HD_LANG" ] && [ "$cur_language" ] && [ "$HD_LANG" != "$cur_language" ]; then	
+		#
+		# the system locales
+		#
+		HD_LANG=$HD_LANG chroot_it /etc/init.d/fll-locales FLL_LANG=$HD_LANG
+
+		#
+		# the system keyboard + X11 settings
+		#
+
+		#
+		# the user settings (KDE, and so on ...)
+		#
+	fi
+
+}
+#
+##-------------------------------------
+
