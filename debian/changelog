@@ -1,16 +1,18 @@
-fll-installer (0.0.8) unstable; urgency=low
+fll-installer (0.0.9) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * add hdparm to service white list, this allows the powermanagement to kick
-    in.
-
-  [ Kel Modderman ]
   * cleanup modules/backend/fix_home_on_HD.bm:
     - remove obsolete .mozilla hack
     - no longer make ~/Desktop/sidux.desktop
     - put sudo hacked files in a for loop for removal
 
  -- Kel Modderman <kel@otaku42.de>  Sat, 16 Jun 2007 10:34:45 +1000
+
+fll-installer (0.0.8) unstable; urgency=low
+
+  * add hdparm to service white list, this allows the powermanagement to kick
+    in.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 16 Jun 2007 01:30:51 +0200
 
 fll-installer (0.0.7) unstable; urgency=low
 
