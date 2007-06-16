@@ -19,12 +19,12 @@ purge_live_only_stuff()
 	#
 
 	# purge live-specific packages
-	chroot_it dpkg --purge	checkmem \
-				configure-mouse \
-				fll-live-initramfs \
-				initscripts-sidux-live \
+	chroot_it dpkg --purge	fll-live-initramfs \
+				fll-live-initscripts \
+				desktop-defaults-common \
+				desktop-defaults-kde \
+				desktop-defaults-gnome \
 				install-gui \
-				kde-services-sidux \
 				fll-installer \
 				rebuildfstab \
 				sidux-setpassword \
