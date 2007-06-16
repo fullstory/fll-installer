@@ -1,9 +1,5 @@
-fll-installer (0.0.12) UNRELEASED; urgency=low
+fll-installer (0.0.12) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * run fll_locales on the installed system and correct the X11 kbd
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sat, 16 Jun 2007 22:08:44 +0200
