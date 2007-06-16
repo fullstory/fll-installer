@@ -1,9 +1,19 @@
+fll-installer (0.0.12) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 16 Jun 2007 20:59:52 +0200
+
 fll-installer (0.0.11) unstable; urgency=low
 
+  [ Kel Modderman ]
   * Update purge_live_only_stuff() for changes during transition from
     knx-installer.
+  
+  [ Joaquim Boura ]
+  * first steps to enhance locale support.
 
- -- Kel Modderman <kel@otaku42.de>  Sun, 17 Jun 2007 01:06:37 +1000
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 17 Jun 2007 20:24:19 +0200
 
 fll-installer (0.0.10) unstable; urgency=low
 
