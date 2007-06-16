@@ -26,18 +26,6 @@ function fix_home_on_HD()
 	# Mozilla Konfigdateien korrigieren
 	#
 	if [ "$USER_NAME" != "$DEFAULT_USER" ];	then
-		rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.mozilla/appreg"
-		rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.mozilla/pluginreg.dat"
-		# TODO: Test if symlink works ...
-		if [ -e "$TARGET_MNT_POINT/home/$USER_NAME/.mozilla/$DEFAULT_USER" ]; then
-			if [ ! -e "$TARGET_MNT_POINT/home/$USER_NAME/.mozilla/default" ]; then
-				mv "$TARGET_MNT_POINT/home/$USER_NAME/.mozilla/$DEFAULT_USER" \
-					"$TARGET_MNT_POINT/home/$USER_NAME/.mozilla/default"
-			fi
-			perl -pi -e 's/.*general.useragent.*\n?//' \
-				"$TARGET_MNT_POINT/home/$USER_NAME/.mozilla/default/*/prefs.js"
-		fi
-
 		#
 		# Bei unterschiedlichem OLD/NEWHOME muss man die Pfade anpassen
 		# sonst funktionieren die Anwendungen nicht korrekt
@@ -51,25 +39,14 @@ function fix_home_on_HD()
 	fi
 
 	#
-	# Neue Symbole auf dem Desktop
-	#
-	if [ -e "$TARGET_MNT_POINT/home/$USER_NAME/Desktop/sidux.desktop" ]; then
-		cat >"$TARGET_MNT_POINT/home/$USER_NAME/Desktop/sidux.desktop" <<EOF
-[Desktop Entry]
-Name=sidux
-# Exec=kfmclient openProfile webbrowsing http://sidux.com/
-Exec=konqueror --geometry 800x600+110+40 http://sidux.com/
-Type=Application
-Icon=html
-Terminal=0
-EOF
-	fi
-
-	#
 	# stop loading browser
 	#
 	if [ -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/Autostart/showindex.desktop" ]; then
 		rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/Autostart/showindex.desktop"
+	fi
+	
+	if [ -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.config/autostart/${FLL_DISTRO_NAME}-manual.desktop" ]; then
+		rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.config/autostart/${FLL_DISTRO_NAME}-manual.desktop"
 	fi
 
 	#
@@ -78,39 +55,16 @@ EOF
 	cp "$TARGET_MNT_POINT/etc/skel/.bashrc" "$TARGET_MNT_POINT/home/$USER_NAME/.bashrc"
 	
 	#
-	# revert kdesu/sudo workaround
+	# revert sudo workarounds
 	#
-	if grep -q sudo "$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/config/kdesurc" 2>/dev/null; then
-		rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/config/kdesurc"
-	fi
-
-	#
-	# revert su-to-root workaround
-	#
-	if grep -q sudo "$TARGET_MNT_POINT/home/$USER_NAME/.su-to-rootrc" 2>/dev/null; then
-		rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.su-to-rootrc"
-	fi
-
-	#
-	# force kde first time configuration
-	#
-	if [ -f /etc/skel/.kde/share/config/kpersonalizerrc ]; then
-		perl -pi -e 's/FirstLogin=false/FirstLogin=true/g' \
-			"$TARGET_MNT_POINT/etc/skel/.kde/share/config/kpersonalizerrc"
-
-		# The users kde should be perfect, unless we just copied from template ...
-		if [ ! -d "/home/$DEFAULT_USER/.kde" ]; then
-			perl -pi -e 's/FirstLogin=false/FirstLogin=true/g' \
-				"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/config/kpersonalizerrc"
+	for file in	"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/config/kdesurc" \
+			"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/apps/konsole/sumc.desktop" \
+			"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/apps/konsole/su.desktop" \
+			"$TARGET_MNT_POINT/home/$USER_NAME/.su-to-rootrc"; do
+		if grep -s -q sudo "$file"; then
+			rm -f "$file"
 		fi
-	fi
-
-	#
-	# this is from a possible gnome install
-	#
-	if [ -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.config/autostart/${FLL_DISTRO_NAME}-manual.desktop" ]; then
-		rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.config/autostart/${FLL_DISTRO_NAME}-manual.desktop"
-	fi
+	done
 
 	#
 	# remove temporary kde- user files
