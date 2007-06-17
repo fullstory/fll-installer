@@ -1,8 +1,20 @@
 fll-installer (0.0.14) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * modules/backend/system_services.bm: complete logic rewrite due to last
+    changes. Runlevel configurations are no longer fully preserved as we did
+    not copy the read only mount to the hdd, but the live system. SCan the
+    installed init scripts, (re)configure them if they are in the service
+    whitelist. We look up required update-rc.d command by analyzing the read
+    only mount point runlevel configuration with fll_analyze_initscripts.
+  * modules/backend/system_services.bm: no longer need to detect if various
+    services were started, if they were started by fll-live-initscripts they
+    were also configured/preserved wrt to sysvinit.
+  * modules/backend/system_services.bm: remove aumix and modutils from service
+    whitelist array.
+  * modules/backend/system_services.bm: fix test to see if ssh requires
+    preconfiguration.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 17 Jun 2007 16:21:57 +0200
+ -- Kel Modderman <kel@otaku42.de>  Mon, 18 Jun 2007 02:30:54 +1000
 
 fll-installer (0.0.13) unstable; urgency=low
 

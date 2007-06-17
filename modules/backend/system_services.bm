@@ -12,10 +12,10 @@
 ##
 function system_services()
 {
+	local UPDATE_RCD
 	local SERVICE_WHITELIST=(
 		alsa
 		alsa-utils
-		aumix
 		avahi-daemon
 		atd
 		bootclean
@@ -48,7 +48,6 @@ function system_services()
 		killprocs
 		klogd
 		module-init-tools
-		modutils
 		mountall-bootclean.sh
 		mountall.sh
 		mountdevsubfs.sh
@@ -83,94 +82,48 @@ function system_services()
 		x11-common
 	)
 
+	if [ "$SERVICES_START" ]; then
+		SERVICE_WHITELIST+=( $SERVICES_START )
+	fi
+
 	#
 	# log my call
 	#
 	logit $"system_services"
 	#
 
-	if [ "$SERVICES_START" ]; then
-		SERVICE_WHITELIST+=( $SERVICES_START )
-	fi
-
-	if [ -x /etc/init.d/acpid ] && [ -d /proc/acpi ]; then
-		SERVICE_WHITELIST+=( acpid )
-	fi
-
-	if [ -x /etc/init.d/powersaved ]; then
-		if pidof powersaved &>/dev/null; then
-			SERVICE_WHITELIST+=( powersaved )
-			# reverse live-mode inhibition of suspend
-			if [ -w $TARGET_MNT_POINT/etc/powersave/sleep ]; then
-				sed -i 's/^\(DISABLE_USER_SUSPEND2.*\)=.*$/\1=""/' \
-					"$TARGET_MNT_POINT/etc/powersave/sleep"
-			fi
-		else
-			: #chroot_it dpkg --purge powersaved => kpowersave currently depends on this
-		fi
-	elif [ -x /etc/init.d/powernowd ]; then
-		if pidof powernowd &>/dev/null; then
-			SERVICE_WHITELIST+=( powernowd )
-		else
-			: #chroot_it dpkg --purge powernowd
-		fi
-	fi
-
-	if [ -x /etc/init.d/bluetooth ]; then
-		if pidof hcid &>/dev/null || pidof sdpd &>/dev/null; then
-			SERVICE_WHITELIST+=( bluetooth )
-		else
-			: #chroot_it dpkg --purge bluez-utils
-		fi
-	fi
-
-	if [ -x /usr/sbin/915resolution ]; then
-		if 915resolution -l &>/dev/null; then
-			SERVICE_WHITELIST+=( 915resolution )
-		else
-			chroot_it dpkg --purge 915resolution &> /dev/null
-		fi
-	fi
-
-	# add a display manager or two to the array
-	for DM in kdm gdm wdm xdm; do
-		if [ -x /etc/init.d/"$DM" ]; then
-			SERVICE_WHITELIST+=( "$DM" )
-			
-			# diverge from debian's plain runlevels and follow the lsb
-			chroot_it update-rc.d -f "$DM" remove &> /dev/null
-			chroot_it update-rc.d "$DM" start 99 5 . stop 01 0 1 2 3 4 6 . &> /dev/null
-		fi
-	done
-	
-	for service in /etc/init.d/*; do
-		test -f "$service" || continue
+	for service in "$TARGET_MNT_POINT"/etc/init.d/*; do
 		test -x "$service" || continue
 
-		service=$(basename $service)
+		service="${service##*/}"
 		
 		case "$service" in 
 			rc|rc.local|rcS)
 				continue
 				;;
+			?dm)
+				# already configured during live boot
+				continue
+				;;
 		esac
-		
-		for i in ${!SERVICE_WHITELIST[@]}; do
-			# service is in whitelist, next please (loop depth = 2)
-			[[ $service == ${SERVICE_WHITELIST[$i]} ]] && continue 2
-		done
-		
-		# service didn't have a match in whitelist, purge it
-		chroot_it update-rc.d -f "$service" remove &> /dev/null
+
+		if [[ " ${SERVICE_WHITELIST[@]} " == *" $service "* ]]; then
+			unset UPDATE_RCD
+			UPDATE_RCD=( $(fll_analyze_initscripts --chroot "$DEFAULT_DIR" "$service") )
+			if [[ ${UPDATE_RCD[0]} == "update-rc.d" && ${UPDATE_RCD[1]} == $service ]]; then
+				chroot_it ${UPDATE_RCD[@]}
+				continue
+			fi
+		fi
 	done
 
 	# disable all services in /etc/inetd.conf
-	if [ -x /etc/init.d/openbsd-inetd ]; then
+	if [ -x "$TARGET_MNT_POINT"/etc/init.d/openbsd-inetd ]; then
 		chroot_it update-inetd --multi --disable '*'
 	fi
 	
 	# prepare ssh
-	if [ /etc/init.d/ssh ]; then
+	if [ -x "$TARGET_MNT_POINT"/etc/init.d/ssh ]; then
 		if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" ]; then
 			ssh-keygen -q -t rsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" -C '' -N ''
 		fi
