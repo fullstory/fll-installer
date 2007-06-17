@@ -11,21 +11,7 @@
 ## http://developer.gnome.org/doc/API/2.0/pango/PangoMarkupFormat.html"
 ##
 ##-------------------------------------
-##
-# global Variables that are only used here
-# ROOT_MIN_CORR the size of the system 
-##-------------------------------------
-##
-
-if grep -q "[au|union]fs" /proc/mounts; then
-        ROOT_MIN_RAW=$(du -sm "$DEFAULT_DIR" | awk '{print $1}')
-else
-        ROOT_MIN_RAW=$(df -m "$DEFAULT_DIR" | tail -1 | awk '{print $3}')
-        grep -q squashfs /proc/mounts && ROOT_MIN_RAW=$(($ROOT_MIN_RAW*270/100))
-fi
-
-ROOT_MIN_CORR=$[ROOT_MIN_RAW*115/100] # + 15% Filesystem overhead
-ROOT_MIN=$(($ROOT_MIN_CORR*1024))
+#
 
 # we start counting from 0
 ACTION=0
