@@ -20,11 +20,7 @@ function fix_home_on_HD()
 	# log my call
 	#
 	logit $"fix_home_on_HD"
-	#
 
-	#
-	# Mozilla Konfigdateien korrigieren
-	#
 	if [ "$USER_NAME" != "$DEFAULT_USER" ];	then
 		#
 		# Bei unterschiedlichem OLD/NEWHOME muss man die Pfade anpassen
@@ -39,21 +35,16 @@ function fix_home_on_HD()
 	fi
 
 	#
-	# stop loading browser
+	# purge unwanted files
 	#
-	if [ -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/Autostart/showindex.desktop" ]; then
-		rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/Autostart/showindex.desktop"
-	fi
-	
-	if [ -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.config/autostart/${FLL_DISTRO_NAME}-manual.desktop" ]; then
-		rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.config/autostart/${FLL_DISTRO_NAME}-manual.desktop"
-	fi
+	for file in	"$TARGET_MNT_POINT/home/$USER_NAME/.kde/Autostart/$FLL_DISTRO_NAME.desktop" \
+			"$TARGET_MNT_POINT/home/$USER_NAME/Desktop/$FLL_DISTRO_NAME.desktop" \
+			"$TARGET_MNT_POINT/home/$USER_NAME/Desktop/install-gui.desktop" \
+			"$TARGET_MNT_POINT/home/$USER_NAME/.config/autostart/$FLL_DISTRO_NAME.desktop" \
+			"$TARGET_MNT_POINT/home/$USER_NAME/.hushlogin" "$TARGET_MNT_POINT/root/.hushlogin"; do
+		[ -f "$file" ] && rm -f "$file"
+	done
 
-	#
-	# revert to plain debian .bashrc
-	#
-	cp "$TARGET_MNT_POINT/etc/skel/.bashrc" "$TARGET_MNT_POINT/home/$USER_NAME/.bashrc"
-	
 	#
 	# revert sudo workarounds
 	#
@@ -61,33 +52,30 @@ function fix_home_on_HD()
 			"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/apps/konsole/sumc.desktop" \
 			"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/apps/konsole/su.desktop" \
 			"$TARGET_MNT_POINT/home/$USER_NAME/.su-to-rootrc"; do
-		if grep -s -q sudo "$file"; then
-			rm -f "$file"
-		fi
+		grep -s -q sudo "$file" && rm -f "$file"
 	done
+
+	#
+	# make sudo alias's vanish
+	#
+	if grep -s -q sudo "$TARGET_MNT_POINT/home/$USER_NAME/.bashrc"; then
+		sed -i 's|\(.*sudo.*\)||' "$TARGET_MNT_POINT/home/$USER_NAME/.bashrc"
+	fi
 
 	#
 	# remove temporary kde- user files
 	#
-	rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.DCOPserver_*_*"
-	rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.kde/cache-*"
-	rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.kde/socket-*"
-	rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.kde/tmp-*"
-	rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/.*uthority"
-	rm -f "${TARGET_MNT_POINT}/home/${USER_NAME}/Desktop/install-gui.desktop"
+	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.DCOPserver_*_*"
+	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/cache-*"
+	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/socket-*"
+	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/tmp-*"
+	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.*uthority"
+	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/Desktop/install-gui.desktop"
 	
 	#
 	# clean ownership
 	#
 	chroot "$TARGET_MNT_POINT" chown -R "$USER_NAME":"$USER_NAME" "/home/$USER_NAME"
-
-	#
-	# root has a home too, clean it up here
-	#
-	if [ -e "${TARGET_MNT_POINT}/root/.hushlogin ]; then
-		# put here by fll-rootsh
-		rm -f "${TARGET_MNT_POINT}/root/.hushlogin
-	fi
 }
 ##-------------------------------------
 #
