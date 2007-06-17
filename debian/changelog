@@ -1,4 +1,4 @@
-fll-installer (0.0.14) UNRELEASED; urgency=low
+fll-installer (0.0.14) unstable; urgency=low
 
   * modules/backend/system_services.bm: complete logic rewrite due to last
     changes. Runlevel configurations are no longer fully preserved as we did
