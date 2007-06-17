@@ -1,4 +1,4 @@
-fll-installer (0.0.13) UNRELEASED; urgency=low
+fll-installer (0.0.13) unstable; urgency=low
 
   [ Kel Modderman ]
   * modules/backend/copy2HD.bm: rewrite the function that does the live -> hd
