@@ -88,11 +88,6 @@ EOF
 	touch "$mtab"
 
 	#
-	# update menu entries
-	#
-	chroot_it update-menus
-
-	#
 	# Save ALSA sound volume
 	#
 	if [ -e /proc/asound/modules ] && [ -x /usr/sbin/alsactl ]; then
