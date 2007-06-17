@@ -17,7 +17,7 @@ function fix_locales_on_HD ()
 
 	local cur_language
 	local xorg_conf="$TARGET_MNT_POINT/etc/X11/xorg.conf"
-	local fll_locales="$TARGET_MNT_POINT/etc/default/fll_locales"
+	local fll_locales="$TARGET_MNT_POINT/etc/default/fll-locales"
 
 	#
 	# log my call
