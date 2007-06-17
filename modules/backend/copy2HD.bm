@@ -5,6 +5,8 @@
 # TARGET_MNT_POINT
 # OLDPERC (changes)
 # SEARCHPATH
+# USER_NAME
+# DEFAULT_USER
 #
 # Calls:
 # logit
