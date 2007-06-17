@@ -80,6 +80,14 @@ function fix_home_on_HD()
 	# clean ownership
 	#
 	chroot "$TARGET_MNT_POINT" chown -R "$USER_NAME":"$USER_NAME" "/home/$USER_NAME"
+
+	#
+	# root has a home too, clean it up here
+	#
+	if [ -e "${TARGET_MNT_POINT}/root/.hushlogin ]; then
+		# put here by fll-rootsh
+		rm -f "${TARGET_MNT_POINT}/root/.hushlogin
+	fi
 }
 ##-------------------------------------
 #
