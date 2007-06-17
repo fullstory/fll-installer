@@ -45,7 +45,7 @@ function copy2HD()
 				#
 				# do the copy
 				#
-				rsync	--archive --hard-links --acls --quiet \
+				rsync	--archive --quiet \
 					--exclude-from="${SEARCHPATH}/data/exclusion_list" \
 					"/${dir##*/}" "${TARGET_MNT_POINT}"
 				sync
