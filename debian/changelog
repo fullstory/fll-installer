@@ -18,8 +18,9 @@ fll-installer (0.0.13) UNRELEASED; urgency=low
   [ Joaquim Boura ]
   * modules/backend/progress.bm: code it's already in the initialization
   * modules/backend/fix_etc_on_HD.bm: update-menu was already gone
+  * modules/backend/prpareHD.bm: typo in file name fixed
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 17 Jun 2007 12:11:44 +0200
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 17 Jun 2007 13:17:58 +0200
 
 fll-installer (0.0.12) unstable; urgency=low
 
