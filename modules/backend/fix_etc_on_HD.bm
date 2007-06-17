@@ -75,13 +75,6 @@ EOF
 		"$inittab"
 	
 	#
-	# create "real" /tmp with mode 1777
-	#
-	rm -f "$TARGET_MNT_POINT/tmp" 2>/dev/null
-	mkdir -p "$TARGET_MNT_POINT/tmp"
-	chmod 1777 "$TARGET_MNT_POINT/tmp"
-
-	#
 	# create /etc/mtab as a regular file
 	#
 	rm -f "$mtab"

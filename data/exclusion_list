@@ -1,0 +1,15 @@
+/proc/*
+/dev/*
+/etc/network/run/*
+/home/*/.DCOPserver_*
+/home/*/.kde/cache-*
+/home/*/.kde/socket-*
+/home/*/.kde/tmp-*
+/home/*/.*uthority
+/home/*/.kaxtv*
+/lib/init/rw/*
+/media/*
+/mnt/*
+/sys/*
+/tmp/*
+/var/tmp/*

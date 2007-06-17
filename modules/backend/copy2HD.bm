@@ -1,9 +1,10 @@
 ##
 ##-------------------------------------
 # Needs:
-# FEDAULT_DIR
+# DEFAULT_DIR
 # TARGET_MNT_POINT
 # OLDPERC (changes)
+# SEARCHPATH
 #
 # Calls:
 # logit
@@ -21,17 +22,44 @@ function copy2HD()
 
 	OLDPERC=0
 
-	(cd $DEFAULT_DIR ; cp -a * $TARGET_MNT_POINT ; mkdir -p $TARGET_MNT_POINT/proc ; sync) &
+	#
+	# experimental copy2HD loop adapted from fll-live-initramfs
+	#
+	(
+	 	for dir in ${DEFAULT_DIR}/*; do
+			[ -d "${dir}" ] || continue
+			
+			if [ -L "${dir}" ]; then
+				#
+				# /lib64 -> /lib symlink handling
+				#
+				ln -sf "$(readlink -f ${dir})" "${TARGET_MNT_POINT}/${dir##*/}"
+			else
+				if [ "${dir##*/}" = "home" ]; then
+					for user in "${USER_NAME}" "${DEFAULT_USER}"; do
+						[ -d "${TARGET_MNT_POINT}/home/${user}" ] && continue 2
+					done
+				fi
+				#
+				# do the copy
+				#
+				rsync	--archive --hard-links --acls --quiet \
+					--exclude-from="${SEARCHPATH}/data/exclusion_list" \
+					"/${dir##*/}" "${TARGET_MNT_POINT}"
+				sync
+			fi
+		done
+	) &
 	module_hd_progressbar $!
 
 	#
 	# two beeps
 	if [ -z "$DISPLAY" ]; then
-		echo -ne "\007" >/dev/tty1
+		printf "\a"
 	fi
 	sleep 0.5
 	if [ -z "$DISPLAY" ]; then
-		echo -ne "\007" >/dev/tty1
+		printf "\a"
 	fi
 	sleep 0.5
 }

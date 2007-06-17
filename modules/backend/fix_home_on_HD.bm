@@ -22,14 +22,16 @@ function fix_home_on_HD()
 	logit $"fix_home_on_HD"
 
 	if [ "$USER_NAME" != "$DEFAULT_USER" ];	then
+		if [ -d "$TARGET_MNT_POINT/home/$DEFAULT_USER" ]; then
+			mv "$TARGET_MNT_POINT/home/$DEFAULT_USER" "$TARGET_MNT_POINT/home/$USER_NAME"
+		fi
 		#
 		# Bei unterschiedlichem OLD/NEWHOME muss man die Pfade anpassen
 		# sonst funktionieren die Anwendungen nicht korrekt
 		#
 		OLDHOME="/home/$DEFAULT_USER"
 		NEWHOME="/home/$USER_NAME"
-		PART="$TARGET_MNT_POINT"
-		for f in $(find "$PART$NEWHOME" -exec grep -ls "$OLDHOME" {} \;|grep -v $0); do
+		for f in $(find "${TARGET_MNT_POINT}${NEWHOME}" -exec grep -ls "$OLDHOME" {} \;|grep -v $0); do
 			perl -pi -e "s|$OLDHOME|$NEWHOME|g" "$f"
 		done
 	fi
@@ -62,16 +64,6 @@ function fix_home_on_HD()
 		sed -i 's|\(.*sudo.*\)||' "$TARGET_MNT_POINT/home/$USER_NAME/.bashrc"
 	fi
 
-	#
-	# remove temporary kde- user files
-	#
-	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.DCOPserver_*_*"
-	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/cache-*"
-	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/socket-*"
-	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.kde/tmp-*"
-	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/.*uthority"
-	rm -f "$TARGET_MNT_POINT/home/$USER_NAME/Desktop/install-gui.desktop"
-	
 	#
 	# clean ownership
 	#

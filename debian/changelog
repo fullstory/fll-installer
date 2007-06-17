@@ -1,6 +1,20 @@
 fll-installer (0.0.13) UNRELEASED; urgency=low
 
   [ Kel Modderman ]
+  * modules/backend/copy2HD.bm: rewrite the function that does the live -> hd
+    copy. Use rsync with an exclude file. Copy the live filesystem, not just
+    the read only mount point.
+  * data/exclusion_list: add this list for input to rsync in copy2HD.
+  * modules/backend/fix_etc_on_HD.bm: no longer special handle /tmp
+  * modules/backend/convert_live2HD.bm: no longer call functions copy_etc2HD,
+    copy_home2HD or system_create_modules.
+  * modules/backend/system_findchanged.bm: removed
+  * modules/backend/system_create_modules.bm: removed
+  * modules/backend/copy_etc2HD.bm: removed
+  * modules/backend/copy_home2HD.bm: removed
+  * modules/backend/fix_home_on_HD.bm:
+    - mv $live_user $new_user on target filesystem
+    - no longer manually rm user tmp files, they are excluded at rsync time
   * modules/backend/fix_locales_on_HD.bm: cleanups
     - update Needs: header for TARGET_MNT_POINT and USER_NAME
     - use /usr/bin/env -i to ensure clean environment apart from FLL_LANG when
@@ -20,7 +34,7 @@ fll-installer (0.0.13) UNRELEASED; urgency=low
   * modules/backend/fix_etc_on_HD.bm: update-menu was already gone
   * modules/backend/prpareHD.bm: typo in file name fixed
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 17 Jun 2007 13:17:58 +0200
+ -- Kel Modderman <kel@otaku42.de>  Sun, 17 Jun 2007 23:27:03 +1000
 
 fll-installer (0.0.12) unstable; urgency=low
 

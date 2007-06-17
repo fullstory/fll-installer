@@ -30,9 +30,9 @@
 #
 
 SEARCHPATH="/usr/share/fll-installer"
-[ -f ./modules/initialization.bm  ] && SEARCHPATH="modules"
+[ -f ./modules/initialization.bm  ] && SEARCHPATH="."
 
-for i in $(find $SEARCHPATH -name "*.bm"); do
+for i in $(find "$SEARCHPATH/modules" -name "*.bm"); do
 	source $i
 done
 
