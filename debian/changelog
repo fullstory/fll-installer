@@ -1,4 +1,4 @@
-fll-installer (0.0.17) UNRELEASED; urgency=low
+fll-installer (0.0.17) unstable; urgency=low
 
   * modules/backend/main.bm: make_floppy doesn't exist, nor can we really
     provide it. Purge any reference to it.
