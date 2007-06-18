@@ -1,4 +1,4 @@
-fll-installer (0.0.16) UNRELEASED; urgency=low
+fll-installer (0.0.16) unstable; urgency=low
 
   * fll-installer: define TMPDIR. Use mktemp to do it.
 
