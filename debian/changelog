@@ -1,4 +1,4 @@
-fll-installer (0.0.15) UNRELEASED; urgency=low
+fll-installer (0.0.15) unstable; urgency=low
 
   * modules/backend/fix_home_on_HD.bm: sort KDE desktop icons once on first
     login with self destructing script that calls `kfmclient sortDesktop'.
