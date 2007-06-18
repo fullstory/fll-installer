@@ -40,6 +40,8 @@ done
 
 trap clean_exit EXIT
 
+TMPDIR="$(mktemp -p /tmp -d fll-installer.XXXXX)"
+
 #------------------
 
 if [ "$1" = "installer" ]; then
