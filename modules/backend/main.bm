@@ -101,6 +101,22 @@ function main()
 
 	# if needed unmount the partitions
 	if [ "$INSTALL_META" = no ]; then
+		#
+		# begin workaround: wait a few seconds till everything is set 
+		# so we can umount cleanly
+		#
+		j=0
+		while lsof "$TARGET_MNT_POINT"
+		do
+			sleep 5
+			[ $j -ge 30 ] && break
+			((j=$j+1))
+		done
+		sync
+		#
+		# end workaround
+		#
+		
 		for i in $HD_MAP; do
 			point=$(echo $i | cut -d":" -f2)
 			umount $TARGET_MNT_POINT$point

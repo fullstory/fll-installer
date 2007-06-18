@@ -1,8 +1,12 @@
 fll-installer (0.0.19) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 18 Jun 2007 14:06:10 +0200
+  [ Joaquim Boura ]
+  * wait till everything is set before umounting.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Tue, 19 Jun 2007 00:24:45 +0200
 
 fll-installer (0.0.18) unstable; urgency=low
 
