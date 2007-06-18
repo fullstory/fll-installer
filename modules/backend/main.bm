@@ -73,8 +73,10 @@ function main()
 		$action
 	done
 
+	sync
+
 	##
-	## Some error handlind needed
+	## Some error handling needed
 	##
 	# rc=$?
 	# MODULE_ERROR=$(<$TMPDIR/errors)

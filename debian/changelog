@@ -1,9 +1,15 @@
 fll-installer (0.0.18) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
   * minor spelling fixes.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 18 Jun 2007 13:44:54 +0200
+  [ Kel Modderman ]
+  * modules/backend/main.bm: sync after doing the work.Fix a typo in comment
+    while there.
+  * modules/backend/purge_live_only_stuff.bm: get rid of redirection.
+
+ -- Kel Modderman <kel@otaku42.de>  Mon, 18 Jun 2007 21:57:07 +1000
 
 fll-installer (0.0.17) unstable; urgency=low
 

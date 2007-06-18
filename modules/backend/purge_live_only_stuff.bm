@@ -30,7 +30,7 @@ purge_live_only_stuff()
 				sidux-setpassword \
 				sshstart-sidux \
 				startsyslog-sidux \
-				xorgconfig-sidux &> /dev/null
+				xorgconfig-sidux
 	
 	#  disable live config
 	if [ -f "${TARGET_MNT_POINT}/etc/default/distro" ]; then
