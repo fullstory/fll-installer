@@ -25,7 +25,6 @@
 # appendGrubForOtherOS
 # fix_usb_install
 # purge_live_only_stuff
-# make_floppy
 # end_progress
 #
 ##-------------------------------------
@@ -84,11 +83,6 @@ function main()
 		#
 		# return 1
 	# fi
-
-	
-	if [ "$BOOT_DISK" = "yes" ]; then
-		make_floppy
-	fi
 
 	#
 	# say the world we have done our work
