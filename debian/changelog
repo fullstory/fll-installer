@@ -1,7 +1,6 @@
-fll-installer (0.0.18) UNRELEASED; urgency=low
+fll-installer (0.0.18) unstable; urgency=low
 
   [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
   * minor spelling fixes.
 
   [ Kel Modderman ]
