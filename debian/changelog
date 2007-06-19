@@ -1,12 +1,15 @@
 fll-installer (0.0.19) UNRELEASED; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
   [ Joaquim Boura ]
   * wait till everything is set before umounting.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 19 Jun 2007 00:24:45 +0200
+  [ Kel Modderman ]
+  * modules/backend/copy2HD.bm: use some shell variable substitution logic to
+    allow choice between rsyncing from DEFAULT_DIR or the live filesystem. For
+    /dev, do just that. This ensures we have a minimal static /dev at all
+    times.
+
+ -- Kel Modderman <kel@otaku42.de>  Tue, 19 Jun 2007 11:56:19 +1000
 
 fll-installer (0.0.18) unstable; urgency=low
 

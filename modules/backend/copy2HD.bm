@@ -37,17 +37,30 @@ function copy2HD()
 				#
 				ln -sf "$(readlink -f ${dir})" "${TARGET_MNT_POINT}/${dir##*/}"
 			else
-				if [ "${dir##*/}" = "home" ]; then
-					for user in "${USER_NAME}" "${DEFAULT_USER}"; do
-						[ -d "${TARGET_MNT_POINT}/home/${user}" ] && continue 2
-					done
-				fi
+				case "${dir##*/}" in
+					dev)
+						# copy the static dev from ${DEFAULT_DIR}
+						;;
+					home)
+						# don't clobber an existing /home/user
+						for user in "${USER_NAME}" "${DEFAULT_USER}"; do
+							[ -d "${TARGET_MNT_POINT}/home/${user}" ] && continue 2
+						done
+						# substitute variable to point to dir on live fs
+						dir="/${dir##*/}"
+						;;
+					*)
+						# substitute variable to point to dir on live fs
+						dir="/${dir##*/}"
+						;;
+				esac
+				
 				#
 				# do the copy
 				#
 				rsync	--archive --quiet \
 					--exclude-from="${SEARCHPATH}/data/exclusion_list" \
-					"/${dir##*/}" "${TARGET_MNT_POINT}"
+					"${dir}" "${TARGET_MNT_POINT}"
 				sync
 			fi
 		done
