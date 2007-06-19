@@ -1,4 +1,4 @@
-fll-installer (0.0.19) UNRELEASED; urgency=low
+fll-installer (0.0.19) unstable; urgency=low
 
   [ Joaquim Boura ]
   * wait till everything is set before umounting.
