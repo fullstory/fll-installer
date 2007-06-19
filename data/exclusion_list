@@ -1,5 +1,4 @@
 /proc/*
-/dev/*
 /etc/network/run/*
 /home/*/.DCOPserver_*
 /home/*/.kde/cache-*
