@@ -39,10 +39,16 @@ function fix_locales_on_HD ()
 		source $fll_locales
 
 		#
-		# the X11 keyboard
+		# the X11 keyboard (live keys for germans)
 		#
-		sed -i -e 's|"XkbLayout" *"[^"]*"|"XkbLayout" "'"$XKBLAYOUT"'"|g;' \
-		       -e 's|^.*nodeadkeys.*$||g;' $xorg_conf
+		if [ "$HD_LANG" = "de" ]; then
+			DEADKEYS='\n\tOption\t\t"XkbVariant"\t\t"nodeadkeys"'
+		else
+			DEADKEYS=""
+		fi
+
+		sed -i -e "/XkbVariant/d" \
+			-e "s/\(.*Option.*\"XkbLayout\"\).*$/\1\t\t\"$XKBLAYOUT\"$DEADKEYS/" $xorg_conf
  
 		#
 		# the user settings (KDE, and so on ...) ??
