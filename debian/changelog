@@ -1,3 +1,9 @@
+fll-installer (0.0.21) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 20 Jun 2007 20:33:02 +0200
+
 fll-installer (0.0.20) unstable; urgency=low
 
   * make_floppy function was missing
