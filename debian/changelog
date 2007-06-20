@@ -1,9 +1,5 @@
-fll-installer (0.0.20) UNRELEASED; urgency=low
+fll-installer (0.0.20) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * make_floppy function was missing
 
  -- Joaquim Boura <x-un-i@sidux.com>  Wed, 20 Jun 2007 17:38:10 +0200
