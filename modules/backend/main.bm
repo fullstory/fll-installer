@@ -86,6 +86,13 @@ function main()
 		# return 1
 	# fi
 
+	# 
+	# if user wants make a boot floppy
+	#
+	if [ "$BOOT_DISK" = "yes" ]; then
+		make_floppy
+	fi
+
 	#
 	# say the world we have done our work
 	#
