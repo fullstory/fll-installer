@@ -1,8 +1,16 @@
 fll-installer (0.0.21) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 20 Jun 2007 20:33:02 +0200
+  [ Kel Modderman ]
+  * modules/backend/system_services.bm: use full path on 
+    fll_analyze_initscripts command, or else it seems like a function that
+    has been defined within the installer backend modules.
+  * modules/backend/system_services.bm: remove useless "continue" in
+    update-rc.d loop.
+
+ -- Kel Modderman <kel@otaku42.de>  Thu, 21 Jun 2007 19:55:24 +1000
 
 fll-installer (0.0.20) unstable; urgency=low
 

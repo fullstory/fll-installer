@@ -109,10 +109,9 @@ function system_services()
 
 		if [[ " ${SERVICE_WHITELIST[@]} " == *" $service "* ]]; then
 			unset UPDATE_RCD
-			UPDATE_RCD=( $(fll_analyze_initscripts --chroot "$DEFAULT_DIR" "$service") )
+			UPDATE_RCD=( $(/usr/bin/fll_analyze_initscripts --chroot "$DEFAULT_DIR" "$service") )
 			if [[ ${UPDATE_RCD[0]} == "update-rc.d" && ${UPDATE_RCD[1]} == $service ]]; then
 				chroot_it ${UPDATE_RCD[@]}
-				continue
 			fi
 		fi
 	done
