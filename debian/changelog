@@ -1,9 +1,5 @@
-fll-installer (0.0.21) UNRELEASED; urgency=low
+fll-installer (0.0.21) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Kel Modderman ]
   * modules/backend/system_services.bm: use full path on
     fll_analyze_initscripts command, or else it seems like a function that
     has been defined within the installer backend modules.
