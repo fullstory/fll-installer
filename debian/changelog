@@ -1,4 +1,4 @@
-fll-installer (0.0.23) UNRELEASED; urgency=low
+fll-installer (0.0.23) unstable; urgency=low
 
   * modules/backend/update_resume_conf.bm: new function module to fix resume
     partition on installed system.
