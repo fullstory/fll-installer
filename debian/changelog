@@ -1,3 +1,9 @@
+fll-installer (0.0.23) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 22 Jun 2007 03:21:47 +0200
+
 fll-installer (0.0.22) unstable; urgency=low
 
   * if user wants make a boot floppy
