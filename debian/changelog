@@ -1,9 +1,5 @@
-fll-installer (0.0.22) UNRELEASED; urgency=low
+fll-installer (0.0.22) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * if user wants make a boot floppy
 
  -- Joaquim Boura <x-un-i@sidux.com>  Thu, 21 Jun 2007 21:25:23 +0200
