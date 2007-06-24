@@ -11,19 +11,22 @@
 ##
 function make_floppy()
 {
+	local floppy="$TARGET_MNT_POINT/media/floppy0"
+
 	logit $"make_floppy"
 	if fdformat /dev/fd0 & > /dev/null
 	then
-		mkdir -p $TARGET_MNT_POINT/floppy
 		mke2fs /dev/fd0
-		mount /dev/fd0 $TARGET_MNT_POINT/floppy
 
-		grub-install --recheck --root-directory=$TARGET_MNT_POINT/floppy "(fd0)"
-		cp $TARGET_MNT_POINT/boot/grub/menu.lst $TARGET_MNT_POINT/floppy/boot/grub/
+		[ ! -d "${floppy}" ] &&
+			mount /dev/fd0 ${floppy}
+
+		grub-install --recheck --root-directory=${floppy} "(fd0)"
+		cp $TARGET_MNT_POINT/boot/grub/menu.lst ${floppy}/boot/grub/
 
 		[ -e $TARGET_MNT_POINT/boot/message ] && \
-			cp $TARGET_MNT_POINT/boot/message $TARGET_MNT_POINT/floppy/boot/
-		umount $TARGET_MNT_POINT/floppy
+			cp $TARGET_MNT_POINT/boot/message ${floppy}/boot/
+		umount ${floppy}
 	else
 		; # error formating floppy
 	fi
