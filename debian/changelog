@@ -1,9 +1,5 @@
-fll-installer (0.0.24) UNRELEASED; urgency=low
+fll-installer (0.0.24) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * do not create the floppy dir under root (/). Done some cleanup.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sun, 24 Jun 2007 14:43:26 +0200
