@@ -75,6 +75,13 @@ EOF
 		"$inittab"
 	
 	#
+	# disinhibit ntpdate
+	#
+	if [ -f /etc/network/if-up.d/ntpdate ] && [ ! -x /etc/network/if-up.d/ntpdate ]; then
+		chmod +x /etc/network/if-up.d/ntpdate
+	fi
+
+	#
 	# create /etc/mtab as a regular file
 	#
 	rm -f "$mtab"
