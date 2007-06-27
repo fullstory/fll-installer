@@ -1,9 +1,5 @@
-fll-installer (0.0.25) UNRELEASED; urgency=low
+fll-installer (0.0.25) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Kel Modderman ]
   * modules/backend/fix_etc_on_HD.bm: reverse ntpdate hack made by
     fll-network.
 
