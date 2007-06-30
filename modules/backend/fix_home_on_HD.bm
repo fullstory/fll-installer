@@ -72,6 +72,12 @@ EOF
 	done
 
 	#
+	# revert gksu sudo mode hack
+	#
+	chroot "$TARGET_MNT_POINT" sudo -u "${FLL_LIVE_USER}" gconftool-2 -s -t bool /apps/gksu/sudo-mode false
+	chroot "$TARGET_MNT_POINT" sudo -u "${FLL_LIVE_USER}" gconftool-2 -s -t bool /apps/gksu/display-no-pass-info true
+
+	#
 	# make sudo alias's vanish
 	#
 	if grep -s -q sudo "$TARGET_MNT_POINT/home/$USER_NAME/.bashrc"; then

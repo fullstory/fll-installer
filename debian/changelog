@@ -1,8 +1,8 @@
 fll-installer (0.0.26) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * modules/backend/fix_home_on_HD.bm: revert gksu sudo mode hack.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 27 Jun 2007 03:01:16 +0200
+ -- Kel Modderman <kel@otaku42.de>  Sat, 30 Jun 2007 19:19:39 +1000
 
 fll-installer (0.0.25) unstable; urgency=low
 
