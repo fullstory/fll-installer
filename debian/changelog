@@ -1,4 +1,4 @@
-fll-installer (0.0.26) UNRELEASED; urgency=low
+fll-installer (0.0.26) unstable; urgency=low
 
   * modules/backend/fix_home_on_HD.bm: revert gksu sudo mode hack.
 
