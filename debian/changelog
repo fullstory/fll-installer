@@ -2,8 +2,9 @@ fll-installer (0.0.27) UNRELEASED; urgency=low
 
   * modules/backend/fix_home_on_HD.bm: really revert gksu sudo workaround
     by removing .gconf/apps/gksu/%gconf.xml.
+  * modules/backend/system_services.bm: sytactical cleanup.
 
- -- Kel Modderman <kel@otaku42.de>  Thu, 12 Jul 2007 13:55:59 +1000
+ -- Kel Modderman <kel@otaku42.de>  Thu, 12 Jul 2007 14:19:42 +1000
 
 fll-installer (0.0.26) unstable; urgency=low
 

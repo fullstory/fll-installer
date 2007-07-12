@@ -16,8 +16,8 @@ function system_services()
 	local SERVICE_WHITELIST=(
 		alsa
 		alsa-utils
-		avahi-daemon
 		atd
+		avahi-daemon
 		bootclean
 		bootlogd
 		bootmisc.sh
@@ -82,9 +82,10 @@ function system_services()
 		x11-common
 	)
 
-	if [ "$SERVICES_START" ]; then
-		SERVICE_WHITELIST+=( $SERVICES_START )
-	fi
+	#
+	# extra/optional services as defined in config
+	#
+	[[ $SERVICES_START ]] && SERVICE_WHITELIST+=( $SERVICES_START )
 
 	#
 	# log my call
@@ -93,7 +94,7 @@ function system_services()
 	#
 
 	for service in "$TARGET_MNT_POINT"/etc/init.d/*; do
-		test -x "$service" || continue
+		[[ -x $service ]] || continue
 
 		service="${service##*/}"
 		
@@ -123,16 +124,16 @@ function system_services()
 	done
 
 	# disable all services in /etc/inetd.conf
-	if [ -x "$TARGET_MNT_POINT"/etc/init.d/openbsd-inetd ]; then
+	if [[ -x "$TARGET_MNT_POINT"/etc/init.d/openbsd-inetd ]]; then
 		chroot_it update-inetd --multi --disable '*'
 	fi
 	
 	# prepare ssh
-	if [ -x "$TARGET_MNT_POINT"/etc/init.d/ssh ]; then
-		if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" ]; then
+	if [[ -x "$TARGET_MNT_POINT"/etc/init.d/ssh ]]; then
+		if [[ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" ]]; then
 			ssh-keygen -q -t rsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" -C '' -N ''
 		fi
-		if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" ]; then
+		if [[ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" ]]; then
 			ssh-keygen -q -t dsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" -C '' -N ''
 		fi
 	fi
