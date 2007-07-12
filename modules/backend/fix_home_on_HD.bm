@@ -67,6 +67,7 @@ EOF
 	for file in	"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/config/kdesurc" \
 			"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/apps/konsole/sumc.desktop" \
 			"$TARGET_MNT_POINT/home/$USER_NAME/.kde/share/apps/konsole/su.desktop" \
+			"$TARGET_MNT_POINT/home/$USER_NAME/.gconf/apps/gksu/%gconf.xml" \
 			"$TARGET_MNT_POINT/home/$USER_NAME/.su-to-rootrc"; do
 		grep -s -q sudo "$file" && rm -f "$file"
 	done
