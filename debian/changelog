@@ -1,4 +1,4 @@
-fll-installer (0.0.27) UNRELEASED; urgency=low
+fll-installer (0.0.27) unstable; urgency=low
 
   * modules/backend/fix_home_on_HD.bm: really revert gksu sudo workaround
     by removing .gconf/apps/gksu/%gconf.xml.
