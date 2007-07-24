@@ -1,4 +1,4 @@
-fll-installer (0.0.28) UNRELEASED; urgency=low
+fll-installer (0.0.28) unstable; urgency=low
 
   * modules/backend/make_floppy.bm: fix poor syntax.
 
