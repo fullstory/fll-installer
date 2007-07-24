@@ -28,7 +28,7 @@ function make_floppy()
 			cp $TARGET_MNT_POINT/boot/message ${floppy}/boot/
 		umount ${floppy}
 	else
-		; # error formating floppy
+		: # error formating floppy
 	fi
 }
 ##-------------------------------------
