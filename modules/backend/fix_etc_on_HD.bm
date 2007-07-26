@@ -75,10 +75,10 @@ EOF
 		"$inittab"
 	
 	#
-	# disinhibit ntpdate
+	# normalize /etc/pam.d/login
 	#
-	if [ -f /etc/network/if-up.d/ntpdate ] && [ ! -x /etc/network/if-up.d/ntpdate ]; then
-		chmod +x /etc/network/if-up.d/ntpdate
+	if [ -f "$TARGET_MNT_POINT/etc/pam.d/login" ]; then
+		sed -i '/^#.*pam_lastlog\.so/s/^#[ \t]\+//' "$TARGET_MNT_POINT/etc/pam.d/login"
 	fi
 
 	#
