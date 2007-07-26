@@ -1,3 +1,9 @@
+fll-installer (0.0.30) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 27 Jul 2007 00:44:44 +0200
+
 fll-installer (0.0.29) unstable; urgency=low
 
   * modules/backend/fix_etc_on_HD.bm:
