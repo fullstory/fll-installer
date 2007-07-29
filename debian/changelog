@@ -1,8 +1,10 @@
 fll-installer (0.0.30) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * modules/backend/system_services.bm: base runlevel configuration on a
+    package whitelist. Don't bother scanning through installed initscripts,
+    formulate a initscript-list from a list of package names with dpkg-query.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 27 Jul 2007 00:44:44 +0200
+ -- Kel Modderman <kel@otaku42.de>  Mon, 30 Jul 2007 00:43:18 +1000
 
 fll-installer (0.0.29) unstable; urgency=low
 
