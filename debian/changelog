@@ -1,4 +1,4 @@
-fll-installer (0.0.30) UNRELEASED; urgency=low
+fll-installer (0.0.30) unstable; urgency=low
 
   * modules/backend/system_services.bm: base runlevel configuration on a
     package whitelist. Don't bother scanning through installed initscripts,
