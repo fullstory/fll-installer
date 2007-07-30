@@ -1,8 +1,11 @@
 fll-installer (0.0.31) UNRELEASED; urgency=low
 
   * modules/backend/system_services.bm: improve regexp.
+  * modules/backend/system_services.bm: use sed to print out group match, and
+    test for executable bit before processing each file starting with
+    "/etc/init.d/".
 
- -- Kel Modderman <kel@otaku42.de>  Mon, 30 Jul 2007 16:47:07 +1000
+ -- Kel Modderman <kel@otaku42.de>  Mon, 30 Jul 2007 17:11:59 +1000
 
 fll-installer (0.0.30) unstable; urgency=low
 
