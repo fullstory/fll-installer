@@ -1,3 +1,9 @@
+fll-installer (0.0.32) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 30 Jul 2007 13:39:06 +0200
+
 fll-installer (0.0.31) unstable; urgency=low
 
   * modules/backend/system_services.bm: improve regexp.
