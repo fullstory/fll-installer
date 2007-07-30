@@ -54,7 +54,7 @@ function system_services()
 	)
 
 	for p in ${PACKAGE_WHITELIST[@]}; do
-		SERVICE_WHITELIST+=( $(dpkg-query -L "$p" 2>/dev/null | awk '/\/etc\/init.d\/(.+)/{ print }') )
+		SERVICE_WHITELIST+=( $(dpkg-query -L "$p" 2>/dev/null | awk '/^\/etc\/init.d\/.+/{ print }') )
 	done
 
 	#
