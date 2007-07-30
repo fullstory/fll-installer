@@ -1,4 +1,4 @@
-fll-installer (0.0.31) UNRELEASED; urgency=low
+fll-installer (0.0.31) unstable; urgency=low
 
   * modules/backend/system_services.bm: improve regexp.
   * modules/backend/system_services.bm: use sed to print out group match, and
