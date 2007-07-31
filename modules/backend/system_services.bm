@@ -49,6 +49,7 @@ function system_services()
 		sysklogd
 		sysv-rc
 		udev
+		util-linux
 		wpasupplicant
 		x11-common
 	)
