@@ -1,4 +1,4 @@
-fll-installer (0.0.32) UNRELEASED; urgency=low
+fll-installer (0.0.32) unstable; urgency=low
 
   * modules/backend/system_services.bm: add util-linux to package whitelist.
 
