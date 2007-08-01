@@ -1,8 +1,18 @@
 fll-installer (0.0.33) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * modules/backend/copy2HD.bm: don't test for /home/${USER_NAME} on target.
+    Just skip rsync'ing /home if home/${DEFAULT_USER} exists on target.
+  * modules/backend/fix_home_on_HD.bm:
+    - NEWHOME -> INSTHOME, OLDHOME -> LIVEHOME variable distinction, with
+      comments
+    - don't mv LIVEHOME to INSTHOME unless the former exists, and the latter
+      does not exist
+    - remove fugly for $(find...); do loop, replace with a more well thought
+      out find piped through a perl one liner
+    - remove KDE cleanup via self-destructing script, who really cares...
+    - add curly brackets around variable names for consistency
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 31 Jul 2007 10:28:43 +0200
+ -- Kel Modderman <kel@otaku42.de>  Wed, 01 Aug 2007 14:51:31 +1000
 
 fll-installer (0.0.32) unstable; urgency=low
 
