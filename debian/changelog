@@ -1,4 +1,4 @@
-fll-installer (0.0.33) UNRELEASED; urgency=low
+fll-installer (0.0.33) unstable; urgency=low
 
   * modules/backend/copy2HD.bm: don't test for /home/${USER_NAME} on target.
     Just skip rsync'ing /home if home/${DEFAULT_USER} exists on target.
