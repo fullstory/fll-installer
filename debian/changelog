@@ -1,8 +1,8 @@
-fll-installer (0.0.34) UNRELEASED; urgency=low
+fll-installer (0.0.34) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * fix regexp in update_passwd.bm to match multiple users per group.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 01 Aug 2007 13:51:35 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 15 Aug 2007 15:20:40 +0200
 
 fll-installer (0.0.33) unstable; urgency=low
 
