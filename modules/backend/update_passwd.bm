@@ -29,7 +29,7 @@ function update_passwd()
 	#
 	sed -i	-e "s|^$DEFAULT_USER|$USER_NAME|" \
 		-e "s|/home/$DEFAULT_USER|/home/$USER_NAME|" \
-		-e "s|:$DEFAULT_NAME,|:$NAME_NAME,|" \
+		-e "s|:$DEFAULT_NAME,|:$USER_NAME,|" \
 			"${TARGET_MNT_POINT}/etc/passwd"
 	
 	#
