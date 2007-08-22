@@ -29,8 +29,8 @@ function update_fstab()
 
 	[ "${HD_AUTO}" = "yes" ] && autohd="--auto" || autohd=""
 
-	# 2. rebuild the fstab, creating the mountpoints
-	chroot_it rebuildfstab --uuids --make-mountpoints \
+	# 2. create the fstab, creating the mountpoints
+	chroot_it fll-fshelper --uuids --make-mountpoints \
 		--write-fstab ${autohd} --quiet
 
 	# 3. umount /proc, /dev and /sys on chroot

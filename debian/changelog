@@ -1,8 +1,8 @@
-fll-installer (0.0.36) UNRELEASED; urgency=low
+fll-installer (0.1.0) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * use fll-fshelper.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 17 Aug 2007 14:11:52 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 22 Aug 2007 15:57:36 +0200
 
 fll-installer (0.0.35) unstable; urgency=low
 

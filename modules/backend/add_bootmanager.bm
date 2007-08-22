@@ -62,7 +62,7 @@ function add_bootmanager()
 	mount --bind /dev "$TARGET_MNT_POINT/dev"
 	mount --bind /sys "$TARGET_MNT_POINT/sys"
 
-	chroot_it rebuildfstab --write-fstab --quiet 
+	chroot_it fll-fshelper --write-fstab --quiet 
 
 	##
 	## workaround...end
