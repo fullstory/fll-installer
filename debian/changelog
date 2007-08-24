@@ -1,4 +1,4 @@
-fll-installer (0.1.1) UNRELEASED; urgency=low
+fll-installer (0.1.1) unstable; urgency=low
 
   * fll-fsprober is no more, fll-live-initscripts will provide required
     script.
