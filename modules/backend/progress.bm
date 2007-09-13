@@ -47,6 +47,9 @@ function progress()
 	local total
 	local text
 
+	# printf for new install-gui choice "install with terminal output, debug modus"
+	[ -z "${INSTALLER_INOTIFY}" ] && printf "\n==========================\n $@ \n==========================\n"
+
 	if [ -n "$DISPLAY" ];then
 	
 		[ "${ACTION}" -lt 19 ] && ACTION=$((ACTION + 1))

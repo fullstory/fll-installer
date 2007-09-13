@@ -1,9 +1,14 @@
 fll-installer (0.1.3) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
   * add VCS control headers.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 11 Sep 2007 20:10:01 +0200
+  [ Horst Tritremmel ]
+  * printf for new install-gui choice "install with terminal output, debug
+    modus" in prgressbar.bm 
+
+ -- Horst Tritremmel <hjt@sidux.com>  Thu, 13 Sep 2007 10:29:18 +0200
 
 fll-installer (0.1.2) unstable; urgency=low
 
