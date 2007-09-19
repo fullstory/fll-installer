@@ -1,3 +1,9 @@
+fll-installer (0.1.6) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 19 Sep 2007 23:03:53 +0200
+
 fll-installer (0.1.5) unstable; urgency=low
 
   * revert XFCE shutdown and reboot button, allow the xfce default_user
