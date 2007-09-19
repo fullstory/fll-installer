@@ -111,7 +111,7 @@ EOF
 		# we want the gdm-theme (set by desktop-defaults in live mode) on hd-install, only remove autologin for gdm
 		sed -i	-e "/^AutomaticLogin\=.*/d" \
 			-e "/^AutomaticLoginEnable\=.*/d" \
-				/etc/gdm/gdm.conf
+				${TARGET_MNT_POINT}/etc/gdm/gdm.conf
 
 #		cat "${FLL_MOUNTPOINT}/etc/gdm/gdm.conf" > "${TARGET_MNT_POINT}/etc/gdm/gdm.conf"
 		
