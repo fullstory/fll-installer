@@ -1,8 +1,13 @@
 fll-installer (0.1.4) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 13 Sep 2007 11:28:31 +0200
+  [ Horst Tritremmel ]
+  * We want the gdm-theme (set by desktop-defaults in live mode) on hd-
+    install, only remove autologin for gdm. Fixed in fix_etc_on_HD.bm
+
+ -- Horst Tritremmel <hjt@sidux.com>  Wed, 19 Sep 2007 12:59:07 +0200
 
 fll-installer (0.1.3) unstable; urgency=low
 
