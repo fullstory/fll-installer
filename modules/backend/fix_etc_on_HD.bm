@@ -112,14 +112,15 @@ EOF
 		sed -i	-e "/^AutomaticLogin\=.*/d" \
 			-e "/^AutomaticLoginEnable\=.*/d" \
 				${TARGET_MNT_POINT}/etc/gdm/gdm.conf
+	fi
 
-#		cat "${FLL_MOUNTPOINT}/etc/gdm/gdm.conf" > "${TARGET_MNT_POINT}/etc/gdm/gdm.conf"
-		
-		# set theme for gdm
-		#
-#		if ! grep -q "^GraphicalTheme=" ${TARGET_MNT_POINT}/etc/gdm/gdm.conf ; then
-#			sed -i 's/\[greeter\]/\[greeter\]\nGraphicalTheme=sidux-dawn\nGraphicalThemedColor=#343434/g' ${TARGET_MNT_POINT}/etc/gdm/gdm.conf
-#		fi
+	#
+	# revert XFCE shutdown and reboot button
+	#
+	if [ -e "${FLL_MOUNTPOINT}/etc/default/fll-xfce-desktop" ]; then
+		sed -i	-e "/\/usr\/sbin\/xfsm-shutdown-helper/d" \
+			-e "s/^\(# User alias.*\)/\1\n${USER_NAME} ${HOST_NAME} \= NOPASSWD: \/usr\/sbin\/xfsm-shutdown-helper/" \
+				$sudoers
 	fi
 }
 
