@@ -21,23 +21,21 @@ purge_live_only_stuff()
 	# purge live-specific packages
 	chroot_it dpkg --purge	fll-live-initramfs \
 				fll-live-initscripts \
+				fll-live-xorgconfig \
 				desktop-defaults-common \
 				desktop-defaults-kde \
 				desktop-defaults-gnome \
+				desktop-defaults-xfce \
 				install-gui \
+				install-usb-gui \
 				fll-installer \
 				sidux-setpassword \
 				sshstart-sidux \
-				startsyslog-sidux \
-				xorgconfig-sidux
+				startsyslog-sidux
 	
 	#  disable live config
 	if [ -f "${TARGET_MNT_POINT}/etc/default/distro" ]; then
 		perl -pi -e "s/^FLL_DISTRO_MODE\=.*/FLL_DISTRO_MODE\=\"installed\"/" \
 			"${TARGET_MNT_POINT}/etc/default/distro"
 	fi
-
-	# and this one also
-	rm -rf "${TARGET_MNT_POINT}/etc/hwsetup"
-
 }
