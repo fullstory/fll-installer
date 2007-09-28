@@ -1,3 +1,9 @@
+fll-installer (0.1.7) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 28 Sep 2007 08:56:16 +0200
+
 fll-installer (0.1.6) unstable; urgency=low
 
   * modules/backend/purge_live_only_stuff.bm:
