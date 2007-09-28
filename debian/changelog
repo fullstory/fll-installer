@@ -1,4 +1,4 @@
-fll-installer (0.1.6) UNRELEASED; urgency=low
+fll-installer (0.1.6) unstable; urgency=low
 
   * modules/backend/purge_live_only_stuff.bm:
     - fll-xorgconfig replaced xorgconfig-sidux and hwsetup-ng
