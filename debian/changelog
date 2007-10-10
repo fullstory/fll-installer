@@ -1,9 +1,13 @@
 fll-installer (0.1.7) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
   * update syntax for Vcs headers in debian/control
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 07 Oct 2007 14:40:27 +0200
+  [ Kel Modderman ]
+  * s/alsa/alsa-base/ in system_services.bm.
+
+ -- Kel Modderman <kel@otaku42.de>  Wed, 10 Oct 2007 21:24:08 +1000
 
 fll-installer (0.1.6) unstable; urgency=low
 

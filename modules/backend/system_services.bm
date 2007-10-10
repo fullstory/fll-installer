@@ -20,7 +20,7 @@ function system_services()
 	local UPDATE_RCD
 	local SERVICE_WHITELIST
 	local PACKAGE_WHITELIST=(
-		alsa
+		alsa-base
 		alsa-utils
 		atd
 		avahi-daemon
