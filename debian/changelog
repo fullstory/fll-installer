@@ -1,3 +1,9 @@
+fll-installer (0.1.9) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 16 Nov 2007 00:45:48 +0100
+
 fll-installer (0.1.8) unstable; urgency=low
 
   * "x from 20" changed to "x of 20" in progress.bm
