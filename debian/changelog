@@ -4,8 +4,7 @@ fll-installer (0.1.8) UNRELEASED; urgency=low
   * NOT RELEASED YET
 
   [ Horst Tritremmel ]
-  * data debian fll-installer modules from 20 changed to data debian
-    fll-installer modules of 20 in progress.bm
+  * "x from 20" changed to "x of 20" in progress.bm
 
  -- Horst Tritremmel <hjt@sidux.com>  Thu, 15 Nov 2007 13:50:23 +0100
 
