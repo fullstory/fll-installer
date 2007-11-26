@@ -1,8 +1,8 @@
-fll-installer (0.1.9) UNRELEASED; urgency=low
+fll-installer (0.1.9) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * remove virtualisation helpers on non-emulated hardware.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 16 Nov 2007 00:45:48 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 26 Nov 2007 17:48:49 +0100
 
 fll-installer (0.1.8) unstable; urgency=low
 
