@@ -46,19 +46,13 @@ TARGET_MNT_NAME="hdinstall"
 ###-------------------------------------
 #
 FLL_DISTRO_NAME="sidux"
+FLL_LIVE_USER="sidux"
+FLL_MOUNTPOINT="/fll/sidux"
 
-if [ -r /etc/default/distro ]; then
-	. /etc/default/distro
+[ -r /etc/default/distro ] && . /etc/default/distro
 
-	[ -n "$FLL_LIVE_USER" ] && DEFAULT_USER="$FLL_LIVE_USER" || \
-		DEFAULT_USER="sidux"
-	[ -n "$FLL_MOUNTPOINT" ] && DEFAULT_DIR="$FLL_MOUNTPOINT"  || \
-		DEFAULT_DIR="/fll/SIDUX"
-else
-	DEFAULT_USER="sidux"
-	#DEFAULT_DIR="/UNIONFS"
-	DEFAULT_DIR="/fll/SIDUX"
-fi
+DEFAULT_USER="$FLL_LIVE_USER"
+DEFAULT_DIR="$FLL_MOUNTPOINT"
 
 #
 ###-------------------------------------

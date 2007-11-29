@@ -1,8 +1,9 @@
-fll-installer (0.1.10) UNRELEASED; urgency=low
+fll-installer (0.1.10) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * switch fallback defaults to FLL_LIVE_USER="sidux" and 
+    FLL_MOUNTPOINT="/fll/sidux", simplify variable seeding.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 26 Nov 2007 17:50:41 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 29 Nov 2007 21:33:16 +0100
 
 fll-installer (0.1.9) unstable; urgency=low
 
