@@ -18,6 +18,8 @@ function appendGrubForOtherOS()
 	local mounted_grub_file
 	local found
 	local menuList
+	local drive root_partition root_device usb_dev
+	local cur_r_device cur_drive cur_usb_dev
 	local MSG="Appending entries for other OS to grub's menu.lst"
 
 	#
@@ -36,11 +38,28 @@ function appendGrubForOtherOS()
 	mounted_grub_file="${TempDir}${GRUBFile}"
 	mkdir -p $TempDir
 
+	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
+	root_device=$(get_root_device $root_partition)
+	drive=$(echo $root_device|cut -d / -f3)
+	usb_dev=$(echo $(readlink -f /sys/block/${drive}/device) | grep  "usb")
+
 	os-prober > $TempFile
 
 	while IFS=: read device longName shortName kindOf; do
 		# skip current root device
 		if [ "$device" != "$HD_CHOICE" ]; then
+			# is current device USB and not equal root_device
+			# then skip it
+			if [ -n "${usb_dev}" ]; then
+				cur_r_device=$(get_root_device $device)
+				cur_drive=$(echo $cur_r_device|cut -d / -f3)
+				cur_usb_dev=$(echo $(readlink -f /sys/block/${cur_drive}/device) \
+					| grep  "usb")
+				if [ -n "${cur_usb_dev}" -a ! "${cur_drive}" = "${drive}" ]
+				then
+					continue
+				fi
+			fi
 			if [ "$kindOf" = "linux" ]; then
 				mount $device $TempDir 2>&1 >>/dev/null
 				if [ $? -eq 0 ] ; then
@@ -94,4 +113,3 @@ function appendGrubForOtherOS()
 	rm $TempFile $MyGrubTemp
 	rmdir $TempDir
 }
-
