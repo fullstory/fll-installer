@@ -1,9 +1,5 @@
-fll-installer (0.1.11) UNRELEASED; urgency=low
+fll-installer (0.1.11) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * clean up device.map and menu.list for USB HD installs
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sat, 01 Dec 2007 17:25:22 +0100
