@@ -4,11 +4,13 @@
 # TARGET_MNT_POINT
 # HD_AUTO
 # HD_COICE
+# HD_MAP
 #
 # Calls:
 # logit
 # progress
 # chroot_it
+# get_root_device
 #
 ##-------------------------------------
 ##
