@@ -1,8 +1,13 @@
 fll-installer (0.1.12) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 01 Dec 2007 17:41:27 +0100
+  [ Joaquim Boura ]
+  * use new option from fll_fshelper to include in fstab all partitions of the
+    currently used drives.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 02 Dec 2007 13:05:18 +0100
 
 fll-installer (0.1.11) unstable; urgency=low
 
