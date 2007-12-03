@@ -1,8 +1,8 @@
-fll-installer (0.1.14) UNRELEASED; urgency=low
+fll-installer (0.1.14) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * remove default user from sudo.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 03 Dec 2007 16:28:23 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 03 Dec 2007 22:13:37 +0100
 
 fll-installer (0.1.13) unstable; urgency=low
 

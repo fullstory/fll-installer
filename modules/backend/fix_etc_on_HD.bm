@@ -5,6 +5,7 @@
 # TARGET_MNT_POINT
 # HOST_NAME
 # FLL_MOUNTPOINT
+# USER_NAME
 #
 # Calls:
 # logit
@@ -66,6 +67,8 @@ root	ALL=(ALL) ALL
 EOF
 	chown root:root "$sudoers"
 	chmod 0440 "$sudoers"
+
+	chroot_it deluser "${USER_NAME}" sudo
 
 	#
 	# "normalize" /etc/inittab
