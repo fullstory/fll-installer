@@ -1,7 +1,6 @@
-fll-installer (0.1.13) UNRELEASED; urgency=low
+fll-installer (0.1.13) unstable; urgency=low
 
   [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
   * update to Standards-Version 3.7.3, no changes necessary.
 
   [ Horst Tritremmel ]
