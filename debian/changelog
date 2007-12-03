@@ -1,8 +1,9 @@
 fll-installer (0.1.13) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * update to Standards-Version 3.7.3, no changes necessary.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 02 Dec 2007 21:37:07 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 03 Dec 2007 13:48:20 +0100
 
 fll-installer (0.1.12) unstable; urgency=low
 
