@@ -65,7 +65,7 @@ function progress()
 
 		# send message to the gui
 		printf  "PERC=${perc}\n\
-CURRENT=<big><b>$text</b></big>\n\
+CURRENT=<b>$text</b>\n\
 COMPLETE=completed ${ACTION} of 20" > $INSTALLER_INOTIFY
 	fi
 }
