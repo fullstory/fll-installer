@@ -1,9 +1,5 @@
-fll-installer (0.1.15) UNRELEASED; urgency=low
+fll-installer (0.1.15) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Kel Modderman ]
   * modules/backend/update_fstab.bm:
     - hijack this module to execute new fll-resume initscript to validate
       installed systems resume configuration
