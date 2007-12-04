@@ -1,8 +1,13 @@
 fll-installer (0.1.16) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 04 Dec 2007 14:57:28 +0100
+  [ Joaquim Boura ]
+  * Allowing the grub's installation over a choosen MBR or over the root
+    partition. No changes for USB installs. 
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Tue, 04 Dec 2007 21:51:39 +0100
 
 fll-installer (0.1.15) unstable; urgency=low
 

@@ -59,13 +59,13 @@ install_grub()
 
 	if [ -n "${usb_dev}" ]; then
 		# USB install must have first Grub on partition
-		BOOT_WHERE="partition"
+		BOOT_WHERE=${HD_CHOICE}
 	else
 		# in case of jfs/xfs force installation to mbr
 		# but only if HD is not on USB
 
 		case $HD_FSTYPE in
-		jfs|xfs) BOOT_WHERE="mbr";;
+		jfs|xfs) BOOT_WHERE=${root_device};;
 		esac
 	fi
 
@@ -85,12 +85,11 @@ install_grub()
 	# ?? IS this export needeed ??
 	#
 
-	if [ "$BOOT_WHERE" = "mbr" ]
+	# installing on MBR 
+	if [ "$BOOT_WHERE" = "$(get_root_device ${BOOT_WHERE})" ]
 	then
-		GRUB_MBR=$(grep "(hd0)" $TARGET_MNT_POINT/boot/grub/device.map | awk '{ print $2 }')
-		[ -z "$GRUB_MBR" ] && return 1
 		# Make a backup of the old mbr
-		dd if=$GRUB_MBR of=$TARGET_MNT_POINT/boot/${FLL_DISTRO_NAME}-old-mbr.$(date -I) \
+		dd if=${BOOT_WHERE} of=$TARGET_MNT_POINT/boot/${FLL_DISTRO_NAME}-old-mbr.$(date -I) \
 			bs=512 count=1 >/dev/null 2>/dev/null
 	fi
 
@@ -243,17 +242,18 @@ EOF
 	#
 	# install grub
 	#
-	case $BOOT_WHERE in
-		partition)
-			grub-install --root-directory=$TARGET_MNT_POINT "$HD_CHOICE" \
-				>/dev/null 2>/dev/null || \
-				grub-install --root-directory=$TARGET_MNT_POINT "$HD_CHOICE" \
-					>/dev/null 2>/dev/null
-			;;
-		mbr)
-			grub-install --root-directory=$TARGET_MNT_POINT "(hd0)" >/dev/null 2>/dev/null
-			;;
-	esac
+	
+	if [ "$BOOT_WHERE" = "$(get_root_device ${BOOT_WHERE})" ]
+	then # install on MBR
+		grub-install --root-directory=$TARGET_MNT_POINT "${BOOT_WHERE}" >/dev/null 2>/dev/null
+	else # install on partition
+	     # is twice because sometimes the first one fails in that cases the second
+	     # don't fail !!!
+		grub-install --root-directory=$TARGET_MNT_POINT "${BOOT_WHERE}" \
+			>/dev/null 2>/dev/null || \
+			grub-install --root-directory=$TARGET_MNT_POINT "${BOOT_WHERE}" \
+				>/dev/null 2>/dev/null
+	fi
 
 	return 0
 }
