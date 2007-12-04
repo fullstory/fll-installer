@@ -51,8 +51,12 @@ function update_fstab()
 	
 	chroot_it fll_fshelper --uuids --make-mountpoints \
 		${wanted} --write-fstab ${autohd} --quiet
+	
+	# 3. fix resume configuration, it may have changed in
+	#    partitioning since boot
+	chroot_it /etc/init.d/fll-resume start
 
-	# 3. umount /proc, /dev and /sys on chroot
+	# 4. umount /proc, /dev and /sys on chroot
 	umount "$TARGET_MNT_POINT/sys"
 	umount "$TARGET_MNT_POINT/dev"
 	umount "$TARGET_MNT_POINT/proc"
