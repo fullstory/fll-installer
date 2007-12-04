@@ -1,3 +1,9 @@
+fll-installer (0.1.16) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 04 Dec 2007 14:57:28 +0100
+
 fll-installer (0.1.15) unstable; urgency=low
 
   * modules/backend/update_fstab.bm:
