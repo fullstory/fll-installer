@@ -1,3 +1,9 @@
+fll-installer (0.2.1) unstable; urgency=low
+
+  * Pre-Depends: dpkg (>= 1.14.6) to allow Breaks: support.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 06 Dec 2007 10:01:40 +0100
+
 fll-installer (0.2.0) unstable; urgency=low
 
   [ Joaquim Boura ]
