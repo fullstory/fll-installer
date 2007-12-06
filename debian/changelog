@@ -1,7 +1,4 @@
-fll-installer (0.1.16) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+fll-installer (0.2.0) unstable; urgency=low
 
   [ Joaquim Boura ]
   * Allowing the grub's installation over a choosen MBR or over the root
@@ -13,7 +10,10 @@ fll-installer (0.1.16) UNRELEASED; urgency=low
   * Fix syntax error in modules/backend/install_grub.bm introduced by above
     changes (r13094).
 
- -- Kel Modderman <kel@otaku42.de>  Thu, 06 Dec 2007 11:27:55 +1000
+  [ Stefan Lippers-Hollmann ]
+  * Breaks: install-gui (<< 0.5)
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 06 Dec 2007 09:58:41 +0100
 
 fll-installer (0.1.15) unstable; urgency=low
 

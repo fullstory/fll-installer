@@ -11,6 +11,7 @@ Vcs-Browser: http://svn.berlios.de/wsvn/fullstory/fll-installer/trunk/
 Package: fll-installer
 Architecture: all
 Depends: adduser, initramfs-tools, grub-gfxboot | grub, procps, udev-config-sidux, whois, os-prober, rsync, fll-live-initscripts (>= 2.0.72)
+Breaks:	install-gui (<< 0.5)
 Recommends: install-gui, install-meta
 Suggests: gparted, distro-defaults
 Description: backend scripts to install sidux to hd
