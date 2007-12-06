@@ -6,11 +6,14 @@ fll-installer (0.1.16) UNRELEASED; urgency=low
   [ Joaquim Boura ]
   * Allowing the grub's installation over a choosen MBR or over the root
     partition. No changes for USB installs.
-  * Ignore install Grub on MBR of a USB device, use the old way for it. 
+  * Ignore install Grub on MBR of a USB device, use the old way for it.
     Accept "mbr", "partition" and "/dev/[hs}d[a-z]" as valid places for the Grub.
-    
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 06 Dec 2007 00:54:36 +0100
+  [ Kel Modderman ]
+  * Fix syntax error in modules/backend/install_grub.bm introduced by above
+    changes (r13094).
+
+ -- Kel Modderman <kel@otaku42.de>  Thu, 06 Dec 2007 11:27:55 +1000
 
 fll-installer (0.1.15) unstable; urgency=low
 
