@@ -1,8 +1,13 @@
 fll-installer (0.2.2) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 06 Dec 2007 10:03:41 +0100
+  [ Joaquim Boura ]
+  * for jfs/xfs set grub to MBR on the install disk unless already an MBR
+    location is given.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Fri, 07 Dec 2007 21:13:56 +0100
 
 fll-installer (0.2.1) unstable; urgency=low
 

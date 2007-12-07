@@ -85,11 +85,12 @@ install_grub()
 		bootfrom=${HD_CHOICE}
 	else
 		# in case of jfs/xfs force installation to mbr
-		# but only if HD is not on USB
-
-		case $HD_FSTYPE in
-		jfs|xfs) bootfrom=${root_device};;
-		esac
+		# but only if HD is not on USB and it's not already MBR
+		if [ "${BOOT_WHERE}" = "partition" ]; then
+			case $HD_FSTYPE in
+			jfs|xfs) bootfrom=${root_device};;
+			esac
+		fi
 	fi
 
 	#
