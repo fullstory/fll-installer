@@ -1,9 +1,5 @@
-fll-installer (0.2.2) UNRELEASED; urgency=low
+fll-installer (0.2.2) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * for jfs/xfs set grub to MBR on the install disk unless already an MBR
     location is given.
 
