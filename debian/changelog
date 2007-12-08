@@ -1,9 +1,5 @@
-fll-installer (0.2.3) UNRELEASED; urgency=low
+fll-installer (0.2.3) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * set SELINUX_INIT=NO per default on grub's menu.lst
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sat, 08 Dec 2007 12:20:35 +0100
