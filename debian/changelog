@@ -1,9 +1,5 @@
-fll-installer (0.2.4) UNRELEASED; urgency=low
+fll-installer (0.2.4) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * changed entry for windows to allow vista to boot.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sun, 06 Jan 2008 01:09:04 +0100
