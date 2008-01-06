@@ -95,8 +95,10 @@ function appendGrubForOtherOS()
 					if [ ${device:8} -le 4 ]; then
 						gp=$(translate_linux_to_grub $device)	
 						echo "" >> "$MyGrubTemp"
-						echo "title Windows 2K/XP/2003 (${device:5})" >> "$MyGrubTemp"
-						echo "chainloader $gp+1" >> "$MyGrubTemp"
+						echo "title Windows 2K/XP/2003/Vista (${device:5})" >> "$MyGrubTemp"
+						echo "rootnoverify $gp" >> "$MyGrubTemp"
+						echo "makeactive" >> "$MyGrubTemp"
+						echo "chainloader +1" >> "$MyGrubTemp"
 					fi
 				fi
 				#     
