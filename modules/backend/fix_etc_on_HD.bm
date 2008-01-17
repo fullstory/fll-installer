@@ -102,11 +102,6 @@ EOF
 	fi
 
 	#
-	# revert su-to-root/ sudo tricks
-	#
-	rm -rf "${TARGET_MNT_POINT}/etc/su-to-rootrc
-	
-	#
 	# revert KDM autologin
 	#
 	rm -f "${TARGET_MNT_POINT}/etc/default/kdm.d/autologin"
