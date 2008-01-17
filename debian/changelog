@@ -1,3 +1,9 @@
+fll-installer (0.2.7) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 17 Jan 2008 03:04:05 +0100
+
 fll-installer (0.2.6) unstable; urgency=low
 
   * revert usless su-to-rootrc removal, the bug is in gksu, so we don't need
