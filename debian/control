@@ -3,7 +3,7 @@ Section: admin
 Priority: extra
 Maintainer: Joaquim Boura <x-un-i@sidux.com>
 Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>
-Build-Depends: debhelper (>= 5), cdbs
+Build-Depends: debhelper (>= 6), cdbs
 Standards-Version: 3.7.3
 Vcs-Svn: svn://svn.berlios.de/fullstory/fll-installer/trunk
 Vcs-Browser: http://svn.berlios.de/wsvn/fullstory/fll-installer/trunk/
