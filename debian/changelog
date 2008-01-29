@@ -1,8 +1,8 @@
-fll-installer (0.2.8) UNRELEASED; urgency=low
+fll-installer (0.2.8) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * don't hide grub-install output, we need the debugging output.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 18 Jan 2008 23:20:51 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 29 Jan 2008 14:56:18 +0100
 
 fll-installer (0.2.7) unstable; urgency=low
 
