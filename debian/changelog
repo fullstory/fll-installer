@@ -1,8 +1,9 @@
-fll-installer (0.2.9) UNRELEASED; urgency=low
+fll-installer (0.2.9) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * the problems with grub have been identified, remove uneccessary noise
+    again (plain revert to r14315).
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 29 Jan 2008 14:57:17 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 29 Jan 2008 21:10:19 +0100
 
 fll-installer (0.2.8) unstable; urgency=low
 

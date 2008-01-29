@@ -96,13 +96,10 @@ install_grub()
 	#
 	# create device.map
 	#
-	echo "This may fail first time, we'll try again in that case."
-	grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT
-	if [ $? -ne 0 ]; then
-		echo "Second attempt to install grub, this one mustn't fail."
-		grub-install --recheck --no-floppy \
-			--root-directory=$TARGET_MNT_POINT
-	fi
+	grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT \
+		/dev/null &>/dev/null
+	[ $? -ne 0 ] && grub-install --recheck --no-floppy \
+			--root-directory=$TARGET_MNT_POINT /dev/null &>/dev/null
 
 	#
 	# ?? IS this export needeed ??
@@ -272,12 +269,14 @@ EOF
 	
 	if [ "${bootfrom}" = "$(get_root_device ${bootfrom})" ]
 	then # install on MBR
-		grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}"
+		grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" >/dev/null 2>/dev/null
 	else # install on partition
 	     # is twice because sometimes the first one fails in that cases the second
 	     # don't fail !!!
-		grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" || \
-			grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}"
+		grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" \
+			>/dev/null 2>/dev/null || \
+			grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" \
+				>/dev/null 2>/dev/null
 	fi
 
 	return 0
