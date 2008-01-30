@@ -43,10 +43,12 @@ function system_services()
 		pcmciautils
 		ppp
 		procps
+		rsyslog
 		screen
 		setserial
 		sudo
 		sysklogd
+		syslog-ng
 		sysv-rc
 		udev
 		util-linux
