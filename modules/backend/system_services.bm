@@ -22,6 +22,7 @@ function system_services()
 	local PACKAGE_WHITELIST=(
 		alsa-base
 		alsa-utils
+		anacron
 		atd
 		avahi-daemon
 		capiutils
