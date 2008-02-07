@@ -1,8 +1,8 @@
-fll-installer (0.2.12) UNRELEASED; urgency=low
+fll-installer (0.2.12) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * SELINUX_INIT=NO should no longer be required.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 01 Feb 2008 15:02:52 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 07 Feb 2008 22:21:46 +0100
 
 fll-installer (0.2.11) unstable; urgency=low
 

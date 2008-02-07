@@ -234,7 +234,7 @@ EOF
 	GRUB_VGA=$(getbootparam vga)
 	[ -z "$GRUB_VGA" ] && GRUB_VGA="$GRUB_DEFVGA"
 
-	GRUB_CMDLINE="$GRUB_CMDLINE vga=$GRUB_VGA SELINUX_INIT=NO"
+	GRUB_CMDLINE="$GRUB_CMDLINE vga=$GRUB_VGA"
 
 	#
 	# correct the kopt grub variable
