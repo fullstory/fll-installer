@@ -47,7 +47,6 @@ function system_services()
 		rsyslog
 		screen
 		setserial
-		sudo
 		sysklogd
 		syslog-ng
 		sysv-rc
