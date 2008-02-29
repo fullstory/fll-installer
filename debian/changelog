@@ -1,4 +1,4 @@
-fll-installer (0.2.16) UNRELEASED; urgency=low
+fll-installer (0.2.16) unstable; urgency=low
 
   * copy2hd.bm:
     - make sure /selinux is created on target root filesystem.
