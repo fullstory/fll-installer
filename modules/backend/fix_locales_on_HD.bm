@@ -64,6 +64,7 @@ function fix_locales_on_HD ()
 		fi
 	fi
 
+	return 0
 }
 #
 ##-------------------------------------

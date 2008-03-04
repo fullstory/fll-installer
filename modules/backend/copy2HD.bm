@@ -11,7 +11,12 @@
 # logit
 # module_hd_progressbar
 #
-##-------------------------------------
+# Error Codes
+# 20 - error copying iso to harddisk
+#
+# Return 0 on success 
+# on error the error code and message are in /tmp/.installer.errors
+##-------------------------------------------------------------------
 ##
 function copy2HD()
 {
@@ -58,6 +63,9 @@ function copy2HD()
 				rsync	--archive --quiet \
 					--exclude-from="${SEARCHPATH}/data/exclusion_list" \
 					"${dir}" "${TARGET_MNT_POINT}"
+				if [ $? -ne 0 ] ; then
+					error 20 "Error copying iso to harddisk"
+				fi
 				sync
 			fi
 		done
@@ -66,6 +74,13 @@ function copy2HD()
 		[ -d "${TARGET_MNT_POINT}/selinux" ] || mkdir "${TARGET_MNT_POINT}/selinux"
 	) &
 	module_hd_progressbar $!
+
+	# when the file /tmp/.installer.errors exist and the first field is 20
+	# then we must stop installation as an error has happened
+	
+	if [ -s $ERRLOG ]; then
+		exit "$(cut -f 1 -d '-' < $ERRLOG)"
+	fi
 
 	#
 	# two beeps
@@ -77,5 +92,6 @@ function copy2HD()
 		printf "\a"
 	fi
 	sleep 0.5
+	return 0
 }
 

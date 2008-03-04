@@ -3,14 +3,10 @@
 # ------------------------
 CONFIG_FILE="$HOME/.sidconf"
 LOG="$HOME/.sidlog"
-ERR="$HOME/.siderr"
-##
+
+#
 ###-------------------------------------
-## Needs:
-## LOG
-##
-###-------------------------------------
-###
+#
 function logit()
 {
 	local TIME
@@ -19,23 +15,9 @@ function logit()
 	[ -n "$*" ] && echo $TIME: "$@" >> $LOG || echo >> $LOG
 }
 
-##
+#
 ###-------------------------------------
-## Needs:
-## ERR
-##
-###-------------------------------------
-###
-function error()
-{
-	local TIME
-
-	TIME=$(date)
-	[ -n "$*" ] && echo $TIME: "$@" >> $ERR || echo >> $ERR
-}
-
-###-------------------------------------
-
+#
 TARGET_MNT_POINT="/media/hdinstall" 
 TARGET_MNT_NAME="hdinstall" 
 
@@ -74,15 +56,10 @@ CMDLINE=$(</proc/cmdline)
 # try to calculate the room needed
 ###-------------------------------------
 #
-if grep -q "[au|union]fs" /proc/mounts; then
-	ROOT_MIN_RAW=$(du -sm "$DEFAULT_DIR" | awk '{print $1}')
-else
-	ROOT_MIN_RAW=$(df -m "$DEFAULT_DIR" | tail -1 | awk '{print $3}')
-	grep -q squashfs /proc/mounts && ROOT_MIN_RAW=$(($ROOT_MIN_RAW*270/100)) 
-fi
+ROOT_MIN=$(df -m "$DEFAULT_DIR" | tail -1 | awk '{print $3}')
+# squashfs unpacks to ca 2.8 size , give 20% savety
+ROOT_MIN=$(($ROOT_MIN_RAW*340/100)) 
 
-ROOT_MIN_CORR=$[ROOT_MIN_RAW*115/100] # + 15% Filesystem overhead
-ROOT_MIN=$(($ROOT_MIN_CORR*1024))
 
 #
 ###-------------------------------------

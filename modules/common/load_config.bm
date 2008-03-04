@@ -5,11 +5,15 @@
 # 
 # Calls:
 # logit
-# check_param
 #
-##-------------------------------------
+# Error Codes
+# 10 - bad config file. At least one parameter is undefined.
+#
+# Return 0 on success 
+# on error the error code and message are in ERRLOG
+##-------------------------------------------------------------------
 ##
-function load_config
+function load_config()
 {
 	local config
 
@@ -28,11 +32,16 @@ function load_config
 	
 	source $config
 
-	for i in $REGISTERED; do
-		#echo "$i=${!i}"
-		#echo check_param "$i" "${!i}"
-		check_param "$i" "${!i}"
+	for i in ${REGISTERED}; do  
+		
+		if [ "$i" != "HD_MAP" -a "$i" != "SWAP_CHOICES" -a  \
+			"$i" != "SERVICES_START" -a -z "$(eval echo \$$i)" ]; 
+		then  
+			error 10 "Parameter $i is not defined"
+			exit 10
+ 		fi
 	done
+	return 0
 }
 ##-------------------------------------
 

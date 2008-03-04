@@ -24,18 +24,88 @@
 # found in /usr/share/common-licenses/GPL.
 #
 #--------------------------------------------------------------------------
+ERRLOG=/tmp/.installer.error
+DEBUGLOG=/tmp/.installer.debug
 
-#
-# Include needed Bash-Modules
-#
+if test -n $INSTDBG ; then
+	set -x
+	exec 2>${DEBUGLOG}
+fi
+#--------------------------------------------------------------
+# one place to save the error code and message
+#--------------------------------------------------------------
+error()
+{
+	local exitval="${1}"
+	shift
 
-SEARCHPATH="/usr/share/fll-installer"
-[ -f ./modules/initialization.bm  ] && SEARCHPATH="."
+	# the gui should use this to proclaim success/error
+	echo "${exitval}-${@}" > "${ERRLOG}"
 
-for i in $(find "$SEARCHPATH/modules" -name "*.bm"); do
-	source $i
+	echo "E: ${@}"
+}
+#--------------------------------------------------------------
+# usage
+#--------------------------------------------------------------
+usage()
+{
+	echo "$0 [-d|--debug] [-i|--inotify inotify_fifo} [-h] [installer inotify_fifo]"
+	exit 1
+}
+#--------------------------------------------------------------
+# preparation, process cli arguments with getopt
+#--------------------------------------------------------------
+TEMP=$(getopt -o di:h \
+        --long debug,inotify:,help \
+        -n  "$(basename ${0})" -- "${@}")
+
+if [ "${?}" -ne 0 ]; then
+        error 255 "getopt terminated abnormally"
+        exit 255
+fi
+
+# Note the quotes around `$TEMP': they are essential!
+eval set -- "${TEMP}"
+
+
+while true ; do
+	case "${1}" in
+		-d|--debug)
+			set -x
+			shift
+			exec 2>${DEBUGLOG}
+			;;
+		-i|--inotify)
+			INSTALLER_INOTIFY="${2}"
+			shift 2
+			;;
+		-h|--help)
+			usage
+			exit 0
+			;;
+		*)
+			break
+			;;
+	esac
 done
 
+# also handle old installer call
+shift $((OPTIND))
+if [ $# -eq 2  ]; then
+	test "$1" = "installer"  &&  INSTALLER_INOTIFY="$2"
+fi
+
+
+#--------------------------------------------------------------
+#
+# Include needed Bash-Modules
+#--------------------------------------------------------------
+
+SEARCHPATH="/usr/share/fll-installer"
+
+for i in $(find "${SEARCHPATH}/modules" -name *.bm); do
+	source $i
+done
 #------------------
 
 trap clean_exit EXIT
@@ -44,14 +114,12 @@ TMPDIR="$(mktemp -p /tmp -d fll-installer.XXXXX)"
 
 #------------------
 
-if [ "$1" = "installer" ]; then
-	test -n "$2" && INSTALLER_INOTIFY="$2"
-	INSTALL_MODE=installer main
-	exit 1 # something did go wrong
-fi
+main
+# we should never arrive here otherwise
 
 # something did go wrong
-exit 1 
+error 254 "internal error"
+exit 254 
 
 #------------------
 

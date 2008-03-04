@@ -41,6 +41,7 @@ function fix_etc_on_HD()
 	#
 	# don't allow everyone to use sudo.
 	#
+	logit $"fixing sudoers"
 	cat "$TARGET_MNT_POINT/usr/share/base-files/profile" > "$TARGET_MNT_POINT/etc/profile"
 	
 	#
@@ -67,6 +68,7 @@ root	ALL=(ALL) ALL
 EOF
 	chown root:root "$sudoers"
 	chmod 0440 "$sudoers"
+
 
 	chroot_it deluser "${USER_NAME}" sudo
 
@@ -104,14 +106,17 @@ EOF
 	#
 	# revert KDM autologin
 	#
-	rm -f "${TARGET_MNT_POINT}/etc/default/kdm.d/autologin"
+	if [ -f  "${TARGET_MNT_POINT}/etc/default/kdm.d/autologin" ]; then
+		rm -f "${TARGET_MNT_POINT}/etc/default/kdm.d/autologin"
+	fi
 
 	#
 	# revert GDM autologin
 	#
 	if [ -f "${FLL_MOUNTPOINT}/etc/gdm/gdm.conf" ]; then
 
-		# we want the gdm-theme (set by desktop-defaults in live mode) on hd-install, only remove autologin for gdm
+		# we want the gdm-theme (set by desktop-defaults in live mode) on hd-install, 
+		# only remove autologin for gdm
 		sed -i	-e "/^AutomaticLogin\=.*/d" \
 			-e "/^AutomaticLoginEnable\=.*/d" \
 				${TARGET_MNT_POINT}/etc/gdm/gdm.conf
@@ -125,5 +130,7 @@ EOF
 			-e "s/^\(# User alias.*\)/\1\n${USER_NAME} ${HOST_NAME} \= NOPASSWD: \/usr\/sbin\/xfsm-shutdown-helper/" \
 				$sudoers
 	fi
+
+	return 0
 }
 

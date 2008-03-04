@@ -32,6 +32,7 @@ function update_resume_conf()
 		sed -i 's|^RESUME=.*|RESUME='"$resume"'|' \
 			"$TARGET_MNT_POINT/etc/initramfs-tools/conf.d/resume"
 	fi		
+	return 0
 }
 #-----------------------------------
 

@@ -24,7 +24,8 @@ function fix_home_on_HD()
 	logit $"fix_home_on_HD"
 
 	if [ "${USER_NAME}" != "${DEFAULT_USER}" ];	then
-		if [ -d "${TARGET_MNT_POINT}${LIVEHOME}" ] && [ ! -d "${TARGET_MNT_POINT}${INSTHOME}" ]; then
+		if [ -d "${TARGET_MNT_POINT}${LIVEHOME}" ] && \
+			[ ! -d "${TARGET_MNT_POINT}${INSTHOME}" ]; then
 			mv "${TARGET_MNT_POINT}${LIVEHOME}" "${TARGET_MNT_POINT}${INSTHOME}"
 		fi
 		# fix /home/user paths in various config files
@@ -39,7 +40,8 @@ function fix_home_on_HD()
 			"${TARGET_MNT_POINT}${INSTHOME}/Desktop/${FLL_DISTRO_NAME}.desktop" \
 			"${TARGET_MNT_POINT}${INSTHOME}/Desktop/install-gui.desktop" \
 			"${TARGET_MNT_POINT}${INSTHOME}/.config/autostart/${FLL_DISTRO_NAME}.desktop" \
-			"${TARGET_MNT_POINT}${INSTHOME}/.hushlogin" "${TARGET_MNT_POINT}/root/.hushlogin"; do
+			"${TARGET_MNT_POINT}${INSTHOME}/.hushlogin" \
+			"${TARGET_MNT_POINT}/root/.hushlogin"; do
 		[ -f "${file}" ] && rm -f "${file}"
 	done
 
@@ -57,6 +59,7 @@ function fix_home_on_HD()
 	#
 	# revert gksu sudo mode hack
 	#
+	logit $"revert gksu sudo mode hack"
 	chroot "${TARGET_MNT_POINT}" \
 		sudo -u "${FLL_LIVE_USER}" gconftool-2 -s -t bool /apps/gksu/sudo-mode false
 	chroot "${TARGET_MNT_POINT}" \
@@ -72,6 +75,7 @@ function fix_home_on_HD()
 	#
 	# clean ownership
 	#
+	logit $"fixing ownership in chroot"
 	chroot "${TARGET_MNT_POINT}" chown -R "${USER_NAME}:${USER_NAME}" "${INSTHOME}"
 }
 ##-------------------------------------

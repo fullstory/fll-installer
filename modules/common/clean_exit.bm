@@ -13,5 +13,10 @@ function clean_exit()
 {
 	[ -n "$TMPDIR" ] && rm -rf "$TMPDIR"
 	logit $"$FLL_DISTRO_NAME-installer terminated"
+	#
+	# copy the install log into users home
+	#
+	cp -f $LOG  "$TARGET_MNT_POINT/root"
+
 }
 

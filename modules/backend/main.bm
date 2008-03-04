@@ -4,10 +4,7 @@
 # FLL_DISTRO_NAME-installer
 # CONFIG_FILE
 # TMPDIR
-# MODULE_ERROR
 # BOOT_DISK
-# MODULE_ERROR
-# INSTALL_META
 # HD_MAP
 # ACTION (changes)
 # LOG
@@ -27,6 +24,7 @@
 # purge_live_only_stuff
 # end_progress
 #
+# exit code 1 : Config file $CONFIG_FILE could not be found.
 ##-------------------------------------
 ##
 function main()
@@ -53,8 +51,8 @@ function main()
 	#
 
 	if [ ! -f "$CONFIG_FILE" ]; then
-		echo $"Config file $CONFIG_FILE could not be found."
-		return 1
+		error 1 "Config file $CONFIG_FILE could not be found."
+		exit 1
 	fi
 
 	#
@@ -63,11 +61,6 @@ function main()
 	progress $"$FLL_DISTRO_NAME-installer started"
 	
 	#
-	# is that needed ?
-	#
-	touch $TMPDIR/errors
-
-	#
 	# do the main job
 	#
 	for action in "${all_actions[@]}"; do
@@ -75,17 +68,6 @@ function main()
 	done
 
 	sync
-
-	##
-	## Some error handling needed
-	##
-	# rc=$?
-	# MODULE_ERROR=$(<$TMPDIR/errors)
-
-	# if [ -n "$MODULE_ERROR" ]; then
-		#
-		# return 1
-	# fi
 
 	# 
 	# if user wants make a boot floppy
@@ -102,37 +84,30 @@ function main()
 	# Success Message and end installer
 	logit $"$FLL_DISTRO_NAME was successfully installed to hd."
 
-	# 
-	# copy the install log into users home
-	#
-	cp -f $LOG  "$TARGET_MNT_POINT/home/$USER_NAME"
-
 	# if needed unmount the partitions
-	if [ "$INSTALL_META" = no ]; then
-		#
-		# begin workaround: wait a few seconds till everything is set 
-		# so we can umount cleanly
-		#
-		j=0
-		while lsof "$TARGET_MNT_POINT"
-		do
-			sleep 5
-			[ $j -ge 30 ] && break
-			((j=$j+1))
-		done
-		sync
-		#
-		# end workaround
-		#
-		
-		for i in $HD_MAP; do
-			point=$(echo $i | cut -d":" -f2)
-			umount $TARGET_MNT_POINT$point
-		done
+	#
+	# begin workaround: wait a few seconds till everything is set 
+	# so we can umount cleanly
+	#
+	j=0
+	while lsof "$TARGET_MNT_POINT"
+	do
+		sleep 5
+		[ $j -ge 30 ] && break
+		((j=$j+1))
+	done
+	sync
+	#
+	# umount mounted filesystems
+	#
 	
-		# Just to be sure :-)
-		umount $TARGET_MNT_POINT
-	fi
+	for i in $HD_MAP; do
+		point=$(echo $i | cut -d":" -f2)
+		umount $TARGET_MNT_POINT$point
+	done
+
+	# Just to be sure :-)
+	umount $TARGET_MNT_POINT
 
 	exit 0
 }

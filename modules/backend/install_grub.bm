@@ -276,7 +276,7 @@ EOF
 		grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" \
 			>/dev/null 2>/dev/null || \
 			grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" \
-				>/dev/null 2>/dev/null
+			>/dev/null 2>/dev/null
 	fi
 
 	return 0

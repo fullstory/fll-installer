@@ -7,19 +7,26 @@
 # HD_FSTYPE
 # HD_MAP
 # TMPDIR
-# ERROR_MESSAGES
-# MODULE_ERROR
 #
 # Calls:
 # logit
 # progress
 #
-##-------------------------------------
+# Error Codes
+# 15 - could not format the root partition
+# 16 - Mounting of $HD_CHOICE failed. Some messages from mount follow
+# 17 - Mounting of $HD_CHOICE failed. Some messages from mount follow
+#
+# Return 0 on success 
+# on error the error code and message are in /tmp/.installer.errors
+##-------------------------------------------------------------------
 ##
-function prepareHD ()
+function prepareHD()
 {
 	local rc
 	local TMP
+	local err_msg
+	local error_messages
 
 	#
 	# log my call
@@ -54,12 +61,11 @@ function prepareHD ()
 		
 		rc="$?"
 		if [ $rc -ne 0 ]; then
-			ERROR_MESSAGES=$(tail -8 $TMP)
-			MODULE_ERROR=$"Formatting of $HD_CHOICE failed. Some messages from mkfs.$HD_FSTYPE: $ERROR_MESSAGES"
-			logit $MODULE_ERROR
-			echo "$MODULE_ERROR" > $TMPDIR/errors
-			
-			return 1
+			error_messages=$(tail -8 $TMP)
+			err_msg="Formatting of $HD_CHOICE failed. Some messages from mkfs.$HD_FSTYPE: $error_messages"
+			logit $err_msg
+			error 15 "$err_msg"
+			exit 15
 		fi
 		# 
 		# Deactivate dir_index-feature of ext2/ext3-partitions
@@ -75,16 +81,23 @@ function prepareHD ()
 	# Mounting $HD_CHOICE r/w...
 	#
 	mkdir -p $TARGET_MNT_POINT
-	mount -t $HD_FSTYPE $HD_CHOICE $TARGET_MNT_POINT
-	mount -o remount,dev $TARGET_MNT_POINT
+	mount -t $HD_FSTYPE $HD_CHOICE $TARGET_MNT_POINT 2>&1> ${TMP}
+	if [ $? -ne 0 ]; then
+		error_messages=$(tail -8 $TMP)
+		err_msg="Mounting of $HD_CHOICE failed. Some messages from mount: $error_messages"
+		logit $err_msg
+		error 16 "$err_msg"
+		exit 16
+	fi
+
+	mount -o remount,dev $TARGET_MNT_POINT 2>&1> ${TMP}
 
 	if [ $? -ne 0 ]; then
-		ERROR_MESSAGES=$(tail -8 $TMP)
-		MODULE_ERROR=$"Mounting of $HD_CHOICE failed. Some messages from mount: $ERROR_MESSAGES"
-		logit $MODULE_ERROR
-		echo "$MODULE_ERROR" > $TMPDIR/errors
-		
-		return 1
+		error_messages=$(tail -8 $TMP)
+		err_msg="Mounting of $HD_CHOICE failed. Some messages from mount: $error_messages"
+		logit $err_msg
+		error 17 "$err_msg"
+		exit 17
 	fi
 
 	#
@@ -97,7 +110,7 @@ function prepareHD ()
 		mount $part $TARGET_MNT_POINT$point 2> /dev/null
 		mount -o remount,dev $TARGET_MNT_POINT$point
 	done
-	
+	return 0	
 }
 ##-------------------------------------
 
