@@ -82,7 +82,7 @@ function system_services()
 		# configuration, it is provided by fll-live-initscripts.
 		#
 		UPDATE_RCD=( $(/usr/bin/fll_analyze_initscripts --chroot "$DEFAULT_DIR" "$service") )
-		if [[ ${UPDATE_RCD[0]} == "update-rc.d" && ${UPDATE_RCD[1]} == $service ]]; then
+		if [[ ${UPDATE_RCD[0]} && ${UPDATE_RCD[1]} == $service ]]; then
 			chroot_it ${UPDATE_RCD[@]}
 		fi
 	done
