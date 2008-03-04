@@ -18,5 +18,26 @@ function clean_exit()
 	#
 	cp -f $LOG  "$TARGET_MNT_POINT/root"
 
+        #
+        # remove passwords from the $CONFIG file
+        #
+        test -e ${TARGET_MNT_POINT}/${CONFIG_FILE} && \
+                sed -i -e "s#\(USERPASS_CRYPT=\).*#\1''#"  \
+                        -e "s#\(ROOTPASS_CRYPT=\).*#\1''#"  \
+                        ${TARGET_MNT_POINT}/${CONFIG_FILE}
+
+        test -e ${TARGET_MNT_POINT}/${CONFIG_FILE} && \
+                chmod 600 ${TARGET_MNT_POINT}/${CONFIG_FILE}
+
+        #
+        # umount mounted filesystems
+        #
+        for i in $HD_MAP; do
+                point=$(echo $i | cut -d":" -f2)
+                umount $TARGET_MNT_POINT$point
+        done
+
+        # Just to be sure :-)
+        umount $TARGET_MNT_POINT
 }
 

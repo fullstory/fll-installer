@@ -97,17 +97,6 @@ function main()
 		((j=$j+1))
 	done
 	sync
-	#
-	# umount mounted filesystems
-	#
-	
-	for i in $HD_MAP; do
-		point=$(echo $i | cut -d":" -f2)
-		umount $TARGET_MNT_POINT$point
-	done
-
-	# Just to be sure :-)
-	umount $TARGET_MNT_POINT
 
 	exit 0
 }
