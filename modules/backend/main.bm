@@ -47,7 +47,7 @@ function main()
 	#
 	# log my call
 	#
-	logit $"main"
+	logit $"starting installation"
 	#
 
 	if [ ! -f "$CONFIG_FILE" ]; then
@@ -64,6 +64,7 @@ function main()
 	# do the main job
 	#
 	for action in "${all_actions[@]}"; do
+		say "starting $action"
 		$action
 	done
 
@@ -73,6 +74,7 @@ function main()
 	# if user wants make a boot floppy
 	#
 	if [ "$BOOT_DISK" = "yes" ]; then
+		say "creating floppy"
 		make_floppy
 	fi
 
@@ -90,7 +92,7 @@ function main()
 	# so we can umount cleanly
 	#
 	j=0
-	while lsof "$TARGET_MNT_POINT"
+	while lsof "$TARGET_MNT_POINT" >/dev/null
 	do
 		sleep 5
 		[ $j -ge 30 ] && break

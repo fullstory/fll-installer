@@ -21,7 +21,7 @@ function fix_home_on_HD()
 	#
 	# log my call
 	#
-	logit $"fix_home_on_HD"
+	logit $"fix_home_on_installed system"
 
 	if [ "${USER_NAME}" != "${DEFAULT_USER}" ];	then
 		if [ -d "${TARGET_MNT_POINT}${LIVEHOME}" ] && \

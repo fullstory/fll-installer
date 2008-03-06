@@ -11,7 +11,7 @@ function add_var()
 	#
 	# log my call
 	#
-	logit $"add_var"
+	# logit $"add_var"
 	#
 
 	case "$REGISTERED" in *$1*) return 1;; esac
@@ -24,7 +24,7 @@ function register_vars()
 	#
 	# log my call
 	#
-	logit $"register_vars"
+	# logit $"register_vars"
 	#
 
 	for i in $@; do
@@ -42,7 +42,7 @@ function register_var()
 	#
 	# log my call
 	#
-	logit $"register_var"
+	# logit $"register_var"
 	#
 
 	export $1"_COMMENT"="$2"

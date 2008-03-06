@@ -31,7 +31,7 @@ function prepareHD()
 	#
 	# log my call
 	#
-	logit $"prepareHD"
+	logit $"prepare disk for the installation"
 	#
 
 	TMP="$(mktemp)"

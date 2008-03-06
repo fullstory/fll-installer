@@ -10,7 +10,7 @@ LOG="$HOME/.sidlog"
 function logit()
 {
 	local TIME
-
+	say "$@"
 	TIME=$(date)
 	[ -n "$*" ] && echo $TIME: "$@" >> $LOG || echo >> $LOG
 }

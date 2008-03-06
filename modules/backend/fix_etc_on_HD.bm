@@ -22,7 +22,7 @@ function fix_etc_on_HD()
 	#
 	# log my call
 	#
-	logit $"fix_etc_on_HD"
+	logit $"fix /etc on the installed system"
 	#
 
 	#
@@ -47,6 +47,7 @@ function fix_etc_on_HD()
 	#
 	# also fix sudoers
 	#
+	say "cleanup the sudoers conf file"
 	cat > "$sudoers" <<EOF
 # /etc/sudoers
 #
@@ -68,7 +69,6 @@ root	ALL=(ALL) ALL
 EOF
 	chown root:root "$sudoers"
 	chmod 0440 "$sudoers"
-
 
 	chroot_it deluser "${USER_NAME}" sudo
 

@@ -17,7 +17,8 @@ function fix_grub_for_UUID()
 	# log my call
 	#
 	logit $"fix_grub_for_UUID"
-        #
+	#
+	say "fixing grub for UUID"
 
 	menuList="${TARGET_MNT_POINT}/boot/grub/menu.lst"
 	rootDevice=$(grep '^# kopt=root=' ${menuList}|sed 's/^# kopt=root=//'|sed 's/ .*$//')

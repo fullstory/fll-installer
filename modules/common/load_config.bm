@@ -20,7 +20,7 @@ function load_config()
 	#
 	# log my call
 	#
-	logit $"load_config"
+	logit $"load the configuration"
 	#
 
 	

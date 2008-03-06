@@ -23,7 +23,7 @@ function copy2HD()
 	#
 	# log my call
 	#
-	logit $"copy2HD"
+	logit $"copy the CD into the harddisk"
 	#
 
 	OLDPERC=0

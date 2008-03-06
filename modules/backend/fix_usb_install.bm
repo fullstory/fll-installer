@@ -27,7 +27,7 @@ function fix_usb_install ()
 	#
 	# log my call
 	#
-	logit $"fix_usb_install"
+	logit $"fix system installed on usb device"
 	#
 
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)

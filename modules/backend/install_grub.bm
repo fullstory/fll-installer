@@ -47,7 +47,7 @@ install_grub()
 	#
 	# log my call
 	#
-	logit $"install_grub"
+	logit $"installing grub"
 	#
 
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
@@ -96,6 +96,7 @@ install_grub()
 	#
 	# create device.map
 	#
+	say "create the device.map"
 	grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT \
 		/dev/null &>/dev/null
 	[ $? -ne 0 ] && grub-install --recheck --no-floppy \
@@ -120,6 +121,7 @@ install_grub()
 	# 
 	# Create initital menu.lst
 	#
+	say "create initital menu.lst"
 	(cd $TARGET_MNT_POINT/boot; ln -sf initrd.img-$BOOT_RUNNING_KERNEL initrd.img)
 	chroot_it update-grub -y >/dev/null 2>/dev/null
 

@@ -15,7 +15,7 @@ function system_services()
 	#
 	# log my call
 	#
-	logit $"system_services"
+	logit $"configuring system services"
 
 	local UPDATE_RCD
 	local SERVICE_WHITELIST
@@ -88,6 +88,7 @@ function system_services()
 	done
 
 	# disable all services in /etc/inetd.conf
+	say "disable all services in /etc/inetd.conf"
 	if [[ -x "$TARGET_MNT_POINT"/etc/init.d/openbsd-inetd ]]; then
 		chroot_it update-inetd --multi --disable '*'
 	fi
