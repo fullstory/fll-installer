@@ -1,3 +1,9 @@
+fll-installer (0.2.18) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 06 Mar 2008 23:36:15 +0100
+
 fll-installer (0.2.17) unstable; urgency=low
 
   * modules/backend/system_services.bm:
