@@ -1,9 +1,5 @@
-fll-installer (0.2.19) UNRELEASED; urgency=low
+fll-installer (0.2.19) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * make get_root_device silent
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sun, 09 Mar 2008 20:42:01 +0100
