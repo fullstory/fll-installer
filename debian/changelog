@@ -1,8 +1,12 @@
 fll-installer (0.2.19) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 07 Mar 2008 00:56:47 +0100
+  [ Joaquim Boura ]
+  * make get_root_device silent
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 09 Mar 2008 20:42:01 +0100
 
 fll-installer (0.2.18) unstable; urgency=low
 
