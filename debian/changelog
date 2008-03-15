@@ -1,8 +1,13 @@
 fll-installer (0.2.20) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 09 Mar 2008 20:53:14 +0100
+  [ Joaquim Boura ]
+  * remove packages for virtual-box-guest when this are not needed on the
+    installed system
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sat, 15 Mar 2008 16:52:45 +0100
 
 fll-installer (0.2.19) unstable; urgency=low
 

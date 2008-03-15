@@ -17,6 +17,7 @@ purge_live_only_stuff()
 	#
 	logit $"purge_live_only_stuff"
 	#
+	local installed_pacakages
 
 	# purge live-specific packages
 	chroot_it dpkg --purge	fll-live-initramfs \
@@ -35,7 +36,8 @@ purge_live_only_stuff()
 
 	# remove virtualisation helpers on non-emulated hardware
 	if [ -z "$(lspci -d 80ee:beef)" ]; then
-		chroot_it dpkg --purge	virtualbox-ose-guest-utils
+		installed_packages=$(dpkg -l |awk '/virtualbox\-ose\-guest\-modules/{print $2}')
+		chroot_it dpkg --purge ${installed_packages}
 	fi
 
 	#  disable live config
