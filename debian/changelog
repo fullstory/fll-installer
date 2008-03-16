@@ -1,9 +1,5 @@
-fll-installer (0.2.20) UNRELEASED; urgency=low
+fll-installer (0.2.20) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * remove packages for virtual-box-guest when this are not needed on the
     installed system
 
