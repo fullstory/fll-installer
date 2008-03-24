@@ -39,6 +39,14 @@ function fix_etc_on_HD()
 	echo "$HOST_NAME" > "$TARGET_MNT_POINT/etc/mailname"
 
 	#
+	# regenerate default snakeoil with new hostname
+	#
+	if which make-ssl-cert >/dev/null; then
+		logit $"fixing ssl-cert"
+		chroot_it make-ssl-cert generate-default-snakeoil --force-overwrite
+	fi	
+
+	#
 	# don't allow everyone to use sudo.
 	#
 	logit $"fixing sudoers"
