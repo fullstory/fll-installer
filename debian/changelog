@@ -1,4 +1,4 @@
-fll-installer (0.2.21) UNRELEASED; urgency=low
+fll-installer (0.2.21) unstable; urgency=low
 
   * modules/backend/fix_etc_on_HD.bm:
     - regenerate ssl-cert snakeoil with installed chroots hostname
