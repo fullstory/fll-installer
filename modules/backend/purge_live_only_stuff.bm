@@ -30,9 +30,9 @@ purge_live_only_stuff()
 				install-gui \
 				install-usb-gui \
 				fll-installer \
-				sidux-setpassword \
-				sshstart-sidux \
-				startsyslog-sidux
+				setpassword \
+				sshstart \
+				startsyslog
 
 	# remove virtualisation helpers on non-emulated hardware
 	if [ -z "$(lspci -d 80ee:beef)" ]; then
