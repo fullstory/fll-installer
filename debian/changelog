@@ -1,3 +1,9 @@
+fll-installer (0.2.23) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 21 Apr 2008 22:39:44 +0200
+
 fll-installer (0.2.22) unstable; urgency=low
 
   * live-only packages have been renamed.
