@@ -1,10 +1,6 @@
-fll-installer (0.2.22) UNRELEASED; urgency=low
+fll-installer (0.2.22) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
-  * packages were renamed
+  * live-only packages have been renamed.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Mon, 21 Apr 2008 20:49:07 +0200
 
