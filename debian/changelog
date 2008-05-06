@@ -1,8 +1,8 @@
-fll-installer (0.2.23) UNRELEASED; urgency=low
+fll-installer (0.2.23) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * switch to the new dh implementation of debhelper 7.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 21 Apr 2008 22:39:44 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 07 May 2008 01:06:13 +0200
 
 fll-installer (0.2.22) unstable; urgency=low
 
