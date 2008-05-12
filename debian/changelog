@@ -1,4 +1,4 @@
-fll-installer (0.3.0) UNRELEASED; urgency=low
+fll-installer (0.3.0) unstable; urgency=low
 
   * Add myself to uploaders.
   * Integrate fll-iso2usb script, a direct rename of install_fromiso_in_USB
