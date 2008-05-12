@@ -2,7 +2,7 @@ Source: fll-installer
 Section: admin
 Priority: extra
 Maintainer: Joaquim Boura <x-un-i@sidux.com>
-Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>
+Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>, Kel Modderman <kel@otaku42.de>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.7.3
 Vcs-Svn: svn://svn.berlios.de/fullstory/fll-installer/trunk
@@ -15,7 +15,14 @@ Depends: adduser, initramfs-tools, grub-gfxboot | grub, procps, udev-config-sidu
 Breaks:	install-gui (<< 0.5)
 Recommends: install-gui, install-meta
 Suggests: gparted, distro-defaults
-Description: backend scripts to install sidux to hd
- sidux-installer is an fully functional installation program
- to easily install sidux to hd. this are the backend scripts
+Description: backend scripts to install sidux to hdd
+ fll-installer provides a framework for installing FULLSTORY Live Linux
+ to hard disk drives.
 
+Package: fll-iso2usb
+Architecture: all
+Depends: grub-gfxboot | grub, distro-defaults
+Recommends: install-usb-gui
+Description: backend scripts to install sidux to an usb hdd
+ fll-iso2usb provides a bash script for installing FULLSTORY Live Linux
+ to usb disk drives.

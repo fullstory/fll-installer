@@ -1,8 +1,10 @@
-fll-installer (0.2.24) UNRELEASED; urgency=low
+fll-installer (0.3.0) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * Add myself to uploaders.
+  * Integrate fll-iso2usb script, a direct rename of install_fromiso_in_USB
+    from the install-usb-gui package.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 07 May 2008 01:07:30 +0200
+ -- Kel Modderman <kel@otaku42.de>  Mon, 12 May 2008 20:36:20 +1000
 
 fll-installer (0.2.23) unstable; urgency=low
 
