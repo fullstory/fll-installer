@@ -1,4 +1,4 @@
-fll-installer (0.3.2) UNRELEASED; urgency=low
+fll-installer (0.3.2) unstable; urgency=low
 
   * modules/backend/create_initrd.bm:
     - revert changes of 0.3.1
