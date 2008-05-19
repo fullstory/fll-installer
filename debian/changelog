@@ -1,4 +1,4 @@
-fll-installer (0.3.1) UNRELEASED; urgency=low
+fll-installer (0.3.1) unstable; urgency=low
 
   * modules/backend/add_bootmanager.bm:
     - use fll_fstab_generator and not fll_fshelper
