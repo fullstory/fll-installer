@@ -25,8 +25,19 @@ function create_initrd()
 	# Make the real initrd
 	#
 	chroot_it mount -t sysfs sysfs /sys
-	( chroot_it update-initramfs -c -k "$BOOT_KERNEL" ) > /dev/null 2>&1
+	chroot_it mount -t procfs procfs /proc
+	
+	# /etc/console/boottime.kmap.gz
+	chroot_it dpkg-reconfigure -fnoninteractive -pcritical console-data
+	
+	# /etc/initramfs-tools/conf.d/resume
+	chroot_it /etc/init.d/fll-resume start
+
+	# do the initramfs
+	chroot_it update-initramfs -c -k "$BOOT_KERNEL"
+	
 	chroot_it umount /sys
+	chroot_it umount /proc
  
 	# if the file does not exist an error was there...
 	[ ! -s "$TARGET_MNT_POINT/boot/initrd.img-$BOOT_KERNEL" ] && return 2
