@@ -27,9 +27,6 @@ function create_initrd()
 	chroot_it mount -t sysfs sysfs /sys
 	chroot_it mount -t procfs procfs /proc
 	
-	# /etc/console/boottime.kmap.gz
-	chroot_it dpkg-reconfigure -fnoninteractive -pcritical console-data
-	
 	# /etc/initramfs-tools/conf.d/resume
 	chroot_it /etc/init.d/fll-resume start
 

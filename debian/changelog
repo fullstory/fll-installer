@@ -9,11 +9,10 @@ fll-installer (0.3.1) UNRELEASED; urgency=low
   * modules/backend/update_resume_conf.bm:
     - purged, obsolete. Remove call to function from main.bm
   * modules/backend/create_initrd.bm:
-    - dpkg-reconfigure console-data to install boot time keymap
     - run /etc/init.d/fll-resume to correct any change to initramfs
       configuration
 
- -- Kel Modderman <kel@otaku42.de>  Mon, 19 May 2008 16:10:41 +1000
+ -- Kel Modderman <kel@otaku42.de>  Mon, 19 May 2008 20:23:45 +1000
 
 fll-installer (0.3.0) unstable; urgency=low
 
