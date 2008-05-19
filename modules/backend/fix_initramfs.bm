@@ -21,7 +21,6 @@ function fix_initramfs()
 	chroot_it /etc/init.d/fll-resume start
 
 	# Fix boot time keymap
-	chroot_it debconf-set-selections /etc/default/fll-locales
 	chroot_it dpkg-reconfigure -fnoninteractive -pcritical console-data
 
 	# Update the initramfs
