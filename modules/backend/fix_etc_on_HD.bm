@@ -101,6 +101,17 @@ EOF
 	touch "$mtab"
 
 	#
+	# Save ALSA sound volume
+	#
+	if [ -e /proc/asound/modules ] && [ -x /usr/sbin/alsactl ]; then
+		/usr/sbin/alsactl store
+		if [ -f /var/lib/alsa/asound.state ]; then
+			cp /var/lib/alsa/asound.state \
+				"$TARGET_MNT_POINT/var/lib/alsa"
+		fi
+	fi
+
+	#
 	# revert KDM autologin
 	#
 	if [ -f  "${TARGET_MNT_POINT}/etc/default/kdm.d/autologin" ]; then

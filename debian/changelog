@@ -1,8 +1,11 @@
 fll-installer (0.3.2) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * modules/backend/create_initrd.bm:
+    - revert changes of 0.3.1
+  * modules/backend/fix_etc_on_HD.bm:
+    - reinstate saving of alsa sound state, it is indeed useful
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 19 May 2008 14:30:54 +0200
+ -- Kel Modderman <kel@otaku42.de>  Mon, 19 May 2008 23:24:01 +1000
 
 fll-installer (0.3.1) unstable; urgency=low
 
