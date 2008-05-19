@@ -1,0 +1,30 @@
+##
+##-------------------------------------
+# Needs:
+# TARGET_MNT_POINT
+# BOOT_KERNEL
+#
+# Calls:
+# logit
+# chroot_it
+#
+##-------------------------------------
+##
+
+function fix_initramfs()
+{
+	logit $"Updating initramfs"
+
+	# mount sysfs + procfs in chroot
+	
+	# Fix location to resume partition
+	chroot_it /etc/init.d/fll-resume start
+
+	# Fix boot time keymap
+	chroot_it debconf-set-selection /etc/default/fll-locales
+
+	# Update the initramfs
+	chroot_it update-initramfs -u
+
+	# umount sysfs + procfs
+}
