@@ -37,7 +37,6 @@ function main()
 		convert_live2HD
 		add_bootmanager
 		update_fstab
-		update_resume_conf
 		fix_grub_for_UUID
 		appendGrubForOtherOS
 		fix_usb_install
