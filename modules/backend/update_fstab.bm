@@ -29,14 +29,14 @@ function update_fstab()
 	# 0. prepare
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
 	root_device=$(get_root_device $root_partition)
-	wanted="--wanted ${root_device}=1"
+	wanted="--wanted ${root_device}"
 
 	if [ -n "${HD_MAP}" ]; then
 		for i in "${HD_MAP}"
 		do
 			part=$(echo $i | cut -d":" -f1)
 			root_device=$(get_root_device $part)
-			wanted="${wanted} --wanted ${root_device}=1"
+			wanted="${wanted} --wanted ${root_device}"
 		done
 	fi
 
@@ -48,9 +48,8 @@ function update_fstab()
 	[ "${HD_AUTO}" = "yes" ] && autohd="--auto" || autohd=""
 
 	# 2. create the fstab, creating the mountpoints
-	
-	chroot_it fll_fshelper --uuids --make-mountpoints \
-		${wanted} --write-fstab ${autohd} --quiet
+	chroot_it fll_fstab_generator --file /etc/fstab --uuids --mkdir \
+		${wanted} ${autohd}
 	
 	# 3. fix resume configuration, it may have changed in
 	#    partitioning since boot
