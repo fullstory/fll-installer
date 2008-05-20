@@ -4,6 +4,8 @@
 # BOOT_WHERE
 # TARGET_MNT_POINT
 # BOOT_LOADER
+# HD_CHOICE
+# HD_MAP
 #
 # Calls:
 # logit
@@ -22,6 +24,9 @@ function add_bootmanager()
 	local BOOT_RUNNING_KERNEL
 	local MSG1="Creating initrd for kernel $BOOT_KERNEL ..."
 	local MSG2="Installing $BOOT_LOADER to $BOOT_WHERE"
+	local root_partition
+	local root_device
+	local wanted
 
 	#
 	# log my call
@@ -62,7 +67,21 @@ function add_bootmanager()
 	mount --bind /dev "$TARGET_MNT_POINT/dev"
 	mount --bind /sys "$TARGET_MNT_POINT/sys"
 
-	chroot_it fll_fstab_generator --file /etc/fstab
+	# 0. prepare
+	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
+	root_device=$(get_root_device $root_partition)
+	wanted="--wanted ${root_device}"
+
+	if [ -n "${HD_MAP}" ]; then
+		for i in "${HD_MAP}"
+		do
+			part=$(echo $i | cut -d":" -f1)
+			root_device=$(get_root_device $part)
+			wanted="${wanted} --wanted ${root_device}"
+		done
+	fi
+
+	chroot_it fll_fstab_generator --file /etc/fstab ${wanted}
 
 	##
 	## workaround...end

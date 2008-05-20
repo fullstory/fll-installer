@@ -3,7 +3,7 @@
 \fBfll-iso2usb\fR \- installs a live-CD iso build with the
 fll\-tools as a fromiso into a USB pen
 .SH SYNOPSIS
-\fBfll-iso2usb\fR \fI<options>\fR
+\fBfll-iso2usb\fR \fI<options>\fR \fI-- <extra_options_to_grub>\fR
 .SH DESCRIPTION
 installs a \fBF.U.L.L.S.T.O.R.Y.\fR iso-image on a USB-pen, makes the pen
 bootable and writes the needed grub files.
@@ -34,6 +34,14 @@ do not copy the iso image
 .TP
 \fB\-d|\-\-debug\fR
 debug sh code execution
+.PP
+.SH EXAMPLES
+.TP
+\fBfll-iso2usb \-D /dev/sdb /home/sidux/sidux.iso \\\fR
+\fB            \-\- toram lang=de tz=Europe/Berlin persist\fR
+.PP
+installs the iso image into the USB device sdb. Uses the cheatcodes on the 
+grub default command line.
 .PP
 .SH AUTHOR
 This manual page was written by Joaquim Boura <x-un-i@sidux.com>
