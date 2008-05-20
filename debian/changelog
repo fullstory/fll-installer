@@ -1,9 +1,5 @@
-fll-installer (0.3.3) UNRELEASED; urgency=low
+fll-installer (0.3.3) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * before add the bootmanager create an fstab "old style" but include alwayas
     the root device.
 
