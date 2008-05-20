@@ -1,3 +1,9 @@
+fll-installer (0.3.4) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 20 May 2008 20:51:52 +0200
+
 fll-installer (0.3.3) unstable; urgency=low
 
   * before add the bootmanager create an fstab "old style" but include alwayas
