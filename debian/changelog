@@ -1,9 +1,5 @@
-fll-installer (0.3.4) UNRELEASED; urgency=low
+fll-installer (0.3.4) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * remove error and debug files if the installer is called again
 
  -- Joaquim Boura <x-un-i@sidux.com>  Fri, 23 May 2008 10:55:21 +0200
