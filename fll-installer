@@ -26,6 +26,8 @@
 #--------------------------------------------------------------------------
 ERRLOG=/tmp/.installer.error
 DEBUGLOG=/tmp/.installer.debug
+test -e $ERRLOG && rm -f $ERRLOG
+test -e $DEBUGLOG && rm -f $DEBUGLOG
 
 if test -n $INSTDBG ; then
 	set -x

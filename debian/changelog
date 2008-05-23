@@ -1,8 +1,12 @@
 fll-installer (0.3.4) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 20 May 2008 20:51:52 +0200
+  [ Joaquim Boura ]
+  * remove error and debug files if the installer is called again
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Fri, 23 May 2008 10:55:21 +0200
 
 fll-installer (0.3.3) unstable; urgency=low
 
