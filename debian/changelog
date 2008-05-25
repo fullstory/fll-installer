@@ -1,8 +1,13 @@
 fll-installer (0.3.6) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 25 May 2008 15:40:52 +0200
+  [ Joaquim Boura ]
+  * Send abort message to the gui when an error occur. Check size of the
+    partition where user wants to install against size of the uncompressed iso 
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 25 May 2008 21:51:19 +0200
 
 fll-installer (0.3.5) unstable; urgency=low
 

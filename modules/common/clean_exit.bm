@@ -31,10 +31,7 @@ function clean_exit()
                 chmod 600 ${TARGET_MNT_POINT}/${CONFIG_FILE}
 	else
 		logit $"$FLL_DISTRO_NAME-installer ended abnormally"
-		progress $"$FLL_DISTRO_NAME-installer ended abnormally"
-		sleep 5
-		end_progress
-
+		progress $"Abort: $FLL_DISTRO_NAME-installer ended abnormally\nPlease check /tmp/.installer.debug and /tmp/.installer.error"
 	fi
 	#
 	# umount mounted filesystems

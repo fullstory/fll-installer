@@ -27,6 +27,7 @@ function prepareHD()
 	local TMP
 	local err_msg
 	local error_messages
+	local FS_SIZE
 
 	#
 	# log my call
@@ -93,6 +94,7 @@ function prepareHD()
 	#
 	# Mounting $HD_CHOICE r/w...
 	#
+	FS_SIZE=0
 	mkdir -p $TARGET_MNT_POINT
 	mount -t $HD_FSTYPE $HD_CHOICE $TARGET_MNT_POINT 2>&1> ${TMP}
 	if [ $? -ne 0 ]; then
@@ -109,6 +111,7 @@ function prepareHD()
 			error 16 "$err_msg"
 		fi
 	fi
+	FS_SIZE=$(df -m |grep "${TARGET_MNT_POINT}" |awk '{print $2}' )
 
 	#
 	# Mounting additional partitions r/w...
@@ -134,7 +137,16 @@ function prepareHD()
 				error 17 "$err_msg"
 			fi
 		fi
+		((FS_SIZE=${FS_SIZE} + $(df -m |grep "${TARGET_MNT_POINT}${point}" |awk '{print $2}')))
 	done
+
+	# check that minsize is satisfied
+	#
+	if [ ${FS_SIZE} -le ${ROOT_MIN} ]; then
+		err_msg="Not enough place to install ${FLL_DISTRO}"
+		error 18 "$err_msg"
+	fi
+	echo "PrepareHD done" && sleep 5
 	return 0	
 }
 ##-------------------------------------
