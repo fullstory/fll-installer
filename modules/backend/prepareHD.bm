@@ -34,6 +34,19 @@ function prepareHD()
 	logit $"prepare disk for the installation"
 	#
 
+	# sometimes kernel has not yet loaded the partition table
+	# so ask him to do that
+	# 
+	# lines copied from fll_fstab_generator
+	#
+	if which udevadm >/dev/null; then
+		udevadm trigger --subsystem-match=block
+		udevadm settle --timeout=30
+	else
+		udevtrigger --subsystem-match=block
+		udevsettle --timeout=30
+	fi
+
 	TMP="$(mktemp)"
 
 	if [ $HD_FORMAT = "yes" ]; then
@@ -65,10 +78,10 @@ function prepareHD()
 			err_msg="Formatting of $HD_CHOICE failed. Some messages from mkfs.$HD_FSTYPE: $error_messages"
 			logit $err_msg
 			error 15 "$err_msg"
-			exit 15
+			# exit 15
 		fi
 		# 
-		# Deactivate dir_index-feature of ext2/ext3-partitions
+ 		# Deactivate dir_index-feature of ext2/ext3-partitions
 		# 
 		case $HD_FSTYPE in
 			*ext*)
@@ -84,20 +97,17 @@ function prepareHD()
 	mount -t $HD_FSTYPE $HD_CHOICE $TARGET_MNT_POINT 2>&1> ${TMP}
 	if [ $? -ne 0 ]; then
 		error_messages=$(tail -8 $TMP)
-		err_msg="Mounting of $HD_CHOICE failed. Some messages from mount: $error_messages"
+		err_msg="Mounting of $HD_CHOICE failed, trying remount. Some messages from mount: $error_messages"
 		logit $err_msg
-		error 16 "$err_msg"
-		exit 16
-	fi
 
-	mount -o remount,dev $TARGET_MNT_POINT 2>&1> ${TMP}
+		mount -o remount,dev $TARGET_MNT_POINT 2>&1> ${TMP}
 
-	if [ $? -ne 0 ]; then
-		error_messages=$(tail -8 $TMP)
-		err_msg="Mounting of $HD_CHOICE failed. Some messages from mount: $error_messages"
-		logit $err_msg
-		error 17 "$err_msg"
-		exit 17
+		if [ $? -ne 0 ]; then
+			error_messages=$(tail -8 $TMP)
+			err_msg="(re)Mounting of $HD_CHOICE failed. Some messages from mount: $error_messages"
+			logit $err_msg
+			error 16 "$err_msg"
+		fi
 	fi
 
 	#
@@ -107,8 +117,23 @@ function prepareHD()
 		part=$(echo $i | cut -d":" -f1)
 		point=$(echo $i | cut -d":" -f2)
 		mkdir -p $TARGET_MNT_POINT$point
+
 		mount $part $TARGET_MNT_POINT$point 2> /dev/null
-		mount -o remount,dev $TARGET_MNT_POINT$point
+		if [ $? -ne 0 ]; then
+
+			error_messages=$(tail -8 $TMP)
+			err_msg="Mounting of $HD_CHOICE failed, trying remount. Some messages from mount: $error_messages"
+			logit $err_msg
+
+			mount -o remount,dev $TARGET_MNT_POINT$point
+
+			if [ $? -ne 0 ]; then
+				error_messages=$(tail -8 $TMP)
+				err_msg="Mounting of ${i} failed. Some messages from mount: $error_messages"
+				logit $err_msg
+				error 17 "$err_msg"
+			fi
+		fi
 	done
 	return 0	
 }
