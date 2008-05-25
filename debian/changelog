@@ -1,9 +1,5 @@
-fll-installer (0.3.6) UNRELEASED; urgency=low
+fll-installer (0.3.6) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * Send abort message to the gui when an error occur. Check size of the
     partition where user wants to install against size of the uncompressed iso 
 
