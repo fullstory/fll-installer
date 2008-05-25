@@ -45,6 +45,7 @@ error()
 	echo "${exitval}-${@}" > "${ERRLOG}"
 
 	echo "E: ${@}"
+	clean_exit ${exitval}
 }
 #--------------------------------------------------------------
 # say
@@ -70,7 +71,7 @@ TEMP=$(getopt -o di:h \
 
 if [ "${?}" -ne 0 ]; then
         error 255 "getopt terminated abnormally"
-        exit 255
+        # exit 255
 fi
 
 # Note the quotes around `$TEMP': they are essential!
@@ -117,7 +118,7 @@ for i in $(find "${SEARCHPATH}/modules" -name *.bm); do
 done
 #------------------
 
-trap clean_exit EXIT
+# trap clean_exit EXIT
 
 TMPDIR="$(mktemp -p /tmp -d fll-installer.XXXXX)"
 
@@ -128,7 +129,7 @@ main
 
 # something did go wrong
 error 254 "internal error"
-exit 254 
+#exit 254 
 
 #------------------
 

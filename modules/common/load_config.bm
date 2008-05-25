@@ -38,7 +38,7 @@ function load_config()
 			"$i" != "SERVICES_START" -a -z "$(eval echo \$$i)" ]; 
 		then  
 			error 10 "Parameter $i is not defined"
-			exit 10
+			# exit 10
  		fi
 	done
 	return 0

@@ -56,9 +56,9 @@ CMDLINE=$(</proc/cmdline)
 # try to calculate the room needed
 ###-------------------------------------
 #
-ROOT_MIN=$(df -m "$DEFAULT_DIR" | tail -1 | awk '{print $3}')
-# squashfs unpacks to ca 2.8 size , give 20% savety
-ROOT_MIN=$(($ROOT_MIN_RAW*340/100)) 
+ROOT_MIN_RAW=$(df -m "$DEFAULT_DIR" | tail -1 | awk '{print $3}')
+# squashfs unpacks to ca 2.8 size , give some percent for safety
+ROOT_MIN=$(($ROOT_MIN_RAW*360/100)) 
 
 
 #

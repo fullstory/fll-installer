@@ -12,11 +12,12 @@
 function clean_exit()
 {
 	[ -n "$TMPDIR" ] && rm -rf "$TMPDIR"
-	logit $"$FLL_DISTRO_NAME-installer terminated"
-	#
-	# copy the install log into users home
-	#
-	cp -f $LOG  "$TARGET_MNT_POINT/root"
+	if [ "$1" = 0 ]; then
+		logit $"$FLL_DISTRO_NAME-installer terminated"
+		#
+		# copy the install log into users home
+		#
+		cp -f $LOG  "$TARGET_MNT_POINT/root"
 
         #
         # remove passwords from the $CONFIG file
@@ -28,16 +29,24 @@ function clean_exit()
 
         test -e ${TARGET_MNT_POINT}/${CONFIG_FILE} && \
                 chmod 600 ${TARGET_MNT_POINT}/${CONFIG_FILE}
+	else
+		logit $"$FLL_DISTRO_NAME-installer ended abnormally"
+		progress $"$FLL_DISTRO_NAME-installer ended abnormally"
+		sleep 5
+		end_progress
 
-        #
-        # umount mounted filesystems
-        #
-        for i in $HD_MAP; do
-                point=$(echo $i | cut -d":" -f2)
-                umount $TARGET_MNT_POINT$point
-        done
+	fi
+	#
+	# umount mounted filesystems
+	#
+	for i in $HD_MAP; do
+		point=$(echo $i | cut -d":" -f2)
+		umount $TARGET_MNT_POINT$point
+	done
 
-        # Just to be sure :-)
-        umount $TARGET_MNT_POINT
+	# Just to be sure :-)
+	umount $TARGET_MNT_POINT
+
+	exit $1
 }
 

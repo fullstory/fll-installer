@@ -20,11 +20,14 @@
 ##
 function copy2HD()
 {
+	local ERR_COPY="/tmp/.err_copy"
 	#
 	# log my call
 	#
 	logit $"copy the CD into the harddisk"
 	#
+
+	rm -f ${ERR_COPY}
 
 	OLDPERC=0
 
@@ -32,6 +35,8 @@ function copy2HD()
 	# experimental copy2HD loop adapted from fll-live-initramfs
 	#
 	(
+		# /selinux is not shipped in base-files, make the damn dir now
+		[ -d "${TARGET_MNT_POINT}/selinux" ] || mkdir "${TARGET_MNT_POINT}/selinux"
 	 	for dir in ${DEFAULT_DIR}/*; do
 			[ -d "${dir}" ] || continue
 			
@@ -64,22 +69,23 @@ function copy2HD()
 					--exclude-from="${SEARCHPATH}/data/exclusion_list" \
 					"${dir}" "${TARGET_MNT_POINT}"
 				if [ $? -ne 0 ] ; then
-					error 20 "Error copying iso to harddisk"
+					touch ${ERR_COPY}
+					# echo 20 "Error copying iso to harddisk" 
+					break
 				fi
 				sync
 			fi
 		done
-
-		# /selinux is not shipped in base-files, make the damn dir now
-		[ -d "${TARGET_MNT_POINT}/selinux" ] || mkdir "${TARGET_MNT_POINT}/selinux"
 	) &
 	module_hd_progressbar $!
 
 	# when the file /tmp/.installer.errors exist and the first field is 20
 	# then we must stop installation as an error has happened
 	
-	if [ -s $ERRLOG ]; then
-		exit "$(cut -f 1 -d '-' < $ERRLOG)"
+	# if [ -s $ERRLOG ]; then
+	if [ -e ${ERR_COPY} ]; then
+		rm -f ${ERR_COPY}
+		error 20 "Error copying iso to harddisk" 
 	fi
 
 	#
