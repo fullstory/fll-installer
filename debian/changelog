@@ -6,7 +6,10 @@ fll-installer (0.3.7) UNRELEASED; urgency=low
   [ Niall Walsh ]
   * Add sidux version of Fedora livecd-iso-to-disk.sh as fll-iso2usb-syslinux
 
- -- Niall Walsh <niallwalsh@users.berlios.de>  Mon, 26 May 2008 21:29:55 +0100
+  [ Joaquim Boura ]
+  * Added abort_progress to abort properly the install-gui
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Mon, 26 May 2008 23:36:33 +0200
 
 fll-installer (0.3.6) unstable; urgency=low
 

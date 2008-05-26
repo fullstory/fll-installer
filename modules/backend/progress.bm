@@ -25,11 +25,24 @@ ACTION=0
 # ascii/curses frontend for the installer
 ##-------------------------------------
 ##
-function end_progress()
+function abort_progress()
 {
 	# printf for new install-gui choice "install with terminal output, debug modus"
 	[ -z "${INSTALLER_INOTIFY}" ] && \
 	printf "\n==========================\n install end, close the terminal \n==========================\n"
+
+	[ -n "$DISPLAY" ] && [ -e "${INSTALLER_INOTIFY}" ] && \
+	printf "@\n" > ${INSTALLER_INOTIFY}
+}
+
+# 
+##-------------------------------------
+##
+function end_progress()
+{
+	# printf for new install-gui choice "install with terminal output, debug modus"
+	[ -z "${INSTALLER_INOTIFY}" ] && \
+	printf "\n==========================\n install abort, close the terminal \n==========================\n"
 
 	[ -n "$DISPLAY" ] && [ -e "${INSTALLER_INOTIFY}" ] && \
 	printf "end\n" > ${INSTALLER_INOTIFY}
