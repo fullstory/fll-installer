@@ -1,3 +1,9 @@
+fll-installer (0.3.9) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 27 May 2008 15:39:59 +0200
+
 fll-installer (0.3.8) unstable; urgency=low
 
   * use extra args for kernel cmdline and default to nopersist.
