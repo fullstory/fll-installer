@@ -1,7 +1,4 @@
-fll-installer (0.3.7) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+fll-installer (0.3.7) unstable; urgency=low
 
   [ Niall Walsh ]
   * Add sidux version of Fedora livecd-iso-to-disk.sh as fll-iso2usb-syslinux
