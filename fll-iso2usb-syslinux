@@ -20,20 +20,24 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 # NOTE
-# This currently FORCES persist
-#   so you must give --overlay-size-mb for fat
+# extra args are appended to kernel cmdlines
 # There's no md5sum checking anywhere (noverify hardcoded on)
 # It is hardcoded to use "sidux" as the path
-# It cuts filenames down to "vlinuz", "initrd.img"
+# It cuts filenames down to "vmlinuz", "initrd.img"
 # ext* is untested
 # syslinux.cfg is very primitive ... syslinux does have a "simple" menu though
 # block device as iso support newly added (untested)
 # mtools and syslinux MUST BOTH be installed
 
+# TODO if we want it, we need a checkisomd5 function :-/
+noverify=1
+# TODO Should be from default/distro or similar?
+LiveOS="sidux"
+
 export PATH=/sbin:/usr/sbin:$PATH
 
 usage() {
-    echo "$0 [--reset-mbr] [--noverify] [--overlay-size-mb <size>] <isopath> <usbstick device>"
+    echo "$0 [--reset-mbr] [--noverify] [--overlay-size-mb [<size>]] <isopath> <usbstick device> [kernel_args]"
     echo "creates a fromiso install with persist on a usbstick"
     exit 1
 }
@@ -155,8 +159,12 @@ fi
 while [ $# -gt 2 ]; do
     case $1 in
 	--overlay-size-mb)
-	    overlaysizemb=$2
-	    shift
+	    if [ $2 -gt 0 ]; then
+	        overlaysizemb=$2
+	        shift
+	    else
+	        overlaysizemb="256"
+	    fi
 	    ;;
 	--noverify)
 	    noverify=1
@@ -182,11 +190,6 @@ if [ -z "$USBDEV" -o ! -b "$USBDEV" ]; then
     usage
 fi
 
-# TODO if we want it, we need a checkisomd5 function :-/
-noverify=1
-# TODO Should be from default/distro or similar?
-LiveOS="sidux"
-
 if [ -z "$noverify" ]; then
     # verify the image
     echo "Verifying image..."
@@ -205,17 +208,9 @@ checkPartActive $USBDEV
 checkMBR $USBDEV
 [ -n $resetmbr ] && resetMBR $USBDEV
 
-if [ "$USBFS" = "vfat" ]; then
-	if [ "$overlaysizemb" -gt 2047 ]; then
-		echo "Can't have an overlay greater than 2048MB on VFAT"
-		exitclean
-	elif [ "$overlaysizemb" -lt 256 ]; then
-		echo "Overlay size (--overlay-size-mb <size>) must be >255MB"
-		exitclean
-	fi
-else
-	# minimum space we want on ext*
-	overlaysizemb=256
+if [ "$USBFS" = "vfat" -a  "$overlaysizemb" -gt 2047 ]; then
+	echo "Can't have an overlay greater than 2048MB on VFAT"
+	exitclean
 fi
 
 # FIXME: would be better if we had better mountpoints
@@ -265,12 +260,14 @@ else
 	dd if=$ISO of=$USBMNT/$LiveOS/${LiveOS}.iso || exitclean
 fi
 
-PERSIST='persist'
-if [ "$USBFS" = "vfat" ]; then
-    echo "Initializing persistent overlay file"
-    dd if=/dev/zero of=$USBMNT/$LiveOS/${LiveOS}-rw count=$overlaysizemb bs=1M || exitclean
-    echo 'y' | /sbin/mkfs.ext3 $USBMNT/$LiveOS/${LiveOS}-rw || exitclean
-    PERSIST='persist='$LiveOS'/'$LiveOS'-rw'
+if [ "$overlaysizemb" -gt 1 ]; then
+	PERSIST='persist'
+	if [ "$USBFS" = "vfat" ]; then
+		echo "Initializing persistent overlay file"
+		dd if=/dev/zero of=$USBMNT/$LiveOS/${LiveOS}-rw count=$overlaysizemb bs=1M || exitclean
+		echo 'y' | /sbin/mkfs.ext3 $USBMNT/$LiveOS/${LiveOS}-rw || exitclean
+		PERSIST='persist='$LiveOS'/'$LiveOS'-rw'
+	fi
 fi
 
 echo "Creating boot config file"
@@ -279,10 +276,10 @@ timeout 50
 prompt 1
 label '$LiveOS'
 kernel '$LiveOS'/vmlinuz
-append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$PERSIST'
+append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$PERSIST' '$@'
 label temp
 kernel '$LiveOS'/vmlinuz
-append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso
+append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$@'
 ' > $USBMNT/extlinux.cfg || exitclean
 
 echo "Installing boot loader"
@@ -294,7 +291,7 @@ if [ "$USBFS" = "vfat" -o "$USBFS" = "msdos" ]; then
     syslinux -d $LiveOS $USBDEV || exitclean
 elif [ "$USBFS" = "ext2" -o "$USBFS" = "ext3" ]; then
     # TODO does extlinux.cfg need to be in $USBMNT/$LiveOS ?
-    # and has to be run with the file system mounted
+    # has to be run with the file system mounted
     extlinux -i $USBMNT/$LiveOS || exitclean
     cleanup
 fi
