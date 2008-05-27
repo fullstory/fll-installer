@@ -1,8 +1,9 @@
-fll-installer (0.3.8) UNRELEASED; urgency=low
+fll-installer (0.3.8) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * use extra args for kernel cmdline and default to nopersist.
+  * add fll-iso2usb-syslinux info to debian/copyright.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 27 May 2008 02:07:30 +0200
+ -- Niall Walsh <niallwalsh@users.berlios.de>  Tue, 27 May 2008 14:30:47 +0100
 
 fll-installer (0.3.7) unstable; urgency=low
 
