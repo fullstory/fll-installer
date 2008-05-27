@@ -32,7 +32,7 @@ function abort_progress()
 	printf "\n==========================\n install end, close the terminal \n==========================\n"
 
 	[ -n "$DISPLAY" ] && [ -e "${INSTALLER_INOTIFY}" ] && \
-	printf "@\n" > ${INSTALLER_INOTIFY}
+	printf "$@\n" > ${INSTALLER_INOTIFY}
 }
 
 # 
