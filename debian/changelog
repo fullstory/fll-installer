@@ -5,8 +5,9 @@ fll-installer (0.3.10) UNRELEASED; urgency=low
 
   [ Joaquim Boura ]
   * when adding free size use the right field of the df -m output.
+  * do not use UUID for grub when root is on a lvm2 partition.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Wed, 28 May 2008 21:51:50 +0200
+ -- Joaquim Boura <x-un-i@sidux.com>  Thu, 29 May 2008 00:20:00 +0200
 
 fll-installer (0.3.9) unstable; urgency=low
 

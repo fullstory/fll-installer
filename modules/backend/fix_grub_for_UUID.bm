@@ -2,6 +2,7 @@
 ##-------------------------------------
 # Needs:
 # TARGET_MNT_POINT
+# HD_CHOICE
 #
 # Calls:
 # logit
@@ -18,15 +19,19 @@ function fix_grub_for_UUID()
 	#
 	logit $"fix_grub_for_UUID"
 	#
-	say "fixing grub for UUID"
+	case "${DH_CHOICE}" in
+		/dev/mapper/* ) # no changes/nothing to do
+			;;
+		*)	
+			say "fixing grub for UUID"
 
-	menuList="${TARGET_MNT_POINT}/boot/grub/menu.lst"
-	rootDevice=$(grep '^# kopt=root=' ${menuList}|sed 's/^# kopt=root=//'|sed 's/ .*$//')
+			menuList="${TARGET_MNT_POINT}/boot/grub/menu.lst"
+			rootDevice=$(grep '^# kopt=root=' ${menuList}|sed 's/^# kopt=root=//'|sed 's/ .*$//')
 
-	if grep -q root\=\\/dev\\/[hs]d[a-z][1-9][0-9]\\? ${menuList}; then
-
-		sed -i "s%root\=$rootDevice%root\=UUID\=$(/lib/udev/vol_id -u $rootDevice)%" ${menuList}
-	fi
+			if grep -q root\=\\/dev\\/[hs]d[a-z][1-9][0-9]\\? ${menuList}; then
+				sed -i "s%root\=$rootDevice%root\=UUID\=$(/lib/udev/vol_id -u $rootDevice)%" ${menuList}
+			fi
+	esac
 }
 ##-------------------------------------
 
