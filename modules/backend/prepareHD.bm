@@ -111,7 +111,7 @@ function prepareHD()
 			error 16 "$err_msg"
 		fi
 	fi
-	FS_SIZE=$(df -m |grep "${TARGET_MNT_POINT}" |awk '{print $2}' )
+	FS_SIZE=$(df -m |grep "${TARGET_MNT_POINT}" |awk '{print $3}' )
 
 	#
 	# Mounting additional partitions r/w...
@@ -121,14 +121,14 @@ function prepareHD()
 		point=$(echo $i | cut -d":" -f2)
 		mkdir -p $TARGET_MNT_POINT$point
 
-		mount $part $TARGET_MNT_POINT$point 2> /dev/null
+		mount $part $TARGET_MNT_POINT$point  2>&1> ${TMP}
 		if [ $? -ne 0 ]; then
 
 			error_messages=$(tail -8 $TMP)
 			err_msg="Mounting of $HD_CHOICE failed, trying remount. Some messages from mount: $error_messages"
 			logit $err_msg
 
-			mount -o remount,dev $TARGET_MNT_POINT$point
+			mount -o remount,dev $TARGET_MNT_POINT$point 2>&1> ${TMP}
 
 			if [ $? -ne 0 ]; then
 				error_messages=$(tail -8 $TMP)
@@ -137,7 +137,7 @@ function prepareHD()
 				error 17 "$err_msg"
 			fi
 		fi
-		((FS_SIZE=${FS_SIZE} + $(df -m |grep "${TARGET_MNT_POINT}${point}" |awk '{print $2}')))
+		((FS_SIZE=${FS_SIZE} + $(df -m |grep "${TARGET_MNT_POINT}${point}" |awk '{print $3}')))
 	done
 
 	# check that minsize is satisfied
