@@ -19,7 +19,7 @@ function fix_grub_for_UUID()
 	#
 	logit $"fix_grub_for_UUID"
 	#
-	case "${DH_CHOICE}" in
+	case "${HD_CHOICE}" in
 		/dev/mapper/* ) # no changes/nothing to do
 			;;
 		*)	

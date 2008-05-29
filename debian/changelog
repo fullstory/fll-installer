@@ -1,8 +1,13 @@
 fll-installer (0.3.11) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 29 May 2008 01:14:43 +0200
+  [ Joaquim Boura ]
+  * fixed some typos. for the moment do not check available size against
+    needed size
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Thu, 29 May 2008 22:29:23 +0200
 
 fll-installer (0.3.10) unstable; urgency=low
 
