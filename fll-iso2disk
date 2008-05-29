@@ -1,5 +1,5 @@
 #!/bin/bash
-# Convert a live CD iso so that it's bootable off of a USB stick
+# Convert a live CD iso so that it's bootable from a partition
 # Copyright 2007  Red Hat, Inc.
 # Jeremy Katz <katzj@redhat.com>
 #
@@ -37,8 +37,8 @@ LiveOS="sidux"
 export PATH=/sbin:/usr/sbin:$PATH
 
 usage() {
-    echo "$0 [--reset-mbr] [--noverify] [--overlay-size-mb [<size>]] <isopath> <usbstick device> [kernel_args]"
-    echo "creates a fromiso install with persist on a usbstick"
+    echo "$0 [--reset-mbr] [--noverify] [--overlay-size-mb [<size>]] <iso path> <target device> [kernel_args]"
+    echo "creates a fromiso install with persist on an existing partition"
     exit 1
 }
 
@@ -236,7 +236,7 @@ livesize=$(du -s -B 1M $check | awk {'print $1;'})
 free=$(df  -B1M $USBDEV  |tail -n 1 |awk {'print $4;'})
 
 if [ $(($overlaysizemb + $livesize)) -gt $(($free + $tbd)) ]; then
-  echo "Unable to fit live image + overlay on available space on USB stick"
+  echo "Unable to fit live image + overlay on available space on partition"
   echo "Size of live image: $livesize"
   echo "Overlay size: $overlaysizemb"
   echo "Available space: $(($free + $tbd))"
@@ -250,7 +250,7 @@ if [ -d $USBMNT/$LiveOS ]; then
     rm -rf $USBMNT/$LiveOS
 fi
 
-echo "Copying live image to USB stick"
+echo "Copying live image to partition"
 if [ ! -d $USBMNT/$LiveOS ]; then mkdir $USBMNT/$LiveOS ; fi
 cp $CDMNT/boot/vmlinuz* $USBMNT/$LiveOS/vmlinuz || exitclean
 cp $CDMNT/boot/initrd* $USBMNT/$LiveOS/initrd.img || exitclean
@@ -296,4 +296,4 @@ elif [ "$USBFS" = "ext2" -o "$USBFS" = "ext3" ]; then
     cleanup
 fi
 
-echo "USB stick set up as live image!"
+echo "Partition set up as live image!"
