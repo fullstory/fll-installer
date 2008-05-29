@@ -1,9 +1,5 @@
-fll-installer (0.3.11) UNRELEASED; urgency=low
+fll-installer (0.3.11) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * fixed some typos. for the moment do not check available size against
     needed size
 
