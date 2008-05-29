@@ -3,7 +3,7 @@
 \fBfll-iso2disk\fR \- installs a live-CD iso build with the
 fll\-tools as a fromiso into a preformatted partition
 .SH SYNOPSIS
-\fBfll-iso2disk\fR \fI<options>\fR \fBIsoPath\fR \fBTargetDevice\fR \fI<extra_options_to_grub>\fR
+\fBfll-iso2disk\fR \fI<options>\fR \fBIsoPath\fR \fBTargetDevice\fR \fI-- <extra_options_to_boot>\fR
 .SH DESCRIPTION
 installs a \fBF.U.L.L.S.T.O.R.Y.\fR iso-image to a partition, makes 
 the partition bootable and writes the needed syslinux files.
@@ -19,7 +19,11 @@ existing fat or ext2/3 partition.
 \fB\-\-overlay-size-mb\fR \fI<size>\fR
 Setup the live system to use persist, and if the target device 
 is a fat partition optionally set the size of the loopback file
-used for the persistance data.
+used for the persistance data (default 256).
+.TP
+\fB\-\-noboot\fR
+Creates all the files on the target without any checking of boot 
+settings or installation of any bootloader.
 .TP
 \fB\-\-reset-mbr\fR
 Force putting the plain syslinux mbr on the device.
@@ -27,11 +31,14 @@ Force putting the plain syslinux mbr on the device.
 \fB\-\-noverify\fR
 Do not verify the integrity of the iso.
 Currently always on as no verification code written for sidux.
+.TP
+\fB\-\-debug\fR
+Do not copy the iso but perform all other steps.
 .PP
 .SH EXAMPLES
 .TP
 \fBfll-iso2disk --overlay-size-mb 1024 /home/sidux/sidux.iso /dev/sdb1 \\\fR
-\fB            lang=ie nointro nonetwork\fR
+\fB            \-\- lang=ie nointro nonetwork\fR
 .PP
 installs the iso image into the device sdb1 and creates a 1GB loopback file 
 for persistance. Uses the cheatcodes on the boot command line.

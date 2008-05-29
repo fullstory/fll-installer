@@ -37,8 +37,8 @@ LiveOS="sidux"
 export PATH=/sbin:/usr/sbin:$PATH
 
 usage() {
-    echo "$0 [--reset-mbr] [--noverify] [--overlay-size-mb [<size>]] <iso path> <target device> [kernel_args]"
-    echo "creates a fromiso install with persist on an existing partition"
+    echo "$0 [--overlay-size-mb [<size>]] [--noboot] [--reset-mbr] [--debug] [--noverify] <iso path> <target device> -- [kernel_args]"
+    echo "creates a bootable fromiso install, with optional persist, on an existing ext2/3 or fat partition"
     exit 1
 }
 
@@ -156,7 +156,7 @@ if [ $(id -u) != 0 ]; then
     exit 1
 fi
 
-while [ $# -gt 2 ]; do
+while [ $# -gt 2 -a -z "$endargsfound" ]; do
     case $1 in
 	--overlay-size-mb)
 	    if [ $2 -gt 0 ]; then
@@ -172,8 +172,18 @@ while [ $# -gt 2 ]; do
 	--reset-mbr|--resetmbr)
 	    resetmbr=1
 	    ;;
+	--noboot)
+	    noboot=1
+	    ;;
+	--debug)
+	    debug=1
+	    ;;
 	*)
-	    usage
+            if [ "$3" = "--" ]; then
+                endargsfound=1
+            else
+                usage
+            fi
 	    ;;
     esac
     shift
@@ -181,8 +191,10 @@ done
 
 ISO=$(readlink -f "$1")
 USBDEV=$2
+shift
+shift
 
-if [ -z "$ISO" -o ! -f "$ISO" ]; then
+if [ -z "$ISO" ] || [ ! -b "$ISO" -a ! -f "$ISO" ]; then
     usage
 fi
 
@@ -202,11 +214,13 @@ if [ -z "$noverify" ]; then
 fi
 
 # do some basic sanity checks.  
-checkSyslinuxVersion 
 checkFilesystem $USBDEV
-checkPartActive $USBDEV
-checkMBR $USBDEV
-[ -n $resetmbr ] && resetMBR $USBDEV
+if [ -z "$noboot" ]; then
+    checkSyslinuxVersion 
+    checkPartActive $USBDEV
+    checkMBR $USBDEV
+    [ -n $resetmbr ] && resetMBR $USBDEV
+fi
 
 if [ "$USBFS" = "vfat" -a  "$overlaysizemb" -gt 2047 ]; then
 	echo "Can't have an overlay greater than 2048MB on VFAT"
@@ -225,7 +239,7 @@ mount $USBDEV $USBMNT || exitclean
 
 trap exitclean SIGINT SIGTERM
 
-# let's try to make sure there's enough room on the stick
+# let's try to make sure there's enough room on the partition
 check=$ISO
 if [ -d $USBMNT/$LiveOS ]; then
   tbd=$(du -s -B 1M $USBMNT/$LiveOS | awk {'print $1;'})
@@ -254,12 +268,13 @@ echo "Copying live image to partition"
 if [ ! -d $USBMNT/$LiveOS ]; then mkdir $USBMNT/$LiveOS ; fi
 cp $CDMNT/boot/vmlinuz* $USBMNT/$LiveOS/vmlinuz || exitclean
 cp $CDMNT/boot/initrd* $USBMNT/$LiveOS/initrd.img || exitclean
-if [ -f $ISO ]; then
-	cp $ISO $USBMNT/$LiveOS/${LiveOS}.iso || exitclean
-else
-	dd if=$ISO of=$USBMNT/$LiveOS/${LiveOS}.iso || exitclean
+if [ -z "$debug" ]; then
+    if [ -f $ISO ]; then
+        cp $ISO $USBMNT/$LiveOS/${LiveOS}.iso || exitclean
+    else
+        dd if=$ISO of=$USBMNT/$LiveOS/${LiveOS}.iso || exitclean
+    fi
 fi
-
 if [ "$overlaysizemb" -gt 1 ]; then
 	PERSIST='persist'
 	if [ "$USBFS" = "vfat" ]; then
@@ -271,6 +286,7 @@ if [ "$overlaysizemb" -gt 1 ]; then
 fi
 
 echo "Creating boot config file"
+# TODO use syslinux menu
 echo 'default '$LiveOS'
 timeout 50
 prompt 1
@@ -282,18 +298,20 @@ kernel '$LiveOS'/vmlinuz
 append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$@'
 ' > $USBMNT/extlinux.cfg || exitclean
 
-echo "Installing boot loader"
-if [ "$USBFS" = "vfat" -o "$USBFS" = "msdos" ]; then
-    # syslinux expects the config to be named syslinux.cfg 
-    # and has to run with the file system unmounted
-    mv $USBMNT/extlinux.cfg $USBMNT/syslinux.cfg
-    cleanup
-    syslinux -d $LiveOS $USBDEV || exitclean
-elif [ "$USBFS" = "ext2" -o "$USBFS" = "ext3" ]; then
-    # TODO does extlinux.cfg need to be in $USBMNT/$LiveOS ?
-    # has to be run with the file system mounted
-    extlinux -i $USBMNT/$LiveOS || exitclean
-    cleanup
-fi
+if [ -z "$noboot" ]; then
+    echo "Installing boot loader"
+    if [ "$USBFS" = "vfat" -o "$USBFS" = "msdos" ]; then
+        # syslinux expects the config to be named syslinux.cfg 
+        # and has to run with the file system unmounted
+        mv $USBMNT/extlinux.cfg $USBMNT/syslinux.cfg
+        cleanup
+        syslinux -d $LiveOS $USBDEV || exitclean
+    elif [ "$USBFS" = "ext2" -o "$USBFS" = "ext3" ]; then
+        # TODO does extlinux.cfg need to be in $USBMNT/$LiveOS ?
+        # has to be run with the file system mounted
+        extlinux -i $USBMNT/$LiveOS || exitclean
+        cleanup
+    fi
+}
 
 echo "Partition set up as live image!"
