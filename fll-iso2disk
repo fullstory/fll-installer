@@ -37,7 +37,7 @@ LiveOS="sidux"
 export PATH=/sbin:/usr/sbin:$PATH
 
 usage() {
-    echo "$0 [--overlay-size-mb [<size>]] [--noboot] [--reset-mbr] [--debug] [--noverify] <iso path> <target device> -- [kernel_args]"
+    echo "$0 [--overlay-size-mb [<size>]] [--noboot] [--reset-mbr] [--test] [--noverify] <iso path> <target device> -- [kernel_args]"
     echo "creates a bootable fromiso install, with optional persist, on an existing ext2/3 or fat partition"
     exit 1
 }
@@ -175,8 +175,8 @@ while [ $# -gt 2 -a -z "$endargsfound" ]; do
 	--noboot)
 	    noboot=1
 	    ;;
-	--debug)
-	    debug=1
+	--test)
+	    test=1
 	    ;;
 	*)
             if [ "$3" = "--" ]; then
@@ -268,7 +268,7 @@ echo "Copying live image to partition"
 if [ ! -d $USBMNT/$LiveOS ]; then mkdir $USBMNT/$LiveOS ; fi
 cp $CDMNT/boot/vmlinuz* $USBMNT/$LiveOS/vmlinuz || exitclean
 cp $CDMNT/boot/initrd* $USBMNT/$LiveOS/initrd.img || exitclean
-if [ -z "$debug" ]; then
+if [ -z "$test" ]; then
     if [ -f $ISO ]; then
         cp $ISO $USBMNT/$LiveOS/${LiveOS}.iso || exitclean
     else
@@ -293,10 +293,14 @@ prompt 1
 label '$LiveOS'
 kernel '$LiveOS'/vmlinuz
 append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$PERSIST' '$@'
+' > $USBMNT/extlinux.cfg || exitclean
+if [ "$PERSIST" ]; then
+    echo '
 label temp
 kernel '$LiveOS'/vmlinuz
 append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$@'
-' > $USBMNT/extlinux.cfg || exitclean
+' >> $USBMNT/extlinux.cfg || exitclean
+fi
 
 if [ -z "$noboot" ]; then
     echo "Installing boot loader"
