@@ -1,4 +1,4 @@
-fll-installer (0.3.12) UNRELEASED; urgency=low
+fll-installer (0.3.12) unstable; urgency=low
 
   * modules/backend/system_services.bm:
     - use --force option when computing update-rc.d/insserv command to insert
