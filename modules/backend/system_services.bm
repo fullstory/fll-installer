@@ -81,10 +81,9 @@ function system_services()
 		# the installed chroot. fll_analyze_runlevels(1) is the tool used to examine runlevel
 		# configuration, it is provided by fll-live-initscripts.
 		#
-		UPDATE_RCD=( $(/usr/bin/fll_analyze_initscripts --chroot "$DEFAULT_DIR" "$service") )
-		if [[ ${UPDATE_RCD[0]} && ${UPDATE_RCD[1]} == $service ]]; then
-			chroot_it ${UPDATE_RCD[@]}
-		fi
+		unset UPDATE_RCD
+		UPDATE_RCD=( $(/usr/bin/fll_analyze_initscripts --force --chroot "$DEFAULT_DIR" "$service") )
+		[[ ${UPDATE_RCD[@]} ]] && chroot_it ${UPDATE_RCD[@]}
 	done
 
 	# disable all services in /etc/inetd.conf

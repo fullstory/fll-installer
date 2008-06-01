@@ -1,8 +1,10 @@
 fll-installer (0.3.12) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * modules/backend/system_services.bm:
+    - use --force option when computing update-rc.d/insserv command to insert
+      critical init services into install chroot
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 29 May 2008 22:37:55 +0200
+ -- Kel Modderman <kel@otaku42.de>  Sun, 01 Jun 2008 16:50:52 +1000
 
 fll-installer (0.3.11) unstable; urgency=low
 
