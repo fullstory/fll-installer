@@ -279,6 +279,9 @@ EOF
 			grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" \
 			>/dev/null 2>/dev/null
 	fi
+	
+	# update the menu.lst with our changes
+	chroot_it update-grub -y >/dev/null 2>/dev/null
 
 	return 0
 }
