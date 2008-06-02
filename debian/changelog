@@ -1,8 +1,9 @@
 fll-installer (0.3.13) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * don't create the boot/initrd.img symlink anymore.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 01 Jun 2008 12:03:23 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 02 Jun 2008 13:44:54 +0200
 
 fll-installer (0.3.12) unstable; urgency=low
 
