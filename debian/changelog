@@ -1,9 +1,5 @@
-fll-installer (0.3.14) UNRELEASED; urgency=low
+fll-installer (0.3.14) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Kel Modderman ]
   * modules/backend/system_services.bm:
     - revert changes from 0.3.12, do not use --force option when managing
       initscript runlevel config of installed chroot
