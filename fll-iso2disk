@@ -23,11 +23,11 @@
 # extra args are appended to kernel cmdlines
 # There's no md5sum checking anywhere (noverify hardcoded on)
 # It is hardcoded to use "sidux" as the path
-# It cuts filenames down to "vmlinuz", "initrd.img"
+# It cuts filenames down to fit 8.3
 # ext* is untested
-# syslinux.cfg is very primitive ... syslinux does have a "simple" menu though
 # block device as iso support newly added (untested)
-# mtools and syslinux MUST BOTH be installed
+# mtools and syslinux MUST BOTH be installed for fat
+# syslinux alone is sufficient for ext*
 
 # TODO if we want it, we need a checkisomd5 function :-/
 noverify=1
@@ -37,7 +37,7 @@ LiveOS="sidux"
 export PATH=/sbin:/usr/sbin:$PATH
 
 usage() {
-    echo "$0 [--overlay-size-mb [<size>]] [--noboot] [--reset-mbr] [--test] [--noverify] <iso path> <target device> -- [kernel_args]"
+    echo "$0 [--overlay-size-mb [<size>]] [--noboot] [--reset-mbr] [--test] <iso path> <target device> -- [kernel_args]"
     echo "creates a bootable fromiso install, with optional persist, on an existing ext2/3 or fat partition"
     exit 1
 }
@@ -186,19 +186,27 @@ while [ $# -gt 2 -a -z "$endargsfound" ]; do
             fi
 	    ;;
     esac
-    shift
+    if [ -z "$endargsfound" ]; then
+        shift
+    fi
 done
 
 ISO=$(readlink -f "$1")
-USBDEV=$2
+USBDEV=$(readlink -f "$2")
 shift
 shift
 
+if [ "$3" = "--" ]; then
+    shift
+fi
+
 if [ -z "$ISO" ] || [ ! -b "$ISO" -a ! -f "$ISO" ]; then
+    echo 'No suitable iso provided'
     usage
 fi
 
 if [ -z "$USBDEV" -o ! -b "$USBDEV" ]; then
+    echo 'No suitable target device provided'
     usage
 fi
 
@@ -249,7 +257,7 @@ fi
 livesize=$(du -s -B 1M $check | awk {'print $1;'})
 free=$(df  -B1M $USBDEV  |tail -n 1 |awk {'print $4;'})
 
-if [ $(($overlaysizemb + $livesize)) -gt $(($free + $tbd)) ]; then
+if [ -z "$test" -a $(($overlaysizemb + $livesize)) -gt $(($free + $tbd)) ]; then
   echo "Unable to fit live image + overlay on available space on partition"
   echo "Size of live image: $livesize"
   echo "Overlay size: $overlaysizemb"
@@ -265,9 +273,19 @@ if [ -d $USBMNT/$LiveOS ]; then
 fi
 
 echo "Copying live image to partition"
+
 if [ ! -d $USBMNT/$LiveOS ]; then mkdir $USBMNT/$LiveOS ; fi
-cp $CDMNT/boot/vmlinuz* $USBMNT/$LiveOS/vmlinuz || exitclean
-cp $CDMNT/boot/initrd* $USBMNT/$LiveOS/initrd.img || exitclean
+
+cp $CDMNT/boot/vmlinuz\-*\-686 $USBMNT/$LiveOS/vmlinuz.686 || exitclean
+cp $CDMNT/boot/initrd.img\-*\-686 $USBMNT/$LiveOS/initrd.686 || exitclean
+ISOARCH=( 686 )
+
+if ls $CDMNT/boot/vmlinuz\-*\-amd64 > /dev/null; then
+    ISOARCH+=( x64 )
+    cp $CDMNT/boot/vmlinuz\-*\-amd64 $USBMNT/$LiveOS/vmlinuz.x64 || exitclean
+    cp $CDMNT/boot/initrd.img\-*\-amd64 $USBMNT/$LiveOS/initrd.x64 || exitclean
+fi
+
 if [ -z "$test" ]; then
     if [ -f $ISO ]; then
         cp $ISO $USBMNT/$LiveOS/${LiveOS}.iso || exitclean
@@ -275,47 +293,81 @@ if [ -z "$test" ]; then
         dd if=$ISO of=$USBMNT/$LiveOS/${LiveOS}.iso || exitclean
     fi
 fi
-if [ "$overlaysizemb" -gt 1 ]; then
-	PERSIST='persist'
-	if [ "$USBFS" = "vfat" ]; then
-		echo "Initializing persistent overlay file"
-		dd if=/dev/zero of=$USBMNT/$LiveOS/${LiveOS}-rw count=$overlaysizemb bs=1M || exitclean
-		echo 'y' | /sbin/mkfs.ext3 $USBMNT/$LiveOS/${LiveOS}-rw || exitclean
-		PERSIST='persist='$LiveOS'/'$LiveOS'-rw'
-	fi
+
+if [ ! -z "$overlaysizemb" ]; then
+    PERSIST='persist'
+    if [ "$USBFS" = "vfat" ]; then
+	echo "Initializing persistent overlay file"
+        if [ -z "$test" ]; then
+            dd if=/dev/zero of=$USBMNT/$LiveOS/${LiveOS}-rw count=$overlaysizemb bs=1M || exitclean
+            echo 'y' | /sbin/mkfs.ext3 $USBMNT/$LiveOS/${LiveOS}-rw || exitclean
+        fi
+	PERSIST='persist='$LiveOS'/'$LiveOS'-rw'
+    fi
 fi
 
 echo "Creating boot config file"
-# TODO use syslinux menu
-echo 'default '$LiveOS'
+
+cp /usr/lib/syslinux/menu.c32 $USBMNT/syslinux/
+echo 'default menu.c32
+prompt 0
 timeout 50
-prompt 1
-label '$LiveOS'
-kernel '$LiveOS'/vmlinuz
-append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$PERSIST' '$@'
-' > $USBMNT/extlinux.cfg || exitclean
-if [ "$PERSIST" ]; then
-    echo '
+menu title '$LiveOS' Live Disk Boot
+' > $USBMNT/syslinux/extlinux.cfg || exitclean
+for MYARCH in ${ISOARCH[@]}; do
+	echo 'label '$LiveOS'
+menu label '$LiveOS' '$MYARCH' with persist
+' >> $USBMNT/syslinux/extlinux.cfg || exitclean
+	if [ "$MYARCH" = "686" ]; then
+		echo 'menu default' >> $USBMNT/syslinux/extlinux.cfg || exitclean
+	fi
+	echo 'text help
+Boots the live '$LiveOS' system from the disk.
+Sets the appropriate persist option for your disk.
+Stores most changes.
+endtext
+kernel /'$LiveOS'/vmlinuz.'$MYARCH'
+append initrd=/'$LiveOS'/initrd.'$MYARCH' boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$PERSIST' '$@'
+' >> $USBMNT/syslinux/extlinux.cfg || exitclean
+	if [ "$PERSIST" ]; then
+	echo '
 label temp
-kernel '$LiveOS'/vmlinuz
-append initrd='$LiveOS'/initrd.img boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$@'
-' >> $USBMNT/extlinux.cfg || exitclean
-fi
+menu label '$LiveOS' '$MYARCH' without persist
+text help
+Boots the live '$LiveOS' system from the disk.
+Does not set persist so you get a clean system.
+Does not store any changes.
+endtext
+kernel /'$LiveOS'/vmlinuz.'$MYARCH'
+append initrd=/'$LiveOS'/initrd.'$MYARCH' boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso '$@'
+' >> $USBMNT/syslinux/extlinux.cfg || exitclean
+	fi
+	echo 'label standard
+menu label '$LiveOS' '$MYARCH' defaults
+text help
+Boots the live '$LiveOS' system from the disk.
+Does not use any extra options.
+Does not store any changes.
+endtext
+kernel /'$LiveOS'/vmlinuz.'$MYARCH'
+append initrd=/'$LiveOS'/initrd.'$MYARCH' boot=fll quiet vga=791 fromiso='$LiveOS'/'$LiveOS'.iso
+' >> $USBMNT/syslinux/extlinux.cfg || exitclean
+done
 
 if [ -z "$noboot" ]; then
     echo "Installing boot loader"
     if [ "$USBFS" = "vfat" -o "$USBFS" = "msdos" ]; then
-        # syslinux expects the config to be named syslinux.cfg 
+	# syslinux expects the config to be named syslinux.cfg
+	mv $USBMNT/syslinux/extlinux.cfg $USBMNT/syslinux/syslinux.cfg
         # and has to run with the file system unmounted
-        mv $USBMNT/extlinux.cfg $USBMNT/syslinux.cfg
         cleanup
-        syslinux -d $LiveOS $USBDEV || exitclean
+        syslinux -d syslinux $USBDEV || exitclean
     elif [ "$USBFS" = "ext2" -o "$USBFS" = "ext3" ]; then
         # TODO does extlinux.cfg need to be in $USBMNT/$LiveOS ?
         # has to be run with the file system mounted
-        extlinux -i $USBMNT/$LiveOS || exitclean
+        extlinux -d syslinux -i $USBMNT/$LiveOS || exitclean
         cleanup
     fi
-}
+fi
 
 echo "Partition set up as live image!"
