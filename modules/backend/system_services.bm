@@ -82,7 +82,7 @@ function system_services()
 		# configuration, it is provided by fll-live-initscripts.
 		#
 		unset UPDATE_RCD
-		UPDATE_RCD=( $(/usr/bin/fll_analyze_initscripts --force --chroot "$DEFAULT_DIR" "$service") )
+		UPDATE_RCD=( $(/usr/bin/fll_analyze_initscripts --chroot "$DEFAULT_DIR" "$service") )
 		[[ ${UPDATE_RCD[@]} ]] && chroot_it ${UPDATE_RCD[@]}
 	done
 
