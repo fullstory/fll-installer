@@ -32,6 +32,9 @@
 #
 
 #--------------------------------------------------------------
+# remove old error file if present
+test -e /tmp/.fll-iso2usb && rm -f /tmp/.fll-iso2usb
+#--------------------------------------------------------------
 # source distro-defaults
 #--------------------------------------------------------------
 if [ -s /etc/default/distro ]; then
@@ -49,11 +52,14 @@ usage()
 	echo ""
 	echo "Create an fromiso (frugal) installation on a USB drive"
 	echo ""
-	echo "-d|--debug                debug sh code execution"
-	echo "-D|--drive </dev/sdX>     name of device where to install the \"fromiso\""
-	echo "-h|--help                 print this help"
-	echo "-I|--iso   <iso_file>     iso file name to be installed"
-	echo "-t|--test                 copy everything but do not copy the iso"
+	echo "-d|--debug                     debug sh code execution"
+	echo "-D|--drive </dev/sdX>          name of device where to install the \"fromiso\""
+	echo "-n|--noformat                  do not format partition"
+	echo "-f|--format vfat|ext2|ext3     format partition with given filesystem"
+	echo "-p|--persist                   use cheatcode persist"
+	echo "-h|--help                      print this help"
+	echo "-I|--iso   <iso_file>          iso file name to be installed"
+	echo "-t|--test                      copy everything but do not copy the iso"
 	echo ""
 	echo "Everything after -- will be appended to the kernel cmdline of grub menu.lst"
 	echo ""
@@ -104,14 +110,34 @@ prepare_partition()
 {
 	local device="${1}"
 	local partition="${2}"
-	local label="${3:-${FLL_DISTRO_NAME}USB}"
-	shift 3
+	local fs="${3:-"ext3"}"
+	local label="${4:-${FLL_DISTRO_NAME}USB}"
+	shift 4
 
 	local ev
 	local is_bootable part_id
+	local fs_prog part_type
 
 	say "preparing bootable partition on device: ${device}"
 
+	case "${fs}" in
+		vfat)
+			fs_prog="mkfs.vfat -n ${label}"
+			part_type=6
+			;;
+		ext2)
+			fs_prog="mkfs.ext2 -q -m 1 -L ${label}"
+			part_type=83
+			;;
+		ext3)
+			fs_prog="mkfs.ext3 -q -m 1 -L ${label}"
+			part_type=83
+			;;
+		*)
+			usage
+			exit 253
+			;;
+	esac
 	# clear the partition table
 	dd if=/dev/zero of=${device} bs=1M count=16
 
@@ -131,7 +157,7 @@ p
 
 
 t
-83
+${part_type}
 a
 1
 p
@@ -188,49 +214,49 @@ EOF
 		fi
 	fi
 
-	part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v part=${partition} '
+	part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v fs_type=${part_type} -v part=${partition} '
 		{
-			if($1 == part && $6 == 83) {
+			if($1 == part && $6 == fs_type) {
 				print $6
 				exit
 			}
 		}
 	')
 	
-	if [ "${part_id}" -ne 83 ]; then
+	if [ "${part_id}" -ne "${part_type}" ]; then
 		# set partition type
 		fdisk "${device}" \
 <<EOF
 t
-83
+${part_type}
 p
 w
 EOF
 		
 		ev="${?}"
 		if [ "${ev}" -ne 0 ]; then
-			error "${ev}" "fdisk failed when setting partition type"
+			error "${ev}" "fdisk failed when setting partition type \"${part_fs}\""
 			return 1
 		fi
 		
 		refresh_block_devices
 
-		part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v part=${partition} '
+		part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v fs_type=${part_type} -v part=${partition} '
 			{
-				if($1 == part && $6 == 83) {
+				if($1 == part && $6 == fs_type) {
 					print $6
 					exit
 				}
 			}
 		')
 
-		if [ "${part_id}" -ne 83 ]; then
-			error 1 "failed to set partition type 83 on ${device}"
+		if [ "${part_id}" -ne "${part_type}" ]; then
+			error 1 "failed to set partition type 83 or 6 on ${device}"
 			return 1
 		fi	
 	fi	
 
-	mkfs.ext3 -q -m 1 -L "${label}" "${partition}"
+	${fs_prog} "${partition}"
 	
 	ev="${?}"
 	if [ "${ev}" -ne 0 ]; then
@@ -322,6 +348,37 @@ install_grub()
 	say "grub successfully installed to ${device}"
 }
 #--------------------------------------------------------------
+copy_files()
+{
+	local source_dir="${1}"
+	local mountpoint="${2}"
+
+	say "copying files to ${mountpoint}"
+	
+	for i in message  initrd vmlinuz; do
+		cp -v	${source_dir}/boot/${i}* \
+			${mountpoint}/boot
+	
+		ev="${?}"
+		if [ "${ev}" -ne 0 ]; then
+			error "${ev}" "failed to copy files ${source_dir}/boot/${i} to ${mountpoint}/boot"
+			return 1
+		fi
+	done
+	if [ -e ${source_dir}/boot/memtest86+.bin ] ; then
+		cp -v	${source_dir}/boot/memtest86+.bin \
+			${mountpoint}/boot
+	
+		ev="${?}"
+		if [ "${ev}" -ne 0 ]; then
+			error "${ev}" "failed to copy files memtest to ${mountpoint}/boot"
+			return 1
+		fi
+	fi
+	say "files copied to ${mountpoint}"
+	return 0
+}
+#--------------------------------------------------------------
 copy_files_from_dev()
 {
 	local name="${1}"
@@ -346,14 +403,9 @@ copy_files_from_dev()
 		}
 	')
 
-	say "copying files to ${mountpoint}"
-	
-	cp -v	${fll_booted_dir}/boot/message \
-		${fll_booted_dir}/boot/initrd* \
-		${fll_booted_dir}/boot/vmlinuz* \
-		${fll_booted_dir}/boot/memtest86+.bin \
-			${mountpoint}/boot
-	
+
+	copy_files "${fll_booted_dir}" "${mountpoint}"
+
 	ev="${?}"
 	if [ "${ev}" -ne 0 ]; then
 		error "${ev}" "failed to copy files to ${mountpoint}/boot"
@@ -364,6 +416,7 @@ copy_files_from_dev()
  		return 0
 	fi
 
+	say "copying files the iso to the ${mountpoint}"
 	dd if="${booted_device}" of="${mountpoint}/${name}"
 
 	ev="${?}"
@@ -372,7 +425,7 @@ copy_files_from_dev()
 		return 1
 	fi
 
-	say "files successfully copied to ${mountpoint}"
+	say "all files successfully copied to ${mountpoint}"
 }
 #--------------------------------------------------------------
 copy_files_from_local_iso()
@@ -410,13 +463,8 @@ copy_files_from_local_iso()
 	fi
 
 	say "iso mounted on ${mounted_iso}"
-	say "copying files to ${mountpoint}"
-	
-	cp -v	${mounted_iso}/boot/message \
-		${mounted_iso}/boot/initrd* \
-		${mounted_iso}/boot/vmlinuz* \
-		${mounted_iso}/boot/memtest86+.bin \
-			${mountpoint}/boot
+
+	copy_files "${mounted_iso}" "${mountpoint}"
 	
 	ev="${?}"
 	if [ "${ev}" -ne 0 ]; then
@@ -444,6 +492,7 @@ copy_files_from_local_iso()
  		return 0
 	fi
 
+	say "copying files the iso to the ${mountpoint}"
 	cp -v "${iso}" "${mountpoint}/${name}"
 
 	ev="${?}"
@@ -452,10 +501,49 @@ copy_files_from_local_iso()
 		return 1
 	fi
 
-	say "files successfully copied to ${mountpoint}"
+	say "iso successfully copied to ${mountpoint}"
 }
 #--------------------------------------------------------------
+prepare_persist()
+{
+	local mountpoint="${1}"
+	if [ ! "${PERSIST}" = "persist" ]; then
+		unset persist
+		return 0
+	fi
+	CUR_FS=$(udevinfo --query=env --name=${PARTITION} | \
+	    awk 'BEGIN{FS="="}/ID_FS_TYPE/{print $2}')
+	case ${CUR_FS} in
+		vfat)
+			mkdir -p ${mountpoint}/${FLL_DISTRO_NAME}
+	                echo "Initializing persistent overlay file using 50% of the available size"
 
+			avail=$(df -k | grep "$PARTITION" | awk 'BEGIN{var=0;}{var=$4/2;} END{ print var }')
+			if [ "${avail}" -gt 2097152 ]; then
+				avail=2097151
+			elif [ "${avail}" -lt 102400 ]; then
+				say "persist wants at least 200MB free and uses 50% from that ${mountpoint}"
+				avail=0
+			fi
+
+			if [ "${avail}" -gt 0 ]; then
+                		dd if=/dev/zero of=${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw count="${avail}" bs=1k || return 1
+
+                		echo 'y' | /sbin/mkfs.ext3 ${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw || return 1
+                		PERSIST="${PERSIST}=/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw"
+			else
+				unset PERSIST
+			fi
+			;;
+		ext2|ext3)
+			PERSIST="persist"
+			;;
+		*)
+			return 1
+			;;
+	esac
+	return 0
+}
 #--------------------------------------------------------------
 menulst()
 {
@@ -485,26 +573,33 @@ gfxmenu /boot/message
 EOF
 
 	for kernel in ${kernels}; do
-	cat >> ${mountpoint}/boot/grub/menu.lst \
+		cat >> ${mountpoint}/boot/grub/menu.lst \
 <<EOF
 ##ISO boot
 title ${name} (USB) ${kernel}
-kernel (hd0,0)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso nointro quiet vga=791 ${@}
+kernel (hd0,0)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso nointro quiet vga=791 ${PERSIST} ${@}
 initrd (hd0,0)/boot/initrd.img-${kernel}
 
+EOF
+		if [ -e ${mountpoint}/boot/memtest86+.bin ]; then
+			cat >> ${mountpoint}/boot/grub/menu.lst \
+<<EOF
 title memtest86+
 kernel /boot/memtest86+.bin
 
 EOF
+		fi
 
-done
+	done
 }
 
 #--------------------------------------------------------------
 # preparation, process cli arguments with getopt
 #--------------------------------------------------------------
-TEMP=$(getopt -o dD:I:hL:pt \
-        --long debug,drive:,iso:,help,label:,test \
+noformat=false
+
+TEMP=$(getopt -o dD:f:hI:L:npt \
+        --long debug,drive:,format:,help,iso:,label,noformat,persist,test \
         -n  "$(basename ${0})" -- "${@}")
 
 if [ "${?}" -ne 0 ]; then
@@ -525,9 +620,38 @@ while true ; do
 			DEVICE="${2}"
 			shift 2
 			;;
+		-f|--format)
+			if [ "${noformat}" = "true" ];then
+				usage
+				exit 254
+			fi
+			PART_FS="${2}"
+			case "${PART_FS}" in
+				none)
+					noformat=true
+					unset PART_FS
+					;;
+				vfat|ext2|ext3)
+					;;
+				*)
+					usage
+					exit 253
+				;;
+			esac
+			shift 2
+			;;
 		-I|--iso)
 			ISO="${2}"
 			shift 2
+			;;
+		-n|--noformat)
+			if [ -z "${PART_FS}" ]; then
+				noformat=true
+				shift 
+			else
+				usage
+				exit 254
+			fi
 			;;
 		-h|--help)
 			usage
@@ -536,6 +660,10 @@ while true ; do
 		-L|--label)
 			valid_label "${2}" && LABEL="${2}"
 			shift 2
+			;;
+		-p|--persist)
+			PERSIST="persist"
+			shift 
 			;;
 		-t|--test)
 			NOCOPY="yes"
@@ -595,11 +723,16 @@ fi
 PARTITION="${DEVICE}1"
 USBTMPDIR="$(mktemp -d -p /tmp/ install-usb.XXXXX)"
 
-prepare_partition "${DEVICE}" "${PARTITION}" "${LABEL}"		|| exit 5
-
+if [ "${noformat}" = "false" ] ; then
+	if [ -z "${PART_FS}" ]; then
+		PART_FS="ext3"
+	fi
+	prepare_partition "${DEVICE}" "${PARTITION}" "${PART_FS}" "${LABEL}"		|| exit 5
+fi
 mount_partition "${PARTITION}" "${USBTMPDIR}"			|| exit 6
+echo ${USBTMPDIR}
 
-trap "{ [[ -d ${USBTMPDIR} ]] && umount_partition ${PARTITION} ${USBTMPDIR}; }" exit
+trap "{ [ -d "${USBTMPDIR}" ] && umount_partition ${PARTITION} ${USBTMPDIR}; }" exit
 
 install_grub "${DEVICE}" "${USBTMPDIR}"				|| exit 7
 
@@ -611,6 +744,19 @@ else
 		"${FLL_MEDIA_NAME}" "${USBTMPDIR}" "${NOCOPY}"	|| exit 9
 fi
 
-menulst "${PARTITION}" "${USBTMPDIR}" "${FLL_DISTRO_NAME}" ${@}	|| exit 10
+if [ "${PERSIST}" = "persist" ];then
+	prepare_persist "${USBTMPDIR}"
+
+	ev="${?}"
+	if [ "${ev}" -ne 0 ]; then
+		say "failed to prepare persist option"
+	else
+		say "succeeded to prepare persist option"
+	fi
+else
+	say "no persist choosed"
+fi
+
+menulst "${PARTITION}" "${USBTMPDIR}" "${FLL_DISTRO_NAME}" "$persist" ${@}	|| exit 10
 
 exit 0
