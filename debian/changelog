@@ -1,9 +1,5 @@
-fll-installer (0.3.16) UNRELEASED; urgency=low
+fll-installer (0.3.16) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * now allow to choose the filesystem for the created partition (vfat, ext2
     or ext3).
 
