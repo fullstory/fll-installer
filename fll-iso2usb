@@ -523,7 +523,7 @@ prepare_persist()
 
 			avail=$(df -k | awk -v p="${PARTITION}" '$1 == p { printf "%d\n", $4 }')
 
-			if [ "${avail}" -lt 204800 ]; then
+			if [ -z "${avail}" ] || [ "${avail}" -lt 204800 ]; then
 				say "persistency requires >=200M free space on ${mountpoint}"
 				return 1
 			fi
