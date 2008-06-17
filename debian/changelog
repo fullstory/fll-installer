@@ -1,8 +1,8 @@
-fll-installer (0.3.18) UNRELEASED; urgency=low
+fll-installer (0.3.18) unstable; urgency=low
 
   * fll-iso2usb:
     - fix avail -> use typo
-    - remove use of undocuemented 4th argument to menulst function for persist
+    - remove use of undocumented 4th argument to menulst function for persist
 
  -- Kel Modderman <kel@otaku42.de>  Wed, 18 Jun 2008 08:33:33 +1000
 
