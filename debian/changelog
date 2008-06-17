@@ -5,8 +5,9 @@ fll-installer (0.3.17) UNRELEASED; urgency=low
     - add -P|--percent cli option to allow configurable use of free space for
       persist overlay file, falling back to 50%. It mus be > 10 and < 90
       percent of free space, no less, no more.
+    - just format loopback file on vfat with ext2
 
- -- Kel Modderman <kel@otaku42.de>  Tue, 17 Jun 2008 20:09:41 +1000
+ -- Kel Modderman <kel@otaku42.de>  Tue, 17 Jun 2008 20:19:48 +1000
 
 fll-installer (0.3.16) unstable; urgency=low
 
