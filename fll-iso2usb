@@ -530,7 +530,7 @@ prepare_persist()
 				say "${avail}k free space on ${mountpoint}"
 			fi
 
-			if [ "${PERCENT}" -gt 0 ]; then
+			if [ "${PERCENT}" ]; then
 				say "using ${perc}% of free space for persistent loopback file"
 				perc="${PERCENT}"
 			else
