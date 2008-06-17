@@ -1,4 +1,4 @@
-fll-installer (0.3.17) UNRELEASED; urgency=low
+fll-installer (0.3.17) unstable; urgency=low
 
   * fll-iso2usb:
     - overhaul of persistency creation function
