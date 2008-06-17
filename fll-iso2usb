@@ -507,41 +507,56 @@ copy_files_from_local_iso()
 prepare_persist()
 {
 	local mountpoint="${1}"
-	if [ ! "${PERSIST}" = "persist" ]; then
-		unset persist
+	local fs
+
+	if [ "${PERSIST}" != "persist" ]; then
 		return 0
 	fi
-	CUR_FS=$(udevinfo --query=env --name=${PARTITION} | \
-	    awk 'BEGIN{FS="="}/ID_FS_TYPE/{print $2}')
-	case ${CUR_FS} in
+
+	say "Initializing persistent overlay"
+
+	fs=$(/lib/udev/vol_id -t ${PARTITION})
+
+	case ${fs} in
 		vfat)
-			mkdir -p ${mountpoint}/${FLL_DISTRO_NAME}
-	                echo "Initializing persistent overlay file using 50% of the available size"
+			local avail use perc
 
-			avail=$(df -k | grep "$PARTITION" | awk 'BEGIN{var=0;}{var=$4/2;} END{ print var }')
-			if [ "${avail}" -gt 2097152 ]; then
-				avail=2097151
-			elif [ "${avail}" -lt 102400 ]; then
-				say "persist wants at least 200MB free and uses 50% from that ${mountpoint}"
-				avail=0
+			avail=$(df -k | awk -v p="${PARTITION}" '$1 == p { printf "%d\n", $4 }')
+
+			if [ "${avail}" -lt 204800 ]; then
+				say "persistency requires >=200M free space on ${mountpoint}"
+				return 1
 			fi
 
-			if [ "${avail}" -gt 0 ]; then
-                		dd if=/dev/zero of=${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw count="${avail}" bs=1k || return 1
-
-                		echo 'y' | /sbin/mkfs.ext3 ${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw || return 1
-                		PERSIST="${PERSIST}=/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw"
+			if [ "${PERCENT}" -gt 0 ]; then
+				say "using ${perc}% of free space for persistent loopback file"
+				perc="${PERCENT}"
 			else
-				unset PERSIST
+				# Default to 50%
+				perc="50"
 			fi
+
+			use=$(awk -v a="${avail}" -v p="${perc}" 'BEGIN{ printf "%d\n", a * p / 100 }')
+
+			if [ "${use}" -gt 2097152 ]; then
+				# Maximum filesize limited to a bit less than 2G on vfat
+				avail=2048000
+			fi
+
+			mkdir -p "${mountpoint}/${FLL_DISTRO_NAME}"
+                	dd if=/dev/zero of=${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw count="${use}" bs=1k || return 1
+                	echo 'y' | /sbin/mkfs.ext3 ${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw || return 1
+                	
+			# Update the PERSIST variable with location to loopback filesystem
+			PERSIST="${PERSIST}=/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw"
 			;;
 		ext2|ext3)
-			PERSIST="persist"
 			;;
 		*)
 			return 1
 			;;
 	esac
+
 	return 0
 }
 #--------------------------------------------------------------
@@ -598,8 +613,8 @@ EOF
 #--------------------------------------------------------------
 noformat=false
 
-TEMP=$(getopt -o dD:f:hI:L:npt \
-        --long debug,drive:,format:,help,iso:,label,noformat,persist,test \
+TEMP=$(getopt -o dD:f:hI:L:npP:t \
+        --long debug,drive:,format:,help,iso:,label,noformat,persist,percent:,test \
         -n  "$(basename ${0})" -- "${@}")
 
 if [ "${?}" -ne 0 ]; then
@@ -664,6 +679,20 @@ while true ; do
 		-p|--persist)
 			PERSIST="persist"
 			shift 
+			;;
+		-P|--percent)
+			case "${2}" in
+				*[!0-9]*)
+					error 1 "${1} option requires a percentile as argument, given: ${2}"
+					;;
+			esac
+
+			if [ "${2}" -le 100 ] && [ "${2}" -ge 10 ]; then
+				PERCENT="${2}"
+				shift 2
+			else
+				error 1 "${1} option requires a percentile value > 10 and < 100)"
+			fi
 			;;
 		-t|--test)
 			NOCOPY="yes"
@@ -749,12 +778,14 @@ if [ "${PERSIST}" = "persist" ];then
 
 	ev="${?}"
 	if [ "${ev}" -ne 0 ]; then
-		say "failed to prepare persist option"
+		say "failed to prepare persistency overlay"
+		unset PERSIST
 	else
-		say "succeeded to prepare persist option"
+		say "persistency overlay prepared"
 	fi
 else
-	say "no persist choosed"
+	say "persist mode not chosen"
+	unset PERSIST
 fi
 
 menulst "${PARTITION}" "${USBTMPDIR}" "${FLL_DISTRO_NAME}" "$persist" ${@}	|| exit 10
