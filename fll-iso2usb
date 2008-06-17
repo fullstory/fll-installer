@@ -551,6 +551,7 @@ prepare_persist()
 			mkdir -p "${mountpoint}/${FLL_DISTRO_NAME}"
                 	dd if=/dev/zero of="${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw" count="${use}" bs=1k || return 1
                 	echo 'y' | /sbin/mkfs.ext2 "${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw" || return 1
+			tune2fs -c 0 "${mountpoint}/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw" || return 1
                 	
 			# Update the PERSIST variable with location to loopback filesystem
 			PERSIST="${PERSIST}=/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw"
