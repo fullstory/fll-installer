@@ -1,3 +1,9 @@
+fll-installer (0.3.18) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 17 Jun 2008 14:01:57 +0200
+
 fll-installer (0.3.17) unstable; urgency=low
 
   * fll-iso2usb:
