@@ -1,8 +1,12 @@
 fll-installer (0.3.19) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 18 Jun 2008 00:45:23 +0200
+  [ Joaquim Boura ]
+  * fixes some spelling errors
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Wed, 18 Jun 2008 21:56:12 +0200
 
 fll-installer (0.3.18) unstable; urgency=low
 

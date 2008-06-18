@@ -8,8 +8,8 @@ fll\-tools as a fromiso into a USB pen
 installs a \fBF.U.L.L.S.T.O.R.Y.\fR iso-image on a USB-pen, makes the pen
 bootable and writes the needed grub files.
 .PP
-\fBfll-iso2usb\fR creates a partition over the USB-device, installs
-grub and copies the iso into it. When running from the live CD it copies his
+\fBfll-iso2usb\fR creates a partition or uses the first partition from the USB-device, installs
+grub and copies the iso into it. When running from the live CD it copies its
 contents into the US device.
 .PP
 \fBfll-iso2usb\fR is intended to be called by the
@@ -33,19 +33,19 @@ name of the iso image to be installed
 label name to be used for the created partition
 .TP
 \fB\-n|\-\-noformat\fR
-do not format the device, the first partition is usedr, VFAT or EXT2/EXT3 are accepted.
+do not format the device, the first partition is used, VFAT or EXT2/EXT3 are accepted.
 If the installer formats the partition it uses the whole disk and formats the partition
 with EXT3 filesystem.
 .TP
 \fB\-p|\-\-persist\fR
-Install the fromiso using the "persist" cheatcode. If the device has EXT2/EXT3 filesysten
-or get's it when the installer creates the partition then all free place is used for the persist.
-When the partition cwwas formaatted with VFAT than for the persist option are at least 100MB used
+Install "fromiso" using the "persist" cheatcode. If the device has EXT2/EXT3 filesysten
+or gets it when the installer creates the partition then all free place is used for the persist.
+When the partition was formatted with VFAT then for the persist option uses at least 100MB 
 or at most 2GB (minus one) normally 50% of the free available space.
 .TP
 \fB\-P|\-\-percent\fR  \fI<%>\fR
 Adjust percentage of free space dedicated to the persistent overlay file on
-vfat formatted usb media. Value given mu be no less than 10 and no more than
+vfat formatted usb media. Value given must be no less than 10 and no more than
 90.
 .TP
 \fB\-t|\-\-test\fR
@@ -56,10 +56,10 @@ debug sh code execution
 .PP
 .SH EXAMPLES
 .TP
-\fBfll-iso2usb \-D /dev/sdb /home/sidux/sidux.iso \\\fR
-\fB            \-\- toram lang=de tz=Europe/Berlin persist\fR
+\fBfll-iso2usb \-D /dev/sdb /home/sidux/sidux.iso \-p  \\\fR
+\fB            \-\- toram lang=de tz=Europe/Berlin \fR
 .PP
-installs the iso image into the USB device sdb. Uses the cheatcodes on the 
+installs the iso image into the USB device sdb. Uses persist and the cheatcodes on the 
 grub default command line.
 .PP
 .SH AUTHOR
