@@ -41,6 +41,16 @@ function load_config()
 			# exit 10
  		fi
 	done
+	# minimal check
+	# USER_NAME must not contain spaces
+	# HOST_NAME must not contain spaces
+	x=$(echo "$USER_NAME" | sed -e 's/[[:space:]]/x/g')
+	if [ ! "$x" = "$USER_NAME"];then
+		error 11 "Username must not contain whitespaces"
+	fi
+	if [ ! "$x" = "$HOST_NAME"];then
+		error 11 "Hostname must not contain whitespaces"
+	fi
 	return 0
 }
 ##-------------------------------------
