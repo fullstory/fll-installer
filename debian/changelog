@@ -1,9 +1,5 @@
-fll-installer (0.3.20) UNRELEASED; urgency=low
+fll-installer (0.3.20) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * do not allow username and/or hostname with whitspaces included.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Tue, 24 Jun 2008 09:23:04 +0200
