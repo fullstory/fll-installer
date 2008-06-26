@@ -101,6 +101,11 @@ EOF
 	touch "$mtab"
 
 	#
+	# remove confusing live traces from blkid.tab
+	#
+	rm -f "${TARGET_MNT_POINT}/etc/blkid.tab*"
+
+	#
 	# Save ALSA sound volume
 	#
 	if [ -e /proc/asound/modules ] && [ -x /usr/sbin/alsactl ]; then
