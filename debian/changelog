@@ -1,3 +1,9 @@
+fll-installer (0.3.22) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 26 Jun 2008 11:34:54 +0200
+
 fll-installer (0.3.21) unstable; urgency=low
 
   * remove confusing live traces from blkid.tab.
