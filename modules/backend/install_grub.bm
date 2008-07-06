@@ -212,7 +212,6 @@ EOF
 	chroot_it update-grub -y
 
 	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -s $TARGET_MNT_POINT/boot/message ]; then
-		echo "### gfxmenu ###"
 		if { mount | grep -q $TARGET_MNT_POINT/boot ; }; then
 			sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= "${TARGET_MNT_POINT}/boot/grub/menu.lst" | cut -d\= -f2)/message|g" \
 				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
