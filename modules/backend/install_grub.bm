@@ -26,16 +26,12 @@
 ##
 install_grub()
 {
-	local GRUB_MBR
 	local GRUB_CMDLINE
-	local SCSI
-	local GRUB_DEFVGA
 	local GRUB_VGA
 	local root_partition
 	local root_device
 	local device
 	local usb_dev
-	local bootpart
 	local point
 	local bootfrom
 	
@@ -96,6 +92,20 @@ install_grub()
 			bs=446 count=1 >/dev/null 2>/dev/null
 	fi
 
+	#
+	# install grub
+	#
+	
+	if [ "${bootfrom}" = "$(get_root_device ${bootfrom})" ]
+	then # install on MBR
+		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
+	else # install on partition
+	     # is twice because sometimes the first one fails in that cases the second
+	     # don't fail !!!
+		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" || \
+			grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
+	fi
+
 	# 
 	# Create initital menu.lst
 	#
@@ -141,38 +151,15 @@ EOF
 		-e "s/^# alternative=true/# alternative=false/g" \
 			"${TARGET_MNT_POINT}/boot/grub/menu.lst"
 
-	# #
-	# # should i understand this???
-	# #
-	# add graphical menu
-	# if there is a "/boot" mounted then this is grub root
-	# otherwise we have /boot over the / partition
-	bootpart=
-	for i in $HD_MAP; do
-		point=$(echo $i | cut -d":" -f2)
-		if [ "$point" = "/boot" ]; then
-			bootpart=$(echo $i | cut -d":" -f1)
-            break
-		fi
-	done
-
 	#
 	# Create a new cmdline
 	#
 	
 	GRUB_CMDLINE=$(get_grub_cmdline)
 	
-	# Fallback :-)
-	if [ -z "$GRUB_CMDLINE" ]
-	then
-		SCSI=$(cat /proc/cmdline | tr ' ' '\n' | grep =scsi |  tr '\n' ' ')
-		GRUB_CMDLINE="ramdisk_size=100000 apm=power-off nomce ${SCSI}"
-	fi
-
 	# extract vga mode from CMDLINE
-	GRUB_DEFVGA="791"
 	GRUB_VGA=$(getbootparam vga)
-	[ -z "$GRUB_VGA" ] && GRUB_VGA="$GRUB_DEFVGA"
+	[ -z "$GRUB_VGA" ] && GRUB_VGA="791"
 
 	GRUB_CMDLINE="$GRUB_CMDLINE vga=$GRUB_VGA"
 
@@ -194,19 +181,6 @@ do_bootloader = no
 do_initrd = Yes
 relative_links = Yes
 EOF
-	#
-	# install grub
-	#
-	
-	if [ "${bootfrom}" = "$(get_root_device ${bootfrom})" ]
-	then # install on MBR
-		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
-	else # install on partition
-	     # is twice because sometimes the first one fails in that cases the second
-	     # don't fail !!!
-		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" || \
-			grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
-	fi
 	
 	# update the menu.lst with our changes
 	chroot_it update-grub -y
