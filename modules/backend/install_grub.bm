@@ -141,7 +141,7 @@ install_grub()
 	#			- prune kopt
 	#			- add vga= to defoptions
 	#
-	sed -i	-e "/#.*and\ \/usr\/share\/doc\/grub-legacy-doc\/\./ r ${SEARCHPATH}/data/grub-charset.$(echo $LANG | cut -d\_ -f1)"
+	sed -i	-e "/#.*and\ \/usr\/share\/doc\/grub-legacy-doc\/\./ r ${SEARCHPATH}/data/grub-charset.$(echo $LANG | cut -d\_ -f1)" \
 		-e "s/^default[ \t].*/default saved/g" \
 		-e "s/^# alternative=true/# alternative=false/g" \
 		-e "s|^# kopt=root=.*[ \t]ro|&$GRUB_KOPT|" \

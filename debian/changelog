@@ -1,6 +1,5 @@
-fll-installer (0.3.23~slh.10) UNRELEASED; urgency=low
+fll-installer (0.4.0) unstable; urgency=low
 
-  * NOT RELEASED YET
   * remove bogus device.map/ kernel_vers exports.
   * proper quoting.
   * sed can do the same as perl.
@@ -15,12 +14,14 @@ fll-installer (0.3.23~slh.10) UNRELEASED; urgency=low
   * clean-up.
   * refactor grub charset.
   * merge sed calls.
+  * not perfect or even tested in all possible combinations, but good enough 
+    to get started and polish it until Ωυρέα.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 07 Jul 2008 00:30:03 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 07 Jul 2008 01:20:03 +0200
 
 fll-installer (0.3.22) unstable; urgency=low
 
-  * FIXME: crude hack to allow grub-probe (grub-common) to find /.
+  * crude hack to allow grub-probe (grub-common) to find /.
 
  -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Jul 2008 02:10:55 +0200
 
