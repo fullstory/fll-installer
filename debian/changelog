@@ -1,4 +1,4 @@
-fll-installer (0.3.23) UNRELEASED; urgency=low
+fll-installer (0.3.23~slh.10) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
   * remove bogus device.map/ kernel_vers exports.
@@ -13,8 +13,10 @@ fll-installer (0.3.23) UNRELEASED; urgency=low
   * fix test for grub-gfxboot.
   * stop groot and root mangling, new update-grub detects UUIDs on its own.
   * clean-up.
+  * refactor grub charset.
+  * merge sed calls.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Jul 2008 23:29:32 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 07 Jul 2008 00:30:03 +0200
 
 fll-installer (0.3.22) unstable; urgency=low
 
