@@ -138,8 +138,8 @@ EOF
 	esac
 
 	# disable alternatives, enable savedefault
-	sed -i	-e 's/^# alternative=true/# alternative=false/g' \
-		-e 's/^default .*/default saved/g' \
+	sed -i	-e "s/^default[ \t].*/default saved/g" \
+		-e "s/^# alternative=true/# alternative=false/g" \
 			"${TARGET_MNT_POINT}/boot/grub/menu.lst"
 
 	# #
@@ -171,12 +171,12 @@ EOF
 		GROOT=$(translate_linux_to_grub $root_device)
 	fi
 
-	if [ -n "$GROOT" -a -s $TARGET_MNT_POINT/boot/message ]; then
+	if dpkg -l grub-gfxboot >/dev/null 2>&1 && [ -n "$GROOT" ] && [ -s $TARGET_MNT_POINT/boot/message ]; then
 		if { mount | grep -q $TARGET_MNT_POINT/boot ; }; then
-			sed -i "s|^color .*|&\ngfxmenu $GROOT/message|g" \
+			sed -i "s|^color[ \t].*|&\ngfxmenu $GROOT/message|g" \
 				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
 		else
-			sed -i "s|^color .*|&\ngfxmenu $GROOT/boot/message|g" \
+			sed -i "s|^color[ \t].*|&\ngfxmenu $GROOT/boot/message|g" \
 				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
 		fi
 	fi
