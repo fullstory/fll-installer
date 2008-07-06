@@ -7,8 +7,10 @@ fll-installer (0.3.23) UNRELEASED; urgency=low
   * bindmounts are already set up externally.
   * don't hide grub-install/ update-grub output.
   * remove duplicate proc mounting again.
+  * only save the first 446 byte of a block device, we only want the MBR and
+    not clobber the partition table on restore.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Jul 2008 14:10:50 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Jul 2008 14:24:03 +0200
 
 fll-installer (0.3.22) unstable; urgency=low
 

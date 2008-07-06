@@ -94,7 +94,7 @@ install_grub()
 	then
 		# Make a backup of the old mbr
 		dd if=${bootfrom} of=$TARGET_MNT_POINT/boot/${FLL_DISTRO_NAME}-old-mbr.$(date -I) \
-			bs=512 count=1 >/dev/null 2>/dev/null
+			bs=446 count=1 >/dev/null 2>/dev/null
 	fi
 
 	# 
