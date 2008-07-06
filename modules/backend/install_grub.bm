@@ -171,7 +171,8 @@ EOF
 		GROOT=$(translate_linux_to_grub $root_device)
 	fi
 
-	if dpkg -l grub-gfxboot >/dev/null 2>&1 && [ -n "$GROOT" ] && [ -s $TARGET_MNT_POINT/boot/message ]; then
+	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -n "$GROOT" ] && [ -s $TARGET_MNT_POINT/boot/message ]; then
+		echo "### gfxmenu ###"
 		if { mount | grep -q $TARGET_MNT_POINT/boot ; }; then
 			sed -i "s|^color[ \t].*|&\ngfxmenu $GROOT/message|g" \
 				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
@@ -179,6 +180,11 @@ EOF
 			sed -i "s|^color[ \t].*|&\ngfxmenu $GROOT/boot/message|g" \
 				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
 		fi
+	else
+		echo "### NO gfxmenu, TEST FAILED ###"
+		[ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && echo "grub-gfxboot installed"
+		[ -n "$GROOT" ] && echo "GROOT=$GROOT" || echo "NO GROOT"
+		[ -s $TARGET_MNT_POINT/boot/message ] && echo "message exists"
 	fi
 
 	sed -i	-e "s|^root.*$|root\t\t${GROOT}|" \

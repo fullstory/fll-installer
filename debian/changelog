@@ -10,8 +10,9 @@ fll-installer (0.3.23) UNRELEASED; urgency=low
   * only save the first 446 byte of a block device, we only want the MBR and
     not clobber the partition table on restore.
   * fix sed calls and make regexp more robust.
+  * fix test for grub-gfxboot.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Jul 2008 15:09:09 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Jul 2008 16:08:25 +0200
 
 fll-installer (0.3.22) unstable; urgency=low
 
