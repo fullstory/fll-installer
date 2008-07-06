@@ -24,10 +24,6 @@
 #
 ##-------------------------------------
 ##
-#-----------------
-# 
-# ???????? device_map ????????
-#------------------
 install_grub()
 {
 	local GRUB_MBR
@@ -92,23 +88,6 @@ install_grub()
 			esac
 		fi
 	fi
-
-	#
-	# create device.map
-	#
-	say "create the device.map"
-	grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT \
-		/dev/null &>/dev/null
-	[ $? -ne 0 ] && grub-install --recheck --no-floppy \
-			--root-directory=$TARGET_MNT_POINT /dev/null &>/dev/null
-
-	#
-	# ?? IS this export needeed ??
-	#
-	export device_map=$TARGET_MNT_POINT/boot/grub/device.map
-	#
-	# ?? IS this export needeed ??
-	#
 
 	# installing on MBR 
 	if [ "$bootfrom" = "$(get_root_device ${bootfrom})" ]
@@ -188,14 +167,6 @@ EOF
 	if [ -n "$bootpart" ]; then
 		GROOT=$(translate_linux_to_grub $bootpart)
 	else
-		#
-		# ?? IS this export needeed ??
-		#
-		export device_map=$TARGET_MNT_POINT/boot/grub/device.map
-		export kernel_vers=$(uname -r)
-		#
-		# ?? IS this export needeed ??
-		#
 		root_device=$(grep "^kernel.*${kernel_ver}.*root=" \
 			$TARGET_MNT_POINT/boot/grub/menu.lst |\
 			grep -v "single" |\
@@ -247,14 +218,6 @@ EOF
 	perl -pi -e "s|^kernel(.*) ro|kernel\1 ro $GRUB_CMDLINE|g" \
 		$TARGET_MNT_POINT/boot/grub/menu.lst
 
-	#
-	# ?? IS this export needeed ??
-	#
-	export device_map=$TARGET_MNT_POINT/boot/grub/device.map
-	#
-	# ?? IS this needeed ??
-	#
-
 	# hook update-grub -y into the kernel installing chain
 cat << EOF > "$TARGET_MNT_POINT/etc/kernel-img.conf"
 # Kernel Image management overrides
@@ -272,14 +235,12 @@ EOF
 	
 	if [ "${bootfrom}" = "$(get_root_device ${bootfrom})" ]
 	then # install on MBR
-		grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" >/dev/null 2>/dev/null
+		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >/dev/null 2>/dev/null
 	else # install on partition
 	     # is twice because sometimes the first one fails in that cases the second
 	     # don't fail !!!
-		grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" \
-			>/dev/null 2>/dev/null || \
-			grub-install --root-directory=$TARGET_MNT_POINT "${bootfrom}" \
-			>/dev/null 2>/dev/null
+		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >/dev/null 2>/dev/null || \
+			grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >/dev/null 2>/dev/null
 	fi
 	
 	# update the menu.lst with our changes
