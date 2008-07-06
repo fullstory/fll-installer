@@ -95,7 +95,6 @@ install_grub()
 	#
 	# install grub
 	#
-	
 	if [ "${bootfrom}" = "$(get_root_device ${bootfrom})" ]
 	then # install on MBR
 		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
@@ -154,7 +153,6 @@ EOF
 	#
 	# Create a new cmdline
 	#
-	
 	GRUB_CMDLINE=$(get_grub_cmdline)
 	
 	# extract vga mode from CMDLINE
