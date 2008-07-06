@@ -18,7 +18,6 @@
 # convert_live2HD
 # add_bootmanager
 # update_fstab
-# fix_grub_for_UUID
 # appendGrubForOtherOS
 # fix_usb_install
 # purge_live_only_stuff
@@ -37,7 +36,6 @@ function main()
 		convert_live2HD
 		add_bootmanager
 		update_fstab
-		fix_grub_for_UUID
 		appendGrubForOtherOS
 		fix_usb_install
 		purge_live_only_stuff

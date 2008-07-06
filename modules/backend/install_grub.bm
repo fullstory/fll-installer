@@ -28,7 +28,6 @@ install_grub()
 {
 	local GRUB_MBR
 	local GRUB_CMDLINE
-	local GROOT
 	local SCSI
 	local GRUB_DEFVGA
 	local GRUB_VGA
@@ -158,40 +157,6 @@ EOF
 	done
 
 	#
-	# bad handle boot partition
-	#
-	if [ -n "$bootpart" ]; then
-		GROOT=$(translate_linux_to_grub $bootpart)
-	else
-		root_device=$(grep "^kernel.*${kernel_ver}.*root=" \
-			"${TARGET_MNT_POINT}/boot/grub/menu.lst" |\
-			grep -v "single" |\
-			sed 's#^kernel.*root=##'|sed 's# .*$##')
-
-		GROOT=$(translate_linux_to_grub $root_device)
-	fi
-
-	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -n "$GROOT" ] && [ -s $TARGET_MNT_POINT/boot/message ]; then
-		echo "### gfxmenu ###"
-		if { mount | grep -q $TARGET_MNT_POINT/boot ; }; then
-			sed -i "s|^color[ \t].*|&\ngfxmenu $GROOT/message|g" \
-				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
-		else
-			sed -i "s|^color[ \t].*|&\ngfxmenu $GROOT/boot/message|g" \
-				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
-		fi
-	else
-		echo "### NO gfxmenu, TEST FAILED ###"
-		[ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && echo "grub-gfxboot installed"
-		[ -n "$GROOT" ] && echo "GROOT=$GROOT" || echo "NO GROOT"
-		[ -s $TARGET_MNT_POINT/boot/message ] && echo "message exists"
-	fi
-
-	sed -i	-e "s|^root.*$|root\t\t${GROOT}|" \
-		-e "s|^# groot=.*$|# groot=${GROOT}|" \
-			"${TARGET_MNT_POINT}/boot/grub/menu.lst"
-
-	#
 	# Create a new cmdline
 	#
 	
@@ -245,6 +210,18 @@ EOF
 	
 	# update the menu.lst with our changes
 	chroot_it update-grub -y
+
+	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -s $TARGET_MNT_POINT/boot/message ]; then
+		echo "### gfxmenu ###"
+		if { mount | grep -q $TARGET_MNT_POINT/boot ; }; then
+			sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= "${TARGET_MNT_POINT}/boot/grub/menu.lst" | cut -d\= -f2)/message|g" \
+				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
+		else
+			sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= "
+			${TARGET_MNT_POINT}/boot/grub/menu.lst" | cut -d\= -f2)/boot/message|g" \
+				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
+		fi
+	else
 
 	return 0
 }
