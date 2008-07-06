@@ -101,9 +101,7 @@ install_grub()
 	# Create initital menu.lst
 	#
 	say "create initital menu.lst"
-	mount --bind /dev "${TARGET_MNT_POINT}/dev"
 	chroot_it update-grub -y >/dev/null 2>/dev/null
-	umount "${TARGET_MNT_POINT}/dev"
 
 	# change menu.lst
 	# TODO other languages
@@ -240,9 +238,7 @@ EOF
 	fi
 	
 	# update the menu.lst with our changes
-	mount --bind /dev "${TARGET_MNT_POINT}/dev"
 	chroot_it update-grub -y >/dev/null 2>/dev/null
-	umount "${TARGET_MNT_POINT}/dev"
 
 	return 0
 }

@@ -63,7 +63,7 @@ function add_bootmanager()
 	# must be done as at least update-grub uses an old-style /etc/fstab
 	# so we create one for that
 
-	# mount --bind /proc "$TARGET_MNT_POINT/proc"
+	mount --bind /proc "$TARGET_MNT_POINT/proc"
 	mount --bind /dev "$TARGET_MNT_POINT/dev"
 	mount --bind /sys "$TARGET_MNT_POINT/sys"
 
@@ -98,7 +98,7 @@ function add_bootmanager()
 	##
 	## workaround...start
 	##
-	# umount /proc, /dev and /sys on chroot
+	umount /proc, /dev and /sys on chroot
 	umount "$TARGET_MNT_POINT/sys"
 	umount "$TARGET_MNT_POINT/dev"
 	# umount "$TARGET_MNT_POINT/proc"
