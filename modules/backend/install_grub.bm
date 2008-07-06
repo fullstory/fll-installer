@@ -101,7 +101,7 @@ install_grub()
 	# Create initital menu.lst
 	#
 	say "create initital menu.lst"
-	chroot_it update-grub -y >/dev/null 2>/dev/null
+	chroot_it update-grub -y
 
 	# change menu.lst
 	# TODO other languages
@@ -229,16 +229,16 @@ EOF
 	
 	if [ "${bootfrom}" = "$(get_root_device ${bootfrom})" ]
 	then # install on MBR
-		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >/dev/null 2>/dev/null
+		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
 	else # install on partition
 	     # is twice because sometimes the first one fails in that cases the second
 	     # don't fail !!!
-		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >/dev/null 2>/dev/null || \
-			grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >/dev/null 2>/dev/null
+		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" || \
+			grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
 	fi
 	
 	# update the menu.lst with our changes
-	chroot_it update-grub -y >/dev/null 2>/dev/null
+	chroot_it update-grub -y
 
 	return 0
 }

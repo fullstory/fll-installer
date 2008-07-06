@@ -5,8 +5,9 @@ fll-installer (0.3.23) UNRELEASED; urgency=low
   * proper quoting.
   * sed can do the same as perl.
   * bindmounts are already set up externally.
+  * don't hide grub-install/ update-grub output.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Jul 2008 13:25:09 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Jul 2008 13:53:49 +0200
 
 fll-installer (0.3.22) unstable; urgency=low
 
