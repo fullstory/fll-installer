@@ -107,21 +107,10 @@ install_grub()
 	fi
 
 	# 
-	# Create initital menu.lst
+	# Create initital grub configuration (grub2 ignores -y)
 	#
-	say "create initital menu.lst"
+	say "create initital grub configuration"
 	chroot_it update-grub -y
-
-	# set up gfxmenu
-	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -s "${TARGET_MNT_POINT}/boot/message" ]; then
-		if { mount | grep -q "${TARGET_MNT_POINT}/boot" ; }; then
-			sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= ${TARGET_MNT_POINT}/boot/grub/menu.lst | cut -d\= -f2)/message|g" \
-				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
-		else
-			sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= ${TARGET_MNT_POINT}/boot/grub/menu.lst | cut -d\= -f2)/boot/message|g" \
-				"${TARGET_MNT_POINT}/boot/grub/menu.lst"
-		fi
-	fi
 
 	#
 	# Create a new cmdline
@@ -134,19 +123,41 @@ install_grub()
 
 	GRUB_DEFOPTIONS=" vga=$GRUB_VGA"
 
-	#
-	# configure menu.lst:	- keyboard charset (TODO: only de so far)
-	# 			- disable alternatives
-	#			- enable savedefault
-	#			- prune kopt
-	#			- add vga= to defoptions
-	#
-	sed -i	-e "/#.*and\ \/usr\/share\/doc\/grub-legacy-doc\/\./ r ${SEARCHPATH}/data/grub-charset.$(echo $LANG | cut -d\_ -f1)" \
-		-e "s/^default[ \t].*/default saved/g" \
-		-e "s/^# alternative=true/# alternative=false/g" \
-		-e "s|^# kopt=root=.*[ \t]ro|&$GRUB_KOPT|" \
-		-e "s|^\# defoptions=.*|&$GRUB_DEFOPTIONS|" \
-			"${TARGET_MNT_POINT}/boot/grub/menu.lst"
+	# grub-gfxboot/ grub-legacy
+	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub" ] || [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ]; then
+		if [ -w "${TARGET_MNT_POINT}/boot/menu.lst" ]; then
+			# set up gfxmenu for grub-gfxboot
+			if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -s "${TARGET_MNT_POINT}/boot/message" ]; then
+				if { mount | grep -q "${TARGET_MNT_POINT}/boot" ; }; then
+					sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= ${TARGET_MNT_POINT}/boot/grub/menu.lst | cut -d\= -f2)/message|g" \
+						"${TARGET_MNT_POINT}/boot/grub/menu.lst"
+				else
+					sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= ${TARGET_MNT_POINT}/boot/grub/menu.lst | cut -d\= -f2)/boot/message|g" \
+						"${TARGET_MNT_POINT}/boot/grub/menu.lst"
+				fi
+			fi
+
+			#
+			# configure menu.lst:	- keyboard charset (TODO: only de so far)
+			# 			- disable alternatives
+			#			- enable savedefault
+			#			- prune kopt
+			#			- add vga= to defoptions
+			#
+			sed -i	-e "/#.*and\ \/usr\/share\/doc\/grub-legacy-doc\/\./ r ${SEARCHPATH}/data/grub-charset.$(echo $LANG | cut -d\_ -f1)" \
+				-e "s/^default[ \t].*/default saved/g" \
+				-e "s/^# alternative=true/# alternative=false/g" \
+				-e "s|^# kopt=root=.*[ \t]ro|&$GRUB_KOPT|" \
+				-e "s|^\# defoptions=.*|&$GRUB_DEFOPTIONS|" \
+					"${TARGET_MNT_POINT}/boot/grub/menu.lst"
+		fi
+	fi
+
+	# grub2
+	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-pc" ] && [ -w "${TARGET_MNT_POINT}/boot/grub.cfg" ]; then
+		#TODO no special configuration implemented yet
+		:
+	fi
 
 	# hook update-grub -y into the kernel installing chain
 cat << EOF > "$TARGET_MNT_POINT/etc/kernel-img.conf"
@@ -160,7 +171,7 @@ do_initrd = Yes
 relative_links = Yes
 EOF
 	
-	# update the menu.lst with our changes
+	# update the grub config with our changes (grub2 ignores -y)
 	chroot_it update-grub -y
 
 	return 0
