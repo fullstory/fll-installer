@@ -1,9 +1,5 @@
-fll-installer (0.4.2) UNRELEASED; urgency=low
+fll-installer (0.4.2) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Kel Modderman ]
   * modules/backend/install_grub.bm:
     - fix path to target grub legacy|gfxboot menu.lst
     - remove extra braces from mount | grep command
