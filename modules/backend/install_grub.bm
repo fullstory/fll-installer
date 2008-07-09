@@ -125,10 +125,10 @@ install_grub()
 
 	# grub-gfxboot/ grub-legacy
 	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub" ] || [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ]; then
-		if [ -w "${TARGET_MNT_POINT}/boot/menu.lst" ]; then
+		if [ -w "${TARGET_MNT_POINT}/boot/grub/menu.lst" ]; then
 			# set up gfxmenu for grub-gfxboot
 			if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -s "${TARGET_MNT_POINT}/boot/message" ]; then
-				if { mount | grep -q "${TARGET_MNT_POINT}/boot" ; }; then
+				if mount | grep -q "${TARGET_MNT_POINT}/boot"; then
 					sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= ${TARGET_MNT_POINT}/boot/grub/menu.lst | cut -d\= -f2)/message|g" \
 						"${TARGET_MNT_POINT}/boot/grub/menu.lst"
 				else
