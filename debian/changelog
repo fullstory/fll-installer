@@ -1,4 +1,4 @@
-fll-installer (0.4.3) UNRELEASED; urgency=low
+fll-installer (0.4.3) unstable; urgency=low
 
   * Apply patch from ModestUser to correct behaviour when installing with an
     existing /home mapped.
