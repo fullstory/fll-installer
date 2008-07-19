@@ -78,16 +78,7 @@ function prepareHD()
 			err_msg="Formatting of $HD_CHOICE failed. Some messages from mkfs.$HD_FSTYPE: $error_messages"
 			logit $err_msg
 			error 15 "$err_msg"
-			# exit 15
 		fi
-		# 
- 		# Deactivate dir_index-feature of ext2/ext3-partitions
-		# 
-		case $HD_FSTYPE in
-			*ext*)
-				tune2fs -O ^dir_index $HD_CHOICE &>/dev/null
-				;;
-		esac
 	fi
 
 	#
