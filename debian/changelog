@@ -1,9 +1,10 @@
-fll-installer (0.4.4) UNRELEASED; urgency=low
+fll-installer (0.4.4) unstable; urgency=low
 
-  * NOT RELEASED YET
   * don't disable dir_index for ext2/ ext3/ ext4 partitions.
+  * squeeze usage fll-iso2usb for into 80 characters.
+  * add basic, untested, ext4 support.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 20 Jul 2008 00:14:57 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 20 Jul 2008 00:24:11 +0200
 
 fll-installer (0.4.3) unstable; urgency=low
 

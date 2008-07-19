@@ -38,7 +38,7 @@ export PATH=/sbin:/usr/sbin:$PATH
 
 usage() {
     echo "$0 [--overlay-size-mb [<size>]] [--noboot] [--reset-mbr] [--test] <iso path> <target device> -- [kernel_args]"
-    echo "creates a bootable fromiso install, with optional persist, on an existing ext2/3 or fat partition"
+    echo "creates a bootable fromiso install, with optional persist, on an existing ext2/3/4 or fat partition"
     exit 1
 }
 
@@ -132,8 +132,8 @@ checkFilesystem() {
     dev=$1
 
     USBFS=$(/lib/udev/vol_id -t $dev)
-    if [ "$USBFS" != "vfat" -a "$USBFS" != "msdos" -a "$USBFS" != "ext2" -a "$USBFS" != "ext3" ]; then
-	echo "USB filesystem must be vfat or ext[23]"
+    if [ "$USBFS" != "vfat" -a "$USBFS" != "msdos" -a "$USBFS" != "ext2" -a "$USBFS" != "ext3" -a "$USBFS" != "ext4" ]; then
+	echo "USB filesystem must be vfat or ext[234]"
 	exitclean
     fi
 
@@ -362,7 +362,7 @@ if [ -z "$noboot" ]; then
         # and has to run with the file system unmounted
         cleanup
         syslinux -d syslinux $USBDEV || exitclean
-    elif [ "$USBFS" = "ext2" -o "$USBFS" = "ext3" ]; then
+    elif [ "$USBFS" = "ext2" -o "$USBFS" = "ext3" -o "$USBFS" = "ext4" ]; then
         # TODO does extlinux.cfg need to be in $USBMNT/$LiveOS ?
         # has to be run with the file system mounted
         extlinux -d syslinux -i $USBMNT/$LiveOS || exitclean
