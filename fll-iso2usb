@@ -56,7 +56,7 @@ usage()
 	echo "-D|--drive </dev/sdX>               name of device where to install the "
 	echo "                                    \"fromiso\""
 	echo "-n|--noformat                       do not format partition"
-	echo "-f|--format vfat|ext2|ext3|ext4     format partition with given filesystem"
+	echo "-f|--format vfat|ext2|ext3          format partition with given filesystem"
 	echo "-p|--persist                        use cheatcode persist"
 	echo "-P|--percent                        adjust percentage free space used for "
 	echo "                                    persist on vfat (10 - 90)"
@@ -134,10 +134,6 @@ prepare_partition()
 			;;
 		ext3)
 			fs_prog="mkfs.ext3 -q -m 1 -L ${label}"
-			part_type=83
-			;;
-		ext4)
-			fs_prog="mkfs.ext4 -q -m 1 -L ${label}"
 			part_type=83
 			;;
 		*)
