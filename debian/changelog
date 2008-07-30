@@ -1,6 +1,5 @@
-fll-installer (0.4.6) UNRELEASED; urgency=low
+fll-installer (0.4.6) unstable; urgency=low
 
-  * NOT RELEASED YET
   * purge_live_only_stuff.bm: add fll-live-utils.
 
  -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 30 Jul 2008 23:03:01 +1000
