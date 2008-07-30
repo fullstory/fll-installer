@@ -10,9 +10,9 @@ Copyright:
     Copyright © 2006-2008 Red Hat, Inc.
     Copyright © 2008 Niall Walsh <niallwalsh@users.berlios.de>
 
-Based on the knoppix installer from Fabian Franz <knoppix-installer@fabian-franz.de>
-with fixes and help by: Joerg Schirottke <master@kanotix.de>
-                    	Stefan Lippers-Hollmann <s.l-h@gmx.de>
+Based on the knoppix installer from Fabian Franz 
+<knoppix-installer@fabian-franz.de> with fixes and help by: Joerg Schirottke 
+<master@kanotix.de> and Stefan Lippers-Hollmann <s.l-h@gmx.de>
 
 Based on the Fedora livecd-iso-to-disk from Red Hat, Inc.
 with help by:	David Zeuthen <davidz@redhat.com>
