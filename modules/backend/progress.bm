@@ -13,8 +13,6 @@
 ##-------------------------------------
 #
 
-# we start counting from 0
-ACTION=0
 #
 ##
 ##-------------------------------------
@@ -70,16 +68,16 @@ function progress()
 
 	if [ -n "$DISPLAY" ] && [ -e "${INSTALLER_INOTIFY}" ] ;then
 	
-		[ "${ACTION}" -lt 19 ] && ACTION=$((ACTION + 1))
+		[ "${ACTION}" -lt 9 ] && ACTION=$((ACTION + 1))
 		text=$(echo "$@"|cut -d ":" -f 1)
-		perc=$(awk -v action=$ACTION 'BEGIN{printf ("%1.2f", action / 20)}')
-		perci=$(awk -v action=$ACTION 'BEGIN{printf ("%d", action * 100 / 20)}')
+		perc=$(awk -v action=$ACTION 'BEGIN{printf ("%1.2f", action / 10)}')
+		perci=$(awk -v action=$ACTION 'BEGIN{printf ("%d", action * 100 / 10)}')
 		test "$perci" -gt 100 && perc="1.0"
 
 		# send message to the gui
 		printf  "PERC=${perc}\n\
 CURRENT=<b>$text</b>\n\
-COMPLETE=completed ${ACTION} of 20" > $INSTALLER_INOTIFY
+COMPLETE=completed ${ACTION} of 10" > $INSTALLER_INOTIFY
 	fi
 }
 
