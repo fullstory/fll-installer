@@ -51,9 +51,8 @@ function update_fstab()
 	chroot_it fll_fstab_generator --file /etc/fstab --uuids --mkdir \
 		${wanted} ${autohd}
 	
-	# 3. fix resume configuration, it may have changed in
-	#    partitioning since boot
-	chroot_it /etc/init.d/fll-resume start
+	# 3. create/fix resume configuration for initramfs-tools
+	chroot_it fll_resume_validate
 
 	# 4. umount /proc, /dev and /sys on chroot
 	umount "$TARGET_MNT_POINT/sys"
