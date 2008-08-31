@@ -21,6 +21,9 @@ function create_initrd()
 	# Check for a wanted kernel, otherwise set a default
 	[ -z "$BOOT_KERNEL" ] && BOOT_KERNEL=$(uname -r)
 
+	# Remove fll-live-initramfs rule
+	rm -f "$TARGET_MNT_POINT/etc/udev/rules.d/70-fll-live.rules"
+
 	#
 	# Make the real initrd
 	#
