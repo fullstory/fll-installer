@@ -4,8 +4,10 @@ fll-installer (0.4.8) UNRELEASED; urgency=low
     /etc/init.d/fll-resume.
   * Remove /etc/udev/rules.d/70-fll-live.rules before creating initramfs
     on target system.
+  * Do not route output of update-initramfs into /dev/null or run it in
+    a subshell.
 
- -- Kel Modderman <kel@otaku42.de>  Mon, 01 Sep 2008 07:06:22 +1000
+ -- Kel Modderman <kel@otaku42.de>  Mon, 01 Sep 2008 07:11:00 +1000
 
 fll-installer (0.4.7) unstable; urgency=low
 
