@@ -1,4 +1,4 @@
-fll-installer (0.4.8) UNRELEASED; urgency=low
+fll-installer (0.4.8) unstable; urgency=low
 
   * Fix modules/backend/update_fstab.bm for removal of
     /etc/init.d/fll-resume.
