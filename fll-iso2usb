@@ -38,6 +38,10 @@ test -e /tmp/.fll-iso2usb && rm -f /tmp/.fll-iso2usb
 # source distro-defaults
 #--------------------------------------------------------------
 if [ -s /etc/default/distro ]; then
+	#
+	# XXX: we really want to source the defaults from the live media
+	# we are copying, and not the host system
+	#
 	. /etc/default/distro
 else
 	echo "E: requires distro-defaults"
@@ -604,16 +608,16 @@ kernel (hd0,0)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso noint
 initrd (hd0,0)/boot/initrd.img-${kernel}
 
 EOF
-		if [ -e ${mountpoint}/boot/memtest86+.bin ]; then
-			cat >> ${mountpoint}/boot/grub/menu.lst \
+	done
+
+	if [ -e ${mountpoint}/boot/memtest86+.bin ]; then
+		cat >> ${mountpoint}/boot/grub/menu.lst \
 <<EOF
 title memtest86+
 kernel /boot/memtest86+.bin
 
 EOF
-		fi
-
-	done
+	fi
 }
 
 #--------------------------------------------------------------

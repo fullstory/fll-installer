@@ -1,8 +1,11 @@
 fll-installer (0.4.9) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * Only append an entry for metest86+ once, not once for each kernel.
+  * Add a note to point out that we should really be sourcing distro-defaults
+    config of the system we are installaing to usb and not the host system.
+    They are not guarenteed to be the same.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 31 Aug 2008 23:51:57 +0200
+ -- Kel Modderman <kel@otaku42.de>  Mon, 01 Sep 2008 09:36:25 +1000
 
 fll-installer (0.4.8) unstable; urgency=low
 
