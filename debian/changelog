@@ -1,3 +1,9 @@
+fll-installer (0.4.10) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 01 Sep 2008 22:51:34 +0200
+
 fll-installer (0.4.9) unstable; urgency=low
 
   * Only append an entry for metest86+ once, not once for each kernel.
