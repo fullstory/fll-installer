@@ -1,4 +1,4 @@
-fll-installer (0.4.9) UNRELEASED; urgency=low
+fll-installer (0.4.9) unstable; urgency=low
 
   * Only append an entry for metest86+ once, not once for each kernel.
   * Add a note to point out that we should really be sourcing distro-defaults
