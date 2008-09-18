@@ -1,10 +1,14 @@
 fll-installer (0.4.10) UNRELEASED; urgency=low
 
+  [ Kel Modderman ]
   * modules/backend/fix_home_on_HD.bm:
     - only clean ownership when creating a new home
     - remove installer from fluxbox menu
 
- -- Kel Modderman <kel@otaku42.de>  Fri, 19 Sep 2008 06:39:42 +1000
+  [ Joaquim Boura ]
+  * when creating a fromiso using a real iso get the distro-defaults from the iso
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Thu, 18 Sep 2008 23:00:12 +0200
 
 fll-installer (0.4.9) unstable; urgency=low
 

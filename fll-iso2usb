@@ -113,6 +113,51 @@ refresh_block_devices()
 	fi
 }
 #--------------------------------------------------------------
+get_distro_name()
+{
+	local iso="${1}"
+	
+	local mounted_iso="$(mktemp -d -p /tmp/ install-usb-iso.XXXXX)"
+
+	while :; do
+		if mount -t iso9660 -o loop,ro "${iso}" "${mounted_iso}"; then
+			break
+		elif [[ -b ${iso} ]]; then
+			echo
+			echo "Please load iso media into ${iso#/dev/} tray."
+			echo "Press Enter to continue or Ctrl+c to cancel."
+			echo
+			read x
+			continue
+		fi
+	done
+
+	ev="${?}"
+	if [ "${ev}" -ne 0 ]; then
+		error "${ev}" "failed to mount ${iso} on ${mounted_iso}"
+		return 1
+	fi
+
+	local iso_initrd=$(ls  ${mounted_iso}/boot/init* |head -n 1)
+	local iso_distro=$(mktemp -p /tmp/ install-usb-iso.distro.XXXXXX)
+
+	gunzip -c ${iso_initrd} |\
+		cpio -i -H newc --to-stdout --quiet etc\/default\/distro |\
+		awk '/FLL_DISTRO_NAME=/{print $0} /FLL_MEDIA_NAME=/{print $0}' >${iso_distro}
+	
+	umount $mounted_iso 
+
+	if test -s ${iso_distro} ; then
+	    source ${iso_distro}
+	    rm -f ${iso_distro}
+	else
+	    error "${ev}" "failed to read distro-defaults in initramfs"
+	    rm -f ${iso_distro}
+	    return 1
+	fi
+	
+}
+#--------------------------------------------------------------
 prepare_partition()
 {
 	local device="${1}"
@@ -766,25 +811,31 @@ fi
 PARTITION="${DEVICE}1"
 USBTMPDIR="$(mktemp -d -p /tmp/ install-usb.XXXXX)"
 
-if [ "${noformat}" = "false" ] ; then
-	if [ -z "${PART_FS}" ]; then
-		PART_FS="ext3"
-	fi
-	prepare_partition "${DEVICE}" "${PARTITION}" "${PART_FS}" "${LABEL}"		|| exit 5
-fi
-mount_partition "${PARTITION}" "${USBTMPDIR}"			|| exit 6
+mount_partition "${PARTITION}" "${USBTMPDIR}"			|| exit 5
 echo ${USBTMPDIR}
 
 trap "{ [ -d "${USBTMPDIR}" ] && umount_partition ${PARTITION} ${USBTMPDIR}; }" exit
 
-install_grub "${DEVICE}" "${USBTMPDIR}"				|| exit 7
+if [ -n "${ISO}" ]; then
+	get_distro_name "${ISO}"				|| exit 6
+	read
+fi
+
+if [ "${noformat}" = "false" ] ; then
+	if [ -z "${PART_FS}" ]; then
+		PART_FS="ext3"
+	fi
+	prepare_partition "${DEVICE}" "${PARTITION}" "${PART_FS}" "${LABEL}"		|| exit 7
+fi
+
+install_grub "${DEVICE}" "${USBTMPDIR}"				|| exit 8
 
 if [ "${FORCE_LOCAL_ISO}" ]; then
 	copy_files_from_local_iso "${ISO}" \
-		"${FLL_MEDIA_NAME}" "${USBTMPDIR}" "${NOCOPY}"	|| exit 8
+		"${FLL_MEDIA_NAME}" "${USBTMPDIR}" "${NOCOPY}"	|| exit 9
 else
 	copy_files_from_dev \
-		"${FLL_MEDIA_NAME}" "${USBTMPDIR}" "${NOCOPY}"	|| exit 9
+		"${FLL_MEDIA_NAME}" "${USBTMPDIR}" "${NOCOPY}"	|| exit 10
 fi
 
 if [ "${PERSIST}" = "persist" ];then
@@ -802,6 +853,6 @@ else
 	unset PERSIST
 fi
 
-menulst "${PARTITION}" "${USBTMPDIR}" "${FLL_DISTRO_NAME}" ${@}	|| exit 10
+menulst "${PARTITION}" "${USBTMPDIR}" "${FLL_DISTRO_NAME}" ${@}	|| exit 11
 
 exit 0
