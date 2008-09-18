@@ -32,8 +32,7 @@ purge_live_only_stuff()
 				install-usb-gui \
 				fll-installer \
 				setpassword \
-				sshstart \
-				startsyslog
+				sshstart
 
 	# remove virtualisation helpers on non-emulated hardware
 	if [ -z "$(lspci -d 80ee:beef)" ]; then

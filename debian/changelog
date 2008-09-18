@@ -1,4 +1,4 @@
-fll-installer (0.4.10) UNRELEASED; urgency=low
+fll-installer (0.4.10) unstable; urgency=low
 
   [ Kel Modderman ]
   * modules/backend/fix_home_on_HD.bm:
@@ -8,7 +8,10 @@ fll-installer (0.4.10) UNRELEASED; urgency=low
   [ Joaquim Boura ]
   * when creating a fromiso using a real iso get the distro-defaults from the iso
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 18 Sep 2008 23:00:12 +0200
+  [ Stefan Lippers-Hollmann ]
+  * startsyslog isn't installed anymore, no need to purge it.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 18 Sep 2008 23:11:57 +0200
 
 fll-installer (0.4.9) unstable; urgency=low
 
