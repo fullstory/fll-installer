@@ -1,3 +1,9 @@
+fll-installer (0.4.11) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 18 Sep 2008 23:12:52 +0200
+
 fll-installer (0.4.10) unstable; urgency=low
 
   [ Kel Modderman ]
@@ -6,7 +12,8 @@ fll-installer (0.4.10) unstable; urgency=low
     - remove installer from fluxbox menu
 
   [ Joaquim Boura ]
-  * when creating a fromiso using a real iso get the distro-defaults from the iso
+  * when creating a fromiso using a real iso get the distro-defaults from the 
+    iso.
 
   [ Stefan Lippers-Hollmann ]
   * startsyslog isn't installed anymore, no need to purge it.
