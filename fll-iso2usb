@@ -34,19 +34,13 @@
 #--------------------------------------------------------------
 # remove old error file if present
 test -e /tmp/.fll-iso2usb && rm -f /tmp/.fll-iso2usb
+
 #--------------------------------------------------------------
-# source distro-defaults
+# set generic distro defaults
 #--------------------------------------------------------------
-if [ -s /etc/default/distro ]; then
-	#
-	# XXX: we really want to source the defaults from the live media
-	# we are copying, and not the host system
-	#
-	. /etc/default/distro
-else
-	echo "E: requires distro-defaults"
-	exit 1
-fi
+FLL_DISTRO_NAME=fll
+FLL_MEDIA_NAME=fll.iso
+FLL_MOUNTPOINT=/fll
 
 #--------------------------------------------------------------
 # functions
@@ -736,17 +730,12 @@ if [ ! -b "${DEVICE}" ]; then
 	exit 3
 fi
 
-if [ -z "${ISO}" ] && [ "${FLL_DISTRO_MODE}" = "live" ] && \
-	FLL_BASE_DIR=$(dirname ${FLL_MOUNTPOINT})
-	grep -s -q -w fromiso /proc/cmdline; then
+if [ -z "${ISO}" ] && [ -e /dev/fll ] && \
+	grep -s -w fromiso /proc/cmdline; then
 	# system booted fromiso, reuse the iso
-	ISO_T=$(grep -E -o 'fromiso=[^[:space:]]+' /proc/cmdline | sed 's/^fromiso=//')
+	ISO_T=$(egrep -o 'fromiso=[^[:space:]]+' /proc/cmdline | sed 's/^fromiso=//')
 	# don't waste heaps of time for this, maxdepth of 3 for custom dir
-	if [ "${ISO_T}" ]; then
-		ISO=$(find ${FLL_BASE_DIR} -maxdepth 3 -type f -print0 | grep -FzZ ${ISO_T})
-	else
-		ISO=$(find ${FLL_BASE_DIR} -maxdepth 2 -type f -name ${FLL_MEDIA_NAME})
-	fi
+	ISO=$(find ${FLL_MOUNTPOINT} -maxdepth 3 -type f -print0 | grep -FzZ ${ISO_T})
 fi	
 
 if [ "${FLL_DISTRO_MODE}" = "installed" ] || \
