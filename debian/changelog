@@ -1,9 +1,5 @@
-fll-installer (0.4.11) UNRELEASED; urgency=low
+fll-installer (0.4.11) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * fll-iso2usb remove debugging read call after get_distro_name
 
  -- Niall Walsh <niallwalsh@users.berlios.de>  Fri, 19 Sep 2008 14:32:46 +0100
