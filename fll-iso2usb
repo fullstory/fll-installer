@@ -818,7 +818,6 @@ trap "{ [ -d "${USBTMPDIR}" ] && umount_partition ${PARTITION} ${USBTMPDIR}; }" 
 
 if [ -n "${ISO}" ]; then
 	get_distro_name "${ISO}"				|| exit 6
-	read
 fi
 
 if [ "${noformat}" = "false" ] ; then
