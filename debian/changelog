@@ -1,9 +1,5 @@
-fll-installer (0.4.13) UNRELEASED; urgency=low
+fll-installer (0.4.13) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * somehow the variable device_map was undefined so grub entries for win
     got disrupted :(
 

@@ -1,7 +1,7 @@
 ##
 ##-------------------------------------
 # Needs:
-# TARGET_MNT_POINT ( used to locate device.mad of the grub installation)
+# TARGET_MNT_POINT ( used to locate device.map of the grub installation)
 #
 #
 # Function gladly taken from update-grub :)
