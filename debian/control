@@ -23,6 +23,7 @@ Package: fll-iso2usb
 Architecture: all
 Depends: grub-gfxboot | grub, distro-defaults
 Recommends: install-usb-gui
+Suggests: fuseiso
 Description: backend scripts to install sidux to an usb hdd
  fll-iso2usb provides a bash script for installing FULLSTORY Live Linux
  to usb disk drives.
