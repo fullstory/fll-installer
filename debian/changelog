@@ -1,9 +1,5 @@
-fll-installer (0.4.14) UNRELEASED; urgency=low
+fll-installer (0.4.14) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * remove not longer working bashism
 
  -- Joaquim Boura <x-un-i@sidux.com>  Mon, 22 Sep 2008 00:25:58 +0200
