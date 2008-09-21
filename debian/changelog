@@ -1,9 +1,5 @@
-fll-installer (0.4.12) UNRELEASED; urgency=low
+fll-installer (0.4.12) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * Add fll-iso-strip, takes a dual arch iso and strips out an arch
 
  -- Niall Walsh <niallwalsh@users.berlios.de>  Sun, 21 Sep 2008 00:27:54 +0100
