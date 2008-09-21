@@ -1,5 +1,9 @@
 ##
 ##-------------------------------------
+# Needs:
+# TARGET_MNT_POINT ( used to locate device.mad of the grub installation)
+#
+#
 # Function gladly taken from update-grub :)
 #
 # Usage: translate_linux_to_grub os_device
@@ -10,6 +14,7 @@
 ##
 function translate_linux_to_grub () 
 {
+	local device_map="${TARGET_MNT_POINT}/boot/grub/device.map"
 	#
 	# do log my call as we need the echo output
 	#
