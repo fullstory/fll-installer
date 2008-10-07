@@ -1,9 +1,5 @@
-fll-installer (0.4.15) UNRELEASED; urgency=low
+fll-installer (0.4.15) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * For the user longname use the correct variable.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Tue, 07 Oct 2008 18:18:18 +0200
