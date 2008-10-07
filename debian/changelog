@@ -1,3 +1,9 @@
+fll-installer (0.4.16) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 07 Oct 2008 18:38:58 +0200
+
 fll-installer (0.4.15) unstable; urgency=low
 
   * For the user longname use the correct variable.
