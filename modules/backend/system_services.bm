@@ -26,8 +26,9 @@ function system_services()
 		atd
 		avahi-daemon
 		capiutils
-		console-tools
 		console-common
+		console-setup
+		console-tools
 		cron
 		dbus
 		fuse-utils
