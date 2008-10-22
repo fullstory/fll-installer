@@ -1,9 +1,5 @@
-fll-installer (0.4.17) UNRELEASED; urgency=low
+fll-installer (0.4.17) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * Add desktop-defaults-lxde to live packages to purge after install.
 
  -- Michael Deelwater <michael.deelwater@googlemail.com>  Wed, 22 Oct 2008 23:20:13 +0200
