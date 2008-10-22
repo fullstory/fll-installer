@@ -26,6 +26,7 @@ purge_live_only_stuff()
 				fll-live-xorgconfig \
 				desktop-defaults-common \
 				desktop-defaults-kde \
+				desktop-defaults-lxde \
 				desktop-defaults-gnome \
 				desktop-defaults-xfce \
 				install-gui \
