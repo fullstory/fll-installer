@@ -1,8 +1,12 @@
 fll-installer (0.4.18) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 23 Oct 2008 00:37:39 +0200
+  [ Joaquim Boura ]
+  * cleane up some useless entries in gdm.conf
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Thu, 23 Oct 2008 17:49:58 +0200
 
 fll-installer (0.4.17) unstable; urgency=low
 

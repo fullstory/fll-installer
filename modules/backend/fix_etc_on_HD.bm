@@ -132,6 +132,7 @@ EOF
 		# only remove autologin for gdm
 		sed -i	-e "/^AutomaticLogin\=.*/d" \
 			-e "/^AutomaticLoginEnable\=.*/d" \
+			-e "/^TimedLogin.*/d" \
 				${TARGET_MNT_POINT}/etc/gdm/gdm.conf
 	fi
 
