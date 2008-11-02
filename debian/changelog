@@ -1,8 +1,12 @@
 fll-installer (0.4.19) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 23 Oct 2008 21:17:13 +0200
+  [ Joaquim Boura ]
+  * install-usb-gui was deinstalled on purge live packages. Thks edhunter for noticing
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 02 Nov 2008 23:42:30 +0100
 
 fll-installer (0.4.18) unstable; urgency=low
 
