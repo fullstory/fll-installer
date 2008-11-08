@@ -1,8 +1,14 @@
 fll-installer (0.4.20) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 02 Nov 2008 23:53:30 +0100
+  [ Joaquim Boura ]
+  * No need to change owner of files under the home. Everything that we copy into there
+    gets the default uid/gid. Probably this is also what causes  troubles when user
+    wants to install over an existing home ( even though we do no recommend it)
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sat, 08 Nov 2008 12:43:39 +0100
 
 fll-installer (0.4.19) unstable; urgency=low
 
