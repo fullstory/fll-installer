@@ -10,7 +10,7 @@
 # outputs the root device
 ##-------------------------------------
 ##
-function get_root_device()
+get_root_device()
 {
 	#
 	# log my call

@@ -26,10 +26,10 @@
 #--------------------------------------------------------------------------
 ERRLOG=/tmp/.installer.error
 DEBUGLOG=/tmp/.installer.debug
-test -e $ERRLOG && rm -f $ERRLOG
-test -e $DEBUGLOG && rm -f $DEBUGLOG
+[ -e "$ERRLOG" ] && rm -f $ERRLOG
+[ -e "$DEBUGLOG" ] && rm -f $DEBUGLOG
 
-if test -n $INSTDBG ; then
+if [ -n "$INSTDBG" ]; then
 	set -x
 	exec 2>${DEBUGLOG}
 fi
@@ -101,8 +101,8 @@ done
 
 # also handle old installer call
 shift $((OPTIND))
-if [ $# -eq 2  ]; then
-	test "$1" = "installer"  &&  INSTALLER_INOTIFY="$2"
+if [ "$#" -eq "2"  ]; then
+	[ "$1" = "installer" ] && INSTALLER_INOTIFY="$2"
 fi
 
 
@@ -114,7 +114,7 @@ fi
 SEARCHPATH="/usr/share/fll-installer"
 say "loading modules"
 for i in $(find "${SEARCHPATH}/modules" -name *.bm); do
-	source $i
+	. $i
 done
 #------------------
 

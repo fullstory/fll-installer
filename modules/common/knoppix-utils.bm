@@ -19,7 +19,7 @@ stringinstring()
 #
 ##-------------------------------------
 ##
-function getbootparam()
+getbootparam()
 {
 	stringinstring "$1=" "$CMDLINE" || return 1
 	result="${CMDLINE##*$1=}"
@@ -38,7 +38,7 @@ function getbootparam()
 #
 ##-------------------------------------
 ##
-function checkbootparam()
+checkbootparam()
 {
 	stringinstring "$1" "$CMDLINE"
 	return "$?"
@@ -65,7 +65,7 @@ function checkbootparam()
 
 chroot_it()
 {
-	[ -n "$TARGET_MNT_POINT" -a $UID -eq 0 ] && chroot $TARGET_MNT_POINT "$@" 
-	[ -z "$TARGET_MNT_POINT" -o $UID -ne 0 ] && "$@"
+	[ -n "$TARGET_MNT_POINT" ] && [ "$(id -ru)" -eq "0" ] && chroot $TARGET_MNT_POINT "$@" 
+	[ -z "$TARGET_MNT_POINT" ] || [ "$(id -ru)" -ne "0" ] && "$@"
 }
 ##-------------------------------------

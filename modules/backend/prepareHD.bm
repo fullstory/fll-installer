@@ -21,7 +21,7 @@
 # on error the error code and message are in /tmp/.installer.errors
 ##-------------------------------------------------------------------
 ##
-function prepareHD()
+prepareHD()
 {
 	local rc
 	local TMP
@@ -49,26 +49,26 @@ function prepareHD()
 
 	TMP="$(mktemp)"
 
-	if [ $HD_FORMAT = "yes" ]; then
+	if [ "$HD_FORMAT" = "yes" ]; then
 
 		progress "Formatting $HD_CHOICE..."
 
-		umount $HD_CHOICE 2>/dev/null
+		umount "$HD_CHOICE" 2>/dev/null
 		
 		dd if=/dev/zero of=$HD_CHOICE bs=1k count=16 >/dev/null 2>/dev/null 
 
-		case $HD_FSTYPE in
+		case "$HD_FSTYPE" in
 			xfs)
-				mkfs.$HD_FSTYPE -f $HD_CHOICE 2> $TMP 1>&2
+				mkfs.xfs -f "$HD_CHOICE" 2> "$TMP" 1>&2
 				;;
 			reiser*)
-				echo y | mkfs.$HD_FSTYPE  $HD_CHOICE 2> $TMP 1>&2
+				echo y | mkfs.$HD_FSTYPE  "$HD_CHOICE" 2> "$TMP" 1>&2
 				;;
 			jfs)
-				echo y | mkfs.$HD_FSTYPE $HD_CHOICE 2> $TMP 1>&2
+				echo y | mkfs.jfs "$HD_CHOICE" 2> "$TMP" 1>&2
 				;;
 			*)
-				mkfs.$HD_FSTYPE $HD_CHOICE 2> $TMP 1>&2
+				mkfs.$HD_FSTYPE "$HD_CHOICE" 2> "$TMP" 1>&2
 				;;
 		esac
 		
@@ -84,16 +84,16 @@ function prepareHD()
 	#
 	# Mounting $HD_CHOICE r/w...
 	#
-	mkdir -p $TARGET_MNT_POINT
-	mount -t $HD_FSTYPE $HD_CHOICE $TARGET_MNT_POINT 2>&1> ${TMP}
+	mkdir -p "$TARGET_MNT_POINT"
+	mount -t "$HD_FSTYPE" "$HD_CHOICE" "$TARGET_MNT_POINT" > "${TMP}" 2>&1
 	if [ $? -ne 0 ]; then
 		error_messages=$(tail -8 $TMP)
 		err_msg="Mounting of $HD_CHOICE failed, trying remount. Some messages from mount: $error_messages"
 		logit $err_msg
 
-		mount -o remount,dev $TARGET_MNT_POINT 2>&1> ${TMP}
+		mount -o remount,dev "$TARGET_MNT_POINT" > "${TMP}" 2>&1
 
-		if [ $? -ne 0 ]; then
+		if [ "$?" -ne "0" ]; then
 			error_messages=$(tail -8 $TMP)
 			err_msg="(re)Mounting of $HD_CHOICE failed. Some messages from mount: $error_messages"
 			logit $err_msg
@@ -108,16 +108,16 @@ function prepareHD()
 		point=$(echo $i | cut -d":" -f2)
 		mkdir -p $TARGET_MNT_POINT$point
 
-		mount $part $TARGET_MNT_POINT$point  2>&1> ${TMP}
-		if [ $? -ne 0 ]; then
+		mount $part $TARGET_MNT_POINT$point > ${TMP} 2>&1
+		if [ "$?" -ne "0" ]; then
 
 			error_messages=$(tail -8 $TMP)
 			err_msg="Mounting of $HD_CHOICE failed, trying remount. Some messages from mount: $error_messages"
 			logit $err_msg
 
-			mount -o remount,dev $TARGET_MNT_POINT$point 2>&1> ${TMP}
+			mount -o remount,dev "$TARGET_MNT_POINT$point" > ${TMP} 2>&1
 
-			if [ $? -ne 0 ]; then
+			if [ "$?" -ne "0" ]; then
 				error_messages=$(tail -8 $TMP)
 				err_msg="Mounting of ${i} failed. Some messages from mount: $error_messages"
 				logit $err_msg
@@ -129,7 +129,7 @@ function prepareHD()
 	return 0	
 }
 ##-------------------------------------
-function checkHDSize() 
+checkHDSize() 
 {
 	local ROOT_MIN_RAW
 	local ROOT_MIN

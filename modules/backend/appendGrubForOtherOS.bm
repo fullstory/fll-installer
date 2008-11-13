@@ -10,7 +10,7 @@
 # translate_linux_to_grub
 ##-------------------------------------
 ##
-function appendGrubForOtherOS()
+appendGrubForOtherOS()
 {
 	local TempFile
 	local TempDir
@@ -55,7 +55,7 @@ function appendGrubForOtherOS()
 				cur_drive=$(echo $cur_r_device|cut -d / -f3)
 				cur_usb_dev=$(echo $(readlink -f /sys/block/${cur_drive}/device) \
 					| grep  "usb")
-				if [ -n "${cur_usb_dev}" -a ! "${cur_drive}" = "${drive}" ]
+				if [ -n "${cur_usb_dev}" ] && [ "${cur_drive}" != "${drive}" ]
 				then
 					continue
 				fi
@@ -76,7 +76,8 @@ function appendGrubForOtherOS()
 									echo >> "$MyGrubTemp"
 									# and remove the word [D,d]efault it it's there
 									echo $(echo $line | \
-										sed -e 's#[D,d]efault##') \(${device:5}\) >> "$MyGrubTemp"
+										sed -e 's#[D,d]efault##') \
+										"(${device#?????})" >> "$MyGrubTemp"
 								else
 									break
 								fi
@@ -96,10 +97,10 @@ function appendGrubForOtherOS()
 				fi
 			elif [ "$kindOf" = "chain" ]; then
 				if [ "$shortName" = "Windows" ]; then
-					if [ ${device:8} -le 4 ]; then
+					if [ "${device#????????}" -le 4 ]; then
 						gp=$(translate_linux_to_grub $device)	
 						echo "" >> "$MyGrubTemp"
-						echo "title Windows 2K/XP/2003/Vista (${device:5})" >> "$MyGrubTemp"
+						echo "title Windows 2K/XP/2003/Vista (${device#?????})" >> "$MyGrubTemp"
 						echo "rootnoverify $gp" >> "$MyGrubTemp"
 						echo "makeactive" >> "$MyGrubTemp"
 						echo "chainloader +1" >> "$MyGrubTemp"

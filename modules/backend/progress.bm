@@ -23,7 +23,7 @@
 # ascii/curses frontend for the installer
 ##-------------------------------------
 ##
-function abort_progress()
+abort_progress()
 {
 	# printf for new install-gui choice "install with terminal output, debug modus"
 	[ -z "${INSTALLER_INOTIFY}" ] && \
@@ -36,7 +36,7 @@ function abort_progress()
 # 
 ##-------------------------------------
 ##
-function end_progress()
+end_progress()
 {
 	# printf for new install-gui choice "install with terminal output, debug modus"
 	[ -z "${INSTALLER_INOTIFY}" ] && \
@@ -56,7 +56,7 @@ function end_progress()
 # ascii/curses frontend for the installer
 ##-------------------------------------
 ##
-function progress()
+progress()
 {
 	local perc
 	local total
@@ -72,7 +72,7 @@ function progress()
 		text=$(echo "$@"|cut -d ":" -f 1)
 		perc=$(awk -v action=$ACTION 'BEGIN{printf ("%1.2f", action / 10)}')
 		perci=$(awk -v action=$ACTION 'BEGIN{printf ("%d", action * 100 / 10)}')
-		test "$perci" -gt 100 && perc="1.0"
+		[ "$perci" -gt "100" ] && perc="1.0"
 
 		# send message to the gui
 		printf  "PERC=${perc}\n\
@@ -93,7 +93,7 @@ COMPLETE=completed ${ACTION} of 10" > $INSTALLER_INOTIFY
 # ascii/curses frontend for the installer
 ##-------------------------------------
 ##
-function module_hd_progressbar()
+module_hd_progressbar()
 {
 	local PROGRESS
 	local TOTAL
@@ -103,46 +103,46 @@ function module_hd_progressbar()
 	HD_MSG1="Copying files. This can take a while. Please be patient."
 
 	PROGRESS=$(df -m 2>/dev/null| awk 'BEGIN{m=0};/'$TARGET_MNT_NAME'/{m+=$3};END{print m}')
-	TOTAL=$[ROOT_MIN_CORR+PROGRESS] # Set starting point
+	TOTAL=$((ROOT_MIN_CORR + PROGRESS)) # Set starting point
 	p=$1
 	
 	while [ -d "/proc/$p" ]; do
 		PROGRESS=$(df -m 2>/dev/null | awk 'BEGIN{m=0};/'$TARGET_MNT_NAME'/{m+=$3};END{print m}')
-		PERC=$[PROGRESS*100/TOTAL]
+		PERC=$((PROGRESS * 100 / TOTAL))
 		if [ -z "$DISPLAY" ]; then
 			[ "$PERC" -lt "100" ] && echo $PERC
 		else
-			if   [ "$OLDPERC" -eq 0 ]; then
+			if   [ "$OLDPERC" -eq "0" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 10 -a "$PERC" -gt "10" ]; then
+			elif [ "$OLDPERC" -lt "10" ] && [ "$PERC" -gt "10" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 20 -a "$PERC" -gt "20" ]; then
+			elif [ "$OLDPERC" -lt "20" ] && [ "$PERC" -gt "20" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 30 -a "$PERC" -gt "30" ]; then
+			elif [ "$OLDPERC" -lt "30" ] && [ "$PERC" -gt "30" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 40 -a "$PERC" -gt "40" ]; then
+			elif [ "$OLDPERC" -lt "40" ] && [ "$PERC" -gt "40" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 50 -a "$PERC" -gt "50" ]; then
+			elif [ "$OLDPERC" -lt "50" ] && [ "$PERC" -gt "50" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 60 -a "$PERC" -gt "60" ]; then
+			elif [ "$OLDPERC" -lt "60" ] && [ "$PERC" -gt "60" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 70 -a "$PERC" -gt "70" ]; then
+			elif [ "$OLDPERC" -lt "70" ] && [ "$PERC" -gt "70" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 80 -a "$PERC" -gt "80" ]; then
+			elif [ "$OLDPERC" -lt "80" ] && [ "$PERC" -gt "80" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 90 -a "$PERC" -gt "90" ]; then
+			elif [ "$OLDPERC" -lt "90" ] && [ "$PERC" -gt "90" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
-			elif [ "$OLDPERC" -lt 100 -a "$PERC" -gt "100" ]; then
+			elif [ "$OLDPERC" -lt "100" ] && [ "$PERC" -gt "100" ]; then
 				OLDPERC="$PERC"
 				progress "$HD_MSG1" 
 			fi

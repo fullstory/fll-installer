@@ -13,7 +13,7 @@
 #
 ##-------------------------------------
 ##
-function fix_etc_on_HD()
+fix_etc_on_HD()
 {
 	local inittab="$TARGET_MNT_POINT/etc/inittab"
 	local sudoers="$TARGET_MNT_POINT/etc/sudoers"

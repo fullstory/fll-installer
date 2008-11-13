@@ -14,7 +14,7 @@
 #
 ##-------------------------------------
 ##
-function update_fstab()
+update_fstab()
 {
 	local autohd
 	local root_partition root_device part wanted

@@ -11,7 +11,7 @@
 #
 ##-------------------------------------
 ##
-function fix_home_on_HD()
+fix_home_on_HD()
 {
 	# home of user on installed system
 	local INSTHOME="/home/${USER_NAME}"

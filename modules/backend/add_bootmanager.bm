@@ -16,7 +16,7 @@
 #
 ##-------------------------------------
 ##
-function add_bootmanager()
+add_bootmanager()
 {
 	local BOOTMANAGER_PROC
 	local BOOT_KERNELS

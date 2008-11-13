@@ -6,7 +6,7 @@
 #
 
 #--------------------------------
-function add_var()
+add_var()
 {
 	#
 	# log my call
@@ -19,7 +19,7 @@ function add_var()
 }
 
 #--------------------------------
-function register_vars()
+register_vars()
 {
 	#
 	# log my call
@@ -37,7 +37,7 @@ function register_vars()
 #
 
 #--------------------------------
-function register_var()
+register_var()
 {
 	#
 	# log my call
@@ -49,7 +49,7 @@ function register_var()
 	export $1"_ALLOWED"="$3"
 	export $1"_CHECKIT"="$4"
 	export $1"_DEFAULT"="$5"
-	[ -z "${!1}" -a -n "$5" ] && export $1="$5"
+	[ -z "${!1}" ] && [ -n "$5" ] && export $1="$5"
 }
 #--------------------------------
 

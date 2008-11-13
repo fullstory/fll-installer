@@ -12,7 +12,7 @@
 #
 ##-------------------------------------
 ##
-function translate_linux_to_grub () 
+translate_linux_to_grub () 
 {
 	local device_map="${TARGET_MNT_POINT}/boot/grub/device.map"
 	#
@@ -22,9 +22,7 @@ function translate_linux_to_grub ()
 	#
 
 	# First, check if the device file exists.
-	if test -e "$1"; then
-		:
-	else
+	if [ ! -e "$1" ]; then
 		echo "$1: Not found or not a block device." 1>&2
 		return 1
 	fi
@@ -70,12 +68,12 @@ function translate_linux_to_grub ()
 			| sed 's%.*\(([hf]d[0-9][a-g0-9,]*)\).*%\1%'`
 
 	# If not found, print an error message and exit.
-	if test "x$tmp_drive" = x; then
+	if [ -z "$tmp_drive" ]; then
 		echo "$1 does not have any corresponding BIOS drive." 1>&2
 		return 1
 	fi
 
-	if test "x$tmp_part" != x; then
+	if [ -n "$tmp_part" ]; then
 		# If a partition is specified, we need to translate it into the
 		# GRUB's syntax.
 		case "$host_os" in

@@ -10,7 +10,7 @@
 #
 ##-------------------------------------
 ##
-function create_initrd()
+create_initrd()
 {
 	#
 	# log my call

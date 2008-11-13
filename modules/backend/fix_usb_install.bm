@@ -10,8 +10,7 @@
 # 
 ##-------------------------------------
 ##
-function fix_usb_install ()
-{
+fix_usb_install () {
 	local root_partition
 	local root_device
 	local device

@@ -11,7 +11,7 @@
 #
 ##-------------------------------------
 ##
-function fix_locales_on_HD ()
+fix_locales_on_HD ()
 {
 	[ "$HD_LANG" ] || return 0
 
@@ -36,7 +36,7 @@ function fix_locales_on_HD ()
 		#
 		chroot_it /usr/bin/env -i FLL_LANG=$HD_LANG /etc/init.d/fll-locales localize
 
-		source $fll_locales
+		. $fll_locales
 
 		#
 		# the X11 keyboard (live keys for germans)

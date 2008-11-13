@@ -13,7 +13,7 @@
 # on error the error code and message are in ERRLOG
 ##-------------------------------------------------------------------
 ##
-function load_config()
+load_config()
 {
 	local config
 
@@ -30,7 +30,7 @@ function load_config()
 		config="$CONFIG_FILE"
 	fi
 	
-	source $config
+	. $config
 
 	for i in ${REGISTERED}; do  
 		
@@ -45,10 +45,10 @@ function load_config()
 	# USER_NAME must not contain spaces
 	# HOST_NAME must not contain spaces
 	x=$(echo "$USER_NAME" | sed -e 's/[[:space:]]/x/g')
-	if [ ! "$x" = "$USER_NAME"];then
+	if [ ! "$x" = "$USER_NAME"]; then
 		error 11 "Username must not contain whitespaces"
 	fi
-	if [ ! "$x" = "$HOST_NAME"];then
+	if [ ! "$x" = "$HOST_NAME"]; then
 		error 11 "Hostname must not contain whitespaces"
 	fi
 	return 0

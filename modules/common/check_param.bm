@@ -1,6 +1,6 @@
 
 #------------------
-function check_param()
+check_param()
 {
 	#
 	# log my call

@@ -9,7 +9,7 @@
 #
 ##-------------------------------------
 ##
-function make_floppy()
+make_floppy()
 {
 	local floppy="$TARGET_MNT_POINT/media/floppy0"
 

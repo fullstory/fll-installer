@@ -1,8 +1,23 @@
 fll-installer (0.4.21) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 09 Nov 2008 04:25:55 +0100
+  [ Michael Deelwater ]
+  * On the way to POSIX shell. Remove many bashisms and deprecated bash
+    constructs, and clean up the code to look more consistent. This is a bunch
+    of rather trivial changes that should not break anything.
+    - Remove "function" declarations for functions.
+    - Replace "source" by ".".
+    - Replace $[ by $((.
+    - Replace all [[ ]] by [ ] with correct quoting.
+    - Remove all -a and -o test constructs.
+    - Replace $UID by $(id -ur).
+    - Replace substring expansion by #??? stripping.
+    - Replace $(<file) by $(cat file).
+    - Always use [ ] for test.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Thu, 13 Nov 2008 04:54:01 +0100
 
 fll-installer (0.4.20) unstable; urgency=low
 

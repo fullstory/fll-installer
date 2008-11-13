@@ -18,7 +18,7 @@
 # on error the error code and message are in /tmp/.installer.errors
 ##-------------------------------------------------------------------
 ##
-function copy2HD()
+copy2HD()
 {
 	local ERR_COPY="/tmp/.err_copy"
 	#

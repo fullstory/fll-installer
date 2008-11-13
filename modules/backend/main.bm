@@ -26,7 +26,7 @@
 # exit code 1 : Config file $CONFIG_FILE could not be found.
 ##-------------------------------------
 ##
-function main()
+main()
 {
 	local rc
 	local all_actions=(

@@ -16,7 +16,7 @@
 #
 ##-------------------------------------
 ##
-function convert_live2HD()
+convert_live2HD()
 {
 	#
 	# log my call

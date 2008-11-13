@@ -6,10 +6,10 @@
 #
 ##-------------------------------------
 ##
-function update_status()
+update_status()
 {
 	if  [ -z "$DISPLAY" ]; then
-		echo -e "XXX\n$*\nXXX"
+		printf "XXX\n$*\nXXX\n"
 	fi
 }
 
