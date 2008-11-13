@@ -1,9 +1,5 @@
-fll-installer (0.4.21) UNRELEASED; urgency=low
+fll-installer (0.4.21) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * On the way to POSIX shell. Remove many bashisms and deprecated bash
     constructs, and clean up the code to look more consistent. This is a bunch
     of rather trivial changes that should not break anything.
