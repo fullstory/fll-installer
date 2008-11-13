@@ -1,3 +1,9 @@
+fll-installer (0.4.22) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 13 Nov 2008 23:07:04 +0100
+
 fll-installer (0.4.21) unstable; urgency=low
 
   * On the way to POSIX shell. Remove many bashisms and deprecated bash
