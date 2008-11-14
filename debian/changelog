@@ -1,9 +1,5 @@
-fll-installer (0.4.22) UNRELEASED; urgency=low
+fll-installer (0.4.22) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * On the way to POSIX shell, Part II:
     - Remove files modules/common/check_params.bm and
       add_and_register_vars.bm. Their functions are never used anymore.
