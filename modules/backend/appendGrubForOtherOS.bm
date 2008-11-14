@@ -25,7 +25,7 @@ appendGrubForOtherOS()
 	#
 	# log my call
 	#
-	logit $"appendGrubForOtherOS"
+	logit "appendGrubForOtherOS"
 	#
 	progress "$MSG"
 

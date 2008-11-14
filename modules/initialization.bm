@@ -7,12 +7,11 @@ LOG="$HOME/.sidlog"
 #
 ###-------------------------------------
 #
-logit()
-{
+logit () {
 	local TIME
 	say "$@"
 	TIME=$(date)
-	[ -n "$*" ] && echo $TIME: "$@" >> $LOG || echo >> $LOG
+	[ -n "$*" ] && printf "$TIME: $@\n" >> "$LOG" || echo >> "$LOG"
 }
 
 #
@@ -65,7 +64,7 @@ export TEXTDOMAIN=fll-installer
 # log my call
 ###-------------------------------------
 #
-logit $"Initialisation done"
+logit "Initialisation done"
 #
 #
 ###-------------------------------------

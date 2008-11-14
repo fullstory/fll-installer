@@ -29,22 +29,20 @@
 main()
 {
 	local rc
-	local all_actions=(
-		load_config
-		prepareHD
-		copy2HD
-		convert_live2HD
-		add_bootmanager
-		update_fstab
-		appendGrubForOtherOS
-		fix_usb_install
-		purge_live_only_stuff
-	)
+	local all_actions="load_config \
+		prepareHD \
+		copy2HD \
+		convert_live2HD \
+		add_bootmanager \
+		update_fstab \
+		appendGrubForOtherOS \
+		fix_usb_install \
+		purge_live_only_stuff"
 
 	#
 	# log my call
 	#
-	logit $"starting installation"
+	logit "starting installation"
 	#
 
 	if [ ! -f "$CONFIG_FILE" ]; then
@@ -55,7 +53,7 @@ main()
 	#
 	# say the world we have started our work
 	#
-	progress $"$FLL_DISTRO_NAME-installer started"
+	progress "$FLL_DISTRO_NAME-installer started"
 	
 	#
 	# do the main job
@@ -67,7 +65,7 @@ main()
 	else
 		ACTION=0
 	fi
-	for action in "${all_actions[@]}"; do
+	for action in ${all_actions}; do
 		[ "${ACTION}" -lt 9 ] && ACTION=$((ACTION + 1))
 		say "starting $action"
 		$action
@@ -89,7 +87,7 @@ main()
 	end_progress
 
 	# Success Message and end installer
-	logit $"$FLL_DISTRO_NAME was successfully installed to hd."
+	logit "$FLL_DISTRO_NAME was successfully installed to hd."
 
 	# if needed unmount the partitions
 	#
@@ -97,11 +95,10 @@ main()
 	# so we can umount cleanly
 	#
 	j=0
-	while lsof "$TARGET_MNT_POINT" >/dev/null
-	do
+	while lsof "$TARGET_MNT_POINT" >/dev/null; do
 		sleep 5
-		[ $j -ge 30 ] && break
-		((j=$j+1))
+		[ "$j" -ge "30" ] && break
+		j=$(($j+1))
 	done
 	sync
 

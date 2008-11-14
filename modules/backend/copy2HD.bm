@@ -24,7 +24,7 @@ copy2HD()
 	#
 	# log my call
 	#
-	logit $"copy the CD into the harddisk"
+	logit "copy the CD into the harddisk"
 	#
 
 	rm -f ${ERR_COPY}

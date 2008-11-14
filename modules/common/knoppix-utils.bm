@@ -3,8 +3,7 @@
 # some functions borrowed from knoppix-autoconfig
 ##---------------------------------
 ##
-stringinstring()
-{
+stringinstring () {
 	case "$2" in *$1*) return 0;; esac
 	return 1
 }
@@ -19,8 +18,7 @@ stringinstring()
 #
 ##-------------------------------------
 ##
-getbootparam()
-{
+getbootparam () {
 	stringinstring "$1=" "$CMDLINE" || return 1
 	result="${CMDLINE##*$1=}"
 	result="${result%%[ 	]*}"
@@ -38,8 +36,7 @@ getbootparam()
 #
 ##-------------------------------------
 ##
-checkbootparam()
-{
+checkbootparam () {
 	stringinstring "$1" "$CMDLINE"
 	return "$?"
 }
@@ -63,9 +60,8 @@ checkbootparam()
 #           and later from HD.
 ##-------------------------------------
 
-chroot_it()
-{
-	[ -n "$TARGET_MNT_POINT" ] && [ "$(id -ru)" -eq "0" ] && chroot $TARGET_MNT_POINT "$@" 
+chroot_it () {
+	[ -n "$TARGET_MNT_POINT" ] && [ "$(id -ru)" -eq "0" ] && chroot $TARGET_MNT_POINT "$@"
 	[ -z "$TARGET_MNT_POINT" ] || [ "$(id -ru)" -ne "0" ] && "$@"
 }
 ##-------------------------------------

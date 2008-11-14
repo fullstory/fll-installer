@@ -14,7 +14,7 @@ get_grub_cmdline()
 
 	# do not log my call as we need the echo output
 	#
-	# logit $"get_grub_cmdline"
+	# logit "get_grub_cmdline"
 	#
 
 	SYSTEM_RESCUE_CMDS="acpi|noapic|nosmp|pci|pnpbios|noapm|nohlt|nolapic|irqpoll|i8042|=scsi"

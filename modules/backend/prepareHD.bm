@@ -31,7 +31,7 @@ prepareHD()
 	#
 	# log my call
 	#
-	logit $"prepare disk for the installation"
+	logit "prepare disk for the installation"
 	#
 
 	# sometimes kernel has not yet loaded the partition table
@@ -129,8 +129,7 @@ prepareHD()
 	return 0	
 }
 ##-------------------------------------
-checkHDSize() 
-{
+checkHDSize () {
 	local ROOT_MIN_RAW
 	local ROOT_MIN
 	local ROOT_SIZE

@@ -31,7 +31,7 @@ add_bootmanager()
 	#
 	# log my call
 	#
-	logit $"add_bootmanager"
+	logit "add_bootmanager"
 
 	BOOTMANAGER_PROC=""
 	mount --bind /proc $TARGET_MNT_POINT/proc && BOOTMANAGER_PROC="yes"

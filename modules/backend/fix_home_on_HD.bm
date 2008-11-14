@@ -21,7 +21,7 @@ fix_home_on_HD()
 	#
 	# log my call
 	#
-	logit $"fix_home_on_installed system"
+	logit "fix_home_on_installed system"
 
 	if [ "${USER_NAME}" != "${DEFAULT_USER}" ];	then
 		if [ -d "${TARGET_MNT_POINT}${LIVEHOME}" ] && \
@@ -60,7 +60,7 @@ fix_home_on_HD()
 	#
 	# revert gksu sudo mode hack
 	#
-	logit $"revert gksu sudo mode hack"
+	logit "revert gksu sudo mode hack"
 	chroot "${TARGET_MNT_POINT}" \
 		sudo -u "${FLL_LIVE_USER}" gconftool-2 -s -t bool /apps/gksu/sudo-mode false
 	chroot "${TARGET_MNT_POINT}" \

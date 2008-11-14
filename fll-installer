@@ -26,39 +26,36 @@
 #--------------------------------------------------------------------------
 ERRLOG=/tmp/.installer.error
 DEBUGLOG=/tmp/.installer.debug
-[ -e "$ERRLOG" ] && rm -f $ERRLOG
-[ -e "$DEBUGLOG" ] && rm -f $DEBUGLOG
+[ -e "$ERRLOG" ] && rm -f "$ERRLOG"
+[ -e "$DEBUGLOG" ] && rm -f "$DEBUGLOG"
 
 if [ -n "$INSTDBG" ]; then
 	set -x
-	exec 2>${DEBUGLOG}
+	exec 2> "${DEBUGLOG}"
 fi
 #--------------------------------------------------------------
 # one place to save the error code and message
 #--------------------------------------------------------------
-error()
-{
+error () {
 	local exitval="${1}"
 	shift
 
 	# the gui should use this to proclaim success/error
-	echo "${exitval}-${@}" > "${ERRLOG}"
+	printf "${exitval}-${@}\n" > "${ERRLOG}"
 
-	echo "E: ${@}"
+	printf "E: ${@}\n"
 	clean_exit ${exitval}
 }
 #--------------------------------------------------------------
 # say
 #--------------------------------------------------------------
-say()
-{
-        echo "O: ${1}"
+say () {
+        printf "O: ${1}\n"
 }
 #--------------------------------------------------------------
 # usage
 #--------------------------------------------------------------
-usage()
-{
+usage () {
 	echo "$0 [-d|--debug] [-i|--inotify inotify_fifo} [-h] [installer inotify_fifo]"
 	exit 1
 }
@@ -114,7 +111,7 @@ fi
 SEARCHPATH="/usr/share/fll-installer"
 say "loading modules"
 for i in $(find "${SEARCHPATH}/modules" -name *.bm); do
-	. $i
+	. "$i"
 done
 #------------------
 

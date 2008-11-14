@@ -15,7 +15,7 @@ system_services()
 	#
 	# log my call
 	#
-	logit $"configuring system services"
+	logit "configuring system services"
 
 	local UPDATE_RCD
 	local SERVICE_WHITELIST

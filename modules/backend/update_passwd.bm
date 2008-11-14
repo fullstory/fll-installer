@@ -19,7 +19,7 @@ update_passwd()
 	#
 	# log my call
 	#
-	logit $"update_passwd"
+	logit "update_passwd"
 	#
 
 	[ -z "$USER_NAME" ] && USER_NAME="$DEFAULT_USER"

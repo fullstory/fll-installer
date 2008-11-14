@@ -21,7 +21,7 @@ update_fstab()
 	#
 	# log my call
 	#
-	logit $"update_fstab"
+	logit "update_fstab"
 	#
 
 	progress "Updating /etc/fstab..."

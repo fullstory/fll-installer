@@ -12,13 +12,12 @@
 #
 ##-------------------------------------
 ##
-translate_linux_to_grub () 
-{
+translate_linux_to_grub () {
 	local device_map="${TARGET_MNT_POINT}/boot/grub/device.map"
 	#
 	# do log my call as we need the echo output
 	#
-	# logit $"translate_linux_to_grub"
+	# logit "translate_linux_to_grub"
 	#
 
 	# First, check if the device file exists.

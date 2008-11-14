@@ -15,7 +15,7 @@ purge_live_only_stuff()
 	#
 	# log my call
 	#
-	logit $"purge_live_only_stuff"
+	logit "purge_live_only_stuff"
 	#
 	local installed_pacakages
 

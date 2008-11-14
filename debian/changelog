@@ -1,8 +1,20 @@
 fll-installer (0.4.22) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 13 Nov 2008 23:07:04 +0100
+  [ Michael Deelwater ]
+  * On the way to POSIX shell, Part II:
+    - Remove files modules/common/check_params.bm and
+      add_and_register_vars.bm. Their functions are never used anymore.
+    - Remove all $" strings for formatting. There are no translations, yet.
+    - Use printf instead of echo -e and $".
+    - Make some bash arrays normal list of strings. system_services.bm is
+      still in bash form.
+    - Replace (( )) constructs.
+    - Minor clean-up and quoting.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Fri, 14 Nov 2008 04:15:59 +0100
 
 fll-installer (0.4.21) unstable; urgency=low
 

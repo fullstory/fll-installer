@@ -21,7 +21,7 @@ convert_live2HD()
 	#
 	# log my call
 	#
-	logit $"convert_live2HD"
+	logit "convert_live2HD"
 	#
 	
 	progress "Converting $FLL_DISTRO_NAME to Multi-User-System..."

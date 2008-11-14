@@ -15,7 +15,7 @@ get_root_device()
 	#
 	# log my call
 	#
-	# logit $"get_root_device"
+	# logit "get_root_device"
 	#
 
 	echo "$1" | sed -e 's%\([sh]d[[:lower:]]\)[0-9]*$%\1%' \

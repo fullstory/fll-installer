@@ -39,7 +39,7 @@ install_grub()
 	#
 	# log my call
 	#
-	logit $"installing grub"
+	logit "installing grub"
 	#
 
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)

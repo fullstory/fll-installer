@@ -22,7 +22,7 @@ fix_locales_on_HD ()
 	#
 	# log my call
 	#
-	logit $"fix_locales_on_HD"
+	logit "fix_locales_on_HD"
 	#
 
 	# localize the install if user has choosen a new language
