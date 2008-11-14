@@ -2,7 +2,7 @@ Source: fll-installer
 Section: admin
 Priority: extra
 Maintainer: Joaquim Boura <x-un-i@sidux.com>
-Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>, Kel Modderman <kel@otaku42.de>
+Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>, Kel Modderman <kel@otaku42.de>, Michael Deelwater <michael.deelwater@googlemail.com>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.8.0
 Vcs-Svn: svn://svn.berlios.de/fullstory/fll-installer/trunk
@@ -12,7 +12,6 @@ Package: fll-installer
 Architecture: all
 Pre-Depends: dpkg (>= 1.14.6)
 Depends: adduser, initramfs-tools, grub-gfxboot (>= 0.97-30) | grub (>= 0.97-40) | grub2 (>= 1.96+20080601-1), procps, udev-config-sidux, whois, os-prober, rsync, fll-live-initscripts (>= 2.0.72)
-Breaks:	install-gui (<< 0.5)
 Recommends: install-gui, install-meta
 Suggests: gparted, distro-defaults
 Description: backend scripts to install sidux to hdd

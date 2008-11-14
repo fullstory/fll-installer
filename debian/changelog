@@ -1,3 +1,10 @@
+fll-installer (0.4.23) unstable; urgency=low
+
+  * add Michael Deelwater <michael.deelwater@googlemail.com> to Uploaders.
+  * remove no longer required breaks.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 14 Nov 2008 23:43:27 +0100
+
 fll-installer (0.4.22) unstable; urgency=low
 
   * On the way to POSIX shell, Part II:
