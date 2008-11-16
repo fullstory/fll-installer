@@ -61,7 +61,7 @@ checkbootparam () {
 ##-------------------------------------
 
 chroot_it () {
-	[ -n "$TARGET_MNT_POINT" ] && [ "$(id -ru)" -eq "0" ] && chroot $TARGET_MNT_POINT "$@"
-	[ -z "$TARGET_MNT_POINT" ] || [ "$(id -ru)" -ne "0" ] && "$@"
+	[ -n "$TARGET_MNT_POINT" ] && [ "$(id -ur)" -eq "0" ] && chroot "$TARGET_MNT_POINT" "$@"
+	[ -z "$TARGET_MNT_POINT" ] || [ "$(id -ur)" -ne "0" ] && "$@"
 }
 ##-------------------------------------

@@ -1,8 +1,16 @@
 fll-installer (0.4.24) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 14 Nov 2008 23:44:47 +0100
+  [ Michael Deelwater ]
+  * POSIX shell, Part III:
+    - Remove bash array constructs in system_services.bm.
+    - More quoting.
+  * fix_usb_install.bm:
+    - Always define device_map.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Sun, 16 Nov 2008 01:47:30 +0100
 
 fll-installer (0.4.23) unstable; urgency=low
 

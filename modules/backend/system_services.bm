@@ -10,8 +10,7 @@
 #
 ##-------------------------------------
 ##
-system_services()
-{
+system_services () {
 	#
 	# log my call
 	#
@@ -19,89 +18,93 @@ system_services()
 
 	local UPDATE_RCD
 	local SERVICE_WHITELIST
-	local PACKAGE_WHITELIST=(
-		alsa-base
-		alsa-utils
-		anacron
-		atd
-		avahi-daemon
-		capiutils
-		console-common
-		console-setup
-		console-tools
-		cron
-		dbus
-		fuse-utils
-		gpm
-		hal
-		hdparm
-		hotkey-setup
-		ifupdown
-		initscripts
-		klogd
-		libc6
-		module-init-tools
-		netbase
-		pcmciautils
-		ppp
-		procps
-		rsyslog
-		screen
-		setserial
-		sysklogd
-		syslog-ng
-		sysv-rc
-		udev
-		util-linux
-		wpasupplicant
-		x11-common
-	)
+	local PACKAGE_WHITELIST="alsa-base \
+alsa-utils \
+anacron \
+atd \
+avahi-daemon \
+capiutils \
+console-common \
+console-setup \
+console-tools \
+cron \
+dbus \
+fuse-utils \
+gpm \
+hal \
+hdparm \
+hotkey-setup \
+ifupdown \
+initscripts \
+klogd \
+libc6 \
+module-init-tools \
+netbase \
+pcmciautils \
+ppp \
+procps \
+rsyslog \
+screen \
+setserial \
+sysklogd \
+syslog-ng \
+sysv-rc \
+udev \
+util-linux \
+wpasupplicant \
+x11-common"
 
-	for p in ${PACKAGE_WHITELIST[@]}; do
-		SERVICE_WHITELIST+=( $(dpkg-query -L "$p" 2>/dev/null | sed -n 's/^\/etc\/init.d\/\(.\+\)/\1/p') )
-	done
+		for p in ${PACKAGE_WHITELIST}; do
+				NEW_SERVICE=$(dpkg-query -L "$p" 2>/dev/null | sed -n 's/^\/etc\/init.d\/\(.\+\)/\1/p' | tr '\n' ' ')
+				SERVICE_WHITELIST="${SERVICE_WHITELIST} ${NEW_SERVICE}"
+				# strip trailing whitespace
+				SERVICE_WHITELIST=$(echo "${SERVICE_WHITELIST}" | sed -r 's/[[:space:]]*$//')
+		done
 
-	#
-	# extra/optional services as defined in config
-	#
-	[ -n "$SERVICES_START" ] && SERVICE_WHITELIST+=( $SERVICES_START )
+		#
+		# extra/optional services as defined in config
+		#
+		if [ -n "$SERVICES_START" ]; then
+				SERVICE_WHITELIST="${SERVICE_WHITELIST} ${SERVICES_START}"
+		fi
 
-	for service in ${SERVICE_WHITELIST[@]}; do
-		[ -x "/etc/init.d/${service}" ] || continue
+		for service in ${SERVICE_WHITELIST}; do
+				[ -x "/etc/init.d/${service}" ] || continue
 		
-		case "$service" in 
-			?dm)
-				# already configured during live boot
-				continue
-				;;
-		esac
+				case "$service" in 
+						?dm)
+								# already configured during live boot
+								continue
+						;;
+				esac
 
-		#
-		# the service in is our whitelist. determine the runlevel configuration of this service
-		# as preserved in the read-only chroot (DEFAULT_DIR). apply the same configuration to
-		# the installed chroot. fll_analyze_runlevels(1) is the tool used to examine runlevel
-		# configuration, it is provided by fll-live-initscripts.
-		#
-		unset UPDATE_RCD
-		UPDATE_RCD=( $(/usr/bin/fll_analyze_initscripts --chroot "$DEFAULT_DIR" "$service") )
-		[ -n "${UPDATE_RCD[*]}" ] && chroot_it ${UPDATE_RCD[@]}
-	done
+				#
+				# the service in is our whitelist. determine the runlevel configuration of this service
+				# as preserved in the read-only chroot (DEFAULT_DIR). apply the same configuration to
+				# the installed chroot. fll_analyze_runlevels(1) is the tool used to examine runlevel
+				# configuration, it is provided by fll-live-initscripts.
+				#
+				unset UPDATE_RCD
+				UPDATE_RCD=$(/usr/bin/fll_analyze_initscripts --chroot "${DEFAULT_DIR}" "${service}")
+				if [ -n "${UPDATE_RCD}" ]; then
+						chroot_it ${UPDATE_RCD}
+				fi
+		done
 
-	# disable all services in /etc/inetd.conf
-	say "disable all services in /etc/inetd.conf"
-	if [ -x "${TARGET_MNT_POINT}/etc/init.d/openbsd-inetd" ]; then
-		chroot_it update-inetd --multi --disable '*'
-	fi
-	
-	# prepare ssh
-	if [ -x "${TARGET_MNT_POINT}/etc/init.d/ssh" ]; then
-		if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" ]; then
-			ssh-keygen -q -t rsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" -C '' -N ''
+		# disable all services in /etc/inetd.conf
+		say "disable all services in /etc/inetd.conf"
+		if [ -x "${TARGET_MNT_POINT}/etc/init.d/openbsd-inetd" ]; then
+				chroot_it update-inetd --multi --disable '*'
 		fi
-		if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" ]; then
-			ssh-keygen -q -t dsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" -C '' -N ''
-		fi
-	fi
 
+		# prepare ssh
+		if [ -x "${TARGET_MNT_POINT}/etc/init.d/ssh" ]; then
+				if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" ]; then
+						ssh-keygen -q -t rsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" -C '' -N ''
+				fi
+				if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" ]; then
+						ssh-keygen -q -t dsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" -C '' -N ''
+				fi
+		fi
 }
 
