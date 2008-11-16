@@ -1,8 +1,12 @@
 fll-installer (0.4.30) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 17 Nov 2008 00:16:38 +0100
+  [ Michael Deelwater ]
+  * Fix UID setting in fll-installer.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Mon, 17 Nov 2008 00:27:45 +0100
 
 fll-installer (0.4.29) unstable; urgency=low
 
