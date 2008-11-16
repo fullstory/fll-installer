@@ -1,8 +1,8 @@
-fll-installer (0.4.27) UNRELEASED; urgency=low
+fll-installer (0.4.27) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * revert think, grub-pc is only needed for grub2.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 16 Nov 2008 20:47:48 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 16 Nov 2008 21:02:03 +0100
 
 fll-installer (0.4.26) unstable; urgency=low
 
