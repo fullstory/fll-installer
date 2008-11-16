@@ -1,9 +1,5 @@
-fll-installer (0.4.24) UNRELEASED; urgency=low
+fll-installer (0.4.24) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * POSIX shell, Part III:
     - Remove bash array constructs in system_services.bm.
     - More quoting.
