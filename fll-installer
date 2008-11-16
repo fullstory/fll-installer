@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # (Copyright  (C) 2007 sidux Foundation,Inc.
 #             (C) 2007 Joaquim Boura <x-un-i@sidux.com>
@@ -28,6 +28,11 @@ ERRLOG=/tmp/.installer.error
 DEBUGLOG=/tmp/.installer.debug
 [ -e "$ERRLOG" ] && rm -f "$ERRLOG"
 [ -e "$DEBUGLOG" ] && rm -f "$DEBUGLOG"
+
+# In case UID is not set, set and use it
+if [ -n "${UID}" ]; then
+	UID=$(id -ur)
+fi
 
 if [ -n "$INSTDBG" ]; then
 	set -x

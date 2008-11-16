@@ -57,9 +57,10 @@ x11-common"
 		for p in ${PACKAGE_WHITELIST}; do
 				NEW_SERVICE=$(dpkg-query -L "$p" 2>/dev/null | sed -n 's/^\/etc\/init.d\/\(.\+\)/\1/p' | tr '\n' ' ')
 				SERVICE_WHITELIST="${SERVICE_WHITELIST} ${NEW_SERVICE}"
-				# strip trailing whitespace
-				SERVICE_WHITELIST=$(echo "${SERVICE_WHITELIST}" | sed -r 's/[[:space:]]*$//')
 		done
+
+		# delete whitespaces
+		SERVICE_WHITELIST=$(echo "${SERVICE_WHITELIST}" | sed -r 's/[[:space:]]+/ /g')
 
 		#
 		# extra/optional services as defined in config
