@@ -29,11 +29,6 @@ DEBUGLOG=/tmp/.installer.debug
 [ -e "$ERRLOG" ] && rm -f "$ERRLOG"
 [ -e "$DEBUGLOG" ] && rm -f "$DEBUGLOG"
 
-# In case UID is not set, set and use it
-if [ -n "${UID}" ]; then
-	UID=$(id -ur)
-fi
-
 if [ -n "$INSTDBG" ]; then
 	set -x
 	exec 2> "${DEBUGLOG}"
