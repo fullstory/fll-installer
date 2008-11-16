@@ -110,7 +110,7 @@ install_grub()
 	# Create initital grub configuration (grub2 ignores -y)
 	#
 	say "create initital grub configuration"
-	chroot_it update-grub -y
+	chroot_it update-grub
 
 	#
 	# Create a new cmdline
@@ -159,7 +159,7 @@ install_grub()
 		:
 	fi
 
-	# hook update-grub -y into the kernel installing chain
+	# hook update-grub into the kernel installing chain
 cat << EOF > "$TARGET_MNT_POINT/etc/kernel-img.conf"
 # Kernel Image management overrides
 # See kernel-img.conf(5) for details
@@ -172,7 +172,7 @@ relative_links = Yes
 EOF
 	
 	# update the grub config with our changes (grub2 ignores -y)
-	chroot_it update-grub -y
+	chroot_it update-grub
 
 	return 0
 }
