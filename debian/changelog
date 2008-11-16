@@ -1,3 +1,9 @@
+fll-installer (0.4.29) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 16 Nov 2008 22:20:13 +0100
+
 fll-installer (0.4.28) unstable; urgency=low
 
   * fix uninitialized progress counter.
