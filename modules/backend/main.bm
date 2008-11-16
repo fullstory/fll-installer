@@ -49,6 +49,15 @@ main()
 		error 1 "Config file $CONFIG_FILE could not be found."
 		# exit 1
 	fi
+	
+	# initialize the ACTION variable for progress()
+	if [ "$BOOT_DISK" = "yes" ]; then
+		# skip the first one so the make_floppy remains as the last action
+		# as it needs some considerable time
+		ACTION=-1
+	else
+		ACTION=0
+	fi
 
 	#
 	# say the world we have started our work
@@ -58,13 +67,6 @@ main()
 	#
 	# do the main job
 	#
-	if [ "$BOOT_DISK" = "yes" ]; then
-		# skip the first one so the make_floppy remains as the last action
-		# as it needs some considerable time
-		ACTION=-1
-	else
-		ACTION=0
-	fi
 	for action in ${all_actions}; do
 		[ "${ACTION}" -lt 9 ] && ACTION=$((ACTION + 1))
 		say "starting $action"
