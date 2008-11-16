@@ -1,9 +1,5 @@
-fll-installer (0.4.25) UNRELEASED; urgency=low
+fll-installer (0.4.25) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * system_services.bm:
     - Change SERVICE_WHITELIST 'sed'ing to a more efficient way.
   * Define UID by id -ur if not yet defined and use UID afterwards.
