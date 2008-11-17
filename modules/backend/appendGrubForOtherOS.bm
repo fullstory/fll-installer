@@ -61,7 +61,7 @@ appendGrubForOtherOS()
 				fi
 			fi
 			if [ "$kindOf" = "linux" ]; then
-				mount $device $TempDir 2>&1 >>/dev/null
+				mount "${device}" "${TempDir}" >&2 
 				if [ $? -eq 0 ] ; then
 					if [ -r "$mounted_grub_file" ]; then
 						found=0

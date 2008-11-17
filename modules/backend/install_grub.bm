@@ -90,7 +90,7 @@ install_grub()
 	then
 		# Make a backup of the old mbr
 		dd if=${bootfrom} of=$TARGET_MNT_POINT/boot/${FLL_DISTRO_NAME}-old-mbr.$(date -I) \
-			bs=446 count=1 >/dev/null 2>/dev/null
+			bs=446 count=1 >/dev/null
 	fi
 
 	#
@@ -98,19 +98,19 @@ install_grub()
 	#
 	if [ "${bootfrom}" = "$(get_root_device ${bootfrom})" ]
 	then # install on MBR
-		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
+		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
 	else # install on partition
 	     # is twice because sometimes the first one fails in that cases the second
 	     # don't fail !!!
-		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" || \
-			grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}"
+		grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2 || \
+			grub-install --recheck --no-floppy --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
 	fi
 
 	# 
 	# Create initital grub configuration (grub2 ignores -y)
 	#
 	say "create initital grub configuration"
-	chroot_it update-grub
+	chroot_it update-grub >&2
 
 	#
 	# Create a new cmdline
@@ -172,7 +172,7 @@ relative_links = Yes
 EOF
 	
 	# update the grub config with our changes (grub2 ignores -y)
-	chroot_it update-grub
+	chroot_it update-grub >&2
 
 	return 0
 }

@@ -49,7 +49,7 @@ fix_usb_install () {
 		old_hd_map_dev=$(echo ${old_hdmap_dev} |sed -e "s/[\(,\)]//g")
 		
 		# install grub on MBR of the USB device
-		grub-install "--root-directory=${TARGET_MNT_POINT}" "${root_device}" >/dev/null 2>&1
+		grub-install "--root-directory=${TARGET_MNT_POINT}" "${root_device}" >&2
 
 		# fix the device.map file
 		sed -i -e "s|(hd0)|(hdX)|" -e "s|${old_hdmap_dev}|(hd0)|" \

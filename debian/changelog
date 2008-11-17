@@ -1,8 +1,14 @@
 fll-installer (0.4.32) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 17 Nov 2008 23:03:18 +0100
+  [ Michael Deelwater ]
+  * fll-installer:
+    - Redirect STDERR to $DEBUGLOG.
+    - Redirect STDOUT of many script commands to STDERR.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Mon, 17 Nov 2008 23:13:12 +0100
 
 fll-installer (0.4.31) unstable; urgency=low
 

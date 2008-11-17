@@ -53,9 +53,9 @@ prepareHD()
 
 		progress "Formatting $HD_CHOICE..."
 
-		umount "$HD_CHOICE" 2>/dev/null
+		umount "$HD_CHOICE"
 		
-		dd if=/dev/zero of=$HD_CHOICE bs=1k count=16 >/dev/null 2>/dev/null 
+		dd if=/dev/zero of=$HD_CHOICE bs=1k count=16 >/dev/null
 
 		case "$HD_FSTYPE" in
 			xfs)
