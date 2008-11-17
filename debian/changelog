@@ -1,9 +1,5 @@
-fll-installer (0.4.31) UNRELEASED; urgency=low
+fll-installer (0.4.31) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * copy2HD.bm:
     - Remove module_hd_progressbar calling. Never used.
   * progress.bm:
