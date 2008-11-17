@@ -1,8 +1,15 @@
 fll-installer (0.4.31) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 17 Nov 2008 00:30:19 +0100
+  [ Michael Deelwater ]
+  * copy2HD.bm:
+    - Remove module_hd_progressbar calling. Never used.
+  * progress.bm:
+    - Remove function module_hd_progressbar.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Mon, 17 Nov 2008 20:44:42 +0100
 
 fll-installer (0.4.30) unstable; urgency=low
 
