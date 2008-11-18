@@ -1,9 +1,5 @@
-fll-installer (0.4.32) UNRELEASED; urgency=low
+fll-installer (0.4.32) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * fll-installer:
     - Redirect STDERR to $DEBUGLOG.
     - Redirect STDOUT of many script commands to STDERR.
