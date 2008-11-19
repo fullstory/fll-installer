@@ -5,8 +5,9 @@ fll-installer (0.4.33) UNRELEASED; urgency=low
 
   [ Michael Deelwater ]
   * Throw away output of dpkg-query for nonexistent packages.
+  * Check before unmounting TARGET_MNT_POINT.
 
- -- Michael Deelwater <michael.deelwater@googlemail.com>  Wed, 19 Nov 2008 23:35:24 +0100
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Wed, 19 Nov 2008 23:41:13 +0100
 
 fll-installer (0.4.32) unstable; urgency=low
 
