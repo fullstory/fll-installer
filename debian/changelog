@@ -1,8 +1,12 @@
 fll-installer (0.4.33) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 18 Nov 2008 02:15:23 +0100
+  [ Michael Deelwater ]
+  * Throw away output of dpkg-query for nonexistent packages.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Wed, 19 Nov 2008 23:35:24 +0100
 
 fll-installer (0.4.32) unstable; urgency=low
 
