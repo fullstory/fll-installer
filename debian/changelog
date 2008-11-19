@@ -1,9 +1,5 @@
-fll-installer (0.4.33) UNRELEASED; urgency=low
+fll-installer (0.4.33) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * Throw away output of dpkg-query for nonexistent packages.
   * Check before unmounting TARGET_MNT_POINT.
 
