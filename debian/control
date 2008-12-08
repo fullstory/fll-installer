@@ -11,16 +11,29 @@ Vcs-Browser: http://svn.berlios.de/wsvn/fullstory/fll-installer/trunk/
 Package: fll-installer
 Architecture: all
 Pre-Depends: dpkg (>= 1.14.6)
-Depends: adduser, initramfs-tools, grub-gfxboot (>= 0.97-30) | grub (>= 0.97-40) | grub2 (>= 1.96+20080601-1), procps, udev-config-sidux, whois, os-prober, rsync, fll-live-initscripts (>= 2.0.72)
-Recommends: install-gui, install-meta
-Suggests: gparted, distro-defaults
+Depends: ${misc:Depends},
+         adduser,
+         initramfs-tools,
+         grub-gfxboot (>= 0.97-30) | grub (>= 0.97-40) | grub2 (>= 1.96+20080601-1),
+         procps,
+         udev-config-sidux,
+         whois,
+         os-prober,
+         rsync,
+         fll-live-initscripts (>= 2.0.72)
+Recommends: install-gui,
+            install-meta
+Suggests: gparted,
+          distro-defaults
 Description: backend scripts to install sidux to hdd
  fll-installer provides a framework for installing FULLSTORY Live Linux
  to hard disk drives.
 
 Package: fll-iso2usb
 Architecture: all
-Depends: grub-gfxboot | grub, distro-defaults
+Depends: ${misc:Depends},
+         grub-gfxboot | grub,
+         distro-defaults
 Recommends: install-usb-gui
 Suggests: fuseiso
 Description: backend scripts to install sidux to an usb hdd

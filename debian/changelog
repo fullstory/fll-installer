@@ -1,8 +1,9 @@
 fll-installer (0.4.34) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * make lintian happy and depend on ${misc:Depends}.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 19 Nov 2008 23:49:35 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 08 Dec 2008 02:38:29 +0100
 
 fll-installer (0.4.33) unstable; urgency=low
 
