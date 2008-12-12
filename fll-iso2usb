@@ -644,12 +644,18 @@ gfxmenu /boot/message
 
 EOF
 
+	case "${@}" in
+		*vga=*)
+			Parameters="${@}";;
+		*) Parameters="${@} vga=791";;
+	esac
+
 	for kernel in ${kernels}; do
 		cat >> ${mountpoint}/boot/grub/menu.lst \
 <<EOF
 ##ISO boot
 title ${name} (USB) ${kernel}
-kernel (hd0,0)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso nointro quiet vga=791 ${PERSIST} ${@}
+kernel (hd0,0)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso nointro quiet  ${PERSIST} ${Parameters}
 initrd (hd0,0)/boot/initrd.img-${kernel}
 
 EOF

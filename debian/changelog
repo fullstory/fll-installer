@@ -1,8 +1,12 @@
 fll-installer (0.4.35) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 08 Dec 2008 21:31:56 +0100
+  [ Joaquim Boura ]
+  * do not overwrite vha cheatcode if user wants one
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Fri, 12 Dec 2008 23:13:41 +0100
 
 fll-installer (0.4.34) unstable; urgency=low
 
