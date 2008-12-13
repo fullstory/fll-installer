@@ -1,10 +1,6 @@
-fll-installer (0.4.35) UNRELEASED; urgency=low
+fll-installer (0.4.35) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
-  * do not overwrite vha cheatcode if user wants one
+  * do not overwrite vga cheatcode, if user wants one.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Fri, 12 Dec 2008 23:13:41 +0100
 
