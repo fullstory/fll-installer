@@ -1,8 +1,12 @@
 fll-installer (0.4.36) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 13 Dec 2008 02:21:24 +0100
+  [ Michael Deelwater ]
+  * Remove useless /etc/motd modification.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Mon, 15 Dec 2008 21:44:14 +0100
 
 fll-installer (0.4.35) unstable; urgency=low
 

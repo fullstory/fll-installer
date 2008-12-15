@@ -25,12 +25,6 @@ fix_etc_on_HD () {
 	#
 
 	#
-	# update /etc/motd
-	#
-	printf "Welcome to %s %s\n!" "$FLL_DISTRO_NAME" "(Kernel $(uname -r))" > \
-		"${TARGET_MNT_POINT}/etc/motd"
-
-	#
 	# hostname
 	#
 	sed -i '/localhost/!s/^\(127.0.0.1[ \t]\+\)\(.\+\)$/\1'"$HOST_NAME"'/' \
