@@ -1,9 +1,5 @@
-fll-installer (0.4.36) UNRELEASED; urgency=low
+fll-installer (0.4.36) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * Remove useless /etc/motd modification.
 
  -- Michael Deelwater <michael.deelwater@googlemail.com>  Mon, 15 Dec 2008 21:44:14 +0100
