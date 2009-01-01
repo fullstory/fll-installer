@@ -42,7 +42,7 @@ clean_exit()
 	done
 
 	# Just to be sure :-)
-	if mount | egrep -q "^${TARGET_MNT_POINT}"; then
+	if mount | egrep -q "${TARGET_MNT_POINT}"; then
 		umount "${TARGET_MNT_POINT}"
 	fi
 
