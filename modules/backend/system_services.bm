@@ -17,7 +17,10 @@ system_services () {
 	logit "configuring system services"
 
 	local UPDATE_RCD
-	local SERVICE_WHITELIST
+	local SERVICE_WHITELIST="hwclock.sh \
+checkroot.sh \
+checkfs.sh "
+
 	local PACKAGE_WHITELIST="alsa-base \
 alsa-utils \
 anacron \
