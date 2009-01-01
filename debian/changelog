@@ -1,9 +1,5 @@
-fll-installer (0.4.37) UNRELEASED; urgency=low
+fll-installer (0.4.37) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * configure services hwlock checkroof and checkfs at the beginning of the list"
     Fixed bad re-string that was preventing umount to do his job with the root
     partition
