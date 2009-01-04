@@ -1,9 +1,5 @@
-fll-installer (0.4.38) UNRELEASED; urgency=low
+fll-installer (0.4.38) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Kel Modderman ]
   * modules/backend/system_services.bm: indenting totally whacked;
     reindent.
 
