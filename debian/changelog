@@ -1,9 +1,5 @@
-fll-installer (0.4.39) UNRELEASED; urgency=low
+fll-installer (0.4.39) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * also include virtio block devices
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sun, 11 Jan 2009 09:47:26 +0100
