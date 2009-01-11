@@ -59,7 +59,7 @@ install_grub()
                 partition)
                         bootfrom="${root_partition}"
                         ;;
-                /dev/[hs]d[a-z]) 
+                /dev/[hsv]d[a-z]) 
 			device="$(echo ${BOOT_WHERE}|cut -d / -f3)"
                         if [ -n "$(echo $(readlink -f /sys/block/${device}/device) | \
                                 grep  "usb")" ]; then
