@@ -1,8 +1,12 @@
 fll-installer (0.4.40) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 11 Jan 2009 18:00:35 +0100
+  [ Joaquim Boura ]
+  * GRUB menu.lst can shows now  more than one Windows entry.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Tue, 13 Jan 2009 17:41:39 +0100
 
 fll-installer (0.4.39) unstable; urgency=low
 

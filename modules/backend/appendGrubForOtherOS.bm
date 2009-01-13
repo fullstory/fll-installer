@@ -96,11 +96,11 @@ appendGrubForOtherOS()
 					umount $TempDir
 				fi
 			elif [ "$kindOf" = "chain" ]; then
-				if [ "$shortName" = "Windows" ]; then
+				if [ "${shortName%%[123456789]}" = "Windows" ]; then
 					if [ "${device#????????}" -le 4 ]; then
 						gp=$(translate_linux_to_grub $device)	
 						echo "" >> "$MyGrubTemp"
-						echo "title Windows 2K/XP/2003/Vista (${device#?????})" >> "$MyGrubTemp"
+						echo "title ${longName} (${device#?????})" >> "$MyGrubTemp"
 						echo "rootnoverify $gp" >> "$MyGrubTemp"
 						echo "makeactive" >> "$MyGrubTemp"
 						echo "chainloader +1" >> "$MyGrubTemp"
