@@ -1,3 +1,9 @@
+fll-installer (0.4.42) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 13 Jan 2009 23:56:26 +0100
+
 fll-installer (0.4.41) unstable; urgency=low
 
   * removed --recheck option on grub-install call for fll-iso2usb it seems that
