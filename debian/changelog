@@ -1,9 +1,5 @@
-fll-installer (0.4.40) UNRELEASED; urgency=low
+fll-installer (0.4.40) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * GRUB menu.lst can shows now  more than one Windows entry.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Tue, 13 Jan 2009 17:41:39 +0100
