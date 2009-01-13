@@ -1,8 +1,13 @@
 fll-installer (0.4.41) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 13 Jan 2009 19:01:27 +0100
+  [ Joaquim Boura ]
+  * removed --recheck option on grub-install call for fll-iso2usb it seems that
+    failed tries are much lesser without that option; device boots correctly.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Tue, 13 Jan 2009 22:31:00 +0100
 
 fll-installer (0.4.40) unstable; urgency=low
 

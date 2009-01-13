@@ -380,7 +380,7 @@ install_grub()
 
 	say "installing grub on ${device}"
 
-	grub-install --recheck --no-floppy --root-directory="${mountpoint}" "${device}"
+	grub-install --no-floppy --root-directory="${mountpoint}" "${device}"
 
 	ev="${?}"
 	if [ "${ev}" -ne 0 ]; then
