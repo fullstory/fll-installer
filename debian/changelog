@@ -1,11 +1,6 @@
-fll-installer (0.4.42) UNRELEASED; urgency=low
+fll-installer (0.4.42) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
-  * protect answer "y" against current locale
-  * put in the missing changes
+  * protect answer "y" against current locale.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Thu, 22 Jan 2009 07:03:12 +0100
 
