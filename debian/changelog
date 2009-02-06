@@ -1,8 +1,12 @@
 fll-installer (0.4.43) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 23 Jan 2009 02:13:48 +0100
+  [ Michael Deelwater ]
+  * fll-iso2usb: Create partition before mounting it.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Sat, 07 Feb 2009 00:34:31 +0100
 
 fll-installer (0.4.42) unstable; urgency=low
 

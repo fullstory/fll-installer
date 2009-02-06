@@ -798,7 +798,7 @@ if [ -z "${ISO}" ] && [ "${FLL_DISTRO_MODE}" = "live" ] && \
 	else
 		ISO=$(find ${FLL_BASE_DIR} -maxdepth 2 -type f -name ${FLL_MEDIA_NAME})
 	fi
-fi	
+fi
 
 if [ "${FLL_DISTRO_MODE}" = "installed" ] || \
 	grep -s -q -w toram /proc/cmdline; then
@@ -817,21 +817,21 @@ fi
 PARTITION="${DEVICE}1"
 USBTMPDIR="$(mktemp -d -p /tmp/ install-usb.XXXXX)"
 
-mount_partition "${PARTITION}" "${USBTMPDIR}"			|| exit 5
-echo ${USBTMPDIR}
-
 trap "{ [ -d "${USBTMPDIR}" ] && umount_partition ${PARTITION} ${USBTMPDIR}; }" exit
 
 if [ -n "${ISO}" ]; then
-	get_distro_name "${ISO}"				|| exit 6
+	get_distro_name "${ISO}"				|| exit 5
 fi
 
 if [ "${noformat}" = "false" ] ; then
 	if [ -z "${PART_FS}" ]; then
 		PART_FS="ext3"
 	fi
-	prepare_partition "${DEVICE}" "${PARTITION}" "${PART_FS}" "${LABEL}"		|| exit 7
+	prepare_partition "${DEVICE}" "${PARTITION}" "${PART_FS}" "${LABEL}"		|| exit 6
 fi
+
+mount_partition "${PARTITION}" "${USBTMPDIR}"			|| exit 7
+echo ${USBTMPDIR}
 
 install_grub "${DEVICE}" "${USBTMPDIR}"				|| exit 8
 
