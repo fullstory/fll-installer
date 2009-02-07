@@ -1,9 +1,5 @@
-fll-installer (0.4.43) UNRELEASED; urgency=low
+fll-installer (0.4.43) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * fll-iso2usb: Create partition before mounting it.
   * fll-iso2usb:
     - Use partprobe to reread partition table after dd Boot Sector.
