@@ -198,6 +198,8 @@ prepare_partition()
 		error "${ev}" "failed to zero ${device}"
 		return 1
 	fi
+	# reread partition table
+	/sbin/partprobe "${device}"
 	
 	# create partition
 	fdisk "${device}" \
@@ -222,7 +224,7 @@ EOF
 		return 1
 	fi
 	
-	refresh_block_devices
+#	refresh_block_devices
 
 	is_bootable=$(LC_ALL=C fdisk -l ${device} | awk -v part=${partition} '
 		{
@@ -249,7 +251,7 @@ EOF
 			return 1
 		fi
 	
-		refresh_block_devices
+#		refresh_block_devices
 
 		is_bootable=$(LC_ALL=C fdisk -l ${device} | awk -v part=${partition} '
 			{
@@ -291,7 +293,7 @@ EOF
 			return 1
 		fi
 		
-		refresh_block_devices
+#		refresh_block_devices
 
 		part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v fs_type=${part_type} -v part=${partition} '
 			{

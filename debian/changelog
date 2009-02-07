@@ -5,8 +5,13 @@ fll-installer (0.4.43) UNRELEASED; urgency=low
 
   [ Michael Deelwater ]
   * fll-iso2usb: Create partition before mounting it.
+  * fll-iso2usb:
+    - Use partprobe to reread partition table after dd Boot Sector.
+    - Add parted (for partprobe) to dependencies.
+    - (fdisk lets the kernel reread the partition table after changing its
+      entries.)
 
- -- Michael Deelwater <michael.deelwater@googlemail.com>  Sat, 07 Feb 2009 00:34:31 +0100
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Sat, 07 Feb 2009 19:40:43 +0100
 
 fll-installer (0.4.42) unstable; urgency=low
 
