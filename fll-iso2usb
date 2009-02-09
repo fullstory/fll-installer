@@ -34,6 +34,11 @@
 #--------------------------------------------------------------
 # remove old error file if present
 test -e /tmp/.fll-iso2usb && rm -f /tmp/.fll-iso2usb
+# debug file
+DEBUGLOG="/tmp/${0}.debug"
+if [ -f "${DEBUGLOG}" ]; then
+	rm -f "${DEBUGLOG}"
+fi
 #--------------------------------------------------------------
 # source distro-defaults
 #--------------------------------------------------------------
@@ -200,6 +205,7 @@ prepare_partition()
 	fi
 	# reread partition table
 	/sbin/partprobe "${device}"
+	sleep 1
 	
 	# create partition
 	fdisk "${device}" \
@@ -326,11 +332,16 @@ mount_partition()
 	local partition="${1}"
 	local mountpoint="${2}"
 	shift 2
+	
+	if [ -n "${DEBUG}" ]; then
+		fdisk -l >&2
+	fi
 
 	local ev
 
 	say "mounting ${partition} on ${mountpoint}"
-
+	
+	sleep 1
 	mount -o rw "${partition}" "${mountpoint}"
 
 	ev="${?}"
@@ -674,6 +685,18 @@ EOF
 }
 
 #--------------------------------------------------------------
+# cleanup for trap
+#--------------------------------------------------------------
+cleanup () {
+	[ -d "${USBTMPDIR}" ] && umount_partition "${PARTITION}" "${USBTMPDIR}"
+	if [ -n "${DEBUG}" ]; then
+		echo >&2 "Last syslog entries:"
+		dmesg | tail -n 30 >&2
+		echo "DEBUG: Logfile in ${DEBUGLOG}."
+	fi
+}
+
+#--------------------------------------------------------------
 # preparation, process cli arguments with getopt
 #--------------------------------------------------------------
 noformat=false
@@ -693,7 +716,9 @@ eval set -- "${TEMP}"
 while true ; do
 	case "${1}" in
 		-d|--debug)
+			DEBUG=1
 			set -x
+			exec 2>"${DEBUGLOG}"
 			shift
 			;;
 		-D|--drive)
@@ -819,7 +844,7 @@ fi
 PARTITION="${DEVICE}1"
 USBTMPDIR="$(mktemp -d -p /tmp/ install-usb.XXXXX)"
 
-trap "{ [ -d "${USBTMPDIR}" ] && umount_partition ${PARTITION} ${USBTMPDIR}; }" exit
+trap cleanup exit
 
 if [ -n "${ISO}" ]; then
 	get_distro_name "${ISO}"				|| exit 5
