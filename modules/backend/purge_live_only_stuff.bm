@@ -17,7 +17,14 @@ purge_live_only_stuff()
 	#
 	logit "purge_live_only_stuff"
 	#
-	local installed_pacakages
+	local installed_packages
+
+	# divert /usr/sbin/policy-rc.d temporarily to protect
+	# the chroot from invoke-rc.d calls
+	chroot_it dpkg-divert --divert /usr/sbin/policy-rc.d.REAL \
+		--local --rename --add /usr/sbin/policy-rc.d
+	chroot_it su -c 'printf "#!/bin/sh\nexit 101\n" > /usr/sbin/policy-rc.d'
+	chroot_it chmod +x /usr/sbin/policy-rc.d
 
 	# purge live-specific packages
 	chroot_it dpkg --purge	fll-live-initramfs \
@@ -39,6 +46,9 @@ purge_live_only_stuff()
 		installed_packages=$(dpkg -l |awk '/virtualbox\-ose\-guest\-modules/{print $2}')
 		chroot_it dpkg --purge ${installed_packages} >&2
 	fi
+
+	# remove divert
+	chroot_it dpkg-divert --rename --remove /usr/sbin/policy-rc.d
 
 	#  disable live config
 	if [ -f "${TARGET_MNT_POINT}/etc/default/distro" ]; then

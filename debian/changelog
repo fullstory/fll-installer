@@ -1,8 +1,15 @@
 fll-installer (0.4.45) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 10 Feb 2009 02:04:43 +0100
+  [ Michael Deelwater ]
+  * fll-installer/purge_live_only_stuff:
+    - Forbid invoke-rc.d calls in chroot while purging packages by temporarily
+      diverting /usr/sbin/policy-rc.d.
+    - Fix typo in local variable installed_packages.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Wed, 11 Feb 2009 01:57:26 +0100
 
 fll-installer (0.4.44) unstable; urgency=low
 
