@@ -1,9 +1,5 @@
-fll-installer (0.4.45) UNRELEASED; urgency=low
+fll-installer (0.4.45) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * fll-installer/purge_live_only_stuff:
     - Forbid invoke-rc.d calls in chroot while purging packages by temporarily
       diverting /usr/sbin/policy-rc.d.
