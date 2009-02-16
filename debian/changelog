@@ -1,8 +1,14 @@
 fll-installer (0.4.46) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 12 Feb 2009 01:48:34 +0100
+  [ Michael Deelwater ]
+  * fll-installer:
+    - Remove one superfluous error redirection.
+    - Measure duration of fll-installer running and write it to STDOUT.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Tue, 17 Feb 2009 00:45:41 +0100
 
 fll-installer (0.4.45) unstable; urgency=low
 
