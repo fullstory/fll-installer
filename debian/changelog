@@ -1,8 +1,17 @@
 fll-installer (0.4.47) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 17 Feb 2009 19:38:50 +0100
+  [ Michael Deelwater ]
+  * modules/backend/system_services.bm:
+    - Replace initscript search loop by one call of dpkg. This is much faster.
+    - If kelmo's python-lsbscript package is installed, use output of
+      lsb_scripts -t to sort the scripts in the whitelist according to
+      dependencies.
+    - Remove useless whitespace removing.
+
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Tue, 17 Feb 2009 19:51:07 +0100
 
 fll-installer (0.4.46) unstable; urgency=low
 

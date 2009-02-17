@@ -57,13 +57,7 @@ util-linux \
 wpasupplicant \
 x11-common"
 
-	for p in ${PACKAGE_WHITELIST}; do
-		NEW_SERVICE=$(dpkg-query -L "$p" 2>/dev/null | sed -n 's/^\/etc\/init.d\/\(.\+\)/\1/p' | tr '\n' ' ')
-		SERVICE_WHITELIST="${SERVICE_WHITELIST} ${NEW_SERVICE}"
-	done
-
-	# delete whitespaces
-	SERVICE_WHITELIST=$(echo "${SERVICE_WHITELIST}" | sed -r 's/[[:space:]]+/ /g')
+	SERVICE_WHITELIST=$(dpkg -L ${PACKAGE_WHITELIST} 2>/dev/null | grep -E '^/etc/init.d/' | cut -d/ -f4)
 
 	#
 	# extra/optional services as defined in config
@@ -71,6 +65,21 @@ x11-common"
 	if [ -n "$SERVICES_START" ]; then
 		SERVICE_WHITELIST="${SERVICE_WHITELIST} ${SERVICES_START}"
 	fi
+
+	# If kelmo's python-lsbscript package is installed, use it to get the
+	# whitelist script in correct order.
+	if which lsb_scripts >/dev/null; then
+		W_FILE=$(mktemp whitelist.XXXXXXX)
+		ORDER=$(mktemp order.XXXXXX)
+		for service in ${SERVICE_WHITELIST}; do
+			echo "${service}" >> "${W_FILE}"
+		done
+		lsb_scripts -t | cut -d/ -f4 > "${ORDER}"
+		SERVICE_WHITELIST=$(awk '{if (NR == FNR) w[$0] = 1; else if ($0 in w) print}' \
+			"${W_FILE}" "${ORDER}")
+		rm -f "${W_FILE}" "${ORDER}"
+	fi
+
 
 	for service in ${SERVICE_WHITELIST}; do
 		[ -x "/etc/init.d/${service}" ] || continue
