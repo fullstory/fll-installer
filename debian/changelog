@@ -1,9 +1,5 @@
-fll-installer (0.4.47) UNRELEASED; urgency=low
+fll-installer (0.4.47) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * modules/backend/system_services.bm:
     - Replace initscript search loop by one call of dpkg. This is much faster.
     - If kelmo's python-lsbscript package is installed, use output of
