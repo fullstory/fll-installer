@@ -7,8 +7,9 @@ fll-installer (0.4.46) UNRELEASED; urgency=low
   * fll-installer:
     - Remove one superfluous error redirection.
     - Measure duration of fll-installer running and write it to STDOUT.
+    - Fix buggy "find" call to search .bm files.
 
- -- Michael Deelwater <michael.deelwater@googlemail.com>  Tue, 17 Feb 2009 00:45:41 +0100
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Tue, 17 Feb 2009 01:27:12 +0100
 
 fll-installer (0.4.45) unstable; urgency=low
 

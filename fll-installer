@@ -117,7 +117,7 @@ fi
 
 SEARCHPATH="/usr/share/fll-installer"
 say "loading modules"
-for i in $(find "${SEARCHPATH}/modules" -name *.bm); do
+for i in $(find "${SEARCHPATH}/modules" -name '*.bm'); do
 	. "$i"
 done
 #------------------
