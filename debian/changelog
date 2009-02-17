@@ -1,9 +1,5 @@
-fll-installer (0.4.46) UNRELEASED; urgency=low
+fll-installer (0.4.46) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Michael Deelwater ]
   * fll-installer:
     - Remove one superfluous error redirection.
     - Measure duration of fll-installer running and write it to STDOUT.
