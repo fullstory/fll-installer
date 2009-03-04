@@ -57,7 +57,7 @@ util-linux \
 wpasupplicant \
 x11-common"
 
-	SERVICE_WHITELIST=$(dpkg -L ${PACKAGE_WHITELIST} 2>/dev/null | grep -E '^/etc/init.d/' | cut -d/ -f4)
+	SERVICE_WHITELIST="${SERVICE_WHITELIST} $(dpkg -L ${PACKAGE_WHITELIST} 2>/dev/null | grep -E '^/etc/init.d/' | cut -d/ -f4)"
 
 	#
 	# extra/optional services as defined in config

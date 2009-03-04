@@ -12,8 +12,9 @@ fll-installer (0.4.47) unstable; urgency=low
       lsb_scripts -t to sort the scripts in the whitelist according to
       dependencies.
     - Remove useless whitespace removing.
+    - Do not ignore previously set entries in SERVICES_WHITELIST.
 
- -- Michael Deelwater <michael.deelwater@googlemail.com>  Tue, 17 Feb 2009 19:51:07 +0100
+ -- Michael Deelwater <michael.deelwater@googlemail.com>  Wed, 04 Mar 2009 19:19:11 +0100
 
 fll-installer (0.4.46) unstable; urgency=low
 
