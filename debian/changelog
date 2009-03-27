@@ -1,8 +1,9 @@
-fll-installer (0.4.48) UNRELEASED; urgency=low
+fll-installer (0.4.48) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * increase number of random characters for mktemp, required since mktemp
+    >= 1.6-2.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 17 Feb 2009 20:27:43 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 27 Mar 2009 01:14:40 +0100
 
 fll-installer (0.4.47) unstable; urgency=low
 

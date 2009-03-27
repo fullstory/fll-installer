@@ -122,7 +122,7 @@ get_distro_name()
 {
 	local iso="${1}"
 	
-	local mounted_iso="$(mktemp -d -p /tmp/ install-usb-iso.XXXXX)"
+	local mounted_iso="$(mktemp -d -p /tmp/ install-usb-iso.XXXXXX)"
 
 	while :; do
 		if mount -t iso9660 -o loop,ro "${iso}" "${mounted_iso}"; then
@@ -506,7 +506,7 @@ copy_files_from_local_iso()
 	
 	say "mounting iso: ${iso}"
 	
-	mounted_iso="$(mktemp -d -p /tmp/ install-usb-iso.XXXXX)"
+	mounted_iso="$(mktemp -d -p /tmp/ install-usb-iso.XXXXXX)"
 
 	while :; do
 		if mount -t iso9660 -o loop,ro "${iso}" "${mounted_iso}"; then
@@ -842,7 +842,7 @@ fi
 # main()
 #--------------------------------------------------------------
 PARTITION="${DEVICE}1"
-USBTMPDIR="$(mktemp -d -p /tmp/ install-usb.XXXXX)"
+USBTMPDIR="$(mktemp -d -p /tmp/ install-usb.XXXXXX)"
 
 trap cleanup exit
 
