@@ -1,9 +1,5 @@
-fll-installer (0.4.49) UNRELEASED; urgency=low
+fll-installer (0.4.49) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * fixed mispelling in man page
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sat, 04 Apr 2009 10:55:32 +0200
