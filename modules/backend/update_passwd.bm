@@ -49,8 +49,10 @@ update_passwd()
 	#
 	# Change password of user/root
 	#
-	chroot_it sh -c "echo \"root:$ROOTPASS_CRYPT\" | chpasswd -e"
-	chroot_it sh -c "echo \"$USER_NAME:$USERPASS_CRYPT\" | chpasswd -e"
+	# chroot_it sh -c "echo \"root:$ROOTPASS_CRYPT\" | chpasswd -e"
+	# chroot_it sh -c "echo \"$USER_NAME:$USERPASS_CRYPT\" | chpasswd -e"
+	chroot_it sh -c "echo \"root:$ROOTPASS_CRYPT\" | chpasswd "
+	chroot_it sh -c "echo \"$USER_NAME:$USERPASS_CRYPT\" | chpasswd "
 
 	return 0
 }

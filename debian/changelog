@@ -1,8 +1,12 @@
 fll-installer (0.4.50) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 04 Apr 2009 19:42:14 +0200
+  [ Joaquim Boura ]
+  * it seems option -e from chpasswd has gone 
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Fri, 22 May 2009 00:34:41 +0200
 
 fll-installer (0.4.49) unstable; urgency=low
 
