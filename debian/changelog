@@ -1,9 +1,12 @@
-fll-installer (0.4.50) UNRELEASED; urgency=low
+fll-installer (0.4.50) unstable; urgency=low
 
-  * NOT RELEASED YET
-  * option -e from chpasswd is gone. use usermod -p instead
+  [ Joaquim Boura ]
+  * option -e from chpasswd is gone. use usermod -p instead.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 14 Jun 2009 15:38:35 +0200
+  [ Stefan Lippers-Hollmann ]
+  * bump standards version to 3.8.1, no changes necessary.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 15 Jun 2009 01:16:03 +0200
 
 fll-installer (0.4.49) unstable; urgency=low
 
