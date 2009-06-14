@@ -1,8 +1,9 @@
 fll-installer (0.4.50) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * option -e from chpasswd is gone. use usermod -p instead
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 24 May 2009 13:05:51 +0200
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 14 Jun 2009 15:38:35 +0200
 
 fll-installer (0.4.49) unstable; urgency=low
 
