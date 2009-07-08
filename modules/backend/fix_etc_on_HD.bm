@@ -120,8 +120,7 @@ EOF
 	#
 	# revert GDM autologin
 	#
-	if [ -f "${FLL_MOUNTPOINT}/etc/gdm/gdm.conf" ]; then
-
+	if [ -f "${TARGET_MNT_POINT}/etc/gdm/gdm.conf" ]; then
 		# we want the gdm-theme (set by desktop-defaults in live mode) on hd-install, 
 		# only remove autologin for gdm
 		sed -i	-e "/^AutomaticLogin\=.*/d" \

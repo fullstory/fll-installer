@@ -1,8 +1,9 @@
-fll-installer (0.4.51) UNRELEASED; urgency=low
+fll-installer (0.4.51) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * test for TARGET_MNT_POINT in gdm reversion, thanks to edhunter for
+    noticing.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 15 Jun 2009 01:17:34 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 08 Jul 2009 21:27:34 +0200
 
 fll-installer (0.4.50) unstable; urgency=low
 
