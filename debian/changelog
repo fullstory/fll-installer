@@ -1,8 +1,8 @@
-fll-installer (0.4.52) UNRELEASED; urgency=low
+fll-installer (0.4.52) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * add slim.conf clean-up, thanks to edhunter.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 08 Jul 2009 21:28:27 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 09 Jul 2009 02:26:50 +0200
 
 fll-installer (0.4.51) unstable; urgency=low
 
