@@ -1,8 +1,8 @@
-fll-installer (0.4.54) UNRELEASED; urgency=low
+fll-installer (0.4.54) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * don't recommend install-meta anymore, it's gone.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 09 Jul 2009 03:07:53 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 11 Jul 2009 13:57:35 +0200
 
 fll-installer (0.4.53) unstable; urgency=low
 

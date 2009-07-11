@@ -21,8 +21,7 @@ Depends: ${misc:Depends},
          os-prober,
          rsync,
          fll-live-initscripts (>= 2.0.72)
-Recommends: install-gui,
-            install-meta
+Recommends: install-gui
 Suggests: gparted,
           distro-defaults
 Description: backend scripts to install sidux to hdd
