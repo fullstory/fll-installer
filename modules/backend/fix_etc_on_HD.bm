@@ -141,7 +141,7 @@ EOF
 	#
 	# revert slim autologin
 	#
-	if [ -f "${TARGET_MNT_POINT}/etc/slim.conf ]; then
+	if [ -f "${TARGET_MNT_POINT}/etc/slim.conf" ]; then
 		sed -i  -e "/^default_user.*/d" \
 			-e "/^auto_login.*/d" \
 			-e "s/^\#FLL\#//" \
