@@ -1,3 +1,9 @@
+fll-installer (0.4.56) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 12 Jul 2009 13:37:19 +0200
+
 fll-installer (0.4.55) unstable; urgency=low
 
   * fixed missing quote.
