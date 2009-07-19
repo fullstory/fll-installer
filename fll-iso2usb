@@ -35,7 +35,7 @@
 # remove old error file if present
 test -e /tmp/.fll-iso2usb && rm -f /tmp/.fll-iso2usb
 # debug file
-DEBUGLOG="/tmp/${0}.debug"
+DEBUGLOG="/tmp/$(basename ${0}).debug"
 if [ -f "${DEBUGLOG}" ]; then
 	rm -f "${DEBUGLOG}"
 fi
@@ -166,9 +166,8 @@ get_distro_name()
 prepare_partition()
 {
 	local device="${1}"
-	local partition="${2}"
-	local fs="${3:-"ext3"}"
-	local label="${4:-${FLL_DISTRO_NAME}USB}"
+	local fs="${2:-"ext3"}"
+	local label="${3:-${FLL_DISTRO_NAME}USB}"
 	shift 4
 
 	local ev
@@ -224,15 +223,26 @@ p
 w
 EOF
 	
-	ev="${?}"
-	if [ "${ev}" -ne 0 ] || [ ! -b "${partition}" ]; then
+	ev="${?}" ; echo ${ev}
+	if [ "${ev}" -eq 0 ]; then
+		PARTITION="${DEVICE}1"
+		if [ ! -b "${PARTITION}" ]; then
+			PARTITION="${DEVICE}p1"
+			if [ -b "${PARTITION}" ];then
+				say "using partition ${PARTITION}"
+			else
+				error "${ev}" "failed to create partition on device: ${device}"
+			fi
+		else
+			say "using partition ${PARTITION}"
+		fi
+	else
 		error "${ev}" "failed to create partition on device: ${device}"
-		return 1
 	fi
 	
 #	refresh_block_devices
 
-	is_bootable=$(LC_ALL=C fdisk -l ${device} | awk -v part=${partition} '
+	is_bootable=$(LC_ALL=C fdisk -l ${device} | awk -v part=${PARTITION} '
 		{
 			if($1 == part && $2 == "*") {
 				print 1
@@ -259,7 +269,7 @@ EOF
 	
 #		refresh_block_devices
 
-		is_bootable=$(LC_ALL=C fdisk -l ${device} | awk -v part=${partition} '
+		is_bootable=$(LC_ALL=C fdisk -l ${device} | awk -v part=${PARTITION} '
 			{
 				if($1 == part && $2 == "*") {
 					print 1
@@ -274,7 +284,7 @@ EOF
 		fi
 	fi
 
-	part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v fs_type=${part_type} -v part=${partition} '
+	part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v fs_type=${part_type} -v part=${PARTITION} '
 		{
 			if($1 == part && $6 == fs_type) {
 				print $6
@@ -301,7 +311,7 @@ EOF
 		
 #		refresh_block_devices
 
-		part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v fs_type=${part_type} -v part=${partition} '
+		part_id=$(LC_ALL=C fdisk -l ${device}  | awk -v fs_type=${part_type} -v part=${PARTITION} '
 			{
 				if($1 == part && $6 == fs_type) {
 					print $6
@@ -316,15 +326,15 @@ EOF
 		fi	
 	fi	
 
-	${fs_prog} "${partition}"
+	${fs_prog} "${PARTITION}"
 	
 	ev="${?}"
 	if [ "${ev}" -ne 0 ]; then
-		error "${ev}" "failed to format ${partition}"
+		error "${ev}" "failed to format ${PARTITION}"
 		return 1
 	fi
 
-	say "prepared bootable partition: ${partition} label: ${label}"
+	say "prepared bootable partition: ${PARTITION} label: ${label}"
 }
 #--------------------------------------------------------------
 mount_partition()
@@ -841,7 +851,6 @@ fi
 #--------------------------------------------------------------
 # main()
 #--------------------------------------------------------------
-PARTITION="${DEVICE}1"
 USBTMPDIR="$(mktemp -d -p /tmp/ install-usb.XXXXXX)"
 
 trap cleanup exit
@@ -854,7 +863,7 @@ if [ "${noformat}" = "false" ] ; then
 	if [ -z "${PART_FS}" ]; then
 		PART_FS="ext3"
 	fi
-	prepare_partition "${DEVICE}" "${PARTITION}" "${PART_FS}" "${LABEL}"		|| exit 6
+	prepare_partition "${DEVICE}"  "${PART_FS}" "${LABEL}"		|| exit 6
 fi
 
 mount_partition "${PARTITION}" "${USBTMPDIR}"			|| exit 7

@@ -1,8 +1,13 @@
 fll-installer (0.4.56) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 12 Jul 2009 13:37:19 +0200
+  [ Joaquim Boura ]
+  * when -d was use the debug file would got a bad name and so never created. (thks edhunter for noticing)
+  * when installing fromiso on sd-ram the device/partiotion naming is a bit different from normal one.( thks rieper|net for testing)
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 19 Jul 2009 22:16:13 +0200
 
 fll-installer (0.4.55) unstable; urgency=low
 
