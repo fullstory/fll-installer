@@ -866,6 +866,19 @@ if [ "${noformat}" = "false" ] ; then
 	prepare_partition "${DEVICE}"  "${PART_FS}" "${LABEL}"		|| exit 6
 fi
 
+if [ -z "${PARTITION}" ]; then
+	PARTITION="${DEVICE}1"
+	if [ ! -b "${PARTITION}" ]; then
+		PARTITION="${DEVICE}p1"
+		if [ -b "${PARTITION}" ];then
+			say "using partition ${PARTITION}"
+		else
+			error "7" "E: no suitable partition found on device: ${device}"
+		fi
+	else
+		say "using partition ${PARTITION}"
+	fi
+fi
 mount_partition "${PARTITION}" "${USBTMPDIR}"			|| exit 7
 echo ${USBTMPDIR}
 
