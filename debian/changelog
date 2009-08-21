@@ -1,10 +1,6 @@
-fll-installer (0.4.58) UNRELEASED; urgency=low
+fll-installer (0.4.58) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
-  * mount_partition was called with empty value in the partition variable 
+  * mount_partition was called with empty value in the partition variable.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Fri, 21 Aug 2009 22:41:02 +0200
 
