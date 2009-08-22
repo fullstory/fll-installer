@@ -1,9 +1,5 @@
-fll-installer (0.4.60) UNRELEASED; urgency=low
+fll-installer (0.4.60) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * grrr missing bracket fixed
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sat, 22 Aug 2009 17:41:38 +0200
