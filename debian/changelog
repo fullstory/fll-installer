@@ -1,8 +1,13 @@
 fll-installer (0.4.59) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 21 Aug 2009 22:59:59 +0200
+  [ Joaquim Boura ]
+  * write exit code always in /tmp/.fll-iso2usb and make it world writable
+    so the gui called by the user can delete old ones
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sat, 22 Aug 2009 13:56:49 +0200
 
 fll-installer (0.4.58) unstable; urgency=low
 
