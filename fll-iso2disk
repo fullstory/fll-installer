@@ -131,7 +131,7 @@ checkPartActive() {
 checkFilesystem() {
     dev=$1
 
-    USBFS=$(/lib/udev/vol_id -t $dev)
+    USBFS=$(/sbin/blkid -p $dev | sed s/.*TYPE\=\"// | cut -d\" -f1)
     if [ "$USBFS" != "vfat" -a "$USBFS" != "msdos" -a "$USBFS" != "ext2" -a "$USBFS" != "ext3" ]; then
 	echo "USB filesystem must be vfat or ext[23]"
 	exitclean

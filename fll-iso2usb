@@ -597,7 +597,7 @@ prepare_persist()
 
 	say "Initializing persistent overlay"
 
-	fs=$(/lib/udev/vol_id -t ${PARTITION})
+	fs=$(/sbin/blkid -p ${PARTITION} | sed s/.*TYPE\=\"// | cut -d\" -f1)
 
 	case ${fs} in
 		vfat)

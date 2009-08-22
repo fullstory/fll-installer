@@ -1,13 +1,14 @@
-fll-installer (0.4.59) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+fll-installer (0.4.59) unstable; urgency=low
 
   [ Joaquim Boura ]
   * write exit code always in /tmp/.fll-iso2usb and make it world writable
     so the gui called by the user can delete old ones
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 22 Aug 2009 13:56:49 +0200
+  [ Stefan Lippers-Hollmann ]
+  * replace vol_id by blkid, as it has been dropped in udev 0.146-1.
+  * bump standards version to 3.8.3, no changes necessary.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 22 Aug 2009 16:20:21 +0200
 
 fll-installer (0.4.58) unstable; urgency=low
 
