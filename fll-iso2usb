@@ -84,6 +84,7 @@ success()
 	local exitval="${1}"
 	echo "${exitval}" > /tmp/.fll-iso2usb
 	chmod 666 /tmp/.fll-iso2usb
+}
 #--------------------------------------------------------------
 error()
 {
