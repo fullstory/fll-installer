@@ -31,7 +31,7 @@ Description: backend scripts to install sidux to hdd
 Package: fll-iso2usb
 Architecture: all
 Depends: ${misc:Depends},
-         grub-gfxboot | grub,
+         grub-gfxboot | grub | grub2 (>= 1.96+20080601-1),
          distro-defaults, parted
 Recommends: install-usb-gui
 Suggests: fuseiso

@@ -54,6 +54,15 @@ else
 fi
 
 #--------------------------------------------------------------
+# use variable to remember which grub version we are using
+#--------------------------------------------------------------
+if [ ! `which grub` ] && [ `which grub-setup` ]; then 
+	GRUB2="true"
+else
+	GRUB2="false"
+fi
+
+#--------------------------------------------------------------
 # functions
 #--------------------------------------------------------------
 usage()
@@ -62,7 +71,7 @@ usage()
 	echo "Create an fromiso (frugal) installation on a USB drive"
 	echo ""
 	echo "-d|--debug                          debug sh code execution"
-	echo "-D|--drive </dev/sdX>               name of device where to install the "
+	echo "-D|--device </dev/sdX>              name of device where to install the "
 	echo "                                    \"fromiso\""
 	echo "-n|--noformat                       do not format partition"
 	echo "-f|--format vfat|ext2|ext3          format partition with given filesystem"
@@ -437,17 +446,20 @@ copy_files()
 	local mountpoint="${2}"
 
 	say "copying files to ${mountpoint}"
+
+	# we don't need to copy kernel and initrd when using grub2
+	if [ "${GRUB2}" = "false" ]; then
+		for i in message  initrd vmlinuz; do
+			cp -v	${source_dir}/boot/${i}* \
+				${mountpoint}/boot
 	
-	for i in message  initrd vmlinuz; do
-		cp -v	${source_dir}/boot/${i}* \
-			${mountpoint}/boot
-	
-		ev="${?}"
-		if [ "${ev}" -ne 0 ]; then
-			error "${ev}" "failed to copy files ${source_dir}/boot/${i} to ${mountpoint}/boot"
-			return 1
-		fi
-	done
+			ev="${?}"
+			if [ "${ev}" -ne 0 ]; then
+				error "${ev}" "failed to copy files ${source_dir}/boot/${i} to ${mountpoint}/boot"
+				return 1
+			fi
+		done
+	fi
 	if [ -e ${source_dir}/boot/memtest86+.bin ] ; then
 		cp -v	${source_dir}/boot/memtest86+.bin \
 			${mountpoint}/boot
@@ -648,6 +660,56 @@ prepare_persist()
 	return 0
 }
 #--------------------------------------------------------------
+grubcfg()
+{
+	local partition="${1}"
+	local mountpoint="${2}"
+	local name="${3}"
+	shift 3
+
+	local ev
+	local initrd vmlinuz uuid
+
+	say "creating ${mountpoint}/boot/grub/grub.cfg"
+	kernels=$(find ${mountpoint}/boot/ -maxdepth 1 -type f -name 'vmlinuz-*' -printf '%P\n' | sed -n 's/^vmlinuz-//p')
+	uuid=$(blkid -o value -s UUID ${partition})
+
+	case "${@}" in
+		*vga=*)
+			Parameters="${@}";;
+		*) Parameters="${@} vga=791";;
+	esac
+
+	for kernel in ${kernels}; do
+		cat > ${mountpoint}/boot/grub/grub.cfg <<EOF \
+
+## TO DO ##
+### some fancy graphic could/should be inserted here ###
+##       ##
+
+menuentry "${name} from iso" {
+  loopback loop (hd0,1)/${name}/${FLL_MEDIA_NAME}
+  linux (loop)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/sidux/sidux.iso nointro quiet ${PERSIST} ${Parameters}
+  initrd (loop)/boot/initrd.img-${kernel}
+}
+ 
+EOF
+
+	done
+	if [ -e ${mountpoint}/boot/memtest86+.bin ]; then
+		cat > ${mountpoint}/boot/grub/grub.cfg <<EOF \
+
+menuentry  "Memory Test (memtest86+)" {
+	linux /boot/memtest86+.bin
+}
+
+menuentry  "Memory Test (memtest86+, serial console 1152000)"
+	linux /boot/memtest86+.bin console=ttyS0,115200n8
+}
+EOF
+	fi
+}
+#--------------------------------------------------------------
 menulst()
 {
 	local partition="${1}"
@@ -720,7 +782,7 @@ cleanup () {
 noformat=false
 
 TEMP=$(getopt -o dD:f:hI:L:npP:t \
-        --long debug,drive:,format:,help,iso:,label,noformat,persist,percent:,test \
+        --long debug,device:,format:,help,iso:,label,noformat,persist,percent:,test \
         -n  "$(basename ${0})" -- "${@}")
 
 if [ "${?}" -ne 0 ]; then
@@ -739,7 +801,7 @@ while true ; do
 			exec 2>"${DEBUGLOG}"
 			shift
 			;;
-		-D|--drive)
+		-D|--device)
 			DEVICE="${2}"
 			shift 2
 			;;
@@ -915,7 +977,12 @@ else
 	unset PERSIST
 fi
 
-menulst "${PARTITION}" "${USBTMPDIR}" "${FLL_DISTRO_NAME}" ${@}	|| exit 11
+if [ "${GRUB2}" = "true" ]; then 
+	grubcfg "${PARTITION}" "${USBTMPDIR}" "${FLL_DISTRO_NAME}" ${@}	|| exit 11
+else
+	menulst "${PARTITION}" "${USBTMPDIR}" "${FLL_DISTRO_NAME}" ${@}	|| exit 12
+fi
+
 
 success "0"
 exit 0
