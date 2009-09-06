@@ -666,30 +666,61 @@ grubcfg()
 	local mountpoint="${2}"
 	local name="${3}"
 	shift 3
+	local Parameters="${@}"
 
 	local ev
 	local initrd vmlinuz uuid
+
+	say "copying files needed for a fancy grub2 screen"
+
+	if [ -e /usr/share/grub/unifonf.pf2 ]; then
+		cp /usr/share/grub/unifonf.pf2 ${mountpoint}/boot/grub
+	fi
+
+	if [ -e /usr/share/wallpapers/${name}-1024x768.png ]; then
+		cp /usr/share/wallpapers/${name}-1024x768.png  ${mountpoint}/boot/grub	
+	fi
+	cat > ${mountpoint}/boot/grub/grub.cfg <<EOF \
+
+## TO DO ##
+### some fancy graphic could/should be inserted here ###
+##       ##
+insmod video
+insmod font
+set root=(hd0,1)
+search --no-floppy --fs-uuid --set ${uuid}
+loadfont /boot/grub/unicode.pf2
+insmod gfxterm
+insmode vbe
+set gfxmode="1024x768x32;800x600x32;640x480x32;1024x768;800x600;640x480"
+terminal_output gfxterm
+
+set gfxpayload=1024x768x32
+# insmod jpeg
+# background_image /boot/grub/${name}-1024x768.jpg
+
+insmod png
+if  background_image /boot/grub/${name}-1024x768.png ; then
+   set color_normal=black/black
+   set color_highlight=magenta/black
+else
+   set color_normal=green/black
+   set color_highlight=cyan/black
+fi
+## TO DO ##
+
+EOF
 
 	say "creating ${mountpoint}/boot/grub/grub.cfg"
 	kernels=$(find ${mountpoint}/boot/ -maxdepth 1 -type f -name 'vmlinuz-*' -printf '%P\n' | sed -n 's/^vmlinuz-//p')
 	uuid=$(blkid -o value -s UUID ${partition})
 
-	case "${@}" in
-		*vga=*)
-			Parameters="${@}";;
-		*) Parameters="${@} vga=791";;
-	esac
-
 	for kernel in ${kernels}; do
 		cat > ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
-## TO DO ##
-### some fancy graphic could/should be inserted here ###
-##       ##
-
 menuentry "${name} from iso" {
   loopback loop (hd0,1)/${name}/${FLL_MEDIA_NAME}
-  linux (loop)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/sidux/sidux.iso nointro quiet ${PERSIST} ${Parameters}
+  linux (loop)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/${name}/${name}.iso nointro quiet ${PERSIST} ${Parameters}
   initrd (loop)/boot/initrd.img-${kernel}
 }
  

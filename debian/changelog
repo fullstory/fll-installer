@@ -6,8 +6,10 @@ fll-installer (0.4.61) UNRELEASED; urgency=low
   [ Joaquim Boura ]
   * DO NOT UPLOAD
   * now can also be used when grub2 is installed
+  * added some fancy entry screen it will need a 1024x768 png file named 
+    ${distro-name}-1024x768.png in /usr/share/wallpapers
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 05 Sep 2009 22:02:42 +0200
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 06 Sep 2009 18:01:00 +0200
 
 fll-installer (0.4.60) unstable; urgency=low
 
