@@ -1,3 +1,9 @@
+fll-installer (0.5.1) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 06 Sep 2009 21:01:48 +0200
+
 fll-installer (0.5.0) unstable; urgency=low
 
   * now can also be used when grub2 is installed
