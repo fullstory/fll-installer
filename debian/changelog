@@ -1,3 +1,9 @@
+fll-installer (0.5.2) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 08 Sep 2009 12:06:38 +0200
+
 fll-installer (0.5.1) unstable; urgency=low
 
   * reintroduce slim support.
