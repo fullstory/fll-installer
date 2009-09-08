@@ -716,7 +716,7 @@ EOF
 	uuid=$(blkid -o value -s UUID ${partition})
 
 	for kernel in ${kernels}; do
-		cat > ${mountpoint}/boot/grub/grub.cfg <<EOF \
+		cat >> ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
 menuentry "${name} from iso" {
   loopback loop (hd0,1)/${name}/${FLL_MEDIA_NAME}
@@ -728,7 +728,7 @@ EOF
 
 	done
 	if [ -e ${mountpoint}/boot/memtest86+.bin ]; then
-		cat > ${mountpoint}/boot/grub/grub.cfg <<EOF \
+		cat >> ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
 menuentry  "Memory Test (memtest86+)" {
 	linux /boot/memtest86+.bin

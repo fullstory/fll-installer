@@ -1,8 +1,12 @@
 fll-installer (0.5.2) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 08 Sep 2009 12:06:38 +0200
+  [ Joaquim Boura ]
+  * we want to appent lines to grub.cfg not overwrite it.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Tue, 08 Sep 2009 23:49:50 +0200
 
 fll-installer (0.5.1) unstable; urgency=low
 
