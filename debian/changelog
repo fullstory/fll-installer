@@ -1,3 +1,9 @@
+fll-installer (0.5.3) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 12 Sep 2009 23:31:39 +0200
+
 fll-installer (0.5.2) unstable; urgency=low
 
   * we want to appent lines to grub.cfg not overwrite it.
