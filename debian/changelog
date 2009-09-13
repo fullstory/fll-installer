@@ -1,8 +1,12 @@
 fll-installer (0.5.3) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 12 Sep 2009 23:31:39 +0200
+  [ Joaquim Boura ]
+  * Fixed some typos. Fancy boot  enhancements.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 13 Sep 2009 18:07:44 +0200
 
 fll-installer (0.5.2) unstable; urgency=low
 

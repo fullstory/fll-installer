@@ -80,7 +80,7 @@ usage()
 	echo "                                    persist on vfat (10 - 90)"
 	echo "-h|--help                           print this help"
 	echo "-I|--iso   <iso_file>               iso file name to be installed"
-	echo "-t|--test                           copy everything but do not copy the iso"
+		echo "-t|--test                           copy everything but do not copy the iso"
 	echo ""
 	echo "Everything after -- will be appended to the kernel cmdline of grub menu.lst"
 	echo ""
@@ -447,18 +447,32 @@ copy_files()
 
 	say "copying files to ${mountpoint}"
 
-	# we don't need to copy kernel and initrd when using grub2
-	if [ "${GRUB2}" = "false" ]; then
-		for i in message  initrd vmlinuz; do
-			cp -v	${source_dir}/boot/${i}* \
-				${mountpoint}/boot
+	for i in initrd vmlinuz; do
+		cp -v	${source_dir}/boot/${i}* \
+			${mountpoint}/boot
 	
-			ev="${?}"
-			if [ "${ev}" -ne 0 ]; then
-				error "${ev}" "failed to copy files ${source_dir}/boot/${i} to ${mountpoint}/boot"
-				return 1
-			fi
-		done
+		ev="${?}"
+		if [ "${ev}" -ne 0 ]; then
+			error "${ev}" "failed to copy files ${source_dir}/boot/${i} to ${mountpoint}/boot"
+			return 1
+		fi
+	done
+	
+	if [ "${GRUB2}" = "false" ]; then
+		if [ -e ${source_dir}/boot/message ] ; then
+			cp -v	${source_dir}/boot/message \
+				${mountpoint}/boot
+		fi
+	else
+		mkdir -p ${mountpoint}/boot/graphics
+		if [ -e "/usr/share/grub/unicode.pf2" ];then
+			cp -v /usr/share/grub/unicode.pf2 ${mountpoint}/boot/graphics
+		fi
+		WallPaper=$(basename $(basename ${FLL_WALLPAPER}) .png)
+		if [ -e "/usr/share/wallpapers/${WallPaper}/contents/images/1024x768.png" ];then
+			cp -v /usr/share/wallpapers/${WallPaper}/contents/images/1024x768.png \
+				${mountpoint}/boot/graphics
+		fi
 	fi
 	if [ -e ${source_dir}/boot/memtest86+.bin ] ; then
 		cp -v	${source_dir}/boot/memtest86+.bin \
@@ -671,37 +685,34 @@ grubcfg()
 	local ev
 	local initrd vmlinuz uuid
 
-	say "copying files needed for a fancy grub2 screen"
-
-	if [ -e /usr/share/grub/unifonf.pf2 ]; then
-		cp /usr/share/grub/unifonf.pf2 ${mountpoint}/boot/grub
-	fi
-
-	if [ -e /usr/share/wallpapers/${name}-1024x768.png ]; then
-		cp /usr/share/wallpapers/${name}-1024x768.png  ${mountpoint}/boot/grub	
-	fi
 	cat > ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
 ## TO DO ##
 ### some fancy graphic could/should be inserted here ###
 ##       ##
+
+# search --no-floppy --fs-uuid --set ${uuid}
+set root=(hd0,1)
+
 insmod video
 insmod font
-set root=(hd0,1)
-search --no-floppy --fs-uuid --set ${uuid}
-loadfont /boot/grub/unicode.pf2
+insmod vbe
+insmod png
 insmod gfxterm
-insmode vbe
-set gfxmode="1024x768x32;800x600x32;640x480x32;1024x768;800x600;640x480"
-terminal_output gfxterm
 
+set gfxmode="1024x768x32;800x600x32;640x480x32;1024x768;800x600;640x480"
+# set gfxmode="640x480x32;640x480"
+
+loadfont /boot/graphics/unicode.pf2
+
+terminal_output gfxterm
 set gfxpayload=1024x768x32
+
 # insmod jpeg
 # background_image /boot/grub/${name}-1024x768.jpg
 
-insmod png
-if  background_image /boot/grub/${name}-1024x768.png ; then
-   set color_normal=black/black
+if  background_image /boot/graphics/1024x768.png ; then
+   set color_normal=white/black
    set color_highlight=magenta/black
 else
    set color_normal=green/black
@@ -719,23 +730,24 @@ EOF
 		cat >> ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
 menuentry "${name} from iso" {
-  loopback loop (hd0,1)/${name}/${FLL_MEDIA_NAME}
-  linux (loop)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/${name}/${name}.iso nointro quiet ${PERSIST} ${Parameters}
+  loopback loop (hd0,1)/${FLL_MEDIA_NAME}
+  linux (loop)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/${name}.iso nointro quiet ${PERSIST} ${Parameters}
   initrd (loop)/boot/initrd.img-${kernel}
 }
  
 EOF
 
 	done
+	
 	if [ -e ${mountpoint}/boot/memtest86+.bin ]; then
 		cat >> ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
 menuentry  "Memory Test (memtest86+)" {
-	linux /boot/memtest86+.bin
+	linux16 /boot/memtest86+.bin
 }
 
-menuentry  "Memory Test (memtest86+, serial console 1152000)"
-	linux /boot/memtest86+.bin console=ttyS0,115200n8
+menuentry  "Memory Test (memtest86+, serial console 1152000)" {
+	linux16 /boot/memtest86+.bin console=ttyS0,115200n8
 }
 EOF
 	fi
