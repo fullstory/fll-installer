@@ -5,8 +5,9 @@ fll-installer (0.5.3) UNRELEASED; urgency=low
 
   [ Joaquim Boura ]
   * Fixed some typos. Fancy boot  enhancements.
+  * help did not shown -L
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 13 Sep 2009 18:07:44 +0200
+ -- Joaquim Boura <x-un-i@sidux.com>  Wed, 16 Sep 2009 17:35:54 +0200
 
 fll-installer (0.5.2) unstable; urgency=low
 
