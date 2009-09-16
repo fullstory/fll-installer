@@ -730,7 +730,7 @@ EOF
 	for kernel in ${kernels}; do
 		cat >> ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
-menuentry "${name} from iso" {
+menuentry "${name} from iso (${kernel)" {
   loopback loop (hd0,1)/${FLL_MEDIA_NAME}
   linux (loop)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/${name}.iso nointro quiet ${PERSIST} ${Parameters}
   initrd (loop)/boot/initrd.img-${kernel}
