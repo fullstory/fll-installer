@@ -686,14 +686,11 @@ grubcfg()
 	local ev
 	local initrd vmlinuz uuid
 
+	uuid=$(blkid -o value -s UUID ${partition})
+
 	cat > ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
-## TO DO ##
-### some fancy graphic could/should be inserted here ###
-##       ##
-
-# search --no-floppy --fs-uuid --set ${uuid}
-set root=(hd0,1)
+search --no-floppy --fs-uuid --set ${uuid}
 
 insmod video
 insmod font
@@ -702,15 +699,11 @@ insmod png
 insmod gfxterm
 
 set gfxmode="1024x768x32;800x600x32;640x480x32;1024x768;800x600;640x480"
-# set gfxmode="640x480x32;640x480"
 
 loadfont /boot/graphics/unicode.pf2
 
 terminal_output gfxterm
 set gfxpayload=1024x768x32
-
-# insmod jpeg
-# background_image /boot/grub/${name}-1024x768.jpg
 
 if  background_image /boot/graphics/1024x768.png ; then
    set color_normal=white/black
@@ -719,19 +712,17 @@ else
    set color_normal=green/black
    set color_highlight=cyan/black
 fi
-## TO DO ##
 
 EOF
 
 	say "creating ${mountpoint}/boot/grub/grub.cfg"
 	kernels=$(find ${mountpoint}/boot/ -maxdepth 1 -type f -name 'vmlinuz-*' -printf '%P\n' | sed -n 's/^vmlinuz-//p')
-	uuid=$(blkid -o value -s UUID ${partition})
 
 	for kernel in ${kernels}; do
 		cat >> ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
 menuentry "${name} from iso (${kernel)" {
-  loopback loop (hd0,1)/${FLL_MEDIA_NAME}
+  loopback loop /${FLL_MEDIA_NAME}
   linux (loop)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/${name}.iso nointro quiet ${PERSIST} ${Parameters}
   initrd (loop)/boot/initrd.img-${kernel}
 }
