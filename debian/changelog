@@ -1,7 +1,4 @@
-fll-installer (0.5.3) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+fll-installer (0.5.3) unstable; urgency=low
 
   [ Joaquim Boura ]
   * Fixed some typos. Fancy boot  enhancements.
@@ -9,7 +6,10 @@ fll-installer (0.5.3) UNRELEASED; urgency=low
   * identify the booted kernel on the menü
   * cleaned up.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Wed, 16 Sep 2009 19:13:17 +0200
+  [ Stefan Lippers-Hollmann ]
+  * bump standards version to 3.8.3, no changes necessary.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 16 Sep 2009 19:47:43 +0200
 
 fll-installer (0.5.2) unstable; urgency=low
 
