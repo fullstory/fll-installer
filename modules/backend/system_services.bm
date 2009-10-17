@@ -92,16 +92,9 @@ x11-common"
 		esac
 
 		#
-		# the service in is our whitelist. determine the runlevel configuration of this service
-		# as preserved in the read-only chroot (DEFAULT_DIR). apply the same configuration to
-		# the installed chroot. fll_analyze_runlevels(1) is the tool used to examine runlevel
-		# configuration, it is provided by fll-live-initscripts.
+		# the service in is our whitelist, restore default runlevel settings.
 		#
-		unset UPDATE_RCD
-		UPDATE_RCD=$(/usr/bin/fll_analyze_initscripts --chroot "${DEFAULT_DIR}" "${service}")
-		if [ -n "${UPDATE_RCD}" ]; then
-			chroot_it ${UPDATE_RCD}
-		fi
+		chroot_it update-rc.d "${service}" defaults
 	done
 
 	# disable all services in /etc/inetd.conf
