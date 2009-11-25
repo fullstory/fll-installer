@@ -18,7 +18,6 @@
 # convert_live2HD
 # add_bootmanager
 # update_fstab
-# appendGrubForOtherOS
 # fix_usb_install
 # purge_live_only_stuff
 # end_progress
@@ -35,7 +34,6 @@ main()
 		convert_live2HD \
 		add_bootmanager \
 		update_fstab \
-		appendGrubForOtherOS \
 		fix_usb_install \
 		purge_live_only_stuff"
 
@@ -68,7 +66,7 @@ main()
 	# do the main job
 	#
 	for action in ${all_actions}; do
-		[ "${ACTION}" -lt 9 ] && ACTION=$((ACTION + 1))
+		[ "${ACTION}" -lt 8 ] && ACTION=$((ACTION + 1))
 		say "starting $action"
 		$action
 	done

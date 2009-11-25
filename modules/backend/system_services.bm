@@ -17,8 +17,8 @@ system_services () {
 	logit "configuring system services"
 
 	local UPDATE_RCD
-	local SERVICE_WHITELIST="hwclock.sh \
-checkroot.sh \
+	local SERVICE_WHITELIST="checkroot.sh \
+hwclock.sh \
 checkfs.sh "
 
 	local PACKAGE_WHITELIST="alsa-base \

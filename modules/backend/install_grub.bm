@@ -16,7 +16,7 @@
 # get_root_device
 # chroot_it
 # translate_linux_to_grub
-# get_grub_cmdline
+# get_boot_cmdline
 # getbootparam
 #
 # update_status
@@ -112,48 +112,6 @@ install_grub()
 	say "create initital grub configuration"
 	chroot_it update-grub >&2
 
-	#
-	# Create a new cmdline
-	#
-	GRUB_KOPT=" $(get_grub_cmdline)"
-	
-	# extract vga mode from CMDLINE
-	GRUB_VGA=$(getbootparam vga)
-	[ -z "$GRUB_VGA" ] && GRUB_VGA="791"
-
-	GRUB_DEFOPTIONS=" vga=$GRUB_VGA"
-
-	# grub-gfxboot/ grub-legacy
-	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub" ] || [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ]; then
-		if [ -w "${TARGET_MNT_POINT}/boot/grub/menu.lst" ]; then
-			# set up gfxmenu for grub-gfxboot
-			if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -s "${TARGET_MNT_POINT}/boot/message" ]; then
-				if mount | grep -q "${TARGET_MNT_POINT}/boot"; then
-					sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= ${TARGET_MNT_POINT}/boot/grub/menu.lst | cut -d\= -f2)/message|g" \
-						"${TARGET_MNT_POINT}/boot/grub/menu.lst"
-				else
-					sed -i "s|^color[ \t].*|&\ngfxmenu $(grep ^\#\ groot\= ${TARGET_MNT_POINT}/boot/grub/menu.lst | cut -d\= -f2)/boot/message|g" \
-						"${TARGET_MNT_POINT}/boot/grub/menu.lst"
-				fi
-			fi
-
-			#
-			# configure menu.lst:	- keyboard charset (TODO: only de so far)
-			# 			- disable alternatives
-			#			- enable savedefault
-			#			- prune kopt
-			#			- add vga= to defoptions
-			#
-			sed -i	-e "/#.*and\ \/usr\/share\/doc\/grub-legacy-doc\/\./ r ${SEARCHPATH}/data/grub-charset.$(echo $LANG | cut -d\_ -f1)" \
-				-e "s/^default[ \t].*/default saved/g" \
-				-e "s/^# alternative=true/# alternative=false/g" \
-				-e "s|^# kopt=root=.*[ \t]ro|&$GRUB_KOPT|" \
-				-e "s|^\# defoptions=.*|&$GRUB_DEFOPTIONS|" \
-					"${TARGET_MNT_POINT}/boot/grub/menu.lst"
-		fi
-	fi
-
-	# grub2
 	if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-pc" ] && [ -w "${TARGET_MNT_POINT}/boot/grub.cfg" ]; then
 		#TODO no special configuration implemented yet
 		:

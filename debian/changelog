@@ -5,8 +5,11 @@ fll-installer (0.5.6) UNRELEASED; urgency=low
 
   [ Joaquim Boura ]
   * fixed typo in man page
+  * only purge virtualbox packages when they are installed.
+  * supports from grub/grub-gfxboot gone!!
+  * 
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 14 Nov 2009 12:47:38 +0100
+ -- Joaquim Boura <x-un-i@sidux.com>  Wed, 25 Nov 2009 22:11:08 +0100
 
 fll-installer (0.5.5) unstable; urgency=low
 

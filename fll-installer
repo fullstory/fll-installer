@@ -112,7 +112,7 @@ fi
 
 #--------------------------------------------------------------
 #
-# Include needed Bash-Modules
+# Include needed Modules
 #--------------------------------------------------------------
 
 SEARCHPATH="/usr/share/fll-installer"
@@ -133,7 +133,7 @@ main
 
 # something did go wrong
 error 254 "internal error"
-#exit 254 
+
 
 #------------------
 

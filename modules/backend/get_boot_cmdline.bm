@@ -7,14 +7,14 @@
 #
 ##-------------------------------------
 ##
-get_grub_cmdline()
+get_boot_cmdline()
 {
 	local SYSTEM_RESCUE_CMDS
 	local SYSTEM_RESCUE_CMDLINE
 
 	# do not log my call as we need the echo output
 	#
-	# logit "get_grub_cmdline"
+	# logit "get_boot_cmdline"
 	#
 
 	SYSTEM_RESCUE_CMDS="acpi|noapic|nosmp|pci|pnpbios|noapm|nohlt|nolapic|irqpoll|i8042|=scsi"
