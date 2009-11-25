@@ -1,15 +1,16 @@
-fll-installer (0.5.6) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+fll-installer (0.5.6) unstable; urgency=low
 
   [ Joaquim Boura ]
   * fixed typo in man page
   * only purge virtualbox packages when they are installed.
   * supports from grub/grub-gfxboot gone!!
-  * 
 
- -- Joaquim Boura <x-un-i@sidux.com>  Wed, 25 Nov 2009 22:11:08 +0100
+  [ Stefan Lippers-Hollmann ]
+  * hard depend on grub2, we no longer support grub-legacy or grub-gfxboot.
+  * keep grub-gfxboot support for fll-iso2usb.
+  * reformat debian/control.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 25 Nov 2009 22:20:02 +0100
 
 fll-installer (0.5.5) unstable; urgency=low
 

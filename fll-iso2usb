@@ -460,9 +460,9 @@ copy_files()
 	done
 	
 	if [ "${GRUB2}" = "false" ]; then
-		if [ -e ${source_dir}/boot/message ] ; then
-			cp -v	${source_dir}/boot/message \
-				${mountpoint}/boot
+		if [ -e "${TARGET_MNT_POINT}/usr/share/bug/grub-gfxboot" ] && [ -e "${source_dir}/etc/bootsplash/${FLL_GFXBOOT_THEME}/bootloader/message" ] ; then
+			cp -Lv "${source_dir}/etc/bootsplash/${FLL_GFXBOOT_THEME}/bootloader/message" \
+				"${mountpoint}/boot/"
 		fi
 	else
 		mkdir -p ${mountpoint}/boot/graphics
