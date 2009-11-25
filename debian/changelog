@@ -1,3 +1,9 @@
+fll-installer (0.5.8) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 25 Nov 2009 22:31:42 +0100
+
 fll-installer (0.5.7) unstable; urgency=low
 
   * fix my premature patch to change gfxmenu handling in fll-iso2usb.
