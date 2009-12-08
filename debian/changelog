@@ -1,3 +1,9 @@
+fll-installer (0.5.9) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 08 Dec 2009 18:38:20 +0100
+
 fll-installer (0.5.8) unstable; urgency=low
 
   * let HD_FSTYPE go unset when HD_FORMAT is also unset
