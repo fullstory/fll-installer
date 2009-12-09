@@ -1,8 +1,8 @@
-fll-installer (0.5.9) UNRELEASED; urgency=low
+fll-installer (0.5.9) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * fix last commit, HD_FORMAT will not ever be blank.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 08 Dec 2009 18:38:20 +0100
+ -- Niall Walsh <niallwalsh@users.berlios.de>  Wed, 09 Dec 2009 12:48:59 +0000
 
 fll-installer (0.5.8) unstable; urgency=low
 
