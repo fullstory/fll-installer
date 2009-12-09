@@ -85,8 +85,8 @@ prepareHD()
 	# Mounting $HD_CHOICE r/w...
 	#
 	mkdir -p "$TARGET_MNT_POINT"
-	mount_options="-t $HD_FSTYPE"
-	[ -z "$HD_FORMAT" ] && [ -z "$HD_FSTYPE" ] && mount_options=""
+	mount_options=""
+	[ "$HD_FORMAT" = "yes" ] && mount_options="-t $HD_FSTYPE"
 	mount $mount_options "$HD_CHOICE" "$TARGET_MNT_POINT" > "${TMP}" 2>&1
 	if [ $? -ne 0 ]; then
 		error_messages=$(tail -8 $TMP)
