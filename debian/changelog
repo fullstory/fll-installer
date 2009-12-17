@@ -1,8 +1,13 @@
 fll-installer (0.5.10) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 09 Dec 2009 14:30:12 +0100
+  [ Joaquim Boura ]
+  * get rid of grub install errors when installing  on USB device.
+  * set/propagate the vga parameter for the kernel.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Thu, 17 Dec 2009 16:51:45 +0100
 
 fll-installer (0.5.9) unstable; urgency=low
 
