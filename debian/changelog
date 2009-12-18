@@ -1,7 +1,4 @@
-fll-installer (0.5.10) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+fll-installer (0.5.10) unstable; urgency=low
 
   [ Joaquim Boura ]
   * get rid of grub install errors when installing  on USB device.
