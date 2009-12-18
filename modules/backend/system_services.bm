@@ -39,6 +39,7 @@ hdparm \
 hotkey-setup \
 ifupdown \
 initscripts \
+keyboard-configuration \
 klogd \
 libc6 \
 module-init-tools \
