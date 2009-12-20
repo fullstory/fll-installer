@@ -716,15 +716,15 @@ fi
 EOF
 
 	say "creating ${mountpoint}/boot/grub/grub.cfg"
-	kernels=$(find ${mountpoint}/boot/ -maxdepth 1 -type f -name 'vmlinuz-*' -printf '%P\n' | sed -n 's/^vmlinuz-//p')
+	kernels=$(find ${mountpoint}/boot/ -maxdepth 1 -type f -name 'vmlinuz*' -printf '%P\n' )
 
 	for kernel in ${kernels}; do
 		cat >> ${mountpoint}/boot/grub/grub.cfg <<EOF \
 
-menuentry "${name} from iso (${kernel})" {
+menuentry "${name} from iso (${kernel##vmlinuz??})" {
   loopback loop /${FLL_MEDIA_NAME}
-  linux (loop)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/${name}.iso nointro quiet ${PERSIST} ${Parameters}
-  initrd (loop)/boot/initrd.img-${kernel}
+  linux (loop)/boot/${kernel} boot=fll fromhd=UUID=${uuid} fromiso=/${name}.iso nointro quiet ${PERSIST} ${Parameters}
+  initrd (loop)/boot/initrd${kernel##vmlinuz}
 }
  
 EOF
@@ -758,7 +758,7 @@ menulst()
 	say "creating ${mountpoint}/boot/grub/menu.lst"
 
 	# if more than one kernel on &{mountpoint}/boot then we have multiarch
-	kernels=$(find ${mountpoint}/boot/ -maxdepth 1 -type f -name 'vmlinuz-*' -printf '%P\n' | sed -n 's/^vmlinuz-//p')
+	kernels=$(find ${mountpoint}/boot/ -maxdepth 1 -type f -name 'vmlinuz*' -printf '%P\n')
 	uuid=$(blkid -o value -s UUID ${partition})
 
 	cat > ${mountpoint}/boot/grub/menu.lst \
@@ -782,9 +782,9 @@ EOF
 		cat >> ${mountpoint}/boot/grub/menu.lst \
 <<EOF
 ##ISO boot
-title ${name} (USB) ${kernel}
-kernel (hd0,0)/boot/vmlinuz-${kernel} boot=fll fromhd=UUID=${uuid} fromiso nointro quiet  ${PERSIST} ${Parameters}
-initrd (hd0,0)/boot/initrd.img-${kernel}
+title ${name} (USB) (${kernel##vmlinuz??}
+kernel (hd0,0)/boot/${kernel} boot=fll fromhd=UUID=${uuid} fromiso nointro quiet  ${PERSIST} ${Parameters}
+initrd (hd0,0)/boot/initrd${kernel##vmlinuz}
 
 EOF
 	done
