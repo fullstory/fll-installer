@@ -1,9 +1,5 @@
-fll-installer (0.5.11) UNRELEASED; urgency=low
+fll-installer (0.5.11) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * namimg of kernel files changed.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sun, 20 Dec 2009 13:50:25 +0100
