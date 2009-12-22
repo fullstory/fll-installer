@@ -1,3 +1,9 @@
+fll-installer (0.5.12) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 22 Dec 2009 02:20:08 +0100
+
 fll-installer (0.5.11) unstable; urgency=low
 
   * namimg of kernel files changed.
