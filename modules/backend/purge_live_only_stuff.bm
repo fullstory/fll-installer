@@ -23,8 +23,8 @@ purge_live_only_stuff()
 	# the chroot from invoke-rc.d calls
 	chroot_it dpkg-divert --divert /usr/sbin/policy-rc.d.REAL \
 		--local --rename --add /usr/sbin/policy-rc.d
-	chroot_it su -c 'printf "#!/bin/sh\nexit 101\n" > /usr/sbin/policy-rc.d'
-	chroot_it chmod +x /usr/sbin/policy-rc.d
+	printf "#!/bin/sh\nexit 101\n" > "${TARGET_MNT_POINT}/usr/sbin/policy-rc.d"
+	chmod +x "${TARGET_MNT_POINT}/usr/sbin/policy-rc.d"
 
 	# purge live-specific packages
 	chroot_it dpkg --purge	fll-live-initramfs \
@@ -50,6 +50,7 @@ purge_live_only_stuff()
 	fi
 
 	# remove divert
+	rm -f "${TARGET_MNT_POINT}/usr/sbin/policy-rc.d"
 	chroot_it dpkg-divert --rename --remove /usr/sbin/policy-rc.d
 
 	#  disable live config
