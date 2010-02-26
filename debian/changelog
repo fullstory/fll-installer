@@ -1,8 +1,13 @@
 fll-installer (0.5.14) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 20 Jan 2010 04:01:25 +0100
+  [ Nikolas Poniros ]
+  * fix fll-iso2usb to be able to use the long label option 
+    (missing ":" in getopt list)
+
+ -- Nikolas Poniros <edhunter@sidux.com>  Fri, 26 Feb 2010 20:06:03 +0100
 
 fll-installer (0.5.13) unstable; urgency=medium
 

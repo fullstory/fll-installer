@@ -817,7 +817,7 @@ cleanup () {
 noformat=false
 
 TEMP=$(getopt -o dD:f:hI:L:npP:t \
-        --long debug,device:,format:,help,iso:,label,noformat,persist,percent:,test \
+        --long debug,device:,format:,help,iso:,label:,noformat,persist,percent:,test \
         -n  "$(basename ${0})" -- "${@}")
 
 if [ "${?}" -ne 0 ]; then
