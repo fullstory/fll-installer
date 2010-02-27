@@ -269,7 +269,7 @@ EOF
 		}
 	')
 
-	if [ "${is_bootable}" -ne 1 ]; then
+	if [ "${is_bootable:-0}" -ne 1 ]; then
 		# set boot flag
 		fdisk "${device}" \
 <<EOF
@@ -296,7 +296,7 @@ EOF
 			}
 		')
 
-		if [ "${is_bootable}" -ne 1 ]; then
+		if [ "${is_bootable:-0}" -ne 1 ]; then
 			error 1 "could not make USB device bootable"
 			return 1
 		fi
@@ -311,7 +311,7 @@ EOF
 		}
 	')
 	
-	if [ "${part_id}" -ne "${part_type}" ]; then
+	if [ "${part_id:-0}" -ne "${part_type}" ]; then
 		# set partition type
 		fdisk "${device}" \
 <<EOF
@@ -338,7 +338,7 @@ EOF
 			}
 		')
 
-		if [ "${part_id}" -ne "${part_type}" ]; then
+		if [ "${part_id:-0}" -ne "${part_type}" ]; then
 			error 1 "failed to set partition type 83 or 6 on ${device}"
 			return 1
 		fi	

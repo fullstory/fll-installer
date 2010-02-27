@@ -6,8 +6,10 @@ fll-installer (0.5.14) UNRELEASED; urgency=low
   [ Nikolas Poniros ]
   * fix fll-iso2usb to be able to use the long label option 
     (missing ":" in getopt list)
+  * add :-0 to some variables to make sure those have some
+    default value before those get compared
 
- -- Nikolas Poniros <edhunter@sidux.com>  Fri, 26 Feb 2010 20:06:03 +0100
+ -- Nikolas Poniros <edhunter@sidux.com>  Sat, 27 Feb 2010 05:06:03 +0100
 
 fll-installer (0.5.13) unstable; urgency=medium
 
