@@ -1,7 +1,4 @@
-fll-installer (0.5.14) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+fll-installer (0.5.14) unstable; urgency=low
 
   [ Nikolas Poniros ]
   * fix fll-iso2usb to be able to use the long label option 
@@ -9,7 +6,11 @@ fll-installer (0.5.14) UNRELEASED; urgency=low
   * add :-0 to some variables to make sure those have some
     default value before those get compared
 
- -- Nikolas Poniros <edhunter@sidux.com>  Sat, 27 Feb 2010 05:06:03 +0100
+  [ Stefan Lippers-Hollmann ]
+  * Switch to dpkg-source 3.0 (native) format.
+  * bump standards version to 3.8.4, no changes necessary.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 27 Feb 2010 23:00:44 +0100
 
 fll-installer (0.5.13) unstable; urgency=medium
 
