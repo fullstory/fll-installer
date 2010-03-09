@@ -7,8 +7,9 @@ fll-installer (0.5.16) UNRELEASED; urgency=low
   * add fll-installer-common and cliinstaller to the list of packages
     to be purged on installed system
   * minor typo fix
+  * removed check for cliinstaller's existance. no need for it 
 
- -- Nikolas Poniros <edhunter@sidux.com>  Tue, 09 Mar 2010 19:13:59 +0100
+ -- Nikolas Poniros <edhunter@sidux.com>  Tue, 09 Mar 2010 19:29:11 +0100
 
 fll-installer (0.5.15) unstable; urgency=low
 
