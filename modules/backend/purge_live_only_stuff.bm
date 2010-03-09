@@ -27,6 +27,11 @@ purge_live_only_stuff()
 	chmod +x "${TARGET_MNT_POINT}/usr/sbin/policy-rc.d"
 
 	# purge live-specific packages
+
+	if which cliinstaller > /dev/null ; then
+		chroot_it dpkg --purge cliinstaller >&2
+	fi
+
 	chroot_it dpkg --purge	fll-live-initramfs \
 				fll-live-initscripts \
 				fll-live-utils \
@@ -38,6 +43,7 @@ purge_live_only_stuff()
 				desktop-defaults-xfce \
 				install-gui \
 				fll-installer \
+				fll-installer-common \
 				setpassword \
 				sshstart >&2
 

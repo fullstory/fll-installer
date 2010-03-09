@@ -64,7 +64,7 @@ say () {
 # usage
 #--------------------------------------------------------------
 usage () {
-	echo "$0 [-d|--debug] [-i|--inotify inotify_fifo} [-h] [installer inotify_fifo]"
+	echo "$0 [-d|--debug] [-i|--inotify inotify_fifo] [-h] [installer inotify_fifo]"
 	exit 1
 }
 #--------------------------------------------------------------
