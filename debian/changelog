@@ -1,9 +1,5 @@
-fll-installer (0.5.16) UNRELEASED; urgency=low
+fll-installer (0.5.16) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Nikolas Poniros ]
   * add fll-installer-common and cliinstaller to the list of packages
     to be purged on installed system
   * minor typo fix
