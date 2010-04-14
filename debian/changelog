@@ -1,9 +1,5 @@
-fll-installer (0.5.17) UNRELEASED; urgency=low
+fll-installer (0.5.17) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Kel Modderman ]
   * system_services.bm: sync service whitelist with pyfll. Add desktop
     managers.
 
