@@ -1,3 +1,9 @@
+fll-installer (0.5.18) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 14 Apr 2010 13:41:09 +0200
+
 fll-installer (0.5.17) unstable; urgency=low
 
   * system_services.bm: sync service whitelist with pyfll. Add desktop
