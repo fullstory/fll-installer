@@ -1,8 +1,12 @@
 fll-installer (0.5.18) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 14 Apr 2010 13:41:09 +0200
+  [ Kel Modderman ]
+  * system_services.bm: no special case for desktop managers.
+
+ -- Kel Modderman <kel@otaku42.de>  Wed, 14 Apr 2010 22:11:23 +1000
 
 fll-installer (0.5.17) unstable; urgency=low
 

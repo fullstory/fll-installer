@@ -94,14 +94,6 @@ x11-common"
 
 	for service in ${SERVICE_WHITELIST}; do
 		[ -x "/etc/init.d/${service}" ] || continue
-
-		case "$service" in 
-			?dm)
-				# already configured during live boot
-				continue
-				;;
-		esac
-
 		#
 		# the service in is our whitelist, restore default runlevel settings.
 		#
