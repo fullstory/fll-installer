@@ -19,26 +19,34 @@ system_services () {
 	local UPDATE_RCD
 	local SERVICE_WHITELIST="checkroot.sh \
 hwclock.sh \
+hwclockfirst.sh \
 checkfs.sh "
 
-	local PACKAGE_WHITELIST="alsa-base \
+	local PACKAGE_WHITELIST="acpid \
+alsa-base \
 alsa-utils \
 anacron \
 atd \
 avahi-daemon \
+bluez \
+bootchart \
 capiutils \
 console-common \
 console-setup \
 console-tools \
+cpufrequtils \
 cron \
+cups \
 dbus \
 fuse-utils \
+gdm \
 gpm \
 hal \
 hdparm \
-hotkey-setup \
 ifupdown \
 initscripts \
+kbd \
+kdm \
 keyboard-configuration \
 klogd \
 libc6 \
@@ -47,15 +55,17 @@ netbase \
 pcmciautils \
 ppp \
 procps \
+qemu-kvm \
+resolvconf \
 rsyslog \
 screen \
 setserial \
+slim \
 sysklogd \
 syslog-ng \
 sysv-rc \
 udev \
 util-linux \
-wpasupplicant \
 x11-common"
 
 	SERVICE_WHITELIST="${SERVICE_WHITELIST} $(dpkg -L ${PACKAGE_WHITELIST} 2>/dev/null | grep -E '^/etc/init.d/' | cut -d/ -f4)"
