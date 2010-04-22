@@ -1,3 +1,9 @@
+fll-installer (0.5.20) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 22 Apr 2010 13:55:07 +0200
+
 fll-installer (0.5.19) unstable; urgency=low
 
   * update_fstab: replace fll_resume_validate with a simple parsing of
