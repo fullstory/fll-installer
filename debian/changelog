@@ -1,9 +1,5 @@
-fll-installer (0.5.19) UNRELEASED; urgency=low
+fll-installer (0.5.19) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Kel Modderman ]
   * update_fstab: replace fll_resume_validate with a simple parsing of
     fstab after it has been updated.
 
