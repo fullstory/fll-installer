@@ -52,7 +52,8 @@ update_fstab()
 		${wanted} ${autohd}
 	
 	# 3. create/fix resume configuration for initramfs-tools
-	chroot_it fll_resume_validate
+	chroot_it sh -c "awk '\$3 == \"swap\" { print \$1; exit }' \
+		/etc/fstab > /etc/initramfs-tools/conf.d/resume"
 
 	# 4. umount /proc, /dev and /sys on chroot
 	umount "$TARGET_MNT_POINT/sys"
