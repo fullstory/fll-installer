@@ -58,6 +58,12 @@ system_services () {
 			ssh-keygen -q -t dsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" -C '' -N ''
 		fi
 
-		chroot_it update-rc.d ssh enable
+		# keep ssh disabled, unless specified otherwise through 
+		# SERVICES_START
+		for service in ${SERVICES_START}; do
+			if [ "${service}" = "ssh" ]; then
+				chroot_it update-rc.d ssh enable
+			fi
+		done
 	fi
 }
