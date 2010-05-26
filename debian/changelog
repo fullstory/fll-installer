@@ -1,3 +1,9 @@
+fll-installer (0.6.2) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 26 May 2010 22:24:40 +0200
+
 fll-installer (0.6.1) unstable; urgency=low
 
   * quick workaround to enable ssh conditionally on SERVICES_START.
