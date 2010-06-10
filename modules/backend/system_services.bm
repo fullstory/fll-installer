@@ -41,6 +41,13 @@ system_services () {
 	for service in ${SERVICE_BLACKLIST}; do
 		[ -x "/etc/init.d/${service}" ] || continue
 		chroot_it update-rc.d "${service}" disable || :
+
+		for startservice in ${SERVICES_START}; do
+			if [ "${service}" = "${startservice}" ]; then
+				chroot_it update-rc.d "${service}" enable
+				continue
+			fi
+		done
 	done
 
 	# disable all services in /etc/inetd.conf
@@ -57,13 +64,5 @@ system_services () {
 		if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" ]; then
 			ssh-keygen -q -t dsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" -C '' -N ''
 		fi
-
-		# keep ssh disabled, unless specified otherwise through 
-		# SERVICES_START
-		for service in ${SERVICES_START}; do
-			if [ "${service}" = "ssh" ]; then
-				chroot_it update-rc.d ssh enable
-			fi
-		done
 	fi
 }
