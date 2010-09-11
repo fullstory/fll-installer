@@ -1,3 +1,9 @@
+fll-installer (0.7.2) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 02 Sep 2010 19:16:31 +0200
+
 fll-installer (0.7.1) unstable; urgency=low
 
   * s/grub2/grub-pc/.
