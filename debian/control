@@ -15,7 +15,7 @@ Pre-Depends: dpkg (>= 1.14.6)
 Depends: ${misc:Depends},
  adduser,
  initramfs-tools,
- grub2 (>= 1.96+20080601-1),
+ grub-pc (>= 1.96+20080601-1),
  procps,
  udev-config-aptosid,
  whois,
@@ -35,7 +35,7 @@ Description: backend scripts to install aptosid to hdd
 Package: fll-iso2usb
 Architecture: all
 Depends: ${misc:Depends},
- grub2 (>= 1.96+20080601-1) | grub-legacy | grub-gfxboot,
+ grub-pc (>= 1.96+20080601-1) | grub-legacy | grub-gfxboot,
  distro-defaults,
  parted
 Recommends: install-usb-gui
