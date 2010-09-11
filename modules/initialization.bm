@@ -26,9 +26,9 @@ TARGET_MNT_NAME="hdinstall"
 # make use of distro-defaults
 ###-------------------------------------
 #
-FLL_DISTRO_NAME="sidux"
-FLL_LIVE_USER="sidux"
-FLL_MOUNTPOINT="/fll/sidux"
+FLL_DISTRO_NAME="aptosid"
+FLL_LIVE_USER="aptosid"
+FLL_MOUNTPOINT="/fll/aptosid"
 
 [ -r /etc/default/distro ] && . /etc/default/distro
 

@@ -17,7 +17,7 @@ Depends: ${misc:Depends},
  initramfs-tools,
  grub2 (>= 1.96+20080601-1),
  procps,
- udev-config-sidux,
+ udev-config-aptosid,
  whois,
  os-prober,
  rsync,
@@ -25,7 +25,7 @@ Depends: ${misc:Depends},
 Recommends: install-gui
 Suggests: gparted,
  distro-defaults
-Description: backend scripts to install sidux to hdd
+Description: backend scripts to install aptosid to hdd
  fll-installer provides a framework for installing FULLSTORY Live Linux
  to hard disk drives.
  .
@@ -42,8 +42,8 @@ Recommends: install-usb-gui
 Suggests: fuseiso
 Enhances: qt-fll-iso2usb-gui,
  install-usb-gui
-Description: backend scripts to install sidux to an usb hdd
- fll-iso2usb provides the backend for installing FULLSTORY Live Linux sidux to
+Description: backend scripts to install aptosid to an usb hdd
+ fll-iso2usb provides the backend for installing FULLSTORY Live Linux aptosid to
  removable storage, usb disk drives.
  .
  This preserves a hardware agnostic live system on removable storage.

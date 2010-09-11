@@ -5,10 +5,10 @@ Upstream Author:
     Joaquim Boura <x-un-i@sidux.com>
 
 Copyright:
-    Copyright © 2007 sidux Foundation,Inc.
-    Copyright © 2007 Joaquim Boura <x-un-i@sidux.com>
+    Copyright © 2007-2010 Joaquim Boura <x-un-i@sidux.com>
     Copyright © 2006-2008 Red Hat, Inc.
-    Copyright © 2008 Niall Walsh <niallwalsh@users.berlios.de>
+    Copyright © 2008-2010 Niall Walsh <niallwalsh@users.berlios.de>
+    Copyright © 2004-2010 Stefan Lippers-Hollmann <s.l-h@gmx.de>
 
 Based on the knoppix installer from Fabian Franz
 <knoppix-installer@fabian-franz.de> with fixes and help by: Joerg Schirottke

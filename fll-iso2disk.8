@@ -30,14 +30,14 @@ Force putting the plain syslinux mbr on the device.
 .TP
 \fB\-\-noverify\fR
 Do not verify the integrity of the iso.
-Currently always on as no verification code written for sidux.
+Currently always on as no verification code written for aptosid.
 .TP
 \fB\-\-test\fR
 Do not copy the iso or create a persist file.
 .PP
 .SH EXAMPLES
 .TP
-\fBfll-iso2disk --overlay-size-mb 1024 /home/sidux/sidux.iso /dev/sdb1 \\\fR
+\fBfll-iso2disk --overlay-size-mb 1024 /home/aptosid/aptosid.iso /dev/sdb1 \\\fR
 \fB            \-\- lang=ie nointro nonetwork\fR
 .PP
 installs the iso image into the device sdb1 and creates a 1GB loopback file 

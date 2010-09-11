@@ -4,7 +4,7 @@
 # Jeremy Katz <katzj@redhat.com>
 #
 # overlay/persistence enhancements by Douglas McClendon <dmc@viros.org>
-# forked sidux version by Niall Walsh <niallwalsh@users.berlios.de>
+# forked aptosid version by Niall Walsh <niallwalsh@users.berlios.de>
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 # NOTE
 # extra args are appended to kernel cmdlines
 # There's no md5sum checking anywhere (noverify hardcoded on)
-# It is hardcoded to use "sidux" as the path
+# It is hardcoded to use "aptosid" as the path
 # It cuts filenames down to fit 8.3
 # ext* is untested
 # block device as iso support newly added (untested)
@@ -32,7 +32,7 @@
 # TODO if we want it, we need a checkisomd5 function :-/
 noverify=1
 # TODO Should be from default/distro or similar?
-LiveOS="sidux"
+LiveOS="aptosid"
 
 export PATH=/sbin:/usr/sbin:$PATH
 

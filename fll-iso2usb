@@ -26,7 +26,7 @@
 # device make it bootable, format it with ext3
 # install grub into it
 # copy the message file into the grub dirs
-# create directory for iso, kernel, initrd (eg sidux)
+# create directory for iso, kernel, initrd (eg aptosid)
 # copy the files into there.
 # create the menu.lst file on it
 #
