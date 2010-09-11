@@ -1,8 +1,9 @@
-fll-installer (0.6.4) UNRELEASED; urgency=low
+fll-installer (0.6.4) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * purge nbd-client while installing, it's used in a live-only context
+    within a default sidux install.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 03 Aug 2010 18:23:17 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 03 Aug 2010 18:31:58 +0200
 
 fll-installer (0.6.3) unstable; urgency=low
 

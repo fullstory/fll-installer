@@ -41,6 +41,7 @@ purge_live_only_stuff()
 				cliinstaller \
 				fll-installer \
 				fll-installer-common \
+				nbd-client \
 				setpassword \
 				sshstart >&2
 
