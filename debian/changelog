@@ -65,7 +65,7 @@ fll-installer (0.5.16) unstable; urgency=low
   * add fll-installer-common and cliinstaller to the list of packages
     to be purged on installed system
   * minor typo fix
-  * removed check for cliinstaller's existance. no need for it 
+  * removed check for cliinstaller's existance. no need for it
 
  -- Nikolas Poniros <edhunter@sidux.com>  Tue, 09 Mar 2010 19:29:11 +0100
 
@@ -78,7 +78,7 @@ fll-installer (0.5.15) unstable; urgency=low
 fll-installer (0.5.14) unstable; urgency=low
 
   [ Nikolas Poniros ]
-  * fix fll-iso2usb to be able to use the long label option 
+  * fix fll-iso2usb to be able to use the long label option
     (missing ":" in getopt list)
   * add :-0 to some variables to make sure those have some
     default value before those get compared
@@ -190,7 +190,7 @@ fll-installer (0.5.1) unstable; urgency=low
 fll-installer (0.5.0) unstable; urgency=low
 
   * now can also be used when grub2 is installed
-  * added some fancy entry screen it will need a 1024x768 png file named 
+  * added some fancy entry screen it will need a 1024x768 png file named
     ${distro-name}-1024x768.png in /usr/share/wallpapers
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sun, 06 Sep 2009 18:01:00 +0200
@@ -229,7 +229,7 @@ fll-installer (0.4.56) unstable; urgency=low
 
   * when -d was use the debug file would got a bad name and so never created.
     (thks edhunter for noticing)
-  * when installing fromiso on sd-ram the device/partiotion naming is a bit 
+  * when installing fromiso on sd-ram the device/partiotion naming is a bit
     different from normal one.( thks rieper|net for testing)
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sun, 19 Jul 2009 22:16:13 +0200
@@ -508,9 +508,9 @@ fll-installer (0.4.21) unstable; urgency=low
 
 fll-installer (0.4.20) unstable; urgency=low
 
-  * No need to change owner of files under the home. Everything that we copy 
-    into there gets the default uid/gid. Probably this is also what causes 
-    troubles when user wants to install over an existing home ( even though 
+  * No need to change owner of files under the home. Everything that we copy
+    into there gets the default uid/gid. Probably this is also what causes
+    troubles when user wants to install over an existing home ( even though
     we do no recommend it)
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sat, 08 Nov 2008 12:43:39 +0100
@@ -583,7 +583,7 @@ fll-installer (0.4.10) unstable; urgency=low
     - remove installer from fluxbox menu
 
   [ Joaquim Boura ]
-  * when creating a fromiso using a real iso get the distro-defaults from the 
+  * when creating a fromiso using a real iso get the distro-defaults from the
     iso.
 
   [ Stefan Lippers-Hollmann ]
@@ -680,7 +680,7 @@ fll-installer (0.4.0) unstable; urgency=low
   * clean-up.
   * refactor grub charset.
   * merge sed calls.
-  * not perfect or even tested in all possible combinations, but good enough 
+  * not perfect or even tested in all possible combinations, but good enough
     to get started and polish it until Ωυρέα.
 
  -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 07 Jul 2008 01:20:03 +0200
@@ -805,7 +805,7 @@ fll-installer (0.3.7) unstable; urgency=low
 fll-installer (0.3.6) unstable; urgency=low
 
   * Send abort message to the gui when an error occur. Check size of the
-    partition where user wants to install against size of the uncompressed iso 
+    partition where user wants to install against size of the uncompressed iso
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sun, 25 May 2008 21:51:19 +0200
 
@@ -1052,7 +1052,7 @@ fll-installer (0.1.13) unstable; urgency=low
   * update to Standards-Version 3.7.3, no changes necessary.
 
   [ Horst Tritremmel ]
-  * fontsize reworked for progress.bm 
+  * fontsize reworked for progress.bm
 
  -- Horst Tritremmel <hjt@sidux.com>  Mon, 03 Dec 2007 16:17:09 +0100
 
@@ -1075,7 +1075,7 @@ fll-installer (0.1.11) unstable; urgency=low
 
 fll-installer (0.1.10) unstable; urgency=low
 
-  * switch fallback defaults to FLL_LIVE_USER="sidux" and 
+  * switch fallback defaults to FLL_LIVE_USER="sidux" and
     FLL_MOUNTPOINT="/fll/sidux", simplify variable seeding.
 
  -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 29 Nov 2007 21:33:16 +0100
@@ -1392,7 +1392,7 @@ fll-installer (0.0.11) unstable; urgency=low
   [ Kel Modderman ]
   * Update purge_live_only_stuff() for changes during transition from
     knx-installer.
-  
+
   [ Joaquim Boura ]
   * first steps to enhance locale support.
 
