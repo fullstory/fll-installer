@@ -44,4 +44,6 @@ Enhances: qt-fll-iso2usb-gui,
  install-usb-gui
 Description: backend scripts to install sidux to an usb hdd
  fll-iso2usb provides the backend for installing FULLSTORY Live Linux sidux to
- usb disk drives.
+ removable storage, usb disk drives.
+ .
+ This preserves a hardware agnostic live system on removable storage.
