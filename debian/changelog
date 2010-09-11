@@ -4,8 +4,10 @@ fll-installer (0.6.3) unstable; urgency=low
   * switch priority to optional.
   * elaborate long description a bit further, to make lintian happy.
   * prefer grub2 as bootloader for fll-iso2usb.
+  * declare enhancement of qt-fll-iso2usb-gui and install-usb-gui to
+    fll-iso2usb.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 03 Aug 2010 18:13:31 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 03 Aug 2010 18:18:06 +0200
 
 fll-installer (0.6.2) unstable; urgency=low
 

@@ -40,6 +40,8 @@ Depends: ${misc:Depends},
  parted
 Recommends: install-usb-gui
 Suggests: fuseiso
+Enhances: qt-fll-iso2usb-gui,
+ install-usb-gui
 Description: backend scripts to install sidux to an usb hdd
- fll-iso2usb provides a bash script for installing FULLSTORY Live Linux
- to usb disk drives.
+ fll-iso2usb provides the backend for installing FULLSTORY Live Linux sidux to
+ usb disk drives.
