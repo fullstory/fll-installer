@@ -1,3 +1,9 @@
+fll-installer (0.7.1) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 29 Aug 2010 19:24:05 +0200
+
 fll-installer (0.7.0) unstable; urgency=low
 
   * adapt to aptosid.
