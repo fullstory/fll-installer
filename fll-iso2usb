@@ -166,7 +166,7 @@ get_distro_name()
 
 	gunzip -c ${iso_initrd} |\
 		cpio -i -H newc --to-stdout --quiet etc\/default\/distro |\
-		awk '/FLL_DISTRO_NAME=/{print $0} /FLL_MEDIA_NAME=/{print $0}' >${iso_distro}
+		awk '/FLL_DISTRO_NAME=/{print $0} /FLL_MEDIA_NAME=/{print $0} /FLL_WALLPAPER=/{print $0}' >${iso_distro}
 	
 	umount $mounted_iso 
 
@@ -469,8 +469,7 @@ copy_files()
 		if [ -e "/usr/share/grub/unicode.pf2" ];then
 			cp -v /usr/share/grub/unicode.pf2 ${mountpoint}/boot/graphics
 		fi
-		WallPaper=$(basename $(basename ${FLL_WALLPAPER}) .png)
-		if [ -e "/usr/share/wallpapers/${WallPaper}/contents/images/1024x768.png" ];then
+		if [ -e "${FLL_WALLPAPER}/contents/images/1024x768.png" ];then
 			cp -v /usr/share/wallpapers/${WallPaper}/contents/images/1024x768.png \
 				${mountpoint}/boot/graphics
 		fi
