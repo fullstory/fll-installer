@@ -1,7 +1,7 @@
 Source: fll-installer
 Section: admin
 Priority: optional
-Maintainer: Joaquim Boura <x-un-i@sidux.com>
+Maintainer: Joaquim Boura <x-un-i@berlios.de>
 Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>,
  Kel Modderman <kel@otaku42.de>
 Build-Depends: debhelper (>= 7.9.3)

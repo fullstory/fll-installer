@@ -1,8 +1,12 @@
 fll-installer (0.7.3) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 30 Sep 2010 23:29:14 +0200
+  [ Joaquim Boura ]
+  * fixed my email address
+
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 01 Oct 2010 21:06:50 +0200
 
 fll-installer (0.7.2) unstable; urgency=low
 

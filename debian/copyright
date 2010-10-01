@@ -2,10 +2,10 @@ This package was debianized by Joaquim Boura <x-un-i@sidux.com> on
 Thu, 07 Jun 2007 18:18:43 +0200.
 
 Upstream Author:
-    Joaquim Boura <x-un-i@sidux.com>
+    Joaquim Boura <x-un-i@berlios.de>
 
 Copyright:
-    Copyright © 2007-2010 Joaquim Boura <x-un-i@sidux.com>
+    Copyright © 2007-2010 Joaquim Boura <x-un-i@berlios.de>
     Copyright © 2006-2008 Red Hat, Inc.
     Copyright © 2008-2010 Niall Walsh <niallwalsh@users.berlios.de>
     Copyright © 2004-2010 Stefan Lippers-Hollmann <s.l-h@gmx.de>
@@ -38,6 +38,6 @@ License:
     Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
     MA 02110-1301, USA.
 
-The Debian packaging is © 2007, Joaquim Boura <x-un-i@sidux.com> and
+The Debian packaging is © 2007, Joaquim Boura <x-un-i@berlios.de> and
 is licensed under the GPL, see `/usr/share/common-licenses/GPL-2'.
 
