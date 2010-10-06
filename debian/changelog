@@ -1,9 +1,5 @@
-fll-installer (0.7.3) UNRELEASED; urgency=low
+fll-installer (0.7.3) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
   * fixed my email address
 
  -- Joaquim Boura <x-un-i@berlios.de>  Fri, 01 Oct 2010 21:06:50 +0200
@@ -13,7 +9,7 @@ fll-installer (0.7.2) unstable; urgency=low
   * use installed wallpaper if the user has it or if we are running live
     otherwise no background is used.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 30 Sep 2010 23:12:38 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 30 Sep 2010 23:12:38 +0200
 
 fll-installer (0.7.1) unstable; urgency=low
 
@@ -134,7 +130,7 @@ fll-installer (0.5.11) unstable; urgency=low
 
   * namimg of kernel files changed.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 20 Dec 2009 13:50:25 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 20 Dec 2009 13:50:25 +0100
 
 fll-installer (0.5.10) unstable; urgency=low
 
@@ -189,7 +185,7 @@ fll-installer (0.5.4) unstable; urgency=medium
 
   * fixed typo
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 17 Sep 2009 16:11:15 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 17 Sep 2009 16:11:15 +0200
 
 fll-installer (0.5.3) unstable; urgency=low
 
@@ -208,7 +204,7 @@ fll-installer (0.5.2) unstable; urgency=low
 
   * we want to appent lines to grub.cfg not overwrite it.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 08 Sep 2009 23:49:50 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Tue, 08 Sep 2009 23:49:50 +0200
 
 fll-installer (0.5.1) unstable; urgency=low
 
@@ -222,13 +218,13 @@ fll-installer (0.5.0) unstable; urgency=low
   * added some fancy entry screen it will need a 1024x768 png file named
     ${distro-name}-1024x768.png in /usr/share/wallpapers
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 06 Sep 2009 18:01:00 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 06 Sep 2009 18:01:00 +0200
 
 fll-installer (0.4.60) unstable; urgency=low
 
   * grrr missing bracket fixed
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 22 Aug 2009 17:41:38 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sat, 22 Aug 2009 17:41:38 +0200
 
 fll-installer (0.4.59) unstable; urgency=low
 
@@ -246,7 +242,7 @@ fll-installer (0.4.58) unstable; urgency=low
 
   * mount_partition was called with empty value in the partition variable.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 21 Aug 2009 22:41:02 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 21 Aug 2009 22:41:02 +0200
 
 fll-installer (0.4.57) unstable; urgency=low
 
@@ -261,13 +257,13 @@ fll-installer (0.4.56) unstable; urgency=low
   * when installing fromiso on sd-ram the device/partiotion naming is a bit
     different from normal one.( thks rieper|net for testing)
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 19 Jul 2009 22:16:13 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 19 Jul 2009 22:16:13 +0200
 
 fll-installer (0.4.55) unstable; urgency=low
 
   * fixed missing quote.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 12 Jul 2009 13:24:44 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 12 Jul 2009 13:24:44 +0200
 
 fll-installer (0.4.54) unstable; urgency=low
 
@@ -308,7 +304,7 @@ fll-installer (0.4.49) unstable; urgency=low
 
   * fixed mispelling in man page
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 04 Apr 2009 10:55:32 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sat, 04 Apr 2009 10:55:32 +0200
 
 fll-installer (0.4.48) unstable; urgency=low
 
@@ -369,26 +365,26 @@ fll-installer (0.4.42) unstable; urgency=low
 
   * protect answer "y" against current locale.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 22 Jan 2009 07:03:12 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 22 Jan 2009 07:03:12 +0100
 
 fll-installer (0.4.41) unstable; urgency=low
 
   * removed --recheck option on grub-install call for fll-iso2usb it seems that
     failed tries are much lesser without that option; device boots correctly.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 13 Jan 2009 22:31:00 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Tue, 13 Jan 2009 22:31:00 +0100
 
 fll-installer (0.4.40) unstable; urgency=low
 
   * GRUB menu.lst can shows now  more than one Windows entry.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 13 Jan 2009 17:41:39 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Tue, 13 Jan 2009 17:41:39 +0100
 
 fll-installer (0.4.39) unstable; urgency=low
 
   * also include virtio block devices
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 11 Jan 2009 09:47:26 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 11 Jan 2009 09:47:26 +0100
 
 fll-installer (0.4.38) unstable; urgency=low
 
@@ -403,7 +399,7 @@ fll-installer (0.4.37) unstable; urgency=medium
     Fixed bad re-string that was preventing umount to do his job with the root
     partition
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 01 Jan 2009 16:35:54 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 01 Jan 2009 16:35:54 +0100
 
 fll-installer (0.4.36) unstable; urgency=low
 
@@ -415,7 +411,7 @@ fll-installer (0.4.35) unstable; urgency=low
 
   * do not overwrite vga cheatcode, if user wants one.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 12 Dec 2008 23:13:41 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 12 Dec 2008 23:13:41 +0100
 
 fll-installer (0.4.34) unstable; urgency=low
 
@@ -542,19 +538,19 @@ fll-installer (0.4.20) unstable; urgency=low
     troubles when user wants to install over an existing home ( even though
     we do no recommend it)
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 08 Nov 2008 12:43:39 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sat, 08 Nov 2008 12:43:39 +0100
 
 fll-installer (0.4.19) unstable; urgency=low
 
   * install-usb-gui was deinstalled on purge live packages. Thks edhunter for noticing
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 02 Nov 2008 23:42:30 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 02 Nov 2008 23:42:30 +0100
 
 fll-installer (0.4.18) unstable; urgency=low
 
   * clean up some useless entries in gdm.conf.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 23 Oct 2008 17:49:58 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 23 Oct 2008 17:49:58 +0200
 
 fll-installer (0.4.17) unstable; urgency=low
 
@@ -572,20 +568,20 @@ fll-installer (0.4.15) unstable; urgency=low
 
   * For the user longname use the correct variable.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 07 Oct 2008 18:18:18 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Tue, 07 Oct 2008 18:18:18 +0200
 
 fll-installer (0.4.14) unstable; urgency=low
 
   * remove not longer working bashism
 
- -- Joaquim Boura <x-un-i@sidux.com>  Mon, 22 Sep 2008 00:25:58 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Mon, 22 Sep 2008 00:25:58 +0200
 
 fll-installer (0.4.13) unstable; urgency=low
 
   * somehow the variable device_map was undefined so grub entries for win
     got disrupted :(
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 21 Sep 2008 22:17:59 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 21 Sep 2008 22:17:59 +0200
 
 fll-installer (0.4.12) unstable; urgency=low
 
@@ -644,7 +640,7 @@ fll-installer (0.4.7) unstable; urgency=low
 
   * changed counter so the progress bar no longer goes over 20 steps
 
- -- Joaquim Boura <x-un-i@sidux.com>  Wed, 27 Aug 2008 18:05:38 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Wed, 27 Aug 2008 18:05:38 +0200
 
 fll-installer (0.4.6) unstable; urgency=low
 
@@ -730,13 +726,13 @@ fll-installer (0.3.20) unstable; urgency=low
 
   * do not allow username and/or hostname with whitspaces included.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 24 Jun 2008 09:23:04 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Tue, 24 Jun 2008 09:23:04 +0200
 
 fll-installer (0.3.19) unstable; urgency=low
 
   * fixes some spelling errors
 
- -- Joaquim Boura <x-un-i@sidux.com>  Wed, 18 Jun 2008 21:56:12 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Wed, 18 Jun 2008 21:56:12 +0200
 
 fll-installer (0.3.18) unstable; urgency=low
 
@@ -763,7 +759,7 @@ fll-installer (0.3.16) unstable; urgency=low
   * now allow to choose the filesystem for the created partition (vfat, ext2
     or ext3).
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 10 Jun 2008 20:58:24 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Tue, 10 Jun 2008 20:58:24 +0200
 
 fll-installer (0.3.15) unstable; urgency=low
 
@@ -799,20 +795,20 @@ fll-installer (0.3.11) unstable; urgency=low
   * fixed some typos. for the moment do not check available size against
     needed size
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 29 May 2008 22:29:23 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 29 May 2008 22:29:23 +0200
 
 fll-installer (0.3.10) unstable; urgency=low
 
   * when adding free size use the right field of the df -m output.
   * do not use UUID for grub when root is on a lvm2 partition.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 29 May 2008 00:20:00 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 29 May 2008 00:20:00 +0200
 
 fll-installer (0.3.9) unstable; urgency=low
 
   * fixed typo (missing $)
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 27 May 2008 18:21:37 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Tue, 27 May 2008 18:21:37 +0200
 
 fll-installer (0.3.8) unstable; urgency=low
 
@@ -829,33 +825,33 @@ fll-installer (0.3.7) unstable; urgency=low
   [ Joaquim Boura ]
   * Added abort_progress to abort properly the install-gui
 
- -- Joaquim Boura <x-un-i@sidux.com>  Mon, 26 May 2008 23:36:33 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Mon, 26 May 2008 23:36:33 +0200
 
 fll-installer (0.3.6) unstable; urgency=low
 
   * Send abort message to the gui when an error occur. Check size of the
     partition where user wants to install against size of the uncompressed iso
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 25 May 2008 21:51:19 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 25 May 2008 21:51:19 +0200
 
 fll-installer (0.3.5) unstable; urgency=low
 
   * improve error handling
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 25 May 2008 15:06:00 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 25 May 2008 15:06:00 +0200
 
 fll-installer (0.3.4) unstable; urgency=low
 
   * remove error and debug files if the installer is called again
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 23 May 2008 10:55:21 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 23 May 2008 10:55:21 +0200
 
 fll-installer (0.3.3) unstable; urgency=low
 
   * before add the bootmanager create an fstab "old style" but include alwayas
     the root device.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Tue, 20 May 2008 19:56:01 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Tue, 20 May 2008 19:56:01 +0200
 
 fll-installer (0.3.2) unstable; urgency=low
 
@@ -900,7 +896,7 @@ fll-installer (0.2.22) unstable; urgency=low
 
   * live-only packages have been renamed.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Mon, 21 Apr 2008 20:49:07 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Mon, 21 Apr 2008 20:49:07 +0200
 
 fll-installer (0.2.21) unstable; urgency=low
 
@@ -914,19 +910,19 @@ fll-installer (0.2.20) unstable; urgency=low
   * remove packages for virtual-box-guest when this are not needed on the
     installed system
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 15 Mar 2008 16:52:45 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sat, 15 Mar 2008 16:52:45 +0100
 
 fll-installer (0.2.19) unstable; urgency=low
 
   * make get_root_device silent
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 09 Mar 2008 20:42:01 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 09 Mar 2008 20:42:01 +0100
 
 fll-installer (0.2.18) unstable; urgency=low
 
   * enhanced the verbosity
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 07 Mar 2008 00:38:41 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 07 Mar 2008 00:38:41 +0100
 
 fll-installer (0.2.17) unstable; urgency=low
 
@@ -942,7 +938,7 @@ fll-installer (0.2.17) unstable; urgency=low
     Verbosity should/will be enhanced
     remove encrypted passwords from the config file
 
- -- Joaquim Boura <x-un-i@sidux.com>  Wed, 05 Mar 2008 00:14:28 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Wed, 05 Mar 2008 00:14:28 +0100
 
 fll-installer (0.2.16) unstable; urgency=low
 
@@ -1023,20 +1019,20 @@ fll-installer (0.2.4) unstable; urgency=low
 
   * changed entry for windows to allow vista to boot.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 06 Jan 2008 01:09:04 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 06 Jan 2008 01:09:04 +0100
 
 fll-installer (0.2.3) unstable; urgency=low
 
   * set SELINUX_INIT=NO per default on grub's menu.lst
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 08 Dec 2007 12:20:35 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sat, 08 Dec 2007 12:20:35 +0100
 
 fll-installer (0.2.2) unstable; urgency=low
 
   * for jfs/xfs set grub to MBR on the install disk unless already an MBR
     location is given.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 07 Dec 2007 21:13:56 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 07 Dec 2007 21:13:56 +0100
 
 fll-installer (0.2.1) unstable; urgency=low
 
@@ -1100,7 +1096,7 @@ fll-installer (0.1.11) unstable; urgency=low
 
   * clean up device.map and menu.list for USB HD installs
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 01 Dec 2007 17:25:22 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Sat, 01 Dec 2007 17:25:22 +0100
 
 fll-installer (0.1.10) unstable; urgency=low
 
@@ -1186,7 +1182,7 @@ fll-installer (0.0.35) unstable; urgency=low
 
   * fixed typo
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 17 Aug 2007 07:07:09 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 17 Aug 2007 07:07:09 +0200
 
 fll-installer (0.0.34) unstable; urgency=low
 
@@ -1272,7 +1268,7 @@ fll-installer (0.0.24) unstable; urgency=low
 
   * do not create the floppy dir under root (/). Done some cleanup.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 24 Jun 2007 14:43:26 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 24 Jun 2007 14:43:26 +0200
 
 fll-installer (0.0.23) unstable; urgency=low
 
@@ -1285,7 +1281,7 @@ fll-installer (0.0.22) unstable; urgency=low
 
   * if user wants make a boot floppy
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 21 Jun 2007 21:25:23 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 21 Jun 2007 21:25:23 +0200
 
 fll-installer (0.0.21) unstable; urgency=low
 
@@ -1303,7 +1299,7 @@ fll-installer (0.0.20) unstable; urgency=low
 
   * make_floppy function was missing
 
- -- Joaquim Boura <x-un-i@sidux.com>  Wed, 20 Jun 2007 17:38:10 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Wed, 20 Jun 2007 17:38:10 +0200
 
 fll-installer (0.0.19) unstable; urgency=low
 
@@ -1319,7 +1315,7 @@ fll-installer (0.0.19) unstable; urgency=low
   * data/exclusion_list: don't exclude /dev/*, we want to copy the static
     device nodes from the squashfs.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Wed, 20 Jun 2007 00:50:15 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Wed, 20 Jun 2007 00:50:15 +0200
 
 fll-installer (0.0.18) unstable; urgency=low
 
@@ -1414,7 +1410,7 @@ fll-installer (0.0.12) unstable; urgency=low
 
   * run fll_locales on the installed system and correct the X11 kbd
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 16 Jun 2007 22:08:44 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sat, 16 Jun 2007 22:08:44 +0200
 
 fll-installer (0.0.11) unstable; urgency=low
 
@@ -1425,13 +1421,13 @@ fll-installer (0.0.11) unstable; urgency=low
   [ Joaquim Boura ]
   * first steps to enhance locale support.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun, 17 Jun 2007 20:24:19 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sun, 17 Jun 2007 20:24:19 +0200
 
 fll-installer (0.0.10) unstable; urgency=low
 
   * handle locale globally.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 16 Jun 2007 14:24:53 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Sat, 16 Jun 2007 14:24:53 +0200
 
 fll-installer (0.0.9) unstable; urgency=low
 
@@ -1453,7 +1449,7 @@ fll-installer (0.0.7) unstable; urgency=low
 
   * change the sources.list to use one of the primary debian mirrors
 
- -- Joaquim Boura <x-un-i@sidux.com>  Thu, 14 Jun 2007 23:24:27 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 14 Jun 2007 23:24:27 +0200
 
 fll-installer (0.0.6) unstable; urgency=low
 
@@ -1472,7 +1468,7 @@ fll-installer (0.0.4) unstable; urgency=low
 
   * save a copy of the log on the HD install
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 08 Jun 2007 10:37:57 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 08 Jun 2007 10:37:57 +0200
 
 fll-installer (0.0.3) unstable; urgency=low
 
@@ -1484,7 +1480,7 @@ fll-installer (0.0.2) unstable; urgency=low
 
   * remove live-only stuff
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 08 Jun 2007 00:43:34 +0200
+ -- Joaquim Boura <x-un-i@berlios.de>  Fri, 08 Jun 2007 00:43:34 +0200
 
 fll-installer (0.0.1) unstable; urgency=low
 
