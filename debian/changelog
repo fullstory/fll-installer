@@ -1,9 +1,5 @@
-fll-installer (0.7.5) UNRELEASED; urgency=low
+fll-installer (0.7.5) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * If crypsetup offers a device for root, set cryptopts=source= in grub
   * Only set vga= for grub if one is found from the cmdline
 
