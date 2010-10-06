@@ -115,10 +115,20 @@ install_grub()
 		#TODO a proper configuration
 		# propagate the default video mode 
 		# extract vga mode from CMDLINE
+		GRUB_DEFOPTIONS=""
 		GRUB_VGA=$(getbootparam vga)
-		[ -z "$GRUB_VGA" ] && GRUB_VGA="791"
-		GRUB_DEFOPTIONS="vga=$GRUB_VGA"
-
+		[ -n "$GRUB_VGA" ] && GRUB_DEFOPTIONS="vga=$GRUB_VGA"
+		GRUB_CRYPT=$(cryptsetup status ${root_device} 2>/dev/null | \
+			     awk -F: '/^  device:/{print $2}')
+		GRUB_CRYPT=${GRUB_CRYPT##* }
+		if [ -n "$GRUB_CRYPT" ] ; then
+			if [ -z "$GRUBDEFOPTIONS" ] ; then
+				GRUB_DEFOPTIONS="cryptopts=source=${GRUB_CRYPT}"
+			else
+				GRUB_DEFOPTIONS="$GRUBDEFOPTIONS cryptopts=source=${GRUB_CRYPT}"
+			fi
+			echo "cryptroot 	${GRUB_CRYPT} 	none 	luks" >> /etc/crypttab
+		fi
 		sed -i -e "s#\(GRUB_CMDLINE_LINUX=\).*#\1\"${GRUB_DEFOPTIONS}\"#"  \
 		    ${TARGET_MNT_POINT}/etc/default/grub
 	fi
