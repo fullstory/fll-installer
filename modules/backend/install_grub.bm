@@ -118,17 +118,41 @@ install_grub()
 		GRUB_DEFOPTIONS=""
 		GRUB_VGA=$(getbootparam vga)
 		[ -n "$GRUB_VGA" ] && GRUB_DEFOPTIONS="vga=$GRUB_VGA"
-		GRUB_CRYPT=$(cryptsetup status ${root_device} 2>/dev/null | \
-			     awk -F: '/^  device:/{print $2}')
-		GRUB_CRYPT=${GRUB_CRYPT##* }
-		if [ -n "$GRUB_CRYPT" ] ; then
-			if [ -z "$GRUBDEFOPTIONS" ] ; then
-				GRUB_DEFOPTIONS="cryptopts=source=${GRUB_CRYPT}"
-			else
-				GRUB_DEFOPTIONS="$GRUBDEFOPTIONS cryptopts=source=${GRUB_CRYPT}"
-			fi
-			echo "cryptroot 	${GRUB_CRYPT} 	none 	luks" >> /etc/crypttab
+
+		# find out what cryptopts we need for /
+		cryptopts=""
+		rooton=""
+		vg=$(lvs --noheadings -o vg_name $root_device 2>/dev/null | xargs echo)
+		if [ -n "$vg" ]; then
+			# / is in a lvm volume group
+			pv=$(vgs --noheadings -o pv_name $vg  2>/dev/null | xargs echo)
+			for p in $pv ; do
+				# p is a physical volume in vg needed for /
+				# get it's /dev/mapper name
+				dmname=$(dmsetup --columns --noheadings -o name info $p  2>/dev/null | xargs echo)
+				if [ -n "$dmname" ]; then
+					rooton="$rooton $dmname"
+				fi
+			done
+		else
+			# check any /dev/mapper device
+			[ "${root_device}" = "${root_device##/dev/mapper/}" ] || rooton="${root_device##/dev/mapper/}"
 		fi
+		# if we found any mapper devices to check for crypt
+		for dev in $rooton ; do
+			cryptsource=$(cryptsetup status $dev 2>/dev/null | awk -F: '/device:/{print $2}' | xargs echo)
+			if [ -n "$cryptsource" ] ; then
+				# $dev is a crypted device on $cryptsource
+				if [ -z "$GRUB_DEFOPTIONS" ]; then
+					GRUB_DEFOPTIONS="cryptopts=source=$cryptsource,target=$dev"
+				else
+					GRUB_DEFOPTIONS="${GRUB_DEFOPTIONS} cryptopts=source=$cryptsource,target=$dev"
+				fi
+				# root is in a volume group so scan it
+				[ -n "$vg" ] && GRUB_DEFOPTIONS="${GRUB_DEFOPTIONS},lvm=${root_device##/dev/mapper/}"
+				echo "$dev	$cryptsource	none	luks" >> /etc/crypttab
+			fi
+		done
 		sed -i -e "s#\(GRUB_CMDLINE_LINUX=\).*#\1\"${GRUB_DEFOPTIONS}\"#"  \
 		    ${TARGET_MNT_POINT}/etc/default/grub
 	fi
