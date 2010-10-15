@@ -1,11 +1,7 @@
-fll-installer (0.7.6) UNRELEASED; urgency=low
+fll-installer (0.8.0) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
-  * Detect lvm on crypt for cryptopts
-  * Always set cryptopts target rather then requiring cryptroot
+  * Detect lvm on crypt for cryptopts.
+  * Always set cryptopts target rather then requiring cryptroot.
 
  -- Niall Walsh <niallwalsh@users.berlios.de>  Thu, 07 Oct 2010 17:25:03 +0100
 
