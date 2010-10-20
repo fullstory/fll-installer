@@ -142,6 +142,14 @@ install_grub()
 		for dev in $rooton ; do
 			cryptsource=$(cryptsetup status $dev 2>/dev/null | awk -F: '/device:/{print $2}' | xargs echo)
 			if [ -n "$cryptsource" ] ; then
+				if [ "${cryptsource}" = "${cryptsource#/dev/mapper/}" ]; then
+					# use uuid if possible for non /dev/mapper devices
+					cryptuuid=$(udevadm info -q env --name ${cryptsource} | \
+						    awk 'BEGIN{FS="="}/ID_FS_UUID=/{print $2}')
+					if [ -n "${cryptuuid}" ]; then
+						cryptsource="UUID=${cryptuuid}"
+					fi
+				fi
 				# $dev is a crypted device on $cryptsource
 				if [ -z "$GRUB_DEFOPTIONS" ]; then
 					GRUB_DEFOPTIONS="cryptopts=source=$cryptsource,target=$dev"

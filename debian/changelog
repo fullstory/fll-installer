@@ -1,8 +1,12 @@
 fll-installer (0.8.1) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 15 Oct 2010 03:52:07 +0200
+  [ Niall Walsh ]
+  * use uuid if possible for non /dev/mapper cryptopts source devices
+
+ -- Niall Walsh <niallwalsh@users.berlios.de>  Wed, 20 Oct 2010 17:49:11 +0100
 
 fll-installer (0.8.0) unstable; urgency=low
 
