@@ -17,7 +17,7 @@
 update_fstab()
 {
 	local autohd
-	local root_partition root_device part wanted
+	local root_partition root_device part wanted ignore_device
 	#
 	# log my call
 	#
@@ -30,7 +30,11 @@ update_fstab()
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
 	root_device=$(get_root_device $root_partition)
 	wanted="--wanted ${root_device}"
-
+	if [ -b /dev/mapper/${FLL_DISTRO_NAME}-live ]; then
+		ignore_device=$(/sbin/blkid -s UUID -o value /dev/mapper/${FLL_DISTRO_NAME}-live)
+		ignore_device="--ignore UUID=${ignore_device}"
+	fi
+	
 	if [ -n "${HD_MAP}" ]; then
 		for i in "${HD_MAP}"
 		do
@@ -49,7 +53,7 @@ update_fstab()
 
 	# 2. create the fstab, creating the mountpoints
 	chroot_it fll_fstab_generator --file /etc/fstab --uuids --mkdir \
-		${wanted} ${autohd}
+		${ignore_device} ${wanted} ${autohd}
 	
 	# 3. create/fix resume configuration for initramfs-tools
 	chroot_it sh -c "awk '\$3 == \"swap\" { print \$1; exit }' \
