@@ -1,6 +1,5 @@
-fll-installer (0.8.3) UNRELEASED; urgency=low
+fll-installer (0.8.3) unstable; urgency=low
 
-  * NOT RELEASED YET
   * option ignore for the fstab generator has changed/enhanced.
 
  -- Joaquim Boura <x-un-i@sidux.com>  Sat, 20 Nov 2010 23:44:20 +0100
