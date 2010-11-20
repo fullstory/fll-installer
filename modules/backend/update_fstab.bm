@@ -32,7 +32,7 @@ update_fstab()
 	wanted="--wanted ${root_device}"
 	if [ -b /dev/mapper/${FLL_DISTRO_NAME}-live ]; then
 		ignore_device=$(/sbin/blkid -s UUID -o value /dev/mapper/${FLL_DISTRO_NAME}-live)
-		ignore_device="--ignore UUID=${ignore_device}"
+		ignore_device="--ignore ${ignore_device}"
 	fi
 	
 	if [ -n "${HD_MAP}" ]; then
