@@ -1,6 +1,5 @@
-fll-installer (0.8.4) UNRELEASED; urgency=low
+fll-installer (0.8.4) unstable; urgency=low
 
-  * NOT RELEASED YET
   * ignore option was made powerful.
   * fll_fstab_generator does not beautify the fstab anymore.
 
