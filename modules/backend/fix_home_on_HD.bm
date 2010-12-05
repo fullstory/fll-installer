@@ -79,6 +79,15 @@ fix_home_on_HD()
 	if grep -s -q sudo "${TARGET_MNT_POINT}${INSTHOME}/.bashrc"; then
 		sed -i 's|\(.*sudo.*\)||' "${TARGET_MNT_POINT}${INSTHOME}/.bashrc"
 	fi
+
+	#
+	# revert System Tools menu to show gdmflexiserver entries
+	#
+	if [ -d "${TARGET_MNT_POINT}${INSTHOME}/.config/menus" ] ; then
+		rm  -f ${TARGET_MNT_POINT}${INSTHOME}/.config/menus/gnome-applications.menu 
+		rm  -f ${TARGET_MNT_POINT}${INSTHOME}/.config/menus/gnome-settings.menu 
+	fi
+
 }
 ##-------------------------------------
 #

@@ -130,6 +130,18 @@ EOF
 	fi
 
 	#
+	# revert GDM3 autologin
+	#
+	if [ -f "${TARGET_MNT_POINT}/etc/gdm3/daemon.conf" ]; then
+		# we want the gdm-theme (set by desktop-defaults in live mode) on hd-install, 
+		# only remove autologin for gdm
+		sed -i	-e "/^AutomaticLogin\=.*/d" \
+			-e "/^AutomaticLoginEnable\=.*/d" \
+			-e "/^TimedLogin.*/d" \
+				"${TARGET_MNT_POINT}/etc/gdm3/daemon.conf"
+	fi
+
+	#
 	# revert XFCE shutdown and reboot button
 	#
 	if [ -e "${FLL_MOUNTPOINT}/etc/default/fll-xfce-desktop" ]; then
@@ -150,4 +162,3 @@ EOF
 
 	return 0
 }
-

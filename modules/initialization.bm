@@ -17,7 +17,7 @@ logit () {
 #
 ###-------------------------------------
 #
-TARGET_MNT_POINT="/media/hdinstall" 
+TARGET_MNT_POINT="/mnt/hdinstall" 
 TARGET_MNT_NAME="hdinstall" 
 
 

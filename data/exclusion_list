@@ -11,4 +11,5 @@
 /mnt/*
 /sys/*
 /tmp/*
+/var/cache/gdm/*
 /var/tmp/*
