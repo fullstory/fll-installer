@@ -469,9 +469,11 @@ copy_files()
 		if [ -e "/usr/share/grub/unicode.pf2" ];then
 			cp -v /usr/share/grub/unicode.pf2 ${mountpoint}/boot/graphics
 		fi
-		if [ -e "${FLL_WALLPAPER}/contents/images/1024x768.png" ];then
-			cp -v /usr/share/wallpapers/${WallPaper}/contents/images/1024x768.png \
-				${mountpoint}/boot/graphics
+		if [ "${FLL_DISTRO_MODE}" = "live" ];then
+			if [ -e "${FLL_WALLPAPER}/contents/images/1024x768.png" ];then
+				cp -v ${FLL_WALlPAPER}/contents/images/1024x768.png \
+					${mountpoint}/boot/graphics
+			fi
 		fi
 	fi
 	if [ -e ${source_dir}/boot/memtest86+.bin ] ; then

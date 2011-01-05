@@ -7,8 +7,9 @@ fll-installer (0.8.5) UNRELEASED; urgency=low
     automount_popup ugliness in the install-gui. Suggested by convbsd.
   * install mountpoint moved to /fll
   * remove gnome pressession file created on boot.
+  * fll_iso2usb only copy the background wallpaper for grub2 when running live.
 
- -- Joaquim Boura <x-un-i@berlios.de>  Thu, 30 Dec 2010 10:58:36 +0100
+ -- Joaquim Boura <x-un-i@berlios.de>  Thu, 06 Jan 2011 00:49:54 +0100
 
 fll-installer (0.8.4) unstable; urgency=low
 
