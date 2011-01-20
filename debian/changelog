@@ -1,15 +1,19 @@
-fll-installer (0.8.5) UNRELEASED; urgency=low
+fll-installer (0.8.5) unstable; urgency=low
 
-  * NOT RELEASED YET
-  * Patch for an aptosid-gnome from Angelescu Ovidiu <mrhsaacdoh@gmail.com> aka convbsd
-    and William J. Henderson <tornado@tjtag.com> aka tjtag
-  * changed install mountpoint from /media to /mnt. This allow us to get rid from the
-    automount_popup ugliness in the install-gui. Suggested by convbsd.
+  [ Joaquim Boura ]
+  * Patch for an aptosid-gnome from Angelescu Ovidiu <mrhsaacdoh@gmail.com> aka
+    convbsd and William J. Henderson <tornado@tjtag.com> aka tjtag
+  * changed install mountpoint from /media to /mnt. This allow us to get rid
+    from the automount_popup ugliness in the install-gui. Suggested by convbsd.
   * install mountpoint moved to /fll
-  * remove gnome pressession file created on boot.
   * fll_iso2usb only copy the background wallpaper for grub2 when running live.
 
- -- Joaquim Boura <x-un-i@berlios.de>  Thu, 06 Jan 2011 00:49:54 +0100
+  [ Stefan Lippers-Hollmann ]
+  * fix variable typo.
+  * partial revert for svnr 28269:28396, as the corresponding setup code has
+    already been reverted before.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 20 Jan 2011 01:20:18 +0100
 
 fll-installer (0.8.4) unstable; urgency=low
 
