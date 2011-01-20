@@ -125,8 +125,24 @@ EOF
 		# only remove autologin for gdm
 		sed -i	-e "/^AutomaticLogin\=.*/d" \
 			-e "/^AutomaticLoginEnable\=.*/d" \
-			-e "/^TimedLogin.*/d" \
+			-e "/^TimedLogin\=.*/d" \
+			-e "/^TimedLoginDelay\=.*/d" \
+			-e "/^TimedLoginEnable\=.*/d" \
 				"${TARGET_MNT_POINT}/etc/gdm/gdm.conf"
+	fi
+
+	#
+	# revert GDM3 autologin
+	#
+	if [ -f "${TARGET_MNT_POINT}/etc/gdm3/daemon.conf" ]; then
+		# we want the gdm-theme (set by desktop-defaults in live mode) on hd-install, 
+		# only remove autologin for gdm
+		sed -i	-e "/^AutomaticLogin\=.*/d" \
+			-e "/^AutomaticLoginEnable\=.*/d" \
+			-e "/^TimedLogin\=.*/d" \
+			-e "/^TimedLoginDelay\=.*/d" \
+			-e "/^TimedLoginEnable\=.*/d" \
+				"${TARGET_MNT_POINT}/etc/gdm3/daemon.conf"
 	fi
 
 	#
