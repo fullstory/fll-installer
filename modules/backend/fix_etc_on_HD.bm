@@ -125,7 +125,9 @@ EOF
 		# only remove autologin for gdm
 		sed -i	-e "/^AutomaticLogin\=.*/d" \
 			-e "/^AutomaticLoginEnable\=.*/d" \
-			-e "/^TimedLogin.*/d" \
+			-e "/^TimedLogin\=.*/d" \
+			-e "/^TimedLoginDelay\=.*/d" \
+			-e "/^TimedLoginEnable\=.*/d" \
 				"${TARGET_MNT_POINT}/etc/gdm/gdm.conf"
 	fi
 
@@ -137,12 +139,10 @@ EOF
 		# only remove autologin for gdm
 		sed -i	-e "/^AutomaticLogin\=.*/d" \
 			-e "/^AutomaticLoginEnable\=.*/d" \
-			-e "/^TimedLogin.*/d" \
+			-e "/^TimedLogin\=.*/d" \
+			-e "/^TimedLoginDelay\=.*/d" \
+			-e "/^TimedLoginEnable\=.*/d" \
 				"${TARGET_MNT_POINT}/etc/gdm3/daemon.conf"
-		# remove  Default for gdm3 PreSession
-		if [ -f /etc/gdm3/PreSession/Default ]; then
-			rm /etc/gdm3/PreSession/Default
-		fi
 	fi
 
 	#
