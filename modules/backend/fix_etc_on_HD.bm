@@ -2,6 +2,7 @@
 ##-------------------------------------
 # Needs:
 # FLL_DISTRO_NAME
+# FLL_LIVE_USER
 # TARGET_MNT_POINT
 # HOST_NAME
 # FLL_MOUNTPOINT
@@ -15,7 +16,7 @@
 ##
 fix_etc_on_HD () {
 	local inittab="$TARGET_MNT_POINT/etc/inittab"
-	local sudoers="$TARGET_MNT_POINT/etc/sudoers"
+	local sudoers="${TARGET_MNT_POINT}/etc/sudoers.d/15_${FLL_LIVE_USER}"
 	local mtab="$TARGET_MNT_POINT/etc/mtab"
 
 	#
@@ -50,28 +51,7 @@ fix_etc_on_HD () {
 	# also fix sudoers
 	#
 	say "cleanup the sudoers conf file"
-	cat > "$sudoers" <<EOF
-# /etc/sudoers
-#
-# This file MUST be edited with the 'visudo' command as root.
-#
-# See the man page for details on how to write a sudoers file.
-#
-
-Defaults	env_reset
-
-# Host alias specification
-
-# User alias specification
-
-# Cmnd alias specification
-
-# User privilege specification
-root	ALL=(ALL) ALL
-EOF
-	chown root:root "$sudoers"
-	chmod 0440 "$sudoers"
-
+	rm -f "$sudoers"
 	chroot_it deluser "${USER_NAME}" sudo
 
 	#
