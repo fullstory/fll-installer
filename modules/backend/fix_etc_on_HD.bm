@@ -59,8 +59,9 @@ fix_etc_on_HD () {
 	# "normalize" /etc/inittab
 	#
 	cp -f "${TARGET_MNT_POINT}/usr/share/sysvinit/inittab" "${inittab}"
-	perl -pi -e 's#^([2-6]):23:respawn#$1:2345:respawn#;s#id:[0-6]:initdefault:#id:5:initdefault:#' \
-		"${inittab}"
+	sed -i	-e 's/^\([2-6]\):23:respawn/\1:2345:respawn/' \
+		-e 's/id:[0-6]:initdefault:/id:5:initdefault:/' \
+			"${inittab}"
 	
 	#
 	# normalize /etc/pam.d/login
