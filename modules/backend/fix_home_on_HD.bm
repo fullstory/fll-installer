@@ -29,8 +29,9 @@ fix_home_on_HD()
 			mv "${TARGET_MNT_POINT}${LIVEHOME}" "${TARGET_MNT_POINT}${INSTHOME}"
 			
 			# fix /home/user paths in various config files
-			find "${TARGET_MNT_POINT}${INSTHOME}" -type f -print0 | \
-				xargs -0 perl -pi -e 'BEGIN { exit unless (-T $ARGV[0] and -w $ARGV[0]) } s|'"${LIVEHOME}"'|'"${INSTHOME}"'|g'
+			find "${TARGET_MNT_POINT}${INSTHOME}" \
+				-type f \
+				-exec sed -i "s/${LIVEHOME}/${INSTHOME}/g" {} \;
 		fi
 	fi
 

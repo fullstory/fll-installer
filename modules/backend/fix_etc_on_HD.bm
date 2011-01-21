@@ -2,6 +2,7 @@
 ##-------------------------------------
 # Needs:
 # FLL_DISTRO_NAME
+# FLL_LIVE_USER
 # TARGET_MNT_POINT
 # HOST_NAME
 # FLL_MOUNTPOINT
@@ -14,9 +15,9 @@
 ##-------------------------------------
 ##
 fix_etc_on_HD () {
-	local inittab="$TARGET_MNT_POINT/etc/inittab"
-	local sudoers="$TARGET_MNT_POINT/etc/sudoers"
-	local mtab="$TARGET_MNT_POINT/etc/mtab"
+	local inittab="${TARGET_MNT_POINT}/etc/inittab"
+	local sudoers="${TARGET_MNT_POINT}/etc/sudoers.d/15_${FLL_LIVE_USER}"
+	local mtab="${TARGET_MNT_POINT}/etc/mtab"
 
 	#
 	# log my call
@@ -28,9 +29,9 @@ fix_etc_on_HD () {
 	# hostname
 	#
 	sed -i '/localhost/!s/^\(127.0.0.1[ \t]\+\)\(.\+\)$/\1'"$HOST_NAME"'/' \
-		"$TARGET_MNT_POINT/etc/hosts"
-	echo "$HOST_NAME" > "$TARGET_MNT_POINT/etc/hostname"
-	echo "$HOST_NAME" > "$TARGET_MNT_POINT/etc/mailname"
+		"${TARGET_MNT_POINT}/etc/hosts"
+	echo "${HOST_NAME}" > "${TARGET_MNT_POINT}/etc/hostname"
+	echo "${HOST_NAME}" > "${TARGET_MNT_POINT}/etc/mailname"
 
 	#
 	# regenerate default snakeoil with new hostname
@@ -44,55 +45,36 @@ fix_etc_on_HD () {
 	# don't allow everyone to use sudo.
 	#
 	logit "fixing sudoers"
-	cat "$TARGET_MNT_POINT/usr/share/base-files/profile" > "$TARGET_MNT_POINT/etc/profile"
+	cat "${TARGET_MNT_POINT}/usr/share/base-files/profile" \
+		> "${TARGET_MNT_POINT}/etc/profile"
 	
 	#
 	# also fix sudoers
 	#
 	say "cleanup the sudoers conf file"
-	cat > "$sudoers" <<EOF
-# /etc/sudoers
-#
-# This file MUST be edited with the 'visudo' command as root.
-#
-# See the man page for details on how to write a sudoers file.
-#
-
-Defaults	env_reset
-
-# Host alias specification
-
-# User alias specification
-
-# Cmnd alias specification
-
-# User privilege specification
-root	ALL=(ALL) ALL
-EOF
-	chown root:root "$sudoers"
-	chmod 0440 "$sudoers"
-
+	rm -f "${sudoers}"
 	chroot_it deluser "${USER_NAME}" sudo
 
 	#
 	# "normalize" /etc/inittab
 	#
-	cp -f "$TARGET_MNT_POINT/usr/share/sysvinit/inittab" "$inittab"
-	perl -pi -e 's#^([2-6]):23:respawn#$1:2345:respawn#;s#id:[0-6]:initdefault:#id:5:initdefault:#' \
-		"$inittab"
+	cp -f "${TARGET_MNT_POINT}/usr/share/sysvinit/inittab" "${inittab}"
+	sed -i	-e 's/^\([2-6]\):23:respawn/\1:2345:respawn/' \
+		-e 's/id:[0-6]:initdefault:/id:5:initdefault:/' \
+			"${inittab}"
 	
 	#
 	# normalize /etc/pam.d/login
 	#
-	if [ -f "$TARGET_MNT_POINT/etc/pam.d/login" ]; then
-		sed -i '/^#.*pam_lastlog\.so/s/^#[ \t]\+//' "$TARGET_MNT_POINT/etc/pam.d/login"
+	if [ -f "${TARGET_MNT_POINT}/etc/pam.d/login" ]; then
+		sed -i '/^#.*pam_lastlog\.so/s/^#[ \t]\+//' "${TARGET_MNT_POINT}/etc/pam.d/login"
 	fi
 
 	#
 	# create /etc/mtab as a regular file
 	#
-	rm -f "$mtab"
-	touch "$mtab"
+	rm -f "${mtab}"
+	touch "${mtab}"
 
 	#
 	# remove confusing live traces from blkid.tab
@@ -106,7 +88,7 @@ EOF
 		/usr/sbin/alsactl store
 		if [ -f /var/lib/alsa/asound.state ]; then
 			cp /var/lib/alsa/asound.state \
-				"$TARGET_MNT_POINT/var/lib/alsa"
+				"${TARGET_MNT_POINT}/var/lib/alsa"
 		fi
 	fi
 
@@ -143,15 +125,6 @@ EOF
 			-e "/^TimedLoginDelay\=.*/d" \
 			-e "/^TimedLoginEnable\=.*/d" \
 				"${TARGET_MNT_POINT}/etc/gdm3/daemon.conf"
-	fi
-
-	#
-	# revert XFCE shutdown and reboot button
-	#
-	if [ -e "${FLL_MOUNTPOINT}/etc/default/fll-xfce-desktop" ]; then
-		sed -i	-e "/\/usr\/sbin\/xfsm-shutdown-helper/d" \
-			-e "s/^\(# User alias.*\)/\1\n${USER_NAME} ${HOST_NAME} \= NOPASSWD: \/usr\/sbin\/xfsm-shutdown-helper/" \
-				"$sudoers"
 	fi
 
 	#
