@@ -31,7 +31,7 @@ fix_home_on_HD()
 			# fix /home/user paths in various config files
 			find "${TARGET_MNT_POINT}${INSTHOME}" \
 				-type f \
-				-exec sed -i "s/${LIVEHOME}/${INSTHOME}/g" {} \;
+				-exec sed -i "s|${LIVEHOME}|${INSTHOME}|g" {} \;
 		fi
 	fi
 
