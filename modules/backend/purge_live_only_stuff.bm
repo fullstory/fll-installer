@@ -59,7 +59,7 @@ purge_live_only_stuff()
 
 	#  disable live config
 	if [ -f "${TARGET_MNT_POINT}/etc/default/distro" ]; then
-		perl -pi -e "s/^FLL_DISTRO_MODE\=.*/FLL_DISTRO_MODE\=\"installed\"/" \
+		sed -i "s/^FLL_DISTRO_MODE\=.*/FLL_DISTRO_MODE\=\"installed\"/" \
 			"${TARGET_MNT_POINT}/etc/default/distro"
 	fi
 }
