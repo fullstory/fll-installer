@@ -2,7 +2,6 @@
 ##-------------------------------------
 # Needs:
 # FLL_DISTRO_NAME
-# FLL_LIVE_USER
 # TARGET_MNT_POINT
 # HOST_NAME
 # FLL_MOUNTPOINT
@@ -16,7 +15,7 @@
 ##
 fix_etc_on_HD () {
 	local inittab="${TARGET_MNT_POINT}/etc/inittab"
-	local sudoers="${TARGET_MNT_POINT}/etc/sudoers.d/15_${FLL_LIVE_USER}"
+	local sudoers="${TARGET_MNT_POINT}/etc/sudoers.d/15_${FLL_DISTRO_NAME}"
 	local mtab="${TARGET_MNT_POINT}/etc/mtab"
 
 	#
