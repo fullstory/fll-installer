@@ -25,7 +25,7 @@ update_fstab()
 	#
 
 	progress "Updating /etc/fstab..."
-set -x
+
 	# 0. prepare
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
 	root_device=$(get_root_device $root_partition)

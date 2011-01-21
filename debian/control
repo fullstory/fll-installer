@@ -11,17 +11,16 @@ Vcs-Browser: http://svn.berlios.de/wsvn/fullstory/fll-installer/trunk/
 
 Package: fll-installer
 Architecture: all
-Pre-Depends: dpkg (>= 1.14.6)
 Depends: ${misc:Depends},
  adduser,
  initramfs-tools,
- grub-pc (>= 1.96+20080601-1),
+ grub-pc,
  procps,
  udev-config-aptosid,
  whois,
  os-prober,
  rsync,
- fll-live-initscripts (>= 2.0.72)
+ fll-live-initscripts (>= 3.10.4)
 Recommends: install-gui
 Suggests: gparted,
  distro-defaults
@@ -35,7 +34,7 @@ Description: backend scripts to install aptosid to hdd
 Package: fll-iso2usb
 Architecture: all
 Depends: ${misc:Depends},
- grub-pc (>= 1.96+20080601-1) | grub-legacy | grub-gfxboot,
+ grub-pc,
  distro-defaults,
  parted
 Recommends: install-usb-gui
