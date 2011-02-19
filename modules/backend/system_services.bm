@@ -58,11 +58,16 @@ system_services () {
 
 	# prepare ssh
 	if [ -x "${TARGET_MNT_POINT}/etc/init.d/ssh" ]; then
-		if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" ]; then
-			ssh-keygen -q -t rsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_rsa_key" -C '' -N ''
+		if [ ! -e "${TARGET_MNT_POINT}/etc/ssh/ssh_host_rsa_key" ]; then
+			ssh-keygen -q -t rsa -f "${TARGET_MNT_POINT}/etc/ssh/ssh_host_rsa_key" -C '' -N ''
 		fi
-		if [ ! -e "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" ]; then
-			ssh-keygen -q -t dsa -f "$TARGET_MNT_POINT/etc/ssh/ssh_host_dsa_key" -C '' -N ''
+
+		if [ ! -e "${TARGET_MNT_POINT}/etc/ssh/ssh_host_dsa_key" ]; then
+			ssh-keygen -q -t dsa -f "${TARGET_MNT_POINT}/etc/ssh/ssh_host_dsa_key" -C '' -N ''
+		fi
+
+		if [ ! -e "${TARGET_MNT_POINT}/etc/ssh/ssh_host_ecdsa_key" ]; then
+			ssh-keygen -q -t ecdsa -f "${TARGET_MNT_POINT}/etc/ssh/ssh_host_ecdsa_key" -C '' -N ''
 		fi
 	fi
 }
