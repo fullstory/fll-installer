@@ -1,3 +1,9 @@
+fll-installer (0.8.13) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 20 Feb 2011 02:35:37 +0100
+
 fll-installer (0.8.12) unstable; urgency=low
 
   * drop support for gdm (#613491).
