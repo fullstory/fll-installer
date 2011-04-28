@@ -1,8 +1,10 @@
-fll-installer (0.8.13) UNRELEASED; urgency=low
+fll-installer (0.9.0) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * bump standards version to 3.9.2, no changes necessary.
+  * add /run/ to rsync exclusion list.
+  * fix dangling eMail addresses.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 20 Feb 2011 02:35:37 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 28 Apr 2011 23:30:59 +0200
 
 fll-installer (0.8.12) unstable; urgency=low
 
@@ -79,13 +81,13 @@ fll-installer (0.8.3) unstable; urgency=low
 
   * option ignore for the fstab generator has changed/enhanced.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sat, 20 Nov 2010 23:44:20 +0100
+ -- Joaquim Boura <x-un-i@users.berlios.de>  Sat, 20 Nov 2010 23:44:20 +0100
 
 fll-installer (0.8.2) unstable; urgency=low
 
   * when building the fstab ignore the /dev/mapper partition where the live is.
 
- -- Joaquim Boura <x-un-i@sidux.com>  Fri, 19 Nov 2010 17:30:58 +0100
+ -- Joaquim Boura <x-un-i@users.berlios.de>  Fri, 19 Nov 2010 17:30:58 +0100
 
 fll-installer (0.8.1) unstable; urgency=low
 
@@ -207,7 +209,7 @@ fll-installer (0.5.16) unstable; urgency=low
   * minor typo fix
   * removed check for cliinstaller's existance. no need for it
 
- -- Nikolas Poniros <edhunter@sidux.com>  Tue, 09 Mar 2010 19:29:11 +0100
+ -- Nikolas Poniros <edhunter@users.berlios.de>  Tue, 09 Mar 2010 19:29:11 +0100
 
 fll-installer (0.5.15) unstable; urgency=low
 

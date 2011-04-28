@@ -9,6 +9,8 @@
 /lib/init/rw/*
 /media/*
 /mnt/*
+/run/*
+/run/.*
 /sys/*
 /tmp/*
 /var/cache/gdm/*
