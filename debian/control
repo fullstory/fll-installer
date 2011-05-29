@@ -13,6 +13,7 @@ Package: fll-installer
 Architecture: all
 Depends: ${misc:Depends},
  adduser,
+ base-files (>= 6.4),
  initramfs-tools,
  grub-pc,
  procps,
