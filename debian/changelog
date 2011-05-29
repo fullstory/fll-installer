@@ -1,3 +1,9 @@
+fll-installer (0.9.2) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 29 May 2011 02:57:57 +0200
+
 fll-installer (0.9.1) unstable; urgency=low
 
   * add /run/ to the list of virtual filesystems to be bind-{,u}mounted as
