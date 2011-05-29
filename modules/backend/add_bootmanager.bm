@@ -18,7 +18,6 @@
 ##
 add_bootmanager()
 {
-	local BOOTMANAGER_PROC
 	local BOOT_KERNELS
 	local BOOT_KERNEL
 	local BOOT_RUNNING_KERNEL
@@ -33,8 +32,10 @@ add_bootmanager()
 	#
 	logit "add_bootmanager"
 
-	BOOTMANAGER_PROC=""
-	mount --bind /proc $TARGET_MNT_POINT/proc && BOOTMANAGER_PROC="yes"
+	mount --bind /proc "${TARGET_MNT_POINT}/proc"
+	mount --bind /dev  "${TARGET_MNT_POINT}/dev"
+	mount --bind /sys  "${TARGET_MNT_POINT}/sys"
+	mount --bind /run  "${TARGET_MNT_POINT}/run"
 	
 	BOOT_KERNELS=""
 	for i in $TARGET_MNT_POINT/lib/modules/?.*
@@ -62,10 +63,6 @@ add_bootmanager()
 	# This can be probably changed later, but for now
 	# must be done as at least update-grub uses an old-style /etc/fstab
 	# so we create one for that
-
-	# mount --bind /proc "$TARGET_MNT_POINT/proc" <-- already done above
-	mount --bind /dev "$TARGET_MNT_POINT/dev"
-	mount --bind /sys "$TARGET_MNT_POINT/sys"
 
 	# 0. prepare
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
@@ -98,16 +95,12 @@ add_bootmanager()
 	##
 	## workaround...start
 	##
-	# umount /proc, /dev and /sys on chroot <-- done below
-	umount "$TARGET_MNT_POINT/sys"
-	umount "$TARGET_MNT_POINT/dev"
-	# umount "$TARGET_MNT_POINT/proc"
+	# umount /proc, /dev, /sys and /run on chroot
+	umount "${TARGET_MNT_POINT}/run"
+	umount "${TARGET_MNT_POINT}/sys"
+	umount "${TARGET_MNT_POINT}/dev"
+	umount "${TARGET_MNT_POINT}/proc"
 	##
 	## workaround...end
 	##
-
-
-	[ -n "$BOOTMANAGER_PROC" ] && umount $TARGET_MNT_POINT/proc
-
 }
-

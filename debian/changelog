@@ -1,8 +1,13 @@
-fll-installer (0.9.1) UNRELEASED; urgency=low
+fll-installer (0.9.1) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * add /run/ to the list of virtual filesystems to be bind-{,u}mounted as
+    needed.
+  * don't try to mount the procfs on the host from within the installer, we
+    have bigger problems if /proc isn't accessible on the host.
+  * avoid $BOOTMANAGER_PROC trickery, the virtual filesystems are needed for
+    all steps during the bootloader configuration.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 28 Apr 2011 23:31:23 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 29 May 2011 02:56:14 +0200
 
 fll-installer (0.9.0) unstable; urgency=low
 
