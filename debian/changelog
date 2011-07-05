@@ -1,6 +1,5 @@
-fll-installer (0.9.4) UNRELEASED; urgency=low
+fll-installer (0.9.4) unstable; urgency=low
 
-  [ Niall Walsh ]
   * use install_grub_efi to install and configure grub_efi in efi system part
     when system is booted with efi and has a non usb efi system partition and
     install target root partition is not on usb.
