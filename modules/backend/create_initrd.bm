@@ -27,9 +27,9 @@ create_initrd()
 	#
 	# Make the real initrd
 	#
-	chroot_it mount -t sysfs sysfs /sys
+	#chroot_it mount -t sysfs sysfs /sys
 	chroot_it update-initramfs -c -k "$BOOT_KERNEL" >&2
-	chroot_it umount /sys
+	#chroot_it umount /sys
  
 	# if the file does not exist an error was there...
 	[ ! -s "$TARGET_MNT_POINT/boot/initrd.img-$BOOT_KERNEL" ] && return 2

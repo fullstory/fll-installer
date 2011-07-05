@@ -4,6 +4,7 @@
 # HD_CHOICE
 # TARGET_MNT_POINT
 # FLL_DISTRO_NAME
+# HD_MAP (updates it)
 #
 # Calls:
 # logit
@@ -50,6 +51,7 @@ install_grub_efi()
 	device=$(echo $root_device|cut -d / -f3)
 	
 	get_efisys
+	HD_MAP="$efisys:/boot/efi ${HD_MAP}"
 
 	# Create the target directory for the efi loader on the efisys partition
 	mkdir $TARGET_MNT_POINT/boot/efi
