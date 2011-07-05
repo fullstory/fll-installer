@@ -1,3 +1,9 @@
+fll-installer (0.9.4) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 05 Jul 2011 03:19:38 +0200
+
 fll-installer (0.9.3) unstable; urgency=low
 
   * don't write /etc/kernel-img.conf anymore, it's usage is deprecated and
