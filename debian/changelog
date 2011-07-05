@@ -1,9 +1,5 @@
-fll-installer (0.9.5) UNRELEASED; urgency=low
+fll-installer (0.9.5) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * Add lsof to Depends
   * don't mount/umount /sys in update_initramfs (add_bootloader does it)
   * add efi system partition to HD_MAP when it's being used
