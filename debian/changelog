@@ -1,8 +1,10 @@
-fll-installer (0.9.3) UNRELEASED; urgency=low
+fll-installer (0.9.3) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * don't write /etc/kernel-img.conf anymore, it's usage is deprecated and
+    discouraged.
+  * allow grub-pc | grub-efi as alternative dependency for fll-installer.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 29 May 2011 14:36:02 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 05 Jul 2011 03:19:25 +0200
 
 fll-installer (0.9.2) unstable; urgency=low
 
