@@ -84,7 +84,21 @@ add_bootmanager()
 	## workaround...end
 	##
 
-	if [ "$BOOT_LOADER" = "grub" ]
+	# Find efi system partition if we have booted by efi
+	efisys=""
+	if [ -d /sys/firmware/efi ]; then
+		get_efisys
+	fi
+
+	# determine if root_device is usb
+	device=$(echo $root_device|cut -d / -f3)
+	usb_dev=$(echo $(readlink -f /sys/block/${device}/device) | grep  "usb")
+
+	# do efi if grub and have efi system partition and not usb install
+	if [ "$BOOT_LOADER" = "grub" ] && [ -n "$efisys" ] && [ -z "$usb_dev" ]
+	then
+		install_grub_efi
+	elif [ "$BOOT_LOADER" = "grub" ]
 	then
 		install_grub
 	#
