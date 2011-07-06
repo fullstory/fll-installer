@@ -1,10 +1,6 @@
-fll-installer (0.9.6) UNRELEASED; urgency=low
+fll-installer (0.9.6) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
-  * install without a bootloader if we would use efi but are not on amd64
+  * install without a bootloader if we would use efi but are not on amd64.
 
  -- Niall Walsh <niallwalsh@users.berlios.de>  Wed, 06 Jul 2011 22:45:07 +0100
 
