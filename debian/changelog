@@ -1,3 +1,9 @@
+fll-installer (0.9.8) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 14 Jul 2011 14:12:43 +0200
+
 fll-installer (0.9.7) unstable; urgency=low
 
   * fll-iso2usb: use blkid methods to get fs type directly, parsing can break
