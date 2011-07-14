@@ -626,7 +626,7 @@ prepare_persist()
 
 	say "Initializing persistent overlay"
 
-	fs=$(/sbin/blkid -p ${PARTITION} | sed s/.*TYPE\=\"// | cut -d\" -f1)
+	fs=$(/sbin/blkid -p -o value -s TYPE ${PARTITION})
 
 	case ${fs} in
 		vfat)
