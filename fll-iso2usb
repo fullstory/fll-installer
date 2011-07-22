@@ -666,7 +666,7 @@ prepare_persist()
 			# Update the PERSIST variable with location to loopback filesystem
 			PERSIST="${PERSIST}=/${FLL_DISTRO_NAME}/${FLL_DISTRO_NAME}-rw"
 			;;
-		ext2|ext3)
+		ext2|ext3|ext4)
 			;;
 		*)
 			return 1

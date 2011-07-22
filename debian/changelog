@@ -1,8 +1,12 @@
 fll-installer (0.9.8) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 14 Jul 2011 14:12:43 +0200
+  [ Niall Walsh ]
+  * fll-iso2usb: do not fail/ignore persist on ext4
+
+ -- Niall Walsh <niallwalsh@users.berlios.de>  Fri, 22 Jul 2011 19:19:04 +0100
 
 fll-installer (0.9.7) unstable; urgency=low
 
