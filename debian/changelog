@@ -1,8 +1,11 @@
-fll-installer (0.9.9) UNRELEASED; urgency=low
+fll-installer (0.9.9) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * fix /etc/mtab handling to be either an empty regular file or a symlink to
+    /proc/mounts.
+  * drop useless local variable for inittab location.
+  * drop useless local variable for sudoers location.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 22 Jul 2011 21:09:11 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 27 Jul 2011 20:53:26 +0200
 
 fll-installer (0.9.8) unstable; urgency=low
 
