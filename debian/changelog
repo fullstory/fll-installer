@@ -1,3 +1,9 @@
+fll-installer (0.9.10) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 27 Jul 2011 20:53:43 +0200
+
 fll-installer (0.9.9) unstable; urgency=low
 
   * fix /etc/mtab handling to be either an empty regular file or a symlink to
