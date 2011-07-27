@@ -14,7 +14,6 @@
 ##-------------------------------------
 ##
 fix_etc_on_HD () {
-	local inittab="${TARGET_MNT_POINT}/etc/inittab"
 	local sudoers="${TARGET_MNT_POINT}/etc/sudoers.d/15_${FLL_DISTRO_NAME}"
 
 	#
@@ -56,10 +55,12 @@ fix_etc_on_HD () {
 	#
 	# "normalize" /etc/inittab
 	#
-	cp -f "${TARGET_MNT_POINT}/usr/share/sysvinit/inittab" "${inittab}"
+	cp -f	"${TARGET_MNT_POINT}/usr/share/sysvinit/inittab" \
+			"${TARGET_MNT_POINT}/etc/inittab"
+
 	sed -i	-e 's/^\([2-6]\):23:respawn/\1:2345:respawn/' \
 		-e 's/id:[0-6]:initdefault:/id:5:initdefault:/' \
-			"${inittab}"
+			"${TARGET_MNT_POINT}/etc/inittab"
 	
 	#
 	# normalize /etc/pam.d/login
