@@ -126,5 +126,13 @@ fix_etc_on_HD () {
 				"${TARGET_MNT_POINT}/etc/slim.conf"
 	fi
 
+	#
+	# revert lightdm autologin
+	#
+	if [ -f "${TARGET_MNT_POINT}/etc/lightdm/lightdm.conf" ]; then
+		sed -i -e "s/^autologin-user/\#autologin-user/" \
+			"${TARGET_MNT_POINT}/etc/lightdm/lightdm.conf"
+	fi
+
 	return 0
 }
