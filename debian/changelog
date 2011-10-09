@@ -1,10 +1,6 @@
-fll-installer (0.9.10) UNRELEASED; urgency=low
+fll-installer (0.9.10) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
-  * fix etc for lightdm autologin
+  * fix etc for lightdm autologin.
 
  -- Niall Walsh <niallwalsh@users.berlios.de>  Sun, 09 Oct 2011 13:48:01 +0100
 
