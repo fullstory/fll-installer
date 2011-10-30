@@ -70,7 +70,7 @@ fix_home_on_HD()
 	#
 	# remove installer from fluxbox menu
 	#
-	if grep -s -q sudo "${TARGET_MNT_POINT}${INSTHOME}"/.fluxbox/fll-flux-*; then
+	if grep -s -q Installer "${TARGET_MNT_POINT}${INSTHOME}"/.fluxbox/fll-flux-*; then
 		sed -i '/Installer/d' "${TARGET_MNT_POINT}${INSTHOME}"/.fluxbox/fll-flux-*
 	fi
 
