@@ -1,10 +1,6 @@
-fll-installer (0.9.11) UNRELEASED; urgency=low
+fll-installer (0.9.11) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Joaquim Boura ]
-  * fixed fluxbox menu after install
+  * fix fluxbox menu after install.
 
  -- Joaquim Boura <x-un-i@sapo.pt>  Sun, 30 Oct 2011 23:07:42 +0100
 
