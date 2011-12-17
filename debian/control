@@ -23,6 +23,7 @@ Depends: ${misc:Depends},
  os-prober,
  rsync,
  fll-live-initscripts (>= 3.10.4)
+Breaks: initscripts (<< 2.88dsf-16~)
 Recommends: install-gui
 Suggests: gparted,
  distro-defaults
