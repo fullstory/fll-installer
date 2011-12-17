@@ -190,9 +190,25 @@ debug "md5sums updated"
 
 echo 'boot/grub/* 10000
 boot/* 1000
-'${squashfs}' 100' > ${stage}/genisoimage.sort
+'${squashfs}' 100' > ${stage}/isoimage.sort
 
-genisoimage -quiet -pad -l -J -r -hide-rr-moved -no-emul-boot -boot-load-size 4 -boot-info-table -b boot/grub/iso9660_stage1_5 -c boot/grub/boot.cat -V ${distro}  -sort ${stage}/genisoimage.sort -x genisoimage.sort -o ${newiso} ${stage} > /dev/null
+xorriso	-as mkisofs \
+	-quiet \
+	-pad \
+	-l \
+	-J \
+	-r \
+	-hide-rr-moved \
+	-no-emul-boot \
+	-boot-load-size 4 \
+	-boot-info-table \
+	-b boot/grub/iso9660_stage1_5 \
+	-c boot/grub/boot.cat \
+	-V ${distro} \
+	-sort ${stage}/isoimage.sort \
+	-x isoimage.sort \
+	-o ${newiso} \
+		${stage} > /dev/null
 
 debug "iso created"
 
