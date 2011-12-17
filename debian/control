@@ -23,6 +23,7 @@ Depends: ${misc:Depends},
  os-prober,
  rsync,
  fll-live-initscripts (>= 3.10.4)
+Breaks: initscripts (<< 2.88dsf-16~)
 Recommends: install-gui
 Suggests: gparted,
  distro-defaults
@@ -39,10 +40,10 @@ Depends: ${misc:Depends},
  grub-pc,
  distro-defaults,
  parted
-Recommends: install-usb-gui
+Recommends: install-usb-gui,
+ xorriso
 Suggests: fuseiso
-Enhances: qt-fll-iso2usb-gui,
- install-usb-gui
+Enhances: install-usb-gui
 Description: backend scripts to install aptosid to an usb hdd
  fll-iso2usb provides the backend for installing FULLSTORY Live Linux aptosid to
  removable storage, usb disk drives.

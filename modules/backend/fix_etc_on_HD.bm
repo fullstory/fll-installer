@@ -68,18 +68,6 @@ fix_etc_on_HD () {
 	fi
 
 	#
-	# make sure that /etc/mtab is either:
-	# - an empty regular file
-	# - or a symlink pointing to /proc/mounts
-	#
-	if [ -f "${TARGET_MNT_POINT}/etc/mtab" ]; then
-		:> "${TARGET_MNT_POINT}/etc/mtab"
-	else
-		rm -f "${TARGET_MNT_POINT}/etc/mtab"
-		ln -sf /proc/mounts "${TARGET_MNT_POINT}/etc/mtab"
-	fi
-
-	#
 	# remove confusing live traces from blkid.tab
 	#
 	rm -f "${TARGET_MNT_POINT}/etc/blkid.tab*"
