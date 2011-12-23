@@ -1,9 +1,5 @@
-fll-installer (0.9.14) UNRELEASED; urgency=low
+fll-installer (0.10.0) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * fll-iso-strip:
     - update to isolinux (including isohybrid)
     - fixup xorriso, including adding modification-date and efi-dir
