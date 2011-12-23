@@ -1,15 +1,7 @@
 #!/bin/sh
 # fll-iso-strip
-# Usage: fll-iso-strip iso (amd64) (noi18n) (debug)
-# Takes a (dual arch) fll iso as input
-# Extracts the single desired arch (default 686)
-# Strips sources
-# Strips i18n if noi18n given
-# Rewrites grub and md5sums
-# Builds new iso alongside given iso
-# does all staging work in current dir so double size of target iso needed free
 #
-# Copyright 2008 Niall Walsh (niallwalsh@users.berlios.de)
+# Copyright 2008-2011 Niall Walsh (niallwalsh@users.berlios.de)
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -32,9 +24,21 @@
 iso=$1
 shift
 
+usage () {
+	echo "Usage: fll-iso-strip iso (amd64) (noi18n) (debug)
+  iso should be a (dual arch) fll iso to strip
+  Extracts the single desired arch (default 686)
+  Strips i18n if noi18n given
+  Strips sources if present
+  Rewrites isolinux.cfg and md5sums
+  Writes new iso alongside original iso with a modified name to reflect changes
+All staging work done in current dir so size of target iso needed free"
+	exit
+}
+
 if [ -z "${iso}" ]; then
 	echo "No iso supplied"
-	exit
+	usage
 fi
 
 if [ ! -f "${iso}" ]; then
@@ -95,7 +99,7 @@ if ! ${isomount} ${iso} ${fusemnt}; then
 	exit
 fi
 
-rsyncopts=${rsyncopts}"--exclude='sources'"
+rsyncopts="--exclude='sources'"
 if [ -n "${noi18n}" ]; then
 	rsyncopts=${rsyncopts}" --exclude='i18n'"
 fi
@@ -123,7 +127,8 @@ if [ -f ${newiso} ]; then
 	exit
 fi
 
-debug "distro: ${distro} newiso: ${newiso}"
+debug "distro: ${distro}"
+debug "newiso: ${newiso}"
 
 debug "rsyncopts: ${rsyncopts}"
 
@@ -141,13 +146,14 @@ debug "rsync done ${fusemnt} unmounted"
 
 chmod -R u+w ${stage}
 
-menu="${stage}/boot/grub/menu.lst"
+menupath="boot/isolinux/isolinux.cfg"
+menu="${stage}/${menupath}"
 perl -e '$noarch='${noarchmenu}';
 while(<>)
 {
 	if ($stage==0)
 	{
-		if ((/^title/)&&(/$noarch/))
+		if ((/^label/)&&(/$noarch/))
 		{
 			$stage=1;
 			$_="";
@@ -155,7 +161,7 @@ while(<>)
 	}
 	else
 	{
-		if ((/^title/)&&(!/$noarch/))
+		if ((/^label/)&&(!/$noarch/))
 		{
 			$stage=0;
 		}
@@ -176,14 +182,14 @@ while(<IN>)
 	$f[1]=~s/^*//;
 	if (-f $stage."/".$f[1])
 	{
-		if ($f[1]!="boot/grub/menu.lst")
+		if ($f[1]!="'${menupath}'")
 		{
 			print;
 		}
 	}
 }' > ${stage}/md5sums.new && mv ${stage}/md5sums.new ${stage}/md5sums
 
-cd ${stage} && md5sum boot/grub/menu.lst | awk '{print $1" *"$2}' >> md5sum
+cd ${stage} && md5sum $menupath | awk '{print $1" *"$2}' >> md5sum
 cd - >/dev/null 2>&1
 
 debug "md5sums updated"
@@ -192,28 +198,39 @@ echo 'boot/grub/* 10000
 boot/* 1000
 '${squashfs}' 100' > ${stage}/isoimage.sort
 
+uuid=$(LANG=C isoinfo -debug -d -i $iso | \
+	awk '/^Creation\ Date\:/{gsub(/[\:\.]/,"");print $3$4$5$6$7}')
+
+[ -e "${stage}/efi.img" ] && efi="--efi-boot efi.img"
+
 xorriso	-as mkisofs \
+	-graft-points \
+	-v \
 	-quiet \
 	-pad \
 	-l \
-	-J \
-	-r \
-	-hide-rr-moved \
 	-no-emul-boot \
 	-boot-load-size 4 \
 	-boot-info-table \
-	-b boot/grub/iso9660_stage1_5 \
-	-c boot/grub/boot.cat \
+	-b boot/isolinux/isolinux.bin \
+	-c boot/isolinux/isolinux.cat \
+	--modification-date=$uuid \
+	$efi \
+	--protective-msdos-label \
 	-V ${distro} \
-	-sort ${stage}/isoimage.sort \
-	-x isoimage.sort \
+	--sort-weight 0 / \
+	--sort-weight 1 /boot \
+	--sort-weight 2 /boot/grub \
 	-o ${newiso} \
-		${stage} > /dev/null
+		${stage} > /dev/null && ok="Y"
 
-debug "iso created"
+[ -n "$ok" ] && debug "iso created"
 
 rm -rf ${stage}
 
 debug "${stage} removed"
 
-echo "Created ${newiso}"
+[ -n "$ok" ] && isohybrid ${newiso} && debug "iso hybridised"
+
+[ -n "$ok" ] && echo "Created ${newiso}"
+

@@ -1,8 +1,16 @@
 fll-installer (0.9.14) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 17 Dec 2011 20:22:35 +0100
+  [ Niall Walsh ]
+  * fll-iso-strip:
+    - update to isolinux (including isohybrid)
+    - fixup xorriso, including adding modification-date and efi-dir
+    - make usage display not just hidden in comments
+    - many cleanups
+
+ -- Niall Walsh <niallwalsh@users.berlios.de>  Fri, 23 Dec 2011 17:12:08 +0000
 
 fll-installer (0.9.13) unstable; urgency=low
 
