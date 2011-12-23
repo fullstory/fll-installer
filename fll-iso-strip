@@ -22,7 +22,6 @@
 # found in /usr/share/common-licenses/GPL.
 
 iso=$1
-shift
 
 usage () {
 	echo "Usage: fll-iso-strip iso (amd64) (noi18n) (debug)
@@ -40,6 +39,8 @@ if [ -z "${iso}" ]; then
 	echo "No iso supplied"
 	usage
 fi
+
+shift
 
 if [ ! -f "${iso}" ]; then
 	echo "Cannot read supplied iso ${iso}"
