@@ -36,6 +36,7 @@ purge_live_only_stuff()
 				desktop-defaults-kde \
 				desktop-defaults-lxde \
 				desktop-defaults-gnome \
+				aptosid-gnome-gsettings-live \
 				desktop-defaults-xfce \
 				install-gui \
 				cliinstaller \

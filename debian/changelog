@@ -1,8 +1,8 @@
-fll-installer (0.10.1) UNRELEASED; urgency=low
+fll-installer (0.10.1) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * purge aptosid-gnome-gsettings-live, thanks to convbsd.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 23 Dec 2011 22:28:42 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 07 Jan 2012 02:22:00 +0100
 
 fll-installer (0.10.0) unstable; urgency=low
 
