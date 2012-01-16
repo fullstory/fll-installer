@@ -1,8 +1,8 @@
-fll-installer (0.10.2) UNRELEASED; urgency=low
+fll-installer (0.10.2) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * switch to compat level 9.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 07 Jan 2012 02:23:02 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 16 Jan 2012 01:09:10 +0100
 
 fll-installer (0.10.1) unstable; urgency=low
 
