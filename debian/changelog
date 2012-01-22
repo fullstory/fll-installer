@@ -1,8 +1,13 @@
 fll-installer (0.10.3) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 16 Jan 2012 01:09:26 +0100
+  [ Niall Walsh ]
+  * convert_live2HD remove comments saying it uses removed modules
+  * drop aptosid-gnome-gsettings-live from live purge lists (it doesn't exist)
+
+ -- Niall Walsh <niallwalsh@users.berlios.de>  Sun, 22 Jan 2012 16:07:58 +0000
 
 fll-installer (0.10.2) unstable; urgency=low
 
