@@ -1,3 +1,9 @@
+fll-installer (0.10.4) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 23 Jan 2012 02:30:08 +0100
+
 fll-installer (0.10.3) unstable; urgency=low
 
   * convert_live2HD remove comments saying it uses removed modules
