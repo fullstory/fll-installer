@@ -1,9 +1,5 @@
-fll-installer (0.10.3) UNRELEASED; urgency=low
+fll-installer (0.10.3) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * convert_live2HD remove comments saying it uses removed modules
   * drop aptosid-gnome-gsettings-live from live purge lists (it doesn't exist)
 
