@@ -1,3 +1,9 @@
+fll-installer (0.10.6) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 06 Aug 2012 02:18:05 +0200
+
 fll-installer (0.10.5) unstable; urgency=low
 
   * added line to the exclusion list for lxde.
