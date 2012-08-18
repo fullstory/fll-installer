@@ -42,8 +42,6 @@ fix_usb_install () {
 
 	device_map="${grub_dir}/device.map"
 
-	cp ${device_map} ${device_map}.backup
-
 	if [ -n "${usb_dev}" ]; then
 		menu_lst="${grub_dir}/menu.lst"
 		old_mbr_device=$(awk '/hd0/{print $2}' "${device_map}")
