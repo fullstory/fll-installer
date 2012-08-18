@@ -1,3 +1,9 @@
+fll-installer (0.10.7) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 18 Aug 2012 18:08:22 +0200
+
 fll-installer (0.10.6) unstable; urgency=low
 
   * fixed "Bad device.map on USB install" reported on aptosid 2011-03.
