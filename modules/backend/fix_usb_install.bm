@@ -19,6 +19,7 @@ fix_usb_install () {
 	local menu_lst
 	local device_map device_map_temp
 	local old_mbr_device
+	local by_id_val
 	local old_hdmap_dev
 	local old_hd_map_dev
 	local grub_hd drive line
@@ -41,10 +42,13 @@ fix_usb_install () {
 
 	device_map="${grub_dir}/device.map"
 
+	cp ${device_map} ${device_map}.backup
+
 	if [ -n "${usb_dev}" ]; then
 		menu_lst="${grub_dir}/menu.lst"
 		old_mbr_device=$(awk '/hd0/{print $2}' "${device_map}")
-		old_hdmap_dev=$(grep ${root_device} ${device_map}|awk '{print $1}')
+		by_id_val=$(ls -lah /dev/disk/by-id | grep -w ${device} | awk '{print $9}')
+		old_hdmap_dev=$(grep ${by_id_val} ${device_map}|awk '{print $1}')
 		# get rid of () on the hd_map
 		old_hd_map_dev=$(echo ${old_hdmap_dev} |sed -e "s/[\(,\)]//g")
 		
@@ -55,7 +59,7 @@ fix_usb_install () {
 		sed -i -e "s|(hd0)|(hdX)|" -e "s|${old_hdmap_dev}|(hd0)|" \
 			-e "s|(hdX)|${old_hdmap_dev}|" "${device_map}"
 
-		# fix the menu.lst
+		
 		sed -i -e "s|hd0|hdX|" -e "s|${old_hd_map_dev}\,|hd0,|" \
 		   -e "s|hdX|${old_hd_map_dev}|" "${menu_lst}"
 	fi
