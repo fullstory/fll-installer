@@ -1,3 +1,9 @@
+fll-installer (0.10.8) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 12 Jan 2013 02:29:14 +0100
+
 fll-installer (0.10.7) unstable; urgency=low
 
   * bump standards version to 3.9.4, no changes necessary.
