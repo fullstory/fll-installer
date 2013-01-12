@@ -1,8 +1,9 @@
-fll-installer (0.10.7) UNRELEASED; urgency=low
+fll-installer (0.10.7) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * bump standards version to 3.9.4, no changes necessary.
+  * update FSF postal address to be URLs.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 18 Aug 2012 18:08:22 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 12 Jan 2013 02:28:49 +0100
 
 fll-installer (0.10.6) unstable; urgency=low
 
