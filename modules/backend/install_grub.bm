@@ -85,14 +85,6 @@ install_grub()
 		fi
 	fi
 
-	# installing on MBR 
-	if [ "$bootfrom" = "$(get_root_device ${bootfrom})" ]
-	then
-		# Make a backup of the old mbr
-		dd if=${bootfrom} of=$TARGET_MNT_POINT/boot/${FLL_DISTRO_NAME}-old-mbr.$(date -I) \
-			bs=446 count=1 >/dev/null
-	fi
-
 	#
 	# install grub
 	#
