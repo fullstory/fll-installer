@@ -1,3 +1,9 @@
+fll-installer (0.10.10) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 18 Apr 2013 22:24:22 +0200
+
 fll-installer (0.10.9) unstable; urgency=low
 
   * purge kexec-tools on uefi systems, where garbage collection is crucial.
