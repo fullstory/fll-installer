@@ -46,7 +46,7 @@ purge_live_only_stuff()
 
 	# purge kexec-tools on uefi systems, where garbage collection is
 	# crucial
-	chroot_it dpkg --purge	kexec-tools
+	chroot_it dpkg --purge	kexec-tools >&2
 
 	# remove virtualisation helpers on non-emulated hardware
 	if [ -z "$(lspci -d 80ee:beef)" ]; then

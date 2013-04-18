@@ -1,8 +1,8 @@
-fll-installer (0.10.10) UNRELEASED; urgency=low
+fll-installer (0.10.10) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * output kexec-tools purging on STDERR.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 18 Apr 2013 22:24:22 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 18 Apr 2013 22:35:43 +0200
 
 fll-installer (0.10.9) unstable; urgency=low
 
