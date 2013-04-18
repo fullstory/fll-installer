@@ -27,7 +27,6 @@ purge_live_only_stuff()
 	chmod +x "${TARGET_MNT_POINT}/usr/sbin/policy-rc.d"
 
 	# purge live-specific packages
-
 	chroot_it dpkg --purge	fll-live-initramfs \
 				fll-live-initscripts \
 				fll-live-utils \
@@ -44,6 +43,10 @@ purge_live_only_stuff()
 				nbd-client \
 				setpassword \
 				sshstart >&2
+
+	# purge kexec-tools on uefi systems, where garbage collection is
+	# crucial
+	chroot_it dpkg --purge	kexec-tools >&2
 
 	# remove virtualisation helpers on non-emulated hardware
 	if [ -z "$(lspci -d 80ee:beef)" ]; then
