@@ -56,8 +56,7 @@ install_grub_efi()
 	# Create the target directory for the efi loader on the efisys partition
 	mkdir $TARGET_MNT_POINT/boot/efi
 	mount ${efisys} $TARGET_MNT_POINT/boot/efi
-	sed -i -e 's|GRUB_DISTRIBUTOR=`.*`|GRUB_DISTRIBUTOR="'${FLL_DISTRO_NAME}'"|' $TARGET_MNT_POINT/etc/default/grub
-	mkdir -p $TARGET_MNT_POINT/boot/efi/EFI/${FLL_DISTRO_NAME}
+	mkdir -p "${TARGET_MNT_POINT}/boot/efi/EFI/debian"
 
 	# Install grub-efi in the chroot
 	EFIAPTSOURCES=$(mktemp -d --tmpdir=${TARGET_MNT_POINT}/tmp/ liveapt.XXXXXX)
