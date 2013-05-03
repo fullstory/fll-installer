@@ -1,3 +1,9 @@
+fll-installer (0.10.12) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 04 May 2013 01:00:56 +0200
+
 fll-installer (0.10.11) unstable; urgency=low
 
   * drop GRUB_DISTRIBUTOR mangling.
