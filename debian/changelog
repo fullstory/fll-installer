@@ -1,8 +1,9 @@
-fll-installer (0.10.12) UNRELEASED; urgency=low
+fll-installer (0.10.12) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * selinuxfs is now mounted at /sys/fs/selinux/, don't create /selinux/
+    anymore.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 04 May 2013 01:00:56 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 07 May 2013 18:27:58 +0200
 
 fll-installer (0.10.11) unstable; urgency=low
 
