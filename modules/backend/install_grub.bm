@@ -54,7 +54,7 @@ install_grub()
 	# that ( at least till further investigation) and set it to "partition"
         case $BOOT_WHERE in
                 mbr)
-			 bootfrom="(hd0)"
+                        bootfrom=$(grub-mkdevicemap -n -m - | awk '/^\(hd0\)/{print $2}')
                         ;;
                 partition)
                         bootfrom="${root_partition}"

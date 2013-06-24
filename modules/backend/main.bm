@@ -34,7 +34,6 @@ main()
 		convert_live2HD \
 		add_bootmanager \
 		update_fstab \
-		fix_usb_install \
 		purge_live_only_stuff"
 
 	#
