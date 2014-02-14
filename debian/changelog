@@ -1,8 +1,9 @@
-fll-installer (0.10.15) UNRELEASED; urgency=medium
+fll-installer (0.10.15) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * make sysvinit and systemd getty mangling reversal independent of each
+    other, as they're technically co-installable.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 14 Feb 2014 23:21:31 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 15 Feb 2014 00:35:12 +0100
 
 fll-installer (0.10.14) unstable; urgency=low
 

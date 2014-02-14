@@ -61,7 +61,9 @@ fix_etc_on_HD () {
 		sed -i	-e 's/^\([2-6]\):23:respawn/\1:2345:respawn/' \
 			-e 's/id:[0-6]:initdefault:/id:5:initdefault:/' \
 				"${TARGET_MNT_POINT}/etc/inittab"
-	elif [ -r '/etc/systemd/system/getty@.service' ]; then
+	fi
+
+	if [ -r '/etc/systemd/system/getty@.service' ]; then
 		# systemd
 		rm -f	/etc/systemd/system/getty@.service \
 			/etc/systemd/system/autovt@.service
