@@ -51,14 +51,26 @@ fix_etc_on_HD () {
 	chroot_it deluser "${USER_NAME}" sudo
 
 	#
-	# "normalize" /etc/inittab
+	# "normalize" gettys
 	#
-	cp -f	"${TARGET_MNT_POINT}/usr/share/sysvinit/inittab" \
-			"${TARGET_MNT_POINT}/etc/inittab"
+	if [ -r /usr/share/sysvinit/inittab ]; then
+		# sysvinit
+		cp -f	"${TARGET_MNT_POINT}/usr/share/sysvinit/inittab" \
+				"${TARGET_MNT_POINT}/etc/inittab"
 
-	sed -i	-e 's/^\([2-6]\):23:respawn/\1:2345:respawn/' \
-		-e 's/id:[0-6]:initdefault:/id:5:initdefault:/' \
-			"${TARGET_MNT_POINT}/etc/inittab"
+		sed -i	-e 's/^\([2-6]\):23:respawn/\1:2345:respawn/' \
+			-e 's/id:[0-6]:initdefault:/id:5:initdefault:/' \
+				"${TARGET_MNT_POINT}/etc/inittab"
+	fi
+
+	if [ -r '/etc/systemd/system/getty@.service' ]; then
+		# systemd
+		rm -f	/etc/systemd/system/getty@.service \
+			/etc/systemd/system/autovt@.service
+
+		ln -fs	/lib/systemd/system/autovt@.service \
+			/etc/systemd/system/getty.target.wants/getty@tty1.service
+	fi
 	
 	#
 	# normalize /etc/pam.d/login
