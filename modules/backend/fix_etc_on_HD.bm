@@ -65,11 +65,11 @@ fix_etc_on_HD () {
 
 	if [ -r '/etc/systemd/system/getty@.service' ]; then
 		# systemd
-		rm -f	/etc/systemd/system/getty@.service \
-			/etc/systemd/system/autovt@.service
+		rm -f	"${TARGET_MNT_POINT}/etc/systemd/system/getty@.service" \
+			"${TARGET_MNT_POINT}/etc/systemd/system/autovt@.service"
 
 		ln -fs	/lib/systemd/system/autovt@.service \
-			/etc/systemd/system/getty.target.wants/getty@tty1.service
+			"${TARGET_MNT_POINT}/etc/systemd/system/getty.target.wants/getty@tty1.service"
 	fi
 	
 	#
