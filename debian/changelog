@@ -1,3 +1,9 @@
+fll-installer (0.10.19) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 08 Aug 2014 03:51:13 +0200
+
 fll-installer (0.10.18) unstable; urgency=low
 
   * fix systemd sanitation.
