@@ -1,3 +1,9 @@
+fll-installer (0.10.20) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 08 Aug 2014 03:58:06 +0200
+
 fll-installer (0.10.19) unstable; urgency=medium
 
   * yet one more chroot qualifier.
