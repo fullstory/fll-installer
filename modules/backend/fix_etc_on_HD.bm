@@ -53,8 +53,9 @@ fix_etc_on_HD () {
 	#
 	# "normalize" gettys
 	#
-	if [ -r /usr/share/sysvinit/inittab ]; then
-		# sysvinit
+
+	# sysvinit
+	if [ -r "${TARGET_MNT_POINT}/usr/share/sysvinit/inittab" ]; then
 		cp -f	"${TARGET_MNT_POINT}/usr/share/sysvinit/inittab" \
 				"${TARGET_MNT_POINT}/etc/inittab"
 
@@ -63,8 +64,8 @@ fix_etc_on_HD () {
 				"${TARGET_MNT_POINT}/etc/inittab"
 	fi
 
-	if [ -r '${TARGET_MNT_POINT}/etc/systemd/system/getty@.service' ]; then
-		# systemd
+	# systemd
+	if [ -r "${TARGET_MNT_POINT}/etc/systemd/system/getty@.service" ]; then
 		rm -f	"${TARGET_MNT_POINT}/etc/systemd/system/getty@.service" \
 			"${TARGET_MNT_POINT}/etc/systemd/system/autovt@.service"
 
