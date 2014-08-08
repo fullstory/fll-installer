@@ -63,7 +63,7 @@ fix_etc_on_HD () {
 				"${TARGET_MNT_POINT}/etc/inittab"
 	fi
 
-	if [ -r '/etc/systemd/system/getty@.service' ]; then
+	if [ -r '${TARGET_MNT_POINT}/etc/systemd/system/getty@.service' ]; then
 		# systemd
 		rm -f	"${TARGET_MNT_POINT}/etc/systemd/system/getty@.service" \
 			"${TARGET_MNT_POINT}/etc/systemd/system/autovt@.service"
