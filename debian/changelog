@@ -1,8 +1,8 @@
-fll-installer (0.10.22) UNRELEASED; urgency=medium
+fll-installer (0.10.22) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * debconf set grub-pc install device
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 12 Aug 2014 21:05:12 +0200
+ -- Niall Walsh <niallwalsh@celtux.org>  Tue, 12 Aug 2014 20:38:56 +0100
 
 fll-installer (0.10.21) unstable; urgency=medium
 
