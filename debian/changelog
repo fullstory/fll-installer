@@ -1,8 +1,8 @@
-fll-installer (0.10.23) UNRELEASED; urgency=medium
+fll-installer (0.10.23) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * remove some more fll-iso2usb remains.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 12 Aug 2014 23:06:04 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 12 Aug 2014 23:38:38 +0200
 
 fll-installer (0.10.22) unstable; urgency=medium
 
