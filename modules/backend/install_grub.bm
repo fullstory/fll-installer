@@ -35,6 +35,7 @@ install_grub()
 	local usb_dev
 	local point
 	local bootfrom
+	local grubdev
 	
 	#
 	# log my call
@@ -50,11 +51,14 @@ install_grub()
 	
 	usb_dev=$(echo $(readlink -f /sys/block/${device}/device) | grep  "usb")
 
+        grubdev=""
+
 	# if the user chooses an USB device for the Grub installation we ignore
 	# that ( at least till further investigation) and set it to "partition"
         case $BOOT_WHERE in
                 mbr)
                         bootfrom=$(grub-mkdevicemap -n -m - | awk '/^\(hd0\)/{print $2}')
+                        grubdev="${bootfrom}"
                         ;;
                 partition)
                         bootfrom="${root_partition}"
@@ -71,6 +75,8 @@ install_grub()
 		*) 
                                 bootfrom="${root_partition}"
         esac
+
+        [ -z "$grubdev" ] && grubdev="$(ls -l /dev/disk/by-id | grep ${bootfrom##*/}$)"
 
 	if [ -n "${usb_dev}" ]; then
 		# USB install must have first Grub on partition
@@ -97,6 +103,7 @@ install_grub()
 		grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2 || \
 			grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
 	fi
+	chroot_it sh -c "echo \"grub-pc grub-pc/install_devices multiselect ${grubdev}\" | debconf-set-selections "
 
 	# 
 	# Create initital grub configuration (grub2 ignores -y)

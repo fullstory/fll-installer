@@ -1,8 +1,12 @@
 fll-installer (0.10.21) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 08 Aug 2014 04:33:03 +0200
+  [ Niall Walsh ]
+  * debconf set grub-pc install device
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Tue, 12 Aug 2014 20:38:56 +0100
 
 fll-installer (0.10.20) unstable; urgency=medium
 
