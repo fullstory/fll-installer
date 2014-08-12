@@ -34,19 +34,3 @@ Description: backend scripts to install aptosid to hdd
  .
  This is a FULLSTORY live-only package and should not be installed to an
  ordinary system.
-
-Package: fll-iso2usb
-Architecture: all
-Depends: ${misc:Depends},
- grub-pc,
- distro-defaults,
- parted
-Recommends: install-usb-gui,
- xorriso
-Suggests: fuseiso
-Enhances: install-usb-gui
-Description: backend scripts to install aptosid to an usb hdd
- fll-iso2usb provides the backend for installing FULLSTORY Live Linux aptosid to
- removable storage, usb disk drives.
- .
- This preserves a hardware agnostic live system on removable storage.
