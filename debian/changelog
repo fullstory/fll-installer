@@ -1,8 +1,8 @@
-fll-installer (0.10.24) UNRELEASED; urgency=medium
+fll-installer (0.10.24) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * rename knoppix-utils.bm to fll-installer-utils.bm.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 12 Aug 2014 23:38:53 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 23 Aug 2014 20:02:25 +0200
 
 fll-installer (0.10.23) unstable; urgency=medium
 
