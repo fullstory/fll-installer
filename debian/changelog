@@ -1,10 +1,6 @@
-fll-installer (0.10.25) UNRELEASED; urgency=medium
+fll-installer (0.10.25) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
-  * stop forcing usb to partition
+  * stop forcing usb to partition.
 
  -- Niall Walsh <niallwalsh@celtux.org>  Fri, 29 Aug 2014 21:15:33 +0100
 
