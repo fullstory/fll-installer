@@ -67,26 +67,26 @@ install_grub()
                         bootfrom="${BOOT_WHERE}"
                         ;;
 		*) 
-                                bootfrom="${root_partition}"
+			bootfrom="${root_partition}"
         esac
 
         [ -z "$grubdev" ] && grubdev="$(ls -l /dev/disk/by-id | grep ${bootfrom##*/}$)"
 
-		# in case of jfs/xfs force installation to mbr
-		# but only if it's not already MBR
-		if [ "${BOOT_WHERE}" = "partition" ]; then
-			case "$HD_FSTYPE" in
-			jfs|xfs) bootfrom=${root_device};;
-			esac
-		fi
+	# in case of jfs/xfs force installation to mbr
+	# but only if it's not already MBR
+	if [ "${BOOT_WHERE}" = "partition" ]; then
+		case "$HD_FSTYPE" in
+		jfs|xfs) bootfrom=${root_device};;
+		esac
+	fi
 
 	#
 	# install grub
 	#
-	     # is twice because sometimes the first one fails in that cases the second
-	     # don't fail !!!
-		grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2 || \
-			grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
+	# is twice because sometimes the first one fails in that cases the second
+	# don't fail !!!
+	grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2 || \
+		grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
 	chroot_it sh -c "echo \"grub-pc grub-pc/install_devices multiselect ${grubdev}\" | debconf-set-selections "
 
 	# 
