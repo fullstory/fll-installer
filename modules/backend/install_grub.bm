@@ -63,14 +63,8 @@ install_grub()
                 partition)
                         bootfrom="${root_partition}"
                         ;;
-                /dev/[hsv]d[a-z]) 
-			device="$(echo ${BOOT_WHERE}|cut -d / -f3)"
-                        if [ -n "$(echo $(readlink -f /sys/block/${device}/device) | \
-                                grep  "usb")" ]; then
-                                bootfrom="${root_partition}"
-                        else
-                                bootfrom="${BOOT_WHERE}"
-                        fi
+                /dev/[hsv]d[a-z])
+                        bootfrom="${BOOT_WHERE}"
                         ;;
 		*) 
                                 bootfrom="${root_partition}"
@@ -78,31 +72,21 @@ install_grub()
 
         [ -z "$grubdev" ] && grubdev="$(ls -l /dev/disk/by-id | grep ${bootfrom##*/}$)"
 
-	if [ -n "${usb_dev}" ]; then
-		# USB install must have first Grub on partition
-		bootfrom=${HD_CHOICE}
-	else
 		# in case of jfs/xfs force installation to mbr
-		# but only if HD is not on USB and it's not already MBR
+		# but only if it's not already MBR
 		if [ "${BOOT_WHERE}" = "partition" ]; then
 			case "$HD_FSTYPE" in
 			jfs|xfs) bootfrom=${root_device};;
 			esac
 		fi
-	fi
 
 	#
 	# install grub
 	#
-	if [ "${bootfrom}" = "$(get_root_device ${bootfrom})" ]
-	then # install on MBR
-		grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
-	else # install on partition
 	     # is twice because sometimes the first one fails in that cases the second
 	     # don't fail !!!
 		grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2 || \
 			grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
-	fi
 	chroot_it sh -c "echo \"grub-pc grub-pc/install_devices multiselect ${grubdev}\" | debconf-set-selections "
 
 	# 
