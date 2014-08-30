@@ -49,7 +49,7 @@ install_grub()
 
 	device=$(echo $root_device|cut -d / -f3)
 	
-	usb_dev=$(echo $(readlink -f /sys/block/${device}/device) | grep  "usb")
+	usb_dev=$(readlink -f /sys/block/${device}/device | grep "usb")
 
         grubdev=""
 
