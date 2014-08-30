@@ -1,9 +1,5 @@
-fll-installer (0.10.26) UNRELEASED; urgency=medium
+fll-installer (0.10.26) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * usb installs should only have devices on that usb device in fstab
 
  -- Niall Walsh <niallwalsh@celtux.org>  Sat, 30 Aug 2014 22:23:28 +0100
