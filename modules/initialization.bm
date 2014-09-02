@@ -35,21 +35,21 @@ get_efisys () {
 #
 get_esp () {
 	disk="${1}"
-		# GPT disks appear in fdisk as a single partition of System GPT
-		parts=$(fdisk -l $disk | grep -v "Extended" | \
-		        grep '^/dev/' | cut -d " " -f1 | cut -d "/" -f 3)
-		if [ "/dev/${parts}" = "${disk}1" ] && \
-		   [ -n "$(fdisk -l $disk | awk '/^\/dev\//{if($6 == "GPT"){print "GPT"}}')" ]
-		then
-			# use gdisk to check for efi system partition
-			efis="$(gdisk -l ${disk} | \
-			        awk '/^ +[[:digit:]]/{if ($6=="EF00"){print "'${disk}'"$1}}')"
-			# stop on the first vfat partition found setting esp
-			for efi in $efis ; do
-				[ "$(blkid -s TYPE -o value ${efi})" = "vfat" ] && \
-				    esp="${efi}" && break
-			done
-		fi
+	# GPT disks appear in fdisk as a single partition of System GPT
+	parts=$(fdisk -l $disk | grep -v "Extended" | \
+		grep '^/dev/' | cut -d " " -f1 | cut -d "/" -f 3)
+	if [ "/dev/${parts}" = "${disk}1" ] && \
+		[ -n "$(fdisk -l $disk | awk '/^\/dev\//{if($6 == "GPT"){print "GPT"}}')" ]
+	then
+		# use gdisk to check for efi system partition
+		efis="$(gdisk -l ${disk} | \
+			awk '/^ +[[:digit:]]/{if ($6=="EF00"){print "'${disk}'"$1}}')"
+		# stop on the first vfat partition found setting esp
+		for efi in $efis ; do
+			[ "$(blkid -s TYPE -o value ${efi})" = "vfat" ] && \
+				esp="${efi}" && break
+		done
+	fi
 }
 
 #
