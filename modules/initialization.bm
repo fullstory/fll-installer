@@ -74,7 +74,7 @@ get_fat () {
 	else
 		# use fdisk to check for partitions
 		parts="$(fdisk -l ${disk} | \
-			awk '/^'${disk}'[[:digit:]]/{print "$1"')"
+			awk '/^\//{print $1}')"
 		# stop on the first vfat partition
 		for part in $parts ; do
 			[ "$(blkid -s TYPE -o value ${part})" = "vfat" ] && \

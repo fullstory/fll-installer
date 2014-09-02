@@ -96,13 +96,13 @@ install_grub()
 	# we put portable efi bootloaders in the ESP on the device
 	# or the first fat partition
 	if [ -n "${usb_dev}" ]; then
-		get_usbefi "${HD_CHOICE}"
+		get_usbefi "${root_device}"
 		if [ -n "${usbefi}" ]; then
 			HD_MAP="$usbefi:/boot/efi ${HD_MAP}"
 
 			# Mount it now
 			mkdir $TARGET_MNT_POINT/boot/efi
-			mount ${efisys} $TARGET_MNT_POINT/boot/efi
+			mount ${usbefi} $TARGET_MNT_POINT/boot/efi
 
 			# Install grub-fll-portable-efi in the chroot
 			EFIAPTSOURCES=$(mktemp -d --tmpdir=${TARGET_MNT_POINT}/tmp/ liveapt.XXXXXX)

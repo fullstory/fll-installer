@@ -1,8 +1,12 @@
 fll-installer (0.10.29) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 02 Sep 2014 19:27:10 +0200
+  [ Niall Walsh ]
+  * fix portable-efi path for msdos at least
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Tue, 02 Sep 2014 20:31:21 +0100
 
 fll-installer (0.10.28) unstable; urgency=medium
 
