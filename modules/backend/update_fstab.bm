@@ -38,9 +38,11 @@ update_fstab()
 	if [ -n "${usb_dev}" ]; then
 		for d in /sys/block/* ; do
 			mydisk="/dev/${d#/sys/block/}"
+			dmd=""
 			if [ "x$(grub-probe -d "${mydisk}" -t abstraction)" = "xlvm" ]; then
 				# lvm device so discover pv device(s)
-				lvd="$(lvs --noheadings -o devices ${mydisk})"
+				dmd="/dev/mapper/$(cat ${d}/dm/name)"
+				lvd="$(lvs --noheadings -o devices ${dmd})"
 				[ -n "${lvd}" ] || continue
 				# check it is on only one device
 				set -- $lvd
@@ -50,9 +52,14 @@ update_fstab()
 			fi
 			gp="$(grub-probe -d "${mydisk}" -t disk)"
 			# using set to strip whitespace
-			[ -n "${gp}" ] && set -- ${gp} && \
-				[ "x${1}" != "x${root_device}" ] && \
-				ignore_device="${ignore_device} --ignore ${1}"
+			if [ -n "${gp}" ] && set -- ${gp} && \
+			   [ "x${1}" != "x${root_device}" ]; then
+				if [ -n "${dmd}" ]; then
+					ignore_device="${ignore_device} --ignore ${dmd}"
+				else
+					ignore_device="${ignore_device} --ignore ${1}"
+				fi
+			fi
 		done
 	fi
 
