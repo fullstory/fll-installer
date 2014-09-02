@@ -1,9 +1,5 @@
-fll-installer (0.10.27) UNRELEASED; urgency=medium
+fll-installer (0.10.27) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * fix the usb install fstab tweak to actually work for lvm devices
 
  -- Niall Walsh <niallwalsh@celtux.org>  Tue, 02 Sep 2014 04:31:01 +0100
