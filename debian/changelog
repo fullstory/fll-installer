@@ -1,8 +1,12 @@
 fll-installer (0.10.28) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 02 Sep 2014 05:53:01 +0200
+  [ Niall Walsh ]
+  * have usb installs setup grub2-fll-portable-efi when they have vfat
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Tue, 02 Sep 2014 15:42:13 +0100
 
 fll-installer (0.10.27) unstable; urgency=medium
 

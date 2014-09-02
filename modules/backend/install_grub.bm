@@ -18,6 +18,8 @@
 # translate_linux_to_grub
 # get_boot_cmdline
 # getbootparam
+# get_esp
+# get_fat
 #
 # update_status
 # install_grub
@@ -53,8 +55,6 @@ install_grub()
 
         grubdev=""
 
-	# if the user chooses an USB device for the Grub installation we ignore
-	# that ( at least till further investigation) and set it to "partition"
         case $BOOT_WHERE in
                 mbr)
                         bootfrom=$(grub-mkdevicemap -n -m - | awk '/^\(hd0\)/{print $2}')
@@ -88,6 +88,38 @@ install_grub()
 	grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2 || \
 		grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
 	chroot_it sh -c "echo \"grub-pc grub-pc/install_devices multiselect ${grubdev}\" | debconf-set-selections "
+
+	#
+	# portable efi 
+	#
+	# when the install is on usb and that usb has a fat partition
+	# we put portable efi bootloaders in the ESP on the device
+	# or the first fat partition
+	if [ -n "${usb_dev}" ]; then
+		get_usbefi "${HD_CHOICE}"
+		if [ -n "${usbefi}" ]; then
+			HD_MAP="$usbefi:/boot/efi ${HD_MAP}"
+
+			# Mount it now
+			mkdir $TARGET_MNT_POINT/boot/efi
+			mount ${efisys} $TARGET_MNT_POINT/boot/efi
+
+			# Install grub-fll-portable-efi in the chroot
+			EFIAPTSOURCES=$(mktemp -d --tmpdir=${TARGET_MNT_POINT}/tmp/ liveapt.XXXXXX)
+			APTGETBASE="apt-get -o Dir::Etc=${EFIAPTSOURCES##${TARGET_MNT_POINT}}"
+			. /lib/init/fll
+			mount -o bind $(fll_get_mnt) ${TARGET_MNT_POINT}/mnt
+			echo 'deb file:///mnt/extras sid main' > ${EFIAPTSOURCES}/sources.list
+			mkdir ${EFIAPTSOURCES}/preferences.d
+			chroot_it ${APTGETBASE} update > /dev/null
+			chroot_it ${APTGETBASE} --allow-unauthenticated --assume-yes install grub2-fll-portable-efi > /dev/null
+			umount ${TARGET_MNT_POINT}/mnt
+			echo '' > ${EFIAPTSOURCES}/sources.list
+			chroot_it ${APTGETBASE} update > /dev/null
+			chroot_it ${APTGETBASE} clean > /dev/null
+			rm -rf ${EFIAPTSOURCES}
+		fi
+	fi
 
 	# 
 	# Create initital grub configuration (grub2 ignores -y)
