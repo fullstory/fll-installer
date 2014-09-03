@@ -97,8 +97,7 @@ add_bootmanager()
 	# do efi if grub and have efi system partition and not usb install
 	if [ "$BOOT_LOADER" = "grub" ] && [ -n "$efisys" ] && [ -z "$usb_dev" ]
 	then
-		# No bootloader unless amd64
-		[ "$(dpkg --print-architecture)" = "amd64" ] && install_grub_efi
+		install_grub_efi
 	elif [ "$BOOT_LOADER" = "grub" ]
 	then
 		install_grub
