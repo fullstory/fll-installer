@@ -113,6 +113,7 @@ install_grub()
 			mkdir ${EFIAPTSOURCES}/preferences.d
 			chroot_it ${APTGETBASE} update > /dev/null
 			chroot_it ${APTGETBASE} --allow-unauthenticated --assume-yes install grub2-fll-portable-efi > /dev/null
+			chroot_it ${APTGETBASE} --allow-unauthenticated --assume-yes remove --purge os-prober > /dev/null || :
 			umount ${TARGET_MNT_POINT}/mnt
 			echo '' > ${EFIAPTSOURCES}/sources.list
 			chroot_it ${APTGETBASE} update > /dev/null

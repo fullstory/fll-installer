@@ -1,13 +1,13 @@
-fll-installer (0.10.30) UNRELEASED; urgency=medium
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+fll-installer (0.10.30) unstable; urgency=medium
 
   [ Niall Walsh ]
   * install grub-efi-${arch} not grub-efi when boot arch != install arch
   * stop limiting efi installs to only amd64
 
- -- Niall Walsh <niallwalsh@celtux.org>  Wed, 03 Sep 2014 12:07:34 +0100
+  [ Stefan Lippers-Hollmann ]
+  * remove os-prober for portable installs.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 03 Sep 2014 20:59:23 +0200
 
 fll-installer (0.10.29) unstable; urgency=medium
 
