@@ -1,8 +1,12 @@
 fll-installer (0.10.31) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 03 Sep 2014 20:59:50 +0200
+  [ Niall Walsh ]
+  * add /disks/ to the excludes
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Fri, 05 Sep 2014 02:07:26 +0100
 
 fll-installer (0.10.30) unstable; urgency=medium
 
