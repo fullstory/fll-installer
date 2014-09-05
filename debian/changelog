@@ -5,8 +5,9 @@ fll-installer (0.10.31) UNRELEASED; urgency=medium
 
   [ Niall Walsh ]
   * add /disks/ to the excludes
+  * drop floppy boot disk creation
 
- -- Niall Walsh <niallwalsh@celtux.org>  Fri, 05 Sep 2014 02:07:26 +0100
+ -- Niall Walsh <niallwalsh@celtux.org>  Fri, 05 Sep 2014 02:13:35 +0100
 
 fll-installer (0.10.30) unstable; urgency=medium
 
