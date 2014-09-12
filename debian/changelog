@@ -1,3 +1,9 @@
+fll-installer (0.10.33) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 12 Sep 2014 22:44:26 +0200
+
 fll-installer (0.10.32) unstable; urgency=medium
 
   * add common/disk.bm module, start with device lookup
