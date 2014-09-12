@@ -30,16 +30,15 @@ update_fstab()
 	# 0. prepare
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
 	root_device="$(fll_disk_device $root_partition)"
+	usb_dev=""
 	for want in ${root_device} ; do
 		wanted="--wanted ${want}"
+		usb_dev=$(readlink -f /sys/block/${want#/dev/}/device | grep "usb")
 	done
 	if [ -b /dev/mapper/${FLL_DISTRO_NAME}-live ]; then
 		ignore_device="--ignore ${FLL_DISTRO_NAME}-live"
 	fi
-	# TODO multi root_device breaks this check
-	# TODO it's screwed anyway
 	# if root_device is usb ignore devices not on the same device(s)
-	usb_dev=$(readlink -f /sys/block/${root_device#/dev/}/device | grep "usb")
 	if [ -n "${usb_dev}" ]; then
 		for d in /sys/block/* ; do
 			for fdd in $(fll_disk_device ${d}) ; do
