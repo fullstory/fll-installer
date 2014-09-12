@@ -1,0 +1,28 @@
+# TODO md-raid
+
+fll_disk_abstract() {
+	local f_d_disk
+	f_d_disk="$1"
+	f_d_abstract=""
+	[ -b "${f_d_disk}" ] || return
+	f_d_abstract="$(grub-probe -d "${f_d_disk}" -t abstraction | tac | grep -m 1 -e lvm -e cryptodisk)"
+}
+
+fll_disk_device() {
+	local f_d_disk
+	local f_d_temp
+	f_d_disk="$1"
+	[ -b "${f_d_disk}" ] || return
+	fll_disk_abstract ${f_d_disk}
+	if [ -z "${f_d_abstract}" ]; then
+		echo $(grub-probe -d "${f_d_disk}" -t disk)
+	elif [ "${f_d_abstract}" = "lvm" ]; then
+		for f_d_temp in $(lvs --noheadings -o devices ${f_d_disk}); do
+			fll_disk_device ${f_d_temp%\(*}
+		done
+	elif [ "${f_d_abstract}" = "cryptodisk" ]; then
+		for f_d_temp in $(cryptsetup status "${f_d_disk}" | awk '/^\s+device\:/{$1="";print $0}'); do
+			fll_disk_device ${f_d_temp}
+		done
+	fi
+}
