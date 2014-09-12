@@ -11,6 +11,7 @@
 # progress
 # chroot_it
 # get_root_device
+# fll_disk_device
 #
 ##-------------------------------------
 ##
@@ -28,38 +29,28 @@ update_fstab()
 
 	# 0. prepare
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
-	root_device=$(get_root_device $root_partition)
-	wanted="--wanted ${root_device}"
+	root_device="$(fll_disk_device $root_partition)"
+	for want in ${root_device} ; do
+		wanted="--wanted ${want}"
+	done
 	if [ -b /dev/mapper/${FLL_DISTRO_NAME}-live ]; then
 		ignore_device="--ignore ${FLL_DISTRO_NAME}-live"
 	fi
-	# if root_device is usb ignore devices not solely on it (like install-gui scripts/disk)
+	# TODO multi root_device breaks this check
+	# TODO it's screwed anyway
+	# if root_device is usb ignore devices not on the same device(s)
 	usb_dev=$(readlink -f /sys/block/${root_device#/dev/}/device | grep "usb")
 	if [ -n "${usb_dev}" ]; then
 		for d in /sys/block/* ; do
-			mydisk="/dev/${d#/sys/block/}"
-			dmd=""
-			if [ "x$(grub-probe -d "${mydisk}" -t abstraction)" = "xlvm" ]; then
-				# lvm device so discover pv device(s)
-				dmd="/dev/mapper/$(cat ${d}/dm/name)"
-				lvd="$(lvs --noheadings -o devices ${dmd})"
-				[ -n "${lvd}" ] || continue
-				# check it is on only one device
-				set -- $lvd
-				[ $# -gt 1 ] && continue
-				# strip the trailing (12345) sector of disk
-				mydisk="${1%\(*}"
-			fi
-			gp="$(grub-probe -d "${mydisk}" -t disk)"
-			# using set to strip whitespace
-			if [ -n "${gp}" ] && set -- ${gp} && \
-			   [ "x${1}" != "x${root_device}" ]; then
-				if [ -n "${dmd}" ]; then
-					ignore_device="${ignore_device} --ignore ${dmd}"
-				else
-					ignore_device="${ignore_device} --ignore ${1}"
+			for fdd in $(fll_disk_device ${d}) ; do
+				# add d to list to ignore unless fdd is part of root
+				if echo ${root_device} | grep -m 1 -q -v ${fdd} ; then
+					igds="${igds} ${d}"
 				fi
-			fi
+			done
+		done
+		for igd in $(echo ${igds} | sort -u); do
+			ignore_device="${ignore_device} -ignore ${igd}"
 		done
 	fi
 
@@ -67,8 +58,9 @@ update_fstab()
 		for i in "${HD_MAP}"
 		do
 			part=$(echo $i | cut -d":" -f1)
-			root_device=$(get_root_device $part)
-			wanted="${wanted} --wanted ${root_device}"
+			for want in $(fll_disk_device $part); do
+				wanted="${wanted} --wanted ${want}"
+			done
 		done
 	fi
 
