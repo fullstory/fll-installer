@@ -1,9 +1,5 @@
-fll-installer (0.10.32) UNRELEASED; urgency=medium
+fll-installer (0.10.32) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * add common/disk.bm module, start with device lookup
   * update_fstab overhaul to use new disk.bm
 
