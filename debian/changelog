@@ -1,9 +1,5 @@
-fll-installer (0.10.33) UNRELEASED; urgency=medium
+fll-installer (0.10.33) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * add some crypt looking up to disks.bm
   * re-order fstab and crypttab creation for add_bootloader
   * move grub.cfg generation up into add_bootloader (de-duping)
