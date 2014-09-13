@@ -1,6 +1,12 @@
 fll-installer (0.10.33) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
+
+  [ Niall Walsh ]
+  * add some crypt looking up to disks.bm
+  * re-order fstab and crypttab creation for add_bootloader
+  * move grub.cfg generation up into add_bootloader (de-duping)
 
  -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 12 Sep 2014 22:44:26 +0200
 

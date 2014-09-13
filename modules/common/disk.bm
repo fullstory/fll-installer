@@ -1,6 +1,7 @@
 # TODO md-raid
 
 fll_disk_abstract() {
+	# sets f_d_abstract to the end level of abstraction
 	local f_d_disk
 	f_d_disk="$1"
 	f_d_abstract=""
@@ -9,6 +10,7 @@ fll_disk_abstract() {
 }
 
 fll_disk_device() {
+	# walks up and out from block device and reports any unabstracted top level devices
 	local f_d_disk
 	local f_d_temp
 	f_d_disk="$1"
@@ -23,6 +25,27 @@ fll_disk_device() {
 	elif [ "${f_d_abstract}" = "cryptodisk" ]; then
 		for f_d_temp in $(cryptsetup status "${f_d_disk}" | awk '/^\s+device\:/{$1="";print $0}'); do
 			fll_disk_device ${f_d_temp}
+		done
+	fi
+}
+
+fll_crypt_device() {
+	# walks up and out from block device and reports the crypt devices it hits in "source target" pairs
+	local f_d_disk
+	local f_d_temp
+	f_d_disk="$1"
+	[ -b "${f_d_disk}" ] || return
+	fll_disk_abstract ${f_d_disk}
+	if [ -z "${f_d_abstract}" ]; then
+		return
+	elif [ "${f_d_abstract}" = "lvm" ]; then
+		for f_d_temp in $(lvs --noheadings -o devices ${f_d_disk}); do
+			fll_crypt_device ${f_d_temp%\(*}
+		done
+	elif [ "${f_d_abstract}" = "cryptodisk" ]; then
+		for f_d_temp in $(cryptsetup status "${f_d_disk}" | awk '/^\s+device\:/{$1="";print $0}'); do
+			echo "${f_d_temp} ${f_d_disk}"
+			fll_crypt_device ${f_d_temp}
 		done
 	fi
 }

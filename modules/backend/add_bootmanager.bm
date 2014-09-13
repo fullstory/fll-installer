@@ -36,26 +36,6 @@ add_bootmanager()
 	mount --bind /dev  "${TARGET_MNT_POINT}/dev"
 	mount --bind /sys  "${TARGET_MNT_POINT}/sys"
 	mount --bind /run  "${TARGET_MNT_POINT}/run"
-	
-	BOOT_KERNELS=""
-	for i in $TARGET_MNT_POINT/lib/modules/?.*
-	do
-		BOOT_KERNEL=$(basename $i)
-		BOOT_KERNELS="$BOOT_KERNELS $BOOT_KERNEL"
-		progress "$MSG1"
-		create_initrd
-	done
-
-	BOOT_RUNNING_KERNEL="$(uname -r)"
-	# If the running kernel can't be found
-	# set the default to the first available
-	if ! stringinstring "$BOOT_RUNNING_KERNEL" "$BOOT_KERNELS"
-	then
-		set -- $BOOT_KERNELS
-		BOOT_RUNNING_KERNEL="$1"
-	fi
-
-	progress "$MSG2"
 
 	##
 	## workaround...start
@@ -79,6 +59,47 @@ add_bootmanager()
 	fi
 
 	chroot_it fll_fstab_generator --file /etc/fstab ${wanted}
+
+	local cryptsource
+	local crypttarget
+
+	set -- $(fll_crypt_device ${root_partition})
+	while [ -n "$1" ]; do
+		cryptsource="$1"
+		crypttarget="$2"
+		shift 2
+		if [ "${cryptsource}" = "${crypt#/dev/mapper/}" ]; then
+			local cryptuuid
+			# use uuid if possible for non /dev/mapper devices
+			cryptuuid=$(udevadm info -q env --name ${cryptsource} | \
+					awk 'BEGIN{FS="="}/ID_FS_UUID=/{print $2}')
+			if [ -n "${cryptuuid}" ]; then
+				cryptsource="UUID=${cryptuuid}"
+			fi
+		fi
+		echo "${crypttarget#/dev/mapper/}	$cryptsource	none	luks" >> ${TARGET_MNT_POINT}/etc/crypttab
+	done
+	
+	BOOT_KERNELS=""
+
+	for i in $TARGET_MNT_POINT/lib/modules/?.*
+	do
+		BOOT_KERNEL=$(basename $i)
+		BOOT_KERNELS="$BOOT_KERNELS $BOOT_KERNEL"
+		progress "$MSG1"
+		create_initrd
+	done
+
+	BOOT_RUNNING_KERNEL="$(uname -r)"
+	# If the running kernel can't be found
+	# set the default to the first available
+	if ! stringinstring "$BOOT_RUNNING_KERNEL" "$BOOT_KERNELS"
+	then
+		set -- $BOOT_KERNELS
+		BOOT_RUNNING_KERNEL="$1"
+	fi
+
+	progress "$MSG2"
 
 	##
 	## workaround...end
@@ -104,6 +125,56 @@ add_bootmanager()
 	#
 	# else lilo no longer  supported
 	#
+	fi
+
+	if [ "$BOOT_LOADER" = "grub" ]; then
+		# 
+		# Create initital grub configuration (grub2 ignores -y)
+		#
+		say "create initial grub efi configuration"
+
+		if [ -e "${TARGET_MNT_POINT}/etc/default/grub" ]; then
+			#TODO a proper configuration
+			# propagate the default video mode 
+			# extract vga mode from CMDLINE
+			GRUB_DEFOPTIONS=""
+			GRUB_VGA=$(getbootparam vga)
+			[ -n "$GRUB_VGA" ] && GRUB_DEFOPTIONS="vga=$GRUB_VGA"
+
+			# find out what cryptopts we need for /
+			local cryptsource
+			local crypttarget
+			set -- $(fll_crypt_device ${root_partition})
+			while [ -n "$1" ]; do
+				cryptsource="$1"
+				crypttarget="${2#/dev/mapper/}"
+				shift 2
+				if [ "${cryptsource}" = "${cryptsource#/dev/mapper/}" ]; then
+					local cryptuuid
+					# use uuid if possible for non /dev/mapper devices
+					cryptuuid=$(udevadm info -q env --name ${cryptsource} | \
+							awk 'BEGIN{FS="="}/ID_FS_UUID=/{print $2}')
+					if [ -n "${cryptuuid}" ]; then
+						cryptsource="UUID=${cryptuuid}"
+					fi
+				fi
+				# $dev is a crypted device on $crypt
+				if [ -z "$GRUB_DEFOPTIONS" ]; then
+					GRUB_DEFOPTIONS="cryptopts=source=$cryptsource,target=$crypttarget"
+				else
+					GRUB_DEFOPTIONS="${GRUB_DEFOPTIONS} cryptopts=source=$crypt,target=$crypttarget"
+				fi
+				# root is in a volume group so scan it
+				say "TEST $(fll_disk_abstract ${root_partition})"
+				fll_disk_abstract ${root_partition}
+				[ "${f_d_abstract}" = "lvm" ] && GRUB_DEFOPTIONS="${GRUB_DEFOPTIONS},lvm=${root_partition##/dev/mapper/}"
+			done
+			sed -i -e "s#\(GRUB_CMDLINE_LINUX=\).*#\1\"${GRUB_DEFOPTIONS}\"#"  \
+			${TARGET_MNT_POINT}/etc/default/grub
+		fi
+
+		# update the grub config with our changes
+		chroot_it update-grub >&2
 	fi
 
 	##
