@@ -1,3 +1,9 @@
+fll-installer (0.10.34) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 13 Sep 2014 18:30:48 +0200
+
 fll-installer (0.10.33) unstable; urgency=medium
 
   * add some crypt looking up to disks.bm
