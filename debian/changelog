@@ -1,9 +1,5 @@
-fll-installer (0.10.34) UNRELEASED; urgency=medium
+fll-installer (0.10.34) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * fll_disk_device and fll_crypt_device, make results uniq
   * add fll_disk_usb and fll_disk_isusb functions to disk.bm
 
