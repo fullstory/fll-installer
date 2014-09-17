@@ -1,8 +1,13 @@
 fll-installer (0.10.34) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 13 Sep 2014 18:30:48 +0200
+  [ Niall Walsh ]
+  * fll_disk_device and fll_crypt_device, make results uniq
+  * add fll_disk_usb and fll_disk_isusb functions to disk.bm
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Wed, 17 Sep 2014 22:48:20 +0100
 
 fll-installer (0.10.33) unstable; urgency=medium
 

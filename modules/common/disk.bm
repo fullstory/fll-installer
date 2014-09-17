@@ -10,6 +10,11 @@ fll_disk_abstract() {
 }
 
 fll_disk_device() {
+	# de-dupe the result of fll_d_d
+	fll_d_d $@ | uniq
+}
+
+fll_d_d() {
 	# walks up and out from block device and reports any unabstracted top level devices
 	local f_d_disk
 	local f_d_temp
@@ -20,16 +25,21 @@ fll_disk_device() {
 		echo $(grub-probe -d "${f_d_disk}" -t disk)
 	elif [ "${f_d_abstract}" = "lvm" ]; then
 		for f_d_temp in $(lvs --noheadings -o devices ${f_d_disk}); do
-			fll_disk_device ${f_d_temp%\(*}
+			fll_d_d ${f_d_temp%\(*}
 		done
 	elif [ "${f_d_abstract}" = "cryptodisk" ]; then
 		for f_d_temp in $(cryptsetup status "${f_d_disk}" | awk '/^\s+device\:/{$1="";print $0}'); do
-			fll_disk_device ${f_d_temp}
+			fll_d_d ${f_d_temp}
 		done
 	fi
 }
 
 fll_crypt_device() {
+	# de-dupe the result of fll_c_d
+	fll_c_d $@ | uniq
+}
+
+fll_c_d() {
 	# walks up and out from block device and reports the crypt devices it hits in "source target" pairs
 	local f_d_disk
 	local f_d_temp
@@ -40,12 +50,24 @@ fll_crypt_device() {
 		return
 	elif [ "${f_d_abstract}" = "lvm" ]; then
 		for f_d_temp in $(lvs --noheadings -o devices ${f_d_disk}); do
-			fll_crypt_device ${f_d_temp%\(*}
+			fll_c_d ${f_d_temp%\(*}
 		done
 	elif [ "${f_d_abstract}" = "cryptodisk" ]; then
 		for f_d_temp in $(cryptsetup status "${f_d_disk}" | awk '/^\s+device\:/{$1="";print $0}'); do
 			echo "${f_d_temp} ${f_d_disk}"
-			fll_crypt_device ${f_d_temp}
+			fll_c_d ${f_d_temp}
 		done
 	fi
+}
+
+fll_disk_usb() {
+	# walks up and out from block device and reports the usb disks required for it
+	local f_d_disk
+	for f_d_disk in $(fll_disk_device $1); do
+		fll_disk_isusb ${f_d_disk}
+	done
+}
+
+fll_disk_isusb() {
+	readlink -f /sys/block/${1#/dev/}/device | grep -q usb && echo ${f_d_disk}
 }
