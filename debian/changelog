@@ -1,9 +1,5 @@
-fll-installer (0.10.35) UNRELEASED; urgency=medium
+fll-installer (0.10.35) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * rewrite fll_crypt_device to protect pairs well
   * fix test for when to use uuid for cryptsource
   * update add_bootmanager to use fll_disk_device to map drives
