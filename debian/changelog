@@ -12,8 +12,9 @@ fll-installer (0.10.35) UNRELEASED; urgency=medium
   * install_grub accepts a list in BOOT_WHERE
   * install_grub rewrite usb test for portable
   * fix isusb return
+  * drop spurious TEST output and fix update_fstab list of calls
 
- -- Niall Walsh <niallwalsh@celtux.org>  Mon, 29 Sep 2014 16:19:33 +0100
+ -- Niall Walsh <niallwalsh@celtux.org>  Mon, 29 Sep 2014 16:22:22 +0100
 
 fll-installer (0.10.34) unstable; urgency=medium
 

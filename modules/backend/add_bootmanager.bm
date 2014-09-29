@@ -176,7 +176,6 @@ add_bootmanager()
 					GRUB_DEFOPTIONS="${GRUB_DEFOPTIONS} cryptopts=source=$crypt,target=$crypttarget"
 				fi
 				# root is in a volume group so scan it
-				say "TEST $(fll_disk_abstract ${root_partition})"
 				fll_disk_abstract ${root_partition}
 				[ "${f_d_abstract}" = "lvm" ] && GRUB_DEFOPTIONS="${GRUB_DEFOPTIONS},lvm=${root_partition##/dev/mapper/}"
 			done
