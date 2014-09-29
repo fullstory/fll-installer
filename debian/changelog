@@ -9,8 +9,11 @@ fll-installer (0.10.35) UNRELEASED; urgency=medium
   * update add_bootmanager to use fll_disk_device to map drives
   * rewrite add_bootmanager usb test to check no mapped drives is not usb
   * get_usbefi using fll_disk_usb to walk out
+  * install_grub accepts a list in BOOT_WHERE
+  * install_grub rewrite usb test for portable
+  * fix isusb return
 
- -- Niall Walsh <niallwalsh@celtux.org>  Sun, 28 Sep 2014 17:11:19 +0100
+ -- Niall Walsh <niallwalsh@celtux.org>  Mon, 29 Sep 2014 16:19:33 +0100
 
 fll-installer (0.10.34) unstable; urgency=medium
 

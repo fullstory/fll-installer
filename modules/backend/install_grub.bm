@@ -46,16 +46,10 @@ install_grub()
 	#
 
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
-
-	root_device=$(get_root_device $root_partition)
-
-	device=$(echo $root_device|cut -d / -f3)
-	
-	usb_dev=$(readlink -f /sys/block/${device}/device | grep "usb")
-
+	bootfrom=""
         grubdev=""
 
-        case $BOOT_WHERE in
+        case "$BOOT_WHERE" in
                 mbr)
                         bootfrom=$(grub-mkdevicemap -n -m - | awk '/^\(hd0\)/{print $2}')
                         grubdev="${bootfrom}"
@@ -63,31 +57,32 @@ install_grub()
                 partition)
                         bootfrom="${root_partition}"
                         ;;
-                /dev/[hsv]d[a-z])
-                        bootfrom="${BOOT_WHERE}"
-                        ;;
-		*) 
-			bootfrom="${root_partition}"
         esac
-
-        [ -z "$grubdev" ] && grubdev="$(ls -l /dev/disk/by-id | grep ${bootfrom##*/}$)"
-
-	# in case of jfs/xfs force installation to mbr
-	# but only if it's not already MBR
-	if [ "${BOOT_WHERE}" = "partition" ]; then
-		case "$HD_FSTYPE" in
-		jfs|xfs) bootfrom=${root_device};;
-		esac
-	fi
-
-	#
-	# install grub
-	#
-	# is twice because sometimes the first one fails in that cases the second
-	# don't fail !!!
-	grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2 || \
-		grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bootfrom}" >&2
-	chroot_it sh -c "echo \"grub-pc grub-pc/install_devices multiselect ${grubdev}\" | debconf-set-selections "
+	[ -z "${bootfrom}" ] && bootfrom="${BOOT_WHERE}"
+	# grub will install on $bf and tell debconf to install it to $gds
+	gds=""
+	for bf in ${bootfrom}; do
+		# get the gd for this bf
+		# mbr might have set it but we want it reset each loop otherwise
+		if [ -z "$grubdev" ] ; then
+			gd="$(ls -l /dev/disk/by-id | grep /${bf##*/}$)"
+		else
+			gd="${grubdev}"
+		fi
+		#
+		# install grub
+		#
+		# is twice because sometimes the first one fails in that cases the second
+		# don't fail !!!
+		grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bf}" >&2 || \
+			grub-install --recheck --no-floppy --force --root-directory=$TARGET_MNT_POINT "${bf}" >&2
+		if [ -z "${gds}" ]; then
+			gds="$gd"
+		else
+			gds="$gds, $gd"
+		fi
+	done
+	chroot_it sh -c "echo \"grub-pc grub-pc/install_devices multiselect ${gds}\" | debconf-set-selections "
 
 	#
 	# portable efi 
@@ -95,8 +90,18 @@ install_grub()
 	# when the install is on usb and that usb has a fat partition
 	# we put portable efi bootloaders in the ESP on the device
 	# or the first fat partition
-	if [ -n "${usb_dev}" ]; then
-		get_usbefi "${root_device}"
+	isusb=""
+	for disk in $(fll_disk_device ${root_partition}); do
+		if [ -n "$(fll_disk_isusb ${disk})" ]; then
+			isusb="${isusb} ${disk}"
+		else
+			# any non-usb root device means we are not going portable
+			isusb=""
+			break
+		fi
+	done
+	if [ -n "${isusb}" ]; then
+		get_usbefi ${root_partition}
 		if [ -n "${usbefi}" ]; then
 			HD_MAP="$usbefi:/boot/efi ${HD_MAP}"
 

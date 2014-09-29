@@ -84,5 +84,5 @@ fll_disk_usb() {
 }
 
 fll_disk_isusb() {
-	readlink -f /sys/block/${1#/dev/}/device | grep -q usb && echo ${f_d_disk}
+	readlink -f /sys/block/${1#/dev/}/device | grep -q usb && echo ${1}
 }
