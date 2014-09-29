@@ -5,8 +5,9 @@ fll-installer (0.10.35) UNRELEASED; urgency=medium
 
   [ Niall Walsh ]
   * rewrite fll_crypt_device to protect pairs well
+  * fix test for when to use uuid for cryptsource
 
- -- Niall Walsh <niallwalsh@celtux.org>  Sun, 28 Sep 2014 16:11:43 +0100
+ -- Niall Walsh <niallwalsh@celtux.org>  Sun, 28 Sep 2014 16:17:48 +0100
 
 fll-installer (0.10.34) unstable; urgency=medium
 

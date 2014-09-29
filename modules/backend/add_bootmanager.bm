@@ -68,7 +68,7 @@ add_bootmanager()
 		cryptsource="$1"
 		crypttarget="$2"
 		shift 2
-		if [ "${cryptsource}" = "${crypt#/dev/mapper/}" ]; then
+		if [ "${cryptsource}" = "${cryptsource#/dev/mapper/}" ]; then
 			local cryptuuid
 			# use uuid if possible for non /dev/mapper devices
 			cryptuuid=$(udevadm info -q env --name ${cryptsource} | \
