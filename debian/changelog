@@ -1,8 +1,12 @@
 fll-installer (0.10.35) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 18 Sep 2014 00:03:02 +0200
+  [ Niall Walsh ]
+  * rewrite fll_crypt_device to protect pairs well
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Sun, 28 Sep 2014 16:11:43 +0100
 
 fll-installer (0.10.34) unstable; urgency=medium
 

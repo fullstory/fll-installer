@@ -36,7 +36,22 @@ fll_d_d() {
 
 fll_crypt_device() {
 	# de-dupe the result of fll_c_d
-	fll_c_d $@ | uniq
+	sources=""
+	targets=""
+	pairs=""
+	set -- $(fll_c_d $1)
+	while [ -n "$1" ]; do
+		# just bail if we don't have a target, wrong args
+		[ -n "$2" ] || break
+		# do not repeat a source or target
+		echo $sources | grep -q "$1" && continue
+		echo $targets | grep -q "$2" && continue
+		sources="$sources $1"
+		targets="$targets $2"
+		pairs="$pairs $1 $2"
+		shift 2
+	done
+	echo $pairs
 }
 
 fll_c_d() {
