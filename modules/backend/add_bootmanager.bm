@@ -46,17 +46,20 @@ add_bootmanager()
 
 	# 0. prepare
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
-	root_device=$(get_root_device $root_partition)
-	wanted="--wanted ${root_device}"
+	map_devices="$(fll_disk_device $root_partition)"
 
 	if [ -n "${HD_MAP}" ]; then
 		for i in "${HD_MAP}"
 		do
 			part=$(echo $i | cut -d":" -f1)
-			root_device=$(get_root_device $part)
-			wanted="${wanted} --wanted ${root_device}"
+			map_devices="${map_devices} $(fll_disk_device $part)"
 		done
 	fi
+	map_devices="$(echo ${map_devices} | uniq -u)"
+	wanted=""
+	for map_device in ${map_devices}; do
+		wanted="${wanted} --wanted ${map_device}"
+	done
 
 	chroot_it fll_fstab_generator --file /etc/fstab ${wanted}
 
@@ -111,9 +114,17 @@ add_bootmanager()
 		get_efisys
 	fi
 
-	# determine if root_device is usb
-	device=$(echo $root_device|cut -d / -f3)
-	usb_dev=$(readlink -f /sys/block/${device}/device | grep "usb")
+	# determine if map devices are just usb
+	usb_dev=""
+	for map_device in ${map_devices}; do
+		if [ -n "$(fll_disk_isusb ${map_device})" ] ; then
+			usb_dev="${usb_dev} ${map_device}"
+		else
+			# any non usb device means efi could be installed
+			usb_dev=""
+			break
+		fi
+	done
 
 	# do efi if grub and have efi system partition and not usb install
 	if [ "$BOOT_LOADER" = "grub" ] && [ -n "$efisys" ] && [ -z "$usb_dev" ]
