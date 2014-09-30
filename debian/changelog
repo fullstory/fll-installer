@@ -1,8 +1,13 @@
 fll-installer (0.10.36) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 29 Sep 2014 22:07:57 +0200
+  [ Niall Walsh ]
+  * fix grub device setting
+  * fix and clean fstab wanted and ignore devices
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Tue, 30 Sep 2014 12:40:56 +0100
 
 fll-installer (0.10.35) unstable; urgency=medium
 

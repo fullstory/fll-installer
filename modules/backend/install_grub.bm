@@ -65,7 +65,7 @@ install_grub()
 		# get the gd for this bf
 		# mbr might have set it but we want it reset each loop otherwise
 		if [ -z "$grubdev" ] ; then
-			gd="$(ls -l /dev/disk/by-id | grep /${bf##*/}$)"
+			gd="$(ls -l /dev/disk/by-id | awk '/\/'${bf##*/}'$/{print "/dev/disk/by-id/"$9;exit}' )"
 		else
 			gd="${grubdev}"
 		fi

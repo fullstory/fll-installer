@@ -31,7 +31,7 @@ update_fstab()
 	root_device="$(fll_disk_device $root_partition)"
 	usb_dev=""
 	for want in ${root_device} ; do
-		wanted="--wanted ${want}"
+		wants="${wants} ${want}"
 		usb_dev=$(readlink -f /sys/block/${want#/dev/}/device | grep "usb")
 	done
 	if [ -b /dev/mapper/${FLL_DISTRO_NAME}-live ]; then
@@ -40,15 +40,15 @@ update_fstab()
 	# if root_device is usb ignore devices not on the same device(s)
 	if [ -n "${usb_dev}" ]; then
 		for d in /sys/block/* ; do
-			for fdd in $(fll_disk_device ${d}) ; do
-				# add d to list to ignore unless fdd is part of root
+			for fdd in $(fll_disk_device /dev/${d##*/}) ; do
+				# add to list to ignore unless part of root
 				if echo ${root_device} | grep -m 1 -q -v ${fdd} ; then
-					igds="${igds} ${d}"
+					igds="${igds} ${fdd}"
 				fi
 			done
 		done
 		for igd in $(echo ${igds} | sort -u); do
-			ignore_device="${ignore_device} -ignore ${igd}"
+			ignore_device="${ignore_device} --ignore ${igd}"
 		done
 	fi
 
@@ -57,10 +57,13 @@ update_fstab()
 		do
 			part=$(echo $i | cut -d":" -f1)
 			for want in $(fll_disk_device $part); do
-				wanted="${wanted} --wanted ${want}"
+				wants="${wants} ${want}"
 			done
 		done
 	fi
+	for want in $(echo ${wants} | sort -u) ; do
+		wanted="${wanted} --wanted ${want}"
+	done
 
 	# 1. mount /proc, /dev and /sys on chroot
 	mount --bind /proc "${TARGET_MNT_POINT}/proc"
