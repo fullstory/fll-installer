@@ -11,7 +11,7 @@ fll_disk_abstract() {
 
 fll_disk_device() {
 	# de-dupe the result of fll_d_d
-	fll_d_d $@ | uniq
+	fll_d_d $@ | sort -u
 }
 
 fll_d_d() {
@@ -76,6 +76,11 @@ fll_c_d() {
 }
 
 fll_disk_usb() {
+	# de-dupe fll_d_u
+	fll_d_u $1 | sort -u
+}
+
+fll_d_u() {
 	# walks up and out from block device and reports the usb disks required for it
 	local f_d_disk
 	for f_d_disk in $(fll_disk_device $1); do
