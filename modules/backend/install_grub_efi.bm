@@ -1,42 +1,25 @@
 ##
 ##-------------------------------------
 # Needs:
-# HD_CHOICE
 # TARGET_MNT_POINT
-# FLL_DISTRO_NAME
 # HD_MAP (updates it)
 #
 # Calls:
 # logit
-# get_root_device
 # chroot_it
 # getbootparam
 # get_efisys
+# fll_get_mnt (from /lib/init/fll)
 #
 ##-------------------------------------
 ##
 install_grub_efi()
 {
-	local GRUB_KOPT
-	local GRUB_DEFOPTIONS
-	local GRUB_VGA
-	local root_partition
-	local root_device
-	local device
-	local usb_dev
-	local point
-	local bootfrom
 	local EFIAPTSOURCES
 	local APTGETBASE
-	local cryptopts
-	local cryptsource
-	local cryptuuid
-	local rooton
-	local vg
-	local pv
-	local dmname
-	local dev
-
+	local bootarch
+	local instarch
+	local grubdeb
 
 	#
 	# log my call
@@ -44,12 +27,6 @@ install_grub_efi()
 	logit "installing grub-efi"
 	#
 
-	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
-
-	root_device=$(get_root_device $root_partition)
-
-	device=$(echo $root_device|cut -d / -f3)
-	
 	get_efisys
 	HD_MAP="$efisys:/boot/efi ${HD_MAP}"
 
