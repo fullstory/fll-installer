@@ -11,13 +11,14 @@
 # progress
 # chroot_it
 # fll_disk_device
+# fll_disk_usb
 #
 ##-------------------------------------
 ##
 update_fstab()
 {
 	local autohd
-	local root_partition root_device part wanted ignore_device
+	local root_partition root_device usb_dev part wanted want wants ignore_device d fdd igds i
 	#
 	# log my call
 	#
@@ -29,16 +30,15 @@ update_fstab()
 	# 0. prepare
 	root_partition=$(echo ${HD_CHOICE} |cut -d"'" -f2)
 	root_device="$(fll_disk_device $root_partition)"
-	usb_dev=""
+	usb_dev="$(fll_disk_usb $root_partition)"
 	for want in ${root_device} ; do
 		wants="${wants} ${want}"
-		usb_dev=$(readlink -f /sys/block/${want#/dev/}/device | grep "usb")
 	done
 	if [ -b /dev/mapper/${FLL_DISTRO_NAME}-live ]; then
 		ignore_device="--ignore ${FLL_DISTRO_NAME}-live"
 	fi
-	# if root_device is usb ignore devices not on the same device(s)
-	if [ -n "${usb_dev}" ]; then
+	# if root_device is solely usb, ignore devices not on the same device(s)
+	if [ "${root_device}" = "${usb_dev}" ]; then
 		for d in /sys/block/* ; do
 			for fdd in $(fll_disk_device /dev/${d##*/}) ; do
 				# add to list to ignore unless part of root
