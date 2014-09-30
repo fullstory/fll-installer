@@ -1,9 +1,5 @@
-fll-installer (0.10.36) UNRELEASED; urgency=medium
+fll-installer (0.10.36) unstable; urgency=medium
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Niall Walsh ]
   * fix grub device setting
   * fix and clean fstab wanted and ignore devices
   * fix disk de-dupe and de-dupe fll_disk_usb
