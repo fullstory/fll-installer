@@ -9,8 +9,9 @@ fll-installer (0.10.36) UNRELEASED; urgency=medium
   * fix disk de-dupe and de-dupe fll_disk_usb
   * update_fstab: use disk.bm usb detection and update local variables
   * install_grub_efi: strip out defunct junk and update local and calls
+  * fix add_bootmanager config generation message to not mention efi
 
- -- Niall Walsh <niallwalsh@celtux.org>  Tue, 30 Sep 2014 14:02:23 +0100
+ -- Niall Walsh <niallwalsh@celtux.org>  Tue, 30 Sep 2014 14:17:10 +0100
 
 fll-installer (0.10.35) unstable; urgency=medium
 

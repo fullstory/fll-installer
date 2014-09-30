@@ -142,7 +142,7 @@ add_bootmanager()
 		# 
 		# Create initital grub configuration (grub2 ignores -y)
 		#
-		say "create initial grub efi configuration"
+		say "create initial grub configuration"
 
 		if [ -e "${TARGET_MNT_POINT}/etc/default/grub" ]; then
 			#TODO a proper configuration
