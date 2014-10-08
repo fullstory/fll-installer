@@ -1,3 +1,9 @@
+fll-installer (0.10.38) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 08 Oct 2014 20:50:15 +0200
+
 fll-installer (0.10.37) unstable; urgency=medium
 
   * fdisk output for gpt disks has changed to update the esp/fat finders.
