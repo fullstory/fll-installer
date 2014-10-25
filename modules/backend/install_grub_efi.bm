@@ -50,7 +50,9 @@ install_grub_efi()
 	EFIAPTSOURCES=$(mktemp -d --tmpdir=${TARGET_MNT_POINT}/tmp/ liveapt.XXXXXX)
 	APTGETBASE="apt-get -o Dir::Etc=${EFIAPTSOURCES##${TARGET_MNT_POINT}}"
 	. /lib/init/fll
-	mount -o bind $(fll_get_mnt) ${TARGET_MNT_POINT}/mnt
+	extramnt="/fll"
+	[ -e "${extramnt}/extras" ] || extramnt="$(fll_get_mnt)"
+	mount -o bind ${extramnt} ${TARGET_MNT_POINT}/mnt
 	echo 'deb file:///mnt/extras sid main' > ${EFIAPTSOURCES}/sources.list
 	mkdir ${EFIAPTSOURCES}/preferences.d
 	chroot_it ${APTGETBASE} update > /dev/null
