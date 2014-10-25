@@ -1,3 +1,9 @@
+fll-installer (0.10.39) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 25 Oct 2014 13:23:18 +0200
+
 fll-installer (0.10.38) unstable; urgency=medium
 
   * take extras from /fll/extras if there.
