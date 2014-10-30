@@ -1,3 +1,9 @@
+fll-installer (0.10.40) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 30 Oct 2014 16:00:29 +0100
+
 fll-installer (0.10.39) unstable; urgency=medium
 
   * do not copy a dir containing FLL_MOUNTPOINT or TARGET_MNT_POINT.
