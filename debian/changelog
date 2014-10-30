@@ -1,8 +1,12 @@
 fll-installer (0.10.39) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 25 Oct 2014 13:23:18 +0200
+  [ Niall Walsh ]
+  * do not copy a dir containing FLL_MOUNTPOINT or TARGET_MNT_POINT
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Thu, 30 Oct 2014 13:31:59 +0000
 
 fll-installer (0.10.38) unstable; urgency=medium
 
