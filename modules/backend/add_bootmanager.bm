@@ -6,6 +6,7 @@
 # BOOT_LOADER
 # HD_CHOICE
 # HD_MAP
+# FLL_GFXBOOT_THEME
 #
 # Calls:
 # logit
@@ -179,8 +180,19 @@ add_bootmanager()
 				fll_disk_abstract ${root_partition}
 				[ "${f_d_abstract}" = "lvm" ] && GRUB_DEFOPTIONS="${GRUB_DEFOPTIONS},lvm=${root_partition##/dev/mapper/}"
 			done
-			sed -i -e "s#\(GRUB_CMDLINE_LINUX=\).*#\1\"${GRUB_DEFOPTIONS}\"#"  \
-			${TARGET_MNT_POINT}/etc/default/grub
+			sed -i "s|\(GRUB_CMDLINE_LINUX=\).*|\1\"${GRUB_DEFOPTIONS}\"|" \
+				"${TARGET_MNT_POINT}/etc/default/grub"
+
+			# enable a grub theme, if it exists
+			if [ -n "${FLL_GFXBOOT_THEME}" ] && [ -r "/usr/share/grub/themes/${FLL_GFXBOOT_THEME}/theme.txt" ]; then
+				if grep -q ^GRUB_THEME\= "${TARGET_MNT_POINT}/etc/default/grub" >/dev/null 2>&1; then
+					 sed -i "s|\(GRUB_THEME=\).*|\1/usr/share/grub/themes/${FLL_GFXBOOT_THEME}/theme.txt|"
+						"${TARGET_MNT_POINT}/etc/default/grub"
+				else
+					printf "\nGRUB_THEME=\"/usr/share/grub/themes/${FLL_GFXBOOT_THEME}/theme.txt\"\n" \
+						>>"${TARGET_MNT_POINT}/etc/default/grub"
+				fi
+			fi
 		fi
 
 		# update the grub config with our changes

@@ -1,8 +1,9 @@
-fll-installer (0.10.40) UNRELEASED; urgency=medium
+fll-installer (0.10.40) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * enable grub themes for the HD install, if the configured one is still
+    installed.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 30 Oct 2014 16:00:29 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 08 Dec 2014 05:06:07 +0100
 
 fll-installer (0.10.39) unstable; urgency=medium
 
