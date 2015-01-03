@@ -1,6 +1,7 @@
 fll-installer (0.10.41) UNRELEASED; urgency=medium
 
   * NOT RELEASED YET
+  * bump standards version to 3.9.6, no changes necessary.
 
  -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 08 Dec 2014 05:45:56 +0100
 
