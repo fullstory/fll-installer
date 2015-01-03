@@ -1,9 +1,10 @@
-fll-installer (0.10.41) UNRELEASED; urgency=medium
+fll-installer (0.10.41) unstable; urgency=medium
 
-  * NOT RELEASED YET
   * bump standards version to 3.9.6, no changes necessary.
+  * drop last remains of fll-iso2disk.
+  * convert to machine readable copyright.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 08 Dec 2014 05:45:56 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 03 Jan 2015 19:30:52 +0100
 
 fll-installer (0.10.40) unstable; urgency=medium
 
