@@ -1,8 +1,12 @@
 fll-installer (0.10.42) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 03 Jan 2015 19:49:12 +0100
+  [ Niall Walsh ]
+  * use sysfs to get efi platform size and rework grub-efi deb overrides
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Mon, 12 Jan 2015 22:18:55 +0000
 
 fll-installer (0.10.41) unstable; urgency=medium
 

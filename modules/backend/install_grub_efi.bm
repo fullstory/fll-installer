@@ -17,7 +17,7 @@ install_grub_efi()
 {
 	local EFIAPTSOURCES
 	local APTGETBASE
-	local bootarch
+	local efisize
 	local instarch
 	local grubdeb
 
@@ -36,15 +36,14 @@ install_grub_efi()
 	mkdir -p "${TARGET_MNT_POINT}/boot/efi/EFI/debian"
 
 	# Install grub-efi in the chroot
-	( grep -q ia32-efi /proc/cmdline && bootarch="i386" ) || bootarch="amd64"
+	grubdeb="grub-efi"
 	instarch=$(dpkg-architecture --print-architecture)
-	if [ "${bootarch}" = "${instarch}" ]; then
-		grubdeb="grub-efi"
-	else
-		if [ "${bootarch}" = "i386" ]; then
+	if [ -r /sys/firmware/efi/fw_platform_size ]; then
+		efisize="$(head -n1 /sys/firmware/efi/fw_platform_size)"
+		if [ "${instarch}" = "i386" ] && [ "${efisize}" = "64" ];  then
+			grubdeb="grub-efi-amd64"
+		elif [ "${instarch}" = "amd64" ] && [ "${efisize}" = "32" ]; then
 			grubdeb="grub-efi-ia32"
-		else
-			grubdeb="grub-efi-${bootarch}"
 		fi
 	fi
 	EFIAPTSOURCES=$(mktemp -d --tmpdir=${TARGET_MNT_POINT}/tmp/ liveapt.XXXXXX)
