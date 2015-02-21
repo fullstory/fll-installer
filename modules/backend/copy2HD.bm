@@ -69,7 +69,11 @@ copy2HD()
 			#
 			# do the copy
 			#
-			rsync	--archive --quiet \
+			rsync	--archive \
+				--acls \
+				--hard-links \
+				--xattrs \
+				--quiet \
 				--exclude-from="${SEARCHPATH}/data/exclusion_list" \
 				"${dir}" "${TARGET_MNT_POINT}"
 			if [ $? -ne 0 ] ; then

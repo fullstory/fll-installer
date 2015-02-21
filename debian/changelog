@@ -1,8 +1,9 @@
-fll-installer (0.10.43) UNRELEASED; urgency=medium
+fll-installer (0.10.43) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * make sure to extend the rsync call to copy xattrs, acls and hardlinks as
+    well.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 12 Jan 2015 23:43:15 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 21 Feb 2015 20:36:01 +0100
 
 fll-installer (0.10.42) unstable; urgency=medium
 
