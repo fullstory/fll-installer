@@ -1,8 +1,8 @@
-fll-installer (0.10.44) UNRELEASED; urgency=medium
+fll-installer (0.10.44) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * revert SDDM autologin.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 21 Feb 2015 20:37:08 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 02 Jul 2015 21:18:43 +0200
 
 fll-installer (0.10.43) unstable; urgency=medium
 

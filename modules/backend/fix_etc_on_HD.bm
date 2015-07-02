@@ -118,6 +118,13 @@ fix_etc_on_HD () {
 	fi
 
 	#
+	# revert SDDM autologin
+	#
+	if [ -f  "${TARGET_MNT_POINT}/etc/sddm.conf" ]; then
+		rm -f "${TARGET_MNT_POINT}/etc/sddm.conf"
+	fi
+
+	#
 	# revert slim autologin
 	#
 	if [ -f "${TARGET_MNT_POINT}/etc/slim.conf" ]; then
