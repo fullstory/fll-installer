@@ -1,8 +1,9 @@
-fll-installer (0.10.45) UNRELEASED; urgency=medium
+fll-installer (0.10.45) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * remove /var/lib/sddm/state.conf as well. Drop unnecessary test condition,
+    rm -f is silent anyways.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 02 Jul 2015 21:18:56 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 12 Jul 2015 01:24:30 +0200
 
 fll-installer (0.10.44) unstable; urgency=medium
 
