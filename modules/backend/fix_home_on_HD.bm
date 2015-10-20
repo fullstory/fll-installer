@@ -38,19 +38,19 @@ fix_home_on_HD()
 	#
 	# purge unwanted files
 	#
-	for file in	"${TARGET_MNT_POINT}${INSTHOME}/.kde/Autostart/${FLL_DISTRO_NAME}.desktop" \
-			"${TARGET_MNT_POINT}${INSTHOME}/Desktop/${FLL_DISTRO_NAME}.desktop" \
-			"${TARGET_MNT_POINT}${INSTHOME}/Desktop/install-gui.desktop" \
-			"${TARGET_MNT_POINT}${INSTHOME}/.config/autostart/${FLL_DISTRO_NAME}.desktop" \
-			"${TARGET_MNT_POINT}${INSTHOME}/.hushlogin" \
-			"${TARGET_MNT_POINT}/root/.hushlogin"; do
-		[ -f "${file}" ] && rm -f "${file}"
+	for file in "${TARGET_MNT_POINT}${INSTHOME}/Desktop/${FLL_DISTRO_NAME}.desktop" \
+		    "${TARGET_MNT_POINT}${INSTHOME}/Desktop/install-gui.desktop" \
+		    "${TARGET_MNT_POINT}${INSTHOME}/.config/autostart/${FLL_DISTRO_NAME}.desktop" \
+		    "${TARGET_MNT_POINT}${INSTHOME}/.hushlogin" \
+		    "${TARGET_MNT_POINT}/root/.hushlogin"; do
+		rm -f "${file}"
 	done
 
 	#
 	# revert sudo workarounds
 	#
-	for file in	"${TARGET_MNT_POINT}${INSTHOME}/.kde/share/config/kdesurc" \
+	for file in	"${TARGET_MNT_POINT}${INSTHOME}/.config/kdesurc" \
+			"${TARGET_MNT_POINT}${INSTHOME}/.kde/share/config/kdesurc" \
 			"${TARGET_MNT_POINT}${INSTHOME}/.kde/share/apps/konsole/sumc.desktop" \
 			"${TARGET_MNT_POINT}${INSTHOME}/.kde/share/apps/konsole/su.desktop" \
 			"${TARGET_MNT_POINT}${INSTHOME}/.gconf/apps/gksu/%gconf.xml" \
