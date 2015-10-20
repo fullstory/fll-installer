@@ -1,3 +1,9 @@
+fll-installer (0.10.47) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 20 Oct 2015 05:01:38 +0200
+
 fll-installer (0.10.46) unstable; urgency=medium
 
   * revert KDE5-kdesu preseeding as well as KDE4-kdesu preseeding.
