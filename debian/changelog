@@ -1,3 +1,9 @@
+fll-installer (0.11.1) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 27 Nov 2015 00:44:54 +0100
+
 fll-installer (0.11.0) unstable; urgency=medium
 
   * adapt to new lightdm autologin.
