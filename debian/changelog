@@ -1,8 +1,8 @@
-fll-installer (0.11.3) UNRELEASED; urgency=medium
+fll-installer (0.11.3) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * drop support for kdm, it's no longer in Debian.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 24 Feb 2016 22:38:40 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 28 Jul 2016 01:51:21 +0200
 
 fll-installer (0.11.2) unstable; urgency=medium
 
