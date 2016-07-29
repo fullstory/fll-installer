@@ -1,8 +1,12 @@
 fll-installer (0.11.4) UNRELEASED; urgency=medium
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 28 Jul 2016 01:51:49 +0200
+  [ Niall Walsh ]
+  * use /usr/share/fll-live-initscripts/fll_locales instead of old initscript
+
+ -- Niall Walsh <niallwalsh@celtux.org>  Fri, 29 Jul 2016 18:55:58 +0100
 
 fll-installer (0.11.3) unstable; urgency=medium
 

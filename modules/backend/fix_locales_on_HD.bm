@@ -34,7 +34,7 @@ fix_locales_on_HD ()
 		#
 		# the system locales
 		#
-		chroot_it /usr/bin/env -i FLL_LANG=$HD_LANG /etc/init.d/fll-locales localize
+		chroot_it /usr/bin/env -i FLL_LANG=$HD_LANG /usr/share/fll-live-initscripts/fll_locales localize
 
 		. $fll_locales
 
