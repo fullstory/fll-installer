@@ -31,11 +31,7 @@ purge_live_only_stuff()
 				fll-live-initscripts \
 				fll-live-utils \
 				fll-live-xorgconfig \
-				desktop-defaults-common \
-				desktop-defaults-kde \
-				desktop-defaults-lxde \
-				desktop-defaults-gnome \
-				desktop-defaults-xfce \
+				desktop-defaults \
 				install-gui \
 				cliinstaller \
 				fll-installer \
