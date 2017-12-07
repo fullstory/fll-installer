@@ -6,7 +6,7 @@ Source: git://github.com/fullstory/fll-installer.git
 Files: *
 Copyright: 2007-2011, Joaquim Boura <x-un-i@berlios.de>
            2008-2010, Niall Walsh <niallwalsh@users.berlios.de>
-           2004-2015, Stefan Lippers-Hollmann <s.l-h@gmx.de>
+           2004-2017, Stefan Lippers-Hollmann <s.l-h@gmx.de>
 License: GPL-2.0
 Comment:
  Based on the knoppix installer from Fabian Franz

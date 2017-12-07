@@ -1,8 +1,9 @@
-fll-installer (0.11.5) UNRELEASED; urgency=medium
+fll-installer (0.12.0) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * treat local repository used by the installer as trusted.
+  * bump standards version to 4.1.2, no changes necessary.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 29 Jul 2016 21:23:06 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 08 Dec 2017 00:07:55 +0100
 
 fll-installer (0.11.4) unstable; urgency=medium
 
