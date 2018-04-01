@@ -4,16 +4,16 @@ Priority: optional
 Maintainer: Joaquim Boura <x-un-i@sapo.pt>
 Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>,
  Niall Walsh <niallwalsh@celtux.org>
-Build-Depends: debhelper (>= 9.20120115)
-Standards-Version: 4.1.2
-Vcs-git: git://github.com/fullstory/fll-installer.git
+Rules-Requires-Root: no
+Build-Depends: debhelper (>= 11)
+Standards-Version: 4.1.3
+Vcs-git: https://github.com/fullstory/fll-installer.git
 Vcs-Browser: https://github.com/fullstory/fll-installer
 
 Package: fll-installer
 Architecture: all
 Depends: ${misc:Depends},
  adduser,
- base-files (>= 6.4),
  initramfs-tools,
  grub-pc | grub-efi,
  lsof,
@@ -22,8 +22,7 @@ Depends: ${misc:Depends},
  whois,
  os-prober,
  rsync,
- fll-live-initscripts (>= 3.10.4)
-Breaks: initscripts (<< 2.88dsf-16~)
+ fll-live-initscripts
 Recommends: install-gui
 Suggests: gparted,
  distro-defaults

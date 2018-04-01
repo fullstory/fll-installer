@@ -1,8 +1,13 @@
-fll-installer (0.12.1) UNRELEASED; urgency=medium
+fll-installer (0.12.1) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * bump standards version to 4.1.3:
+    - switch to https where possible.
+  * switch to compat level 11.
+  * allow R³=no.
+  * drop support for gksu, it has been removed from unstable.
+  * drop versioned dependencies on packages already in stable.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 08 Dec 2017 00:08:49 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 02 Apr 2018 00:43:56 +0200
 
 fll-installer (0.12.0) unstable; urgency=medium
 
