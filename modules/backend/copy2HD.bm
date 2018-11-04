@@ -41,9 +41,12 @@ copy2HD()
 		
 		if [ -L "${dir}" ]; then
 			#
-			# /lib64 -> /lib symlink handling
+			# The gamechanger is now called is usr-merge
+			# so it might be a good idea to handle the merged dirs and
+			# symlinks right™
 			#
-			ln -sf "$(readlink -f ${dir})" "${TARGET_MNT_POINT}/${dir##*/}"
+			echo ln -sf "/usr/${dir##*/}" "${TARGET_MNT_POINT}/${dir##*/}"
+			ln -sf "/usr/${dir##*/}" "${TARGET_MNT_POINT}/${dir##*/}"
 		else
 			dir="/${dir##*/}"
 			case "${dir}" in
@@ -69,6 +72,7 @@ copy2HD()
 			#
 			# do the copy
 			#
+			echo "syncing ${dir} ..."
 			rsync	--archive \
 				--acls \
 				--hard-links \
