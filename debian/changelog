@@ -1,3 +1,9 @@
+fll-installer (0.12.3) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 15 Mar 2023 18:48:38 +0100
+
 fll-installer (0.12.2) unstable; urgency=medium
 
   * import PR to support usr-merge from Alf Gaida <agaida@siduction.org>.
