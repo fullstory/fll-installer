@@ -1,13 +1,12 @@
 Source: fll-installer
 Section: admin
 Priority: optional
-Maintainer: Joaquim Boura <x-un-i@sapo.pt>
-Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>,
- Niall Walsh <niallwalsh@celtux.org>
+Maintainer: Stefan Lippers-Hollmann <s.l-h@gmx.de>
+Uploaders:  Niall Walsh <niallwalsh@celtux.org>
 Rules-Requires-Root: no
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Vcs-git: https://github.com/fullstory/fll-installer.git
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Vcs-Git: https://github.com/fullstory/fll-installer.git
 Vcs-Browser: https://github.com/fullstory/fll-installer
 
 Package: fll-installer
