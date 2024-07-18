@@ -29,6 +29,8 @@ purge_live_only_stuff()
 	# purge live-specific packages
 	chroot_it dpkg --purge	fll-live-initramfs \
 				fll-live-initscripts \
+				fll-live-initscripts-networkd-dummy \
+				fll-live-initscripts-networkd-one \
 				fll-live-utils \
 				fll-live-xorgconfig \
 				desktop-defaults \

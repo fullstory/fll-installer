@@ -1,8 +1,10 @@
-fll-installer (0.12.3) UNRELEASED; urgency=medium
+fll-installer (0.12.3) unstable; urgency=medium
 
-  * NOT RELEASED YET
+  * purge new(ly split out) live-only networking (sub-) packages:
+    - fll-live-initscripts-networkd-dummy
+    - fll-live-initscripts-networkd-one
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 15 Mar 2023 18:48:38 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 18 Jul 2024 16:07:33 +0200
 
 fll-installer (0.12.2) unstable; urgency=medium
 
